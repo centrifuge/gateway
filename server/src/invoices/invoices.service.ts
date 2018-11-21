@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Invoice } from './entities/invoice';
+import { CreateInvoiceDto } from './dto/create-invoice.dto';
 import { DatabaseRepository } from '../database/database.repository';
 import { tokens } from './invoices.constants';
 
@@ -7,10 +7,10 @@ import { tokens } from './invoices.constants';
 export class InvoicesService {
   constructor(
     @Inject(tokens.invoicesRepository)
-    private readonly invoicesRepository: DatabaseRepository<Invoice>,
+    private readonly invoicesRepository: DatabaseRepository<CreateInvoiceDto>,
   ) {}
 
-  async create(invoice: Invoice) {
+  async create(invoice: CreateInvoiceDto) {
     return await this.invoicesRepository.create(invoice);
   }
 
