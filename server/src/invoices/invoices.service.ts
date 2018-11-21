@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Invoice } from './interfaces/invoice';
+import { Invoice } from './entities/invoice';
 import { DatabaseRepository } from '../database/database.repository';
 import { tokens } from './invoices.constants';
 
@@ -11,7 +11,7 @@ export class InvoicesService {
   ) {}
 
   async create(invoice: Invoice) {
-    await this.invoicesRepository.create(invoice);
+    return await this.invoicesRepository.create(invoice);
   }
 
   async get() {

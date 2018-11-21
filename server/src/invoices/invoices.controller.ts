@@ -9,8 +9,7 @@ export class InvoicesController {
 
   @Post()
   async create(@Body() createInvoiceDto: CreateInvoiceDto) {
-    await this.invoicesService.create(createInvoiceDto);
-    return createInvoiceDto;
+    return await this.invoicesService.create(createInvoiceDto);
   }
 
   @Get()

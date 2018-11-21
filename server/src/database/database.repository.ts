@@ -5,7 +5,9 @@ export class DatabaseRepository<T> {
   constructor(private readonly databaseConnection: Nedb) {}
 
   async create(object: T) {
-    return this.databaseConnection.insert(object);
+    return await util.promisify(
+      this.databaseConnection.insert.bind(this.databaseConnection),
+    )(object);
   }
 
   async get() {
