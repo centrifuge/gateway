@@ -1,4 +1,5 @@
 import * as Nedb from 'nedb';
+import * as util from 'util';
 
 export class DatabaseRepository<T> {
   constructor(private readonly databaseConnection: Nedb) {}
@@ -8,14 +9,7 @@ export class DatabaseRepository<T> {
   }
 
   async get() {
-    return new Promise((res, rej) => {
-      return this.databaseConnection.find({}, (err, results) => {
-        if (err) {
-          return rej(err);
-        }
-
-        return res(results);
-      });
-    });
+    const cursor = this.databaseConnection.find({});
+    return util.promisify(cursor.exec.bind(cursor))();
   }
 }
