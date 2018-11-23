@@ -1,5 +1,5 @@
-import { ACTION_TYPES } from '../../actions/invoices/get-invoices';
+import { GET_INVOICE_ACTION_TYPES } from '../../actions/invoices';
 import { Invoice } from '../../common/models/dto/invoice';
-import { requestReducer } from '../requestReducer';
+import { httpRequestReducer } from '../http-request-reducer';
 
-export default requestReducer<Invoice[]>(ACTION_TYPES);
+export default httpRequestReducer<Invoice[]>(GET_INVOICE_ACTION_TYPES);

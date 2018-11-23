@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Invoice } from '../common/models/dto/invoice';
 import { ROUTES } from '../common/constants';
 
-export const client = {
+export const httpClient = {
   invoices: {
     create: async (invoice: Invoice) =>
       axios.post(ROUTES.INVOICES, invoice),
