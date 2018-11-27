@@ -21,7 +21,7 @@ describe('InvoicesController', () => {
 
   const invoiceServiceMock = new InvoicesServiceMock();
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     invoicesModule = await Test.createTestingModule({
       controllers: [InvoicesController],
     })

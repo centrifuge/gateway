@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { Invoice } from '../../../src/common/models/dto/invoice';
 import { InvoicesService } from './invoices.service';
 import { ROUTES } from '../../../src/common/constants';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller(ROUTES.INVOICES)
+@UseGuards(AuthGuard())
 export class InvoicesController {
   constructor(private readonly invoicesService: InvoicesService) {}
 

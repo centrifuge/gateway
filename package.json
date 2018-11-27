@@ -8,6 +8,7 @@
     "react-scripts": "2.1.1",
     "@nestjs/common": "^5.4.0",
     "@nestjs/core": "^5.4.0",
+    "@nestjs/passport": "^5.1.0",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rxjs": "^6.2.2",
@@ -24,7 +25,10 @@
     "redux-saga": "^0.16.2",
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
-    "connected-react-router": "^5.0.1"
+    "connected-react-router": "^5.0.1",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "normalize.css": "^8.0.1"
   },
   "scripts": {
     "start:prod": "react-scripts build && nodemon",
@@ -55,6 +59,7 @@
     "@types/react-router": "^4.3.1",
     "@types/nedb": "^1.8.6",
     "@types/react-redux": "^6.0.10",
+    "@types/passport-http": "^0.3.6",
     "jest": "^23.5.0",
     "nodemon": "^1.18.3",
     "prettier": "^1.14.2",
