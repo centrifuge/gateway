@@ -1,14 +1,15 @@
 import React from 'react';
 import { Box, Button, Heading, TextInput } from 'grommet';
 import { Field, Form } from 'react-final-form';
-import { httpClient } from '../http-client';
-import { RouteComponentProps, withRouter } from 'react-router';
-import routes from '../routes';
+import { User } from '../../common/models/dto/user';
 
-class Login extends React.Component<RouteComponentProps> {
+interface LoginProps {
+  onSubmit: (values: any) => void;
+}
+
+class Login extends React.Component<LoginProps> {
   onSubmit = values => {
-    httpClient.users.setCredentials(values.username, values.password);
-    this.props.history.push(routes.invoices.index);
+    this.props.onSubmit(values as User);
   };
 
   render() {
@@ -60,4 +61,4 @@ class Login extends React.Component<RouteComponentProps> {
   }
 }
 
-export default withRouter(Login);
+export default Login;

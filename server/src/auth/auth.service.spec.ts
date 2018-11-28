@@ -4,8 +4,12 @@ import { AuthService } from './auth.service';
 import { User } from '../../../src/common/models/dto/user';
 import { UsersService } from '../users/users.service';
 
-describe('HttpStrategy', function() {
-  const mockUser = new User('my_username', 'my_password');
+describe('LocalStrategy', function() {
+  const unhashedPassword = 'my_password';
+  const mockUser = new User(
+    'my_username',
+    '$2b$12$qI.Lyik/2lJvLwfK74xFee7mOVWyKm0K20YPv4zlfis2dNOh2LJdO',
+  );
   let authService: AuthService;
 
   beforeEach(async () => {
@@ -28,7 +32,7 @@ describe('HttpStrategy', function() {
   it('should return user if credentials are valid', async () => {
     const result = await authService.validateUser(
       mockUser.username,
-      mockUser.password,
+      unhashedPassword,
     );
     expect(result).toBe(mockUser);
   });

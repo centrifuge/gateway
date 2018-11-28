@@ -2,10 +2,10 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { Invoice } from '../../../src/common/models/dto/invoice';
 import { InvoicesService } from './invoices.service';
 import { ROUTES } from '../../../src/common/constants';
-import { AuthGuard } from '@nestjs/passport';
+import { SessionGuard } from '../auth/SessionGuard';
 
 @Controller(ROUTES.INVOICES)
-@UseGuards(AuthGuard())
+@UseGuards(SessionGuard)
 export class InvoicesController {
   constructor(private readonly invoicesService: InvoicesService) {}
 

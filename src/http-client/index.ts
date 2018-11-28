@@ -3,6 +3,7 @@ import axios from 'axios';
 // TODO: extract common models and constants in a better place (separate npm module?)
 import { Invoice } from '../common/models/dto/invoice';
 import { ROUTES } from '../common/constants';
+import { User } from '../common/models/dto/user';
 
 const instance = axios.create();
 
@@ -12,7 +13,6 @@ export const httpClient = {
     read: async () => instance.get(ROUTES.INVOICES),
   },
   users: {
-    setCredentials: (username, password) =>
-      (instance.defaults.auth = { username, password }),
+    login: async (user: User) => instance.post(ROUTES.USERS.login, user),
   },
 };

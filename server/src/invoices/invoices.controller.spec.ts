@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { InvoicesController } from './invoices.controller';
 import { InvoicesService } from './invoices.service';
 import { Invoice } from '../../../src/common/models/dto/invoice';
+import { SessionGuard } from '../auth/SessionGuard';
 
 describe('InvoicesController', () => {
   let invoicesModule: TestingModule;
@@ -24,6 +25,7 @@ describe('InvoicesController', () => {
   beforeEach(async () => {
     invoicesModule = await Test.createTestingModule({
       controllers: [InvoicesController],
+      providers: [SessionGuard],
     })
       .overrideProvider(InvoicesService)
       .useValue(invoiceServiceMock)

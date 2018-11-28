@@ -7,7 +7,10 @@ export interface DatabaseProvider {
   users: Nedb;
 }
 
-const testUser = new User('test', 'test');
+const testUser = new User(
+  'test',
+  '$2b$12$o7HxJQsEl0jjwZ6FoGiEv.uQs9hLDFo2fOj5S3BnLL4nGpLfy/yW2', // password is test
+);
 
 export const databaseConnectionFactory = {
   provide: tokens.databaseConnectionFactory,
