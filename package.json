@@ -30,7 +30,8 @@
     "rimraf": "^2.6.2",
     "rxjs": "^6.2.2",
     "styled-components": "^4.1.1",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "centrifuge-node-client": "https://github.com/dininski/centrifuge-node-client.git"
   },
   "scripts": {
     "start:prod": "react-scripts build && nodemon",
