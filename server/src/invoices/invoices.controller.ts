@@ -19,10 +19,10 @@ export class InvoicesController {
   async create(@Body() invoice: Invoice) {
     const createResult = await this.centrifugeClient.create({
       data: {
-        invoiceNumber: invoice.number.toString(),
-        senderName: invoice.supplier,
-        recipientName: invoice.customer,
-        invoiceStatus: invoice.status,
+        invoice_number: invoice.number.toString(),
+        sender_name: invoice.supplier,
+        recipient_name: invoice.customer,
+        invoice_status: invoice.status,
         currency: 'USD', // TODO: add enum for different currencies
       },
     });

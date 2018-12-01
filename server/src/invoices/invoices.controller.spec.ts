@@ -54,10 +54,10 @@ describe('InvoicesController', () => {
       const result = await invoicesController.create(invoiceToCreate);
       expect(result).toEqual({
         data: {
-          invoiceNumber: invoiceToCreate.number.toString(),
-          senderName: invoiceToCreate.supplier,
-          recipientName: invoiceToCreate.customer,
-          invoiceStatus: invoiceToCreate.status,
+          invoice_number: invoiceToCreate.number.toString(),
+          sender_name: invoiceToCreate.supplier,
+          recipient_name: invoiceToCreate.customer,
+          invoice_status: invoiceToCreate.status,
           currency: 'USD',
         },
       });
