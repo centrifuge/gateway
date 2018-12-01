@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DatabaseRepository } from '../database/database.repository';
 import { tokens } from './invoices.constants';
-import { InvoiceInvoiceData } from 'centrifuge-node-client';
+import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
 
 @Injectable()
 export class InvoicesService {

@@ -4,8 +4,7 @@ import { Add, Edit, More } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 
 import invoiceRoutes from '../routes';
-import { Invoice } from '../../common/models/dto/invoice';
-import { InvoiceInvoiceData } from 'centrifuge-node-client';
+import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
 import { nameOfFactory } from '../../util';
 
 const nameOf = nameOfFactory<InvoiceInvoiceData>();
@@ -15,19 +14,19 @@ const DataTableSupressedWarning = DataTable as any;
 
 const columns = [
   {
-    property: 'invoice_number',
+    property: nameOf("invoice_number"),
     header: 'Number',
   },
   {
-    property: 'recipient_name',
+    property: nameOf('recipient_name'),
     header: 'Customer',
   },
   {
-    property: 'sender_name',
+    property: nameOf('sender_name'),
     header: 'Supplier',
   },
   {
-    property: 'invoice_status',
+    property: nameOf('invoice_status'),
     header: 'Status',
   },
   {

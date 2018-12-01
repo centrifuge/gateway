@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { InvoiceInvoiceData } from 'centrifuge-node-client';
 
 import Invoices from './Invoices';
 import { getInvoices } from '../../actions/invoices';
 import { RequestState } from '../../reducers/http-request-reducer';
+import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
 
 const mapStateToProps = (state: {
   invoices: { get: RequestState<InvoiceInvoiceData[]> };

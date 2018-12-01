@@ -4,7 +4,7 @@ import { InvoicesService } from './invoices.service';
 import { ROUTES } from '../../../src/common/constants';
 import { SessionGuard } from '../auth/SessionGuard';
 import { tokens } from '../centrifuge-client/centrifuge.constants';
-import { DocumentServiceApi } from 'centrifuge-node-client';
+import { DocumentServiceApi } from '../../../clients/centrifuge-node/generated-client';
 
 @Controller(ROUTES.INVOICES)
 @UseGuards(SessionGuard)

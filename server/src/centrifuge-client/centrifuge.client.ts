@@ -1,5 +1,5 @@
 import { tokens } from './centrifuge.constants';
-import { DocumentServiceApi } from 'centrifuge-node-client';
+import { DocumentServiceApi } from '../../../clients/centrifuge-node/generated-client';
 
 // TODO: read this from config
 const basePath = 'https://localhost:8082';

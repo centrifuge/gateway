@@ -7,7 +7,7 @@ import { createInvoice } from '../../actions/invoices';
 import { Invoice } from '../../common/models/dto/invoice';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { RequestState } from '../../reducers/http-request-reducer';
-import { InvoiceInvoiceData } from 'centrifuge-node-client';
+import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
 
 type ConnectedCreateInvoiceProps = {
   createInvoice: (invoice: Invoice) => void;
