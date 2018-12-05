@@ -8,6 +8,6 @@ services:
 
 deploy:
   provider: script
-  script: bash ./scripts/docker_publish.sh
+  script: bash ./scripts/docker_push.sh
   on:
     branch: travis-docker
