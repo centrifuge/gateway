@@ -7,7 +7,7 @@ services:
   - docker
 
 before_install:
-  - docker build "$DOCKER_USERNAME"/centrifuge-ui-kit .
+  - docker build -t "$DOCKER_USERNAME"/centrifuge-ui-kit .
 
 deploy:
   provider: script
