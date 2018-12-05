@@ -7,7 +7,7 @@ import invoiceRoutes from '../routes';
 import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
 
 interface InvoiceTableColumn {
-  property: keyof InvoiceInvoiceData,
+  property: keyof InvoiceInvoiceData | '_id',
   header: string;
   render?: () => JSX.Element
 }
@@ -33,7 +33,7 @@ const columns: InvoiceTableColumn[] = [
     header: 'Status',
   },
   {
-    property: 'currency',
+    property: '_id',
     header: 'Actions',
     render: () => (
       <Box direction="row" gap="small">
