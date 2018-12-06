@@ -9,8 +9,8 @@ import {
 } from './contacts';
 
 import {
-  createContactActionTypes,
-  getContactsActionTypes,
+  createContactAction,
+  getContactsAction,
 } from '../actions/contacts';
 
 import { httpClient } from '../http-client';
@@ -24,7 +24,7 @@ describe('watchGetContactsPage', () => {
     const gen = watchGetContactsPage();
 
     const onGetContactsAction = gen.next().value;
-    expect(onGetContactsAction).toEqual(take(getContactsActionTypes.start));
+    expect(onGetContactsAction).toEqual(take(getContactsAction.start));
 
     const getContactsInvocation = gen.next().value;
     expect(getContactsInvocation).toEqual(fork(getContacts));
@@ -36,16 +36,16 @@ describe('watchCreateContact', () => {
     const gen = watchCreateContact();
 
     const onGetContactsAction = gen.next().value;
-    expect(onGetContactsAction).toEqual(take(createContactActionTypes.start));
+    expect(onGetContactsAction).toEqual(take(createContactAction.start));
 
     const getContactsInvocation = gen.next({
-      type: createContactActionTypes.start,
+      type: createContactAction.start,
       contact,
     }).value;
     expect(getContactsInvocation).toEqual(fork(createContact, contact));
 
     const onSuccess = gen.next().value;
-    expect(onSuccess).toEqual(take(createContactActionTypes.success));
+    expect(onSuccess).toEqual(take(createContactAction.success));
 
     const goBackInvocation = gen.next().value;
     expect(goBackInvocation).toEqual(put(push(routes.index)));
@@ -62,7 +62,7 @@ describe('getContacts', () => {
     const successResponse = gen.next({ data: contact }).value;
     expect(successResponse).toEqual(
       put({
-        type: getContactsActionTypes.success,
+        type: getContactsAction.success,
         payload: contact,
       }),
     );
@@ -78,7 +78,7 @@ describe('getContacts', () => {
     const errorResponse = gen.throw && gen.throw(error).value;
     expect(errorResponse).toEqual(
       put({
-        type: getContactsActionTypes.fail,
+        type: getContactsAction.fail,
         payload: error,
       }),
     );
@@ -97,7 +97,7 @@ describe('createContact', () => {
     const successResponse = gen.next({ data: contact }).value;
     expect(successResponse).toEqual(
       put({
-        type: createContactActionTypes.success,
+        type: createContactAction.success,
         payload: contact,
       }),
     );
@@ -115,7 +115,7 @@ describe('createContact', () => {
     const errorResponse = gen.throw && gen.throw(error).value;
     expect(errorResponse).toEqual(
       put({
-        type: createContactActionTypes.fail,
+        type: createContactAction.fail,
         payload: error,
       }),
     );
