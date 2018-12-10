@@ -10,6 +10,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // set up the express session storage
   app.use(
     session({
       secret: 'centrifuge',
@@ -18,9 +19,11 @@ async function bootstrap() {
     }),
   );
 
+  // set up passport
   app.use(passport.initialize());
   app.use(passport.session());
 
+  // When the build is production the application serves the assets built by create-react-app
   app
     .setViewEngine('html')
     .setBaseViewsDir(path.resolve('./build'))
