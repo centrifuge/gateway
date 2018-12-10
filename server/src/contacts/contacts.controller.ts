@@ -22,6 +22,13 @@ export class ContactsController {
   ) {}
 
   @Post()
+  /**
+   * Create a contact in the currently authenticated user's address book
+   * @async
+   * @param {Request} request - the http request
+   * @param {Contact} contact - the body of the request
+   * @return {Promise<Contact>} result
+   */
   async create(@Req() request, @Body() contact: Contact) {
     const newContact = new Contact(
       contact.name,
@@ -32,6 +39,11 @@ export class ContactsController {
   }
 
   @Get()
+  /**
+   * Get the list of all contacts for the authenticated user
+   * @async
+   * @param {Promise<Contact[]>} result
+   */
   async get(@Req() request) {
     return await this.databaseService.contacts.find({
       ownerId: request.user.id,
