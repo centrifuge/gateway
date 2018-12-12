@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  HttpException,
+  HttpStatus,
   Inject,
   Post,
   Req,
@@ -30,6 +32,12 @@ export class ContactsController {
    * @return {Promise<Contact>} result
    */
   async create(@Req() request, @Body() contact: Contact) {
+    try {
+      Contact.validate(contact);
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+    }
+
     const newContact = new Contact(
       contact.name,
       contact.address,

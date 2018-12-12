@@ -9,7 +9,7 @@ export type ActionType = {
  * @param actionType - name of the action
  */
 export const getActions = (actionType: string): ActionType => ({
-  start: `${actionType}`,
+  start: `${actionType}_START`,
   success: `${actionType}_SUCCESS`,
   fail: `${actionType}_ERROR`,
 });
