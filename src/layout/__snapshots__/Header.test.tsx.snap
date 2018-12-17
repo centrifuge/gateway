@@ -4,19 +4,24 @@ exports[`Header matches snapshot 1`] = `
 <Box
   align="center"
   direction="row"
+  height="xsmall"
   justify="between"
   width="xlarge"
 >
-  <Button>
-    <Link
-      label="Centrifuge"
-      size="large"
-      to="/"
+  <Link
+    label="Centrifuge"
+    replace={false}
+    size="large"
+    to="/"
+  >
+    <Image
+      src="logo.png"
     />
-  </Button>
+  </Link>
   <Box
     direction="row"
     gap="small"
+    height="100%"
   >
     <Link
       label="Invoices"

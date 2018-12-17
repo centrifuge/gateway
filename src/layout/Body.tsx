@@ -10,7 +10,13 @@ import LoginPage from '../user/login';
 import CreateContact from '../contacts/create';
 
 const Body: FunctionComponent = () => (
-  <Box justify="center" direction="row" fill="true" background="#f9f9fa">
+  <Box
+    justify="center"
+    direction="row"
+    fill="true"
+    background="bodyBackground"
+    border="top"
+  >
     <Box width="xlarge">
       <Switch>
         <Route path={routes.invoices.new} component={CreateInvoice} />

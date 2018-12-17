@@ -2,7 +2,8 @@
 
 exports[`Body matches snapshot 1`] = `
 <Box
-  background="#f9f9fa"
+  background="bodyBackground"
+  border="top"
   direction="row"
   fill="true"
   justify="center"
