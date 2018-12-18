@@ -7,6 +7,7 @@ import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constant
 import { tokens as databaseTokens } from '../database/database.constants';
 import { databaseConnectionFactory } from '../database/database.providers';
 
+// TODO: fix tests
 describe('InvoicesController', () => {
   let invoicesModule: TestingModule;
 

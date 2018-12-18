@@ -22,14 +22,15 @@ const testUser = new User(
  * Initialize the database and the separate collections.
  */
 const initializeDatabase = async function() {
-  const invoicesDb = new Nedb();
+  // TODO: extract filename configuration
+  const invoicesDb = new Nedb({ filename: './invoicesDb' });
   await promisify(invoicesDb.loadDatabase.bind(invoicesDb))();
 
-  const usersDb = new Nedb();
+  const usersDb = new Nedb({ filename: './usersDb' });
   await promisify(usersDb.loadDatabase.bind(usersDb))();
   await promisify(usersDb.insert.bind(usersDb))(testUser);
 
-  const contactsDb = new Nedb();
+  const contactsDb = new Nedb({ filename: './contactsDb' });
   await promisify(contactsDb.loadDatabase.bind(contactsDb))();
 
   return {

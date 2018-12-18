@@ -1,15 +1,21 @@
 import React from 'react';
-import { Box, Button, DataTable, Heading } from 'grommet';
+import { Box, DataTable, Heading, Text, Button } from 'grommet';
 import { Add, Edit, More } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 
 import invoiceRoutes from '../routes';
 import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
+import { GetInvoicesInterface } from '../../reducers/invoices/get-invoices';
+import { Contact } from '../../common/models/dto/contact';
 
 interface InvoiceTableColumn {
-  property: keyof InvoiceInvoiceData | '_id';
+  property:
+    | keyof GetInvoicesInterface
+    | keyof [keyof { supplier: Contact }]
+    | '_id';
   header: string;
-  render?: () => JSX.Element;
+  render?: (datum: GetInvoicesInterface) => JSX.Element;
+  format?: Function;
 }
 
 // Casting to "any" until https://github.com/grommet/grommet/issues/2464 is fixed
@@ -25,8 +31,10 @@ const columns: InvoiceTableColumn[] = [
     header: 'Customer',
   },
   {
-    property: 'sender_name',
+    /// @ts-ignore
+    property: 'supplier',
     header: 'Supplier',
+    render: data => <Text>{data.supplier.name}</Text>,
   },
   {
     property: 'invoice_status',
@@ -51,7 +59,7 @@ export default class Invoices extends React.Component<InvoicesProps> {
 
   render() {
     return (
-      <Box fill="true">
+      <Box fill>
         <Box justify="between" direction="row" align="center">
           <Heading level="3">Invoices</Heading>
           <Link to={invoiceRoutes.new}>
