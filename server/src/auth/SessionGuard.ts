@@ -5,7 +5,7 @@ import { CanActivate, ExecutionContext } from '@nestjs/common';
  */
 export class SessionGuard implements CanActivate {
   /**
-   * Checks if a user have been set to the request context
+   * Checks if a user has been set to the request context
    * @param {ExecutionContext} context - the execution context as provided by nest.js
    * @returns {boolean} userAuthenticated
    */

@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import * as path from 'path';
 import * as session from 'express-session';
 import * as passport from 'passport';
+import config from './config';
 
 // accept self-signed certificate
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
@@ -13,9 +14,9 @@ async function bootstrap() {
   // set up the express session storage
   app.use(
     session({
-      secret: 'centrifuge',
+      secret: config.sessionSecret,
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: false,
     }),
   );
 

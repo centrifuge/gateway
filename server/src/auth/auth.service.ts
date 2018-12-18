@@ -14,7 +14,7 @@ export class AuthService {
   ) {}
 
   /**
-   * Validates that a user and password pair is correct for a user
+   * Checks that a user/password pair exists in the database
    * @async
    * @param {string} username
    * @param {string} password

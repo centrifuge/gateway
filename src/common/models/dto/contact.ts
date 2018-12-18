@@ -1,4 +1,4 @@
-import { isAddress } from 'ethereum-address';
+import { isValidAddress } from 'ethereumjs-util';
 
 export class Contact {
   constructor(
@@ -17,7 +17,7 @@ export class Contact {
       throw new Error('Contact address not specified');
     }
 
-    if (!isAddress(contact.address)) {
+    if (!isValidAddress(contact.address)) {
       throw new Error('The format of the Ethereum Address is incorrect');
     }
   }
