@@ -38,6 +38,13 @@ const theme = deepMerge(base, {
       },
     },
   },
+  table: {
+    header: {
+      background: {
+        color: "#e3e3e8"
+      }
+    }
+  },
   button: {
     primary: {
       color: 'brand',
