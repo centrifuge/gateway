@@ -71,14 +71,6 @@ export default class CreateContact extends React.Component<CreateContactProps> {
                     )}
                   </Field>
                 </Box>
-                <Box
-                  direction="row"
-                  gap="small"
-                  justify="end"
-                  margin="10px 0 0 0"
-                >
-                  {/*{this.renderButtons()}*/}
-                </Box>
               </Box>
             </form>
           </Box>

@@ -1,6 +1,9 @@
 import { base } from 'grommet/themes';
 import { deepMerge } from 'grommet/utils';
 import { createGlobalStyle } from 'styled-components';
+import { ReactNode } from 'react';
+import { Grommet } from 'grommet';
+import * as React from 'react';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -16,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const theme = deepMerge(base, {
+const theme = deepMerge(base, {
   global: {
     colors: {
       background: 'white',
@@ -64,3 +67,12 @@ export const theme = deepMerge(base, {
     },
   },
 });
+
+const UIKitTheme = ({ children }: { children: ReactNode }) => (
+  <Grommet theme={theme} full>
+    {children}
+    <GlobalStyle />
+  </Grommet>
+);
+
+export default UIKitTheme;

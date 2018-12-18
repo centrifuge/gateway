@@ -11,18 +11,6 @@ type CreateInvoiceProps = {
   onCancel: () => void;
 };
 
-const ActiveButton = props => (
-  <Button
-    {...props}
-    primary
-    theme={{
-      global: { colors: { brand: 'red' } },
-      button: { color: 'red', primary: { color: 'red' } },
-    }}
-    label="Save"
-  />
-);
-
 export default class CreateInvoice extends React.Component<CreateInvoiceProps> {
   displayName = 'CreateInvoice';
 
@@ -36,7 +24,7 @@ export default class CreateInvoice extends React.Component<CreateInvoiceProps> {
   private renderButtons() {
     return (
       <Box direction="row" gap="small" height="30px">
-        <ActiveButton
+        <Button
           icon={<Checkmark color="white" size="12px" />}
           type="submit"
           primary
