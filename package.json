@@ -43,7 +43,8 @@
     "test:frontend": "react-scripts test",
     "start:backend": "nodemon",
     "test:backend": "jest --config server/jest.config.js --watch",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postinstall": "rimraf ./node_modules/grommet/components/Select/index.d.ts"
   },
   "eslintConfig": {
     "extends": "react-app"
