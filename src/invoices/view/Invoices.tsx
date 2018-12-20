@@ -1,20 +1,17 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Box, DataTable, Heading, Text, Button } from 'grommet';
 import { Add, Edit, More } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 
 import invoiceRoutes from '../routes';
 import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
-import { GetInvoicesInterface } from '../../reducers/invoices/get-invoices';
 import { Contact } from '../../common/models/dto/contact';
+import { InvoiceData } from '../../interfaces';
 
 interface InvoiceTableColumn {
-  property:
-    | keyof GetInvoicesInterface
-    | keyof [keyof { supplier: Contact }]
-    | '_id';
+  property: keyof InvoiceData | keyof [keyof { supplier: Contact }];
   header: string;
-  render?: (datum: GetInvoicesInterface) => JSX.Element;
+  render?: (datum: InvoiceData) => ReactNode;
   format?: Function;
 }
 
@@ -31,10 +28,9 @@ const columns: InvoiceTableColumn[] = [
     header: 'Customer',
   },
   {
-    /// @ts-ignore
     property: 'supplier',
     header: 'Supplier',
-    render: data => <Text>{data.supplier.name}</Text>,
+    render: data => (data.supplier ? <Text>{data.supplier.name}</Text> : null),
   },
   {
     property: 'invoice_status',

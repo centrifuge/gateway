@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import Invoices from './Invoices';
 import { getInvoices } from '../../actions/invoices';
 import { RequestState } from '../../reducers/http-request-reducer';
-import { GetInvoicesInterface } from '../../reducers/invoices/get-invoices';
+import { InvoiceData } from '../../interfaces';
 
 const mapStateToProps = (state: {
-  invoices: { get: RequestState<GetInvoicesInterface[]> };
+  invoices: { get: RequestState<InvoiceData[]> };
 }) => {
   return {
     invoices: state.invoices.get.data,
@@ -19,7 +19,7 @@ const mapStateToProps = (state: {
 type ViewInvoicesProps = {
   getInvoices: () => void;
   clearInvoices: () => void;
-  invoices?: GetInvoicesInterface[];
+  invoices?: InvoiceData[];
   loading: boolean;
 };
 

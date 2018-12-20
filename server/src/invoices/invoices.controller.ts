@@ -9,6 +9,7 @@ import {
   InvoiceInvoiceData,
 } from '../../../clients/centrifuge-node/generated-client';
 import { DatabaseProvider } from '../database/database.providers';
+import { InvoiceData } from '../../../src/interfaces';
 
 @Controller(ROUTES.INVOICES)
 @UseGuards(SessionGuard)
@@ -47,19 +48,24 @@ export class InvoicesController {
    * @async
    * @param {Promise<Invoice[]>} result
    */
-  async get() {
+  async get(): Promise<InvoiceData[]> {
     const invoices = (await this.database.invoices.find(
       {},
-    )) as InvoiceInvoiceData[];
+    )) as (InvoiceInvoiceData & { _id: string })[];
+
     return await Promise.all(
       invoices.map(async invoice => {
         const supplier = await this.database.contacts.findOne({
           _id: invoice.sender_name,
         });
 
-        return Object.assign({}, invoice, {
-          supplier,
-        });
+        if (supplier) {
+          return Object.assign({}, invoice, {
+            supplier,
+          });
+        }
+
+        return invoice;
       }),
     );
   }

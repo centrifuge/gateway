@@ -15,7 +15,10 @@ interface SearchableDropdownState {
 
 export default class SearchableDropdown<
   SearchableDropdownItem
-> extends Component<FieldRenderProps, SearchableDropdownState> {
+> extends Component<
+  FieldRenderProps & { items: any[] },
+  SearchableDropdownState
+> {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,6 +26,20 @@ export default class SearchableDropdown<
       selectedItem: { label: '', value: '' },
     };
   }
+
+  onChange = change => {
+    this.setState({ selectedItem: change.option }, () =>
+      this.props.input.onChange(change.option.value),
+    );
+  };
+
+  onSearch = text => {
+    const exp = new RegExp(text, 'i');
+    this.setState({
+      /// @ts-ignore - https://github.com/final-form/react-final-form/issues/398
+      items: this.props.items.filter(o => exp.test(o.label)),
+    });
+  };
 
   render() {
     return (
@@ -33,18 +50,8 @@ export default class SearchableDropdown<
         value={this.state.selectedItem}
         labelKey="label"
         valueKey="value"
-        onChange={change => {
-          this.setState({ selectedItem: change.option }, () =>
-            this.props.input.onChange(change.option.value),
-          );
-        }}
-        onSearch={text => {
-          const exp = new RegExp(text, 'i');
-          this.setState({
-            /// @ts-ignore - https://github.com/final-form/react-final-form/issues/398
-            items: this.props.items.filter(o => exp.test(o.label)),
-          });
-        }}
+        onChange={this.onChange}
+        onSearch={this.onSearch}
       />
     );
   }

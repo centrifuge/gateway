@@ -48,7 +48,7 @@ export default class CreateContact extends React.Component<CreateContactProps> {
                 <Box direction="row" gap="small">
                   <Field name="name">
                     {({ input, meta }) => (
-                      <Box fill="true">
+                      <Box fill>
                         <StyledTextInput
                           input={input}
                           meta={meta}
@@ -60,7 +60,7 @@ export default class CreateContact extends React.Component<CreateContactProps> {
                   </Field>
                   <Field name="address">
                     {({ input, meta }) => (
-                      <Box fill="true">
+                      <Box fill>
                         <StyledTextInput
                           input={input}
                           meta={meta}

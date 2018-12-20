@@ -5,6 +5,7 @@ import { User } from '../../../src/common/models/dto/user';
 import { DatabaseRepository } from './database.repository';
 import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
 import { Contact } from '../../../src/common/models/dto/contact';
+import config from '../config';
 
 export interface DatabaseProvider {
   invoices: DatabaseRepository<InvoiceInvoiceData>;
@@ -22,15 +23,14 @@ const testUser = new User(
  * Initialize the database and the separate collections.
  */
 const initializeDatabase = async function() {
-  // TODO: extract filename configuration
-  const invoicesDb = new Nedb({ filename: './invoicesDb' });
+  const invoicesDb = new Nedb({ filename: `${config.dbPath}/invoicesDb` });
   await promisify(invoicesDb.loadDatabase.bind(invoicesDb))();
 
-  const usersDb = new Nedb({ filename: './usersDb' });
+  const usersDb = new Nedb({ filename: `${config.dbPath}/usersDb` });
   await promisify(usersDb.loadDatabase.bind(usersDb))();
   await promisify(usersDb.insert.bind(usersDb))(testUser);
 
-  const contactsDb = new Nedb({ filename: './contactsDb' });
+  const contactsDb = new Nedb({ filename: `${config.dbPath}/contactsDb` });
   await promisify(contactsDb.loadDatabase.bind(contactsDb))();
 
   return {
