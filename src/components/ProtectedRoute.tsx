@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { RequestState } from '../reducers/http-request-reducer';
 import { Redirect, Route, RouteComponentProps } from 'react-router';
 import { Text } from 'grommet';
 import routes from '../routes';
+import { LoginState } from '../reducers/user/auth';
 
 interface ProtectedRouteProps {
   loggedIn: boolean;
@@ -21,7 +21,7 @@ export class ProtectedRoute extends Component<ProtectedRouteProps> {
         <Route path={this.props.path} render={() => <Text>Loading</Text>} />
       );
     }
-    return this.props.loggedIn || 1 == 1 ? (
+    return this.props.loggedIn ? (
       <Route path={this.props.path} component={this.props.component} />
     ) : (
       <Redirect to={routes.index} />
@@ -29,10 +29,10 @@ export class ProtectedRoute extends Component<ProtectedRouteProps> {
   }
 }
 
-const mapStateToProps = (state: { users: { login: RequestState<string> } }) => {
+const mapStateToProps = (state: { user: { auth: LoginState } }) => {
   return {
-    loggedIn: !!state.users.login.data,
-    loading: state.users.login.loading,
+    loggedIn: !!state.user.auth.loggedIn,
+    loading: state.user.auth.loading,
   };
 };
 

@@ -1,40 +1,41 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-
-import Login from './Login';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
-import { User } from '../../common/models/dto/user';
-import { login } from '../../actions/users';
+import { Text } from 'grommet';
+
+import { logout } from '../../actions/users';
 import routes from '../../routes';
 import { LoginState } from '../../reducers/user/auth';
 
 type ConnectedLoginPageProps = {
-  login: (user: User) => void;
+  logout: () => void;
+  loading: boolean;
   loggedIn: boolean;
 } & RouteComponentProps;
 
 class ConnectedLoginPage extends React.Component<ConnectedLoginPageProps> {
-  login = (user: User) => {
-    this.props.login(user);
-  };
+  componentDidMount() {
+    this.props.logout();
+  }
 
   render() {
-    return this.props.loggedIn ? (
-      <Redirect to={routes.invoices.index} />
+    return this.props.loggedIn || this.props.loading ? (
+      <Text>Loading</Text>
     ) : (
-      <Login onSubmit={this.login} />
+      <Redirect to={routes.index} />
     );
   }
 }
 
 const mapStateToProps = (state: { user: { auth: LoginState } }) => {
   return {
-    loggedIn: !!state.user.auth.loggedIn,
+    loading: state.user.auth.loading,
+    loggedIn: state.user.auth.loggedIn,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { login },
+  { logout },
 )(withRouter(ConnectedLoginPage));

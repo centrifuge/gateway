@@ -1,6 +1,6 @@
 import { all, fork } from 'redux-saga/effects';
 import invoices from './invoices';
-import users from './users';
+import users from './user';
 import contacts from './contacts';
 
 export default function*() {
@@ -8,6 +8,7 @@ export default function*() {
     fork(invoices.watchGetInvoicesPage),
     fork(invoices.watchCreateInvoice),
     fork(users.watchLoginPage),
+    fork(users.watchLogout),
     fork(contacts.watchGetContactsPage),
     fork(contacts.watchCreateContact),
   ]);

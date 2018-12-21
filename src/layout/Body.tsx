@@ -8,6 +8,7 @@ import PurchaseOrders from '../purchaseorders/PurchaseOrders';
 import Contacts from '../contacts/view';
 import LoginPage from '../user/login';
 import CreateContact from '../contacts/create';
+import Logout from '../user/logout';
 import ProtectedRoute from '../components/ProtectedRoute';
 
 const Body: FunctionComponent = () => (
@@ -20,6 +21,7 @@ const Body: FunctionComponent = () => (
   >
     <Box width="xlarge">
       <Switch>
+        <Route path={routes.user.logout} component={Logout} />
         <ProtectedRoute path={routes.invoices.new} component={CreateInvoice} />
         <ProtectedRoute path={routes.invoices.index} component={Invoices} />
         <ProtectedRoute

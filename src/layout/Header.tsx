@@ -5,6 +5,7 @@ import { Box, Image } from 'grommet';
 import logo from '../logo.png';
 import invoicesRoutes from '../invoices/routes';
 import purchaseOrdersRoutes from '../purchaseorders/routes';
+import userRoutes from '../user/routes';
 import contactsRoutes from '../contacts/routes';
 import CentrifugeLink from '../components/Link';
 
@@ -25,6 +26,8 @@ const Header: FunctionComponent = () => (
       <CentrifugeLink label="Invoices" to={invoicesRoutes.index} />
       <CentrifugeLink label="Purchase orders" to={purchaseOrdersRoutes.index} />
       <CentrifugeLink label="Contacts" to={contactsRoutes.index} />
+      <CentrifugeLink label="Contacts" to={contactsRoutes.index} />
+      <CentrifugeLink label="Logout" to={userRoutes.logout} />
     </Box>
   </Box>
 );
