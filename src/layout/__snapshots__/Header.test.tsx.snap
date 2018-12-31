@@ -40,10 +40,20 @@ exports[`Header matches snapshot 1`] = `
       label="Contacts"
       to="/contacts"
     />
-    <Link
-      label="Logout"
-      to="/user/logout"
-    />
+    <Anchor
+      href="/api/users/logout"
+    >
+      <Box
+        fill="vertical"
+        justify="center"
+      >
+        <Text
+          size="small"
+        >
+          Logout
+        </Text>
+      </Box>
+    </Anchor>
   </Box>
 </Box>
 `;

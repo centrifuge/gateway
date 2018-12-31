@@ -12,10 +12,6 @@ exports[`Body matches snapshot 1`] = `
     width="xlarge"
   >
     <Switch>
-      <Route
-        component={[Function]}
-        path="/user/logout"
-      />
       <Connect(ProtectedRoute)
         component={[Function]}
         path="/invoices/new"

@@ -8,7 +8,6 @@ export default function*() {
     fork(invoices.watchGetInvoicesPage),
     fork(invoices.watchCreateInvoice),
     fork(users.watchLoginPage),
-    fork(users.watchLogout),
     fork(contacts.watchGetContactsPage),
     fork(contacts.watchCreateContact),
   ]);

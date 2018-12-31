@@ -7,8 +7,13 @@ describe('Users controller', function() {
       const request = {
         logout: jest.fn(),
       };
-      await usersController.logout(request);
+
+      const response = {
+        redirect: jest.fn(),
+      };
+      await usersController.logout(request, response);
       expect(request.logout).toHaveBeenCalledTimes(1);
+      expect(response.redirect).toHaveBeenCalledWith('/');
     });
   });
 });

@@ -1,6 +1,5 @@
 import {
   userLoginAction,
-  userLogoutAction,
 } from '../../actions/users';
 
 export type LoginState = {
@@ -22,8 +21,7 @@ const auth = (
   { type, payload }: { type: string; payload?: string | Error },
 ): LoginState => {
   switch (type) {
-    case userLoginAction.start:
-    case userLogoutAction.start: {
+    case userLoginAction.start: {
       return { ...state, loading: true };
     }
 
@@ -35,16 +33,7 @@ const auth = (
       };
     }
 
-    case userLogoutAction.success: {
-      return {
-        ...state,
-        loggedIn: false,
-        loading: false,
-      };
-    }
-
-    case userLoginAction.fail:
-    case userLogoutAction.fail: {
+    case userLoginAction.fail: {
       return {
         ...state,
         loading: false,

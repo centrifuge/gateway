@@ -1,4 +1,12 @@
-import { Body, Controller, Get, HttpCode, Post, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Post,
+  Request,
+  Response,
+} from '@nestjs/common';
 import { ROUTES } from '../../../src/common/constants';
 import { User } from '../../../src/common/models/dto/user';
 
@@ -11,8 +19,8 @@ export class UsersController {
   }
 
   @Get('logout')
-  async logout(@Request() req) {
+  async logout(@Request() req, @Response() res) {
     req.logout();
-    return 'OK';
+    return res.redirect('/');
   }
 }
