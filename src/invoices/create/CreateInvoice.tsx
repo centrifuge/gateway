@@ -7,6 +7,8 @@ import { Invoice } from '../../common/models/dto/invoice';
 import SearchableDropdown from '../../components/form/SearchableDropdown';
 import { LabelValuePair } from '../../interfaces';
 import StyledTextInput from '../../components/StyledTextInput';
+import arrayMutators from 'final-form-arrays';
+import { FieldArray } from 'react-final-form-arrays';
 
 type CreateInvoiceProps = {
   onSubmit: (invoice: Invoice) => void;
@@ -18,9 +20,8 @@ export default class CreateInvoice extends React.Component<CreateInvoiceProps> {
   displayName = 'CreateInvoice';
 
   onSubmit = values => {
-    const { number, supplier, customer } = values;
-    const status = 'CREATED';
-    const invoice = new Invoice(number, supplier, customer, status);
+    const { number, supplier, customer, collaborators } = values;
+    const invoice = new Invoice(number, supplier, customer, collaborators);
     return this.props.onSubmit(invoice);
   };
 
@@ -42,7 +43,8 @@ export default class CreateInvoice extends React.Component<CreateInvoiceProps> {
     return (
       <Form
         onSubmit={this.onSubmit}
-        render={({ handleSubmit }) => (
+        mutators={{ ...arrayMutators }}
+        render={({ handleSubmit, mutators: { push, pop } }) => (
           <Box fill>
             <form onSubmit={handleSubmit}>
               <Box justify="between" direction="row" align="center">
@@ -88,6 +90,29 @@ export default class CreateInvoice extends React.Component<CreateInvoiceProps> {
                       </Box>
                     )}
                   />
+                  <label htmlFor="collaborators">Collaborators</label>
+                  <FieldArray name="collaborators">
+                    {({ fields }) =>
+                      fields.map(name => (
+                        <Field
+                          name={name}
+                          key={name}
+                          component="input"
+                          placeholder="Please enter the collaborator address"
+                        />
+                      ))
+                    }
+                  </FieldArray>
+
+                  <Button
+                    type="button"
+                    onClick={() => push('collaborators', undefined)}
+                  >
+                    Add Customer
+                  </Button>
+                  <Button type="button" onClick={() => pop('collaborators')}>
+                    Remove last customer
+                  </Button>
                 </Box>
                 <Box justify="end" direction="row" margin={{ top: 'small' }}>
                   {this.renderButtons()}

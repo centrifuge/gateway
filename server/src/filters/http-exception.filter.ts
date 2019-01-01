@@ -14,7 +14,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest();
     const status = exception.getStatus();
 
-    console.log(request.headers);
     if (
       status === 404 &&
       request.headers.accept &&
