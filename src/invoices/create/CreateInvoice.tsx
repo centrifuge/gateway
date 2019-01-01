@@ -90,29 +90,42 @@ export default class CreateInvoice extends React.Component<CreateInvoiceProps> {
                       </Box>
                     )}
                   />
+                </Box>
+                <Box gap="small">
                   <label htmlFor="collaborators">Collaborators</label>
                   <FieldArray name="collaborators">
-                    {({ fields }) =>
-                      fields.map(name => (
-                        <Field
-                          name={name}
-                          key={name}
-                          component="input"
-                          placeholder="Please enter the collaborator address"
-                        />
-                      ))
-                    }
+                    {({ fields }) => (
+                      <Box gap="small">
+                        {fields.map(name => (
+                          <Field
+                            name={name}
+                            key={name}
+                            placeholder="Please enter the collaborator address"
+                          >
+                            {({ input, meta }) => (
+                              <StyledTextInput
+                                input={input}
+                                meta={meta}
+                                placeholder="Please enter the collaborator address"
+                              />
+                            )}
+                          </Field>
+                        ))}
+                      </Box>
+                    )}
                   </FieldArray>
 
-                  <Button
-                    type="button"
-                    onClick={() => push('collaborators', undefined)}
-                  >
-                    Add Customer
-                  </Button>
-                  <Button type="button" onClick={() => pop('collaborators')}>
-                    Remove last customer
-                  </Button>
+                  <Box gap="small" justify="between" direction="row">
+                    <Button
+                      type="button"
+                      onClick={() => push('collaborators', undefined)}
+                    >
+                      Add collaborator
+                    </Button>
+                    <Button type="button" onClick={() => pop('collaborators')}>
+                      Remove last collaborator
+                    </Button>
+                  </Box>
                 </Box>
                 <Box justify="end" direction="row" margin={{ top: 'small' }}>
                   {this.renderButtons()}
