@@ -8,6 +8,12 @@ import * as path from 'path';
 
 @Catch(HttpException, Error)
 export class HttpExceptionFilter implements ExceptionFilter {
+  /**
+   * Handles 404 requests for text/html files and serves the static files for React.
+   * Necessary for deep-linking the React routes instead of trying to serve them as Nest routes
+   * @param exception: HttpException - exception as thrown by Nest
+   * @param host: ArgumentsHost - host and request/response meta information
+   */
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
