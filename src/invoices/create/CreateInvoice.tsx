@@ -7,6 +7,8 @@ import { Invoice } from '../../common/models/dto/invoice';
 import SearchableDropdown from '../../components/form/SearchableDropdown';
 import { LabelValuePair } from '../../interfaces';
 import StyledTextInput from '../../components/StyledTextInput';
+import arrayMutators from 'final-form-arrays';
+import { FieldArray } from 'react-final-form-arrays';
 
 type CreateInvoiceProps = {
   onSubmit: (invoice: Invoice) => void;

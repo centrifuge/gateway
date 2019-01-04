@@ -70,6 +70,11 @@ const theme = deepMerge(base, {
       },
     },
   },
+  anchor: {
+    color: 'black',
+    fontWeight: 'normal',
+    hover: false
+  },
   button: {
     primary: {
       color: 'brand',

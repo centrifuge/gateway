@@ -16,8 +16,9 @@ export const httpClient = {
     read: async (): Promise<InvoiceInvoiceResponse> =>
       instance.get(ROUTES.INVOICES),
   },
-  users: {
+  user: {
     login: async (user: User) => instance.post(ROUTES.USERS.login, user),
+    logout: async () => instance.get(ROUTES.USERS.logout),
   },
   contacts: {
     create: async (contact: Contact) => instance.post(ROUTES.CONTACTS, contact),
