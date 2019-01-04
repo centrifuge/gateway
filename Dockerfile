@@ -4,9 +4,10 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm install
+# https://github.com/npm/npm/issues/18163
+RUN npm config set unsafe-perm true
 
-RUN npm run prepare
+RUN npm install
 
 EXPOSE 3001
 
