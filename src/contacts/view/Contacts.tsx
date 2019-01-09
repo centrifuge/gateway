@@ -1,5 +1,15 @@
 import React from 'react';
-import { Box, Button, Heading, Table, TableBody, TableCell, TableHeader, TableRow, Text } from 'grommet';
+import {
+  Box,
+  Button,
+  Heading,
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+  Text,
+} from 'grommet';
 import { Add, Edit, More } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 
@@ -26,7 +36,7 @@ export default class Contacts extends React.Component<
 
   state: ContactsState = {};
 
-  renderContactRow(contact: Contact) {
+  renderRow(contact: Contact) {
     return (
       <TableRow>
         <TableCell>
@@ -134,11 +144,11 @@ export default class Contacts extends React.Component<
                     </TableRow>
                   </TableHeader>
                   <TableBody>
+                    {this.state.newContact && this.renderNewContactRow()}
                     {this.props.contacts &&
                       this.props.contacts.map(contact =>
-                        this.renderContactRow(contact),
+                        this.renderRow(contact),
                       )}
-                    {this.state.newContact && this.renderNewContactRow()}
                   </TableBody>
                 </Table>
               </form>
