@@ -37,19 +37,14 @@ export class WebhooksController {
   @Post()
   async receiveMessage(@Body() notification: NotificationNotificationMessage) {
     if (
-      // @ts-ignore
-      notification.eventType === eventTypes.success
+      notification.event_type === eventTypes.success
     ) {
-      //@ts-ignore
-      if (notification.documentType === documentTypes.invoice) {
-        //@ts-ignore
-        const result = await this.centrifugeClient.get(notification.documentId);
+      if (notification.document_type === documentTypes.invoice) {
+        const result = await this.centrifugeClient.get(notification.document_id);
         await this.databaseService.invoices.create(result);
-        //@ts-ignore
-      } else if (notification.documentType === documentTypes.purchaseOrder) {
+      } else if (notification.document_type === documentTypes.purchaseOrder) {
         const result = await this.centrifugeClient.get_3(
-          //@ts-ignore
-          notification.documentId,
+          notification.document_id,
         );
         await this.databaseService.purchaseOrders.create(result);
       }

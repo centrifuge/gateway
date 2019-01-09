@@ -60,10 +60,9 @@ describe('WebhooksController', () => {
       );
 
       const result = await webhooksController.receiveMessage({
-        //@ts-ignore
-        eventType: eventTypes.success,
-        documentType: documentTypes.invoice,
-        documentId,
+        event_type: eventTypes.success,
+        document_type: documentTypes.invoice,
+        document_id: documentId,
       });
 
       expect(result).toEqual('OK');
