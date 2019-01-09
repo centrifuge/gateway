@@ -38,7 +38,6 @@ export default class Contacts extends React.Component<
         <TableCell>
           <Box direction="row" gap="small">
             <Edit />
-            <More />
           </Box>
         </TableCell>
       </TableRow>
