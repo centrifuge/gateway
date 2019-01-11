@@ -22,7 +22,7 @@ export function* createContact(action) {
       type: createContactAction.success,
       payload: response.data,
     });
-    return getContacts();
+    yield getContacts();
   } catch (e) {
     yield put({ type: createContactAction.fail, payload: e });
   }
