@@ -30,7 +30,6 @@ class ConnectedCreatePurchaseOrder extends React.Component<
   }
 
   createPurchaseOrder = (purchaseOrder: PurchaseOrder) => {
-    console.log(purchaseOrder);
     this.props.createPurchaseOrder(purchaseOrder);
   };
 
