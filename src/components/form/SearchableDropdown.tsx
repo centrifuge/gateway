@@ -24,14 +24,16 @@ export default class SearchableDropdown<
     multiple?: boolean;
     label: string;
     meta?: any;
+    selected?: SearchableDropdownItem | SearchableDropdownItem[];
   },
   SearchableDropdownState
 > {
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       items: props.items,
-      selected: props.multiple ? [] : { label: '', value: '' },
+      selected: props.selected || props.multiple ? [] : { label: '', value: '' },
     };
   }
 

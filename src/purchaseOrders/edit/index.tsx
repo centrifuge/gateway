@@ -2,23 +2,33 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import CreatePurchaseOrder from '../CreateEditPurchaseOrder';
+import CreateEditPurchaseOrder from '../CreateEditPurchaseOrder';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { RequestState } from '../../reducers/http-request-reducer';
-import { PurchaseorderPurchaseOrderData } from '../../../clients/centrifuge-node/generated-client';
+import {
+  PurchaseorderPurchaseOrderData,
+  PurchaseorderPurchaseOrderResponse,
+} from '../../../clients/centrifuge-node/generated-client';
 import { Contact } from '../../common/models/dto/contact';
 import { getContacts } from '../../actions/contacts';
 import { LabelValuePair } from '../../interfaces';
-import { createPurchaseOrder } from '../../actions/purchase-orders';
+import {
+  createPurchaseOrder,
+  getPurchaseOrderById,
+  updatePurchaseOrder,
+} from '../../actions/purchase-orders';
 import { PurchaseOrder } from '../../common/models/dto/purchase-order';
 
 type ConnectedCreatePurchaseOrderProps = {
-  createPurchaseOrder: (purchaseOrder: PurchaseOrder) => void;
+  updatePurchaseOrder: (purchaseOrder: PurchaseOrder) => void;
+  purchaseOrder?: PurchaseOrder;
+  getPurchaseOrderById: (id: string) => void;
+  purchaseOrderId: string;
   getContacts: () => void;
-  purchaseOrdersLoading: boolean;
+  purchaseOrderLoading: boolean;
   contactsLoading: boolean;
   contacts?: LabelValuePair[];
-} & RouteComponentProps;
+} & RouteComponentProps<{ id?: string }>;
 
 class ConnectedCreatePurchaseOrder extends React.Component<
   ConnectedCreatePurchaseOrderProps
@@ -27,10 +37,14 @@ class ConnectedCreatePurchaseOrder extends React.Component<
     if (!this.props.contacts) {
       this.props.getContacts();
     }
+
+    if (this.props.match.params.id) {
+      this.props.getPurchaseOrderById(this.props.match.params.id);
+    }
   }
 
-  createPurchaseOrder = (purchaseOrder: PurchaseOrder) => {
-    this.props.createPurchaseOrder(purchaseOrder);
+  updatePurchaseOrder = (purchaseOrder: PurchaseOrder) => {
+    this.props.updatePurchaseOrder(purchaseOrder);
   };
 
   onCancel = () => {
@@ -38,8 +52,8 @@ class ConnectedCreatePurchaseOrder extends React.Component<
   };
 
   render() {
-    if (this.props.purchaseOrdersLoading) {
-      return 'Creating purchase order';
+    if (this.props.purchaseOrderLoading) {
+      return 'Loading purchase order';
     }
 
     if (this.props.contactsLoading || !this.props.contacts) {
@@ -47,10 +61,11 @@ class ConnectedCreatePurchaseOrder extends React.Component<
     }
 
     return (
-      <CreatePurchaseOrder
-        onSubmit={this.createPurchaseOrder}
+      <CreateEditPurchaseOrder
+        onSubmit={this.updatePurchaseOrder}
         onCancel={this.onCancel}
         contacts={this.props.contacts}
+        purchaseOrder={this.props.purchaseOrder}
       />
     );
   }
@@ -58,11 +73,19 @@ class ConnectedCreatePurchaseOrder extends React.Component<
 
 export default connect(
   (state: {
-    purchaseOrders: { create: RequestState<PurchaseorderPurchaseOrderData> };
+    purchaseOrders: {
+      getById: RequestState<
+        PurchaseorderPurchaseOrderResponse & { _id: string }
+      >;
+    };
     contacts: { get: RequestState<Contact[]> };
   }) => {
     return {
-      purchaseOrdersLoading: state.purchaseOrders.create.loading,
+      purchaseOrderLoading: state.purchaseOrders.getById.loading,
+      purchaseOrder: state.purchaseOrders.getById.data && {
+        _id: state.purchaseOrders.getById.data._id,
+        ...state.purchaseOrders.getById.data.data,
+      },
       contactsLoading: state.contacts.get.loading,
       contacts: state.contacts.get.data
         ? (state.contacts.get.data.map(contact => ({
@@ -72,5 +95,10 @@ export default connect(
         : undefined,
     };
   },
-  { createPurchaseOrder, getContacts },
+  {
+    createPurchaseOrder,
+    getContacts,
+    updatePurchaseOrder,
+    getPurchaseOrderById,
+  },
 )(withRouter(ConnectedCreatePurchaseOrder));

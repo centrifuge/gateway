@@ -9,6 +9,7 @@ import Contacts from '../contacts/view';
 import LoginPage from '../user/login';
 import ProtectedRoute from '../components/ProtectedRoute';
 import CreatePurchaseOrder from '../purchaseOrders/create';
+import EditPurchaseOrder from '../purchaseOrders/edit';
 
 const Body: FunctionComponent = () => (
   <Box
@@ -25,6 +26,10 @@ const Body: FunctionComponent = () => (
         <ProtectedRoute
           path={routes.purchaseOrders.new}
           component={CreatePurchaseOrder}
+        />
+        <ProtectedRoute
+          path={routes.purchaseOrders.update}
+          component={EditPurchaseOrder}
         />
         <ProtectedRoute
           path={routes.purchaseOrders.index}

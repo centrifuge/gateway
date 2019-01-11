@@ -3,24 +3,25 @@ import { Add, Checkmark } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 import { Box, Button, Heading } from 'grommet';
 import { Field, Form } from 'react-final-form';
-import SearchableDropdown from '../../components/form/SearchableDropdown';
-import { LabelValuePair } from '../../interfaces';
-import StyledTextInput from '../../components/StyledTextInput';
-import { required } from '../../validators';
-import { PurchaseOrder } from '../../common/models/dto/purchase-order';
-import { dateParser } from '../../parsers';
-import { dateFormatter } from '../../formatters';
+import SearchableDropdown from '../components/form/SearchableDropdown';
+import { LabelValuePair } from '../interfaces/index';
+import StyledTextInput from '../components/StyledTextInput';
+import { required } from '../validators/index';
+import { PurchaseOrder } from '../common/models/dto/purchase-order';
+import { dateParser } from '../parsers/index';
+import { dateFormatter } from '../formatters/index';
 
 type CreatePurchaseOrderProps = {
   onSubmit: (purchaseOrder: PurchaseOrder) => void;
   onCancel: () => void;
   contacts: LabelValuePair[];
+  purchaseOrder?: PurchaseOrder;
 };
 
-export default class CreatePurchaseOrder extends React.Component<
+export default class CreateEditPurchaseOrder extends React.Component<
   CreatePurchaseOrderProps
 > {
-  displayName = 'CreatePurchaseOrder';
+  displayName = 'CreateEditPurchaseOrder';
 
   onSubmit = (values: PurchaseOrder) => {
     return this.props.onSubmit({
@@ -46,11 +47,16 @@ export default class CreatePurchaseOrder extends React.Component<
     return (
       <Form
         onSubmit={this.onSubmit}
+        initialValues={this.props.purchaseOrder}
         render={({ handleSubmit }) => (
           <Box>
             <form onSubmit={handleSubmit}>
               <Box justify="between" direction="row" align="center">
-                <Heading level="3">Create New Purchase Order</Heading>
+                <Heading level="3">
+                  {this.props.purchaseOrder
+                    ? 'Create New Purchase Order'
+                    : 'Update Purchase Order'}
+                </Heading>
                 {this.renderButtons()}
               </Box>
               <Box>
@@ -84,6 +90,7 @@ export default class CreatePurchaseOrder extends React.Component<
                             input={input}
                             meta={meta}
                             items={items}
+                            selected={this.props.purchaseOrder && this.props.purchaseOrder.order}
                           />
                         )}
                       />

@@ -4,15 +4,20 @@ import { Add, Edit, More } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 
 import purchaseOrderRoutes from '../routes';
+import routes from '../routes';
 import { Contact } from '../../common/models/dto/contact';
 import { PurchaseorderPurchaseOrderData } from '../../../clients/centrifuge-node/generated-client';
+import { RouteComponentProps, withRouter } from 'react-router';
 
 interface PurchaseOrdersTableColumn {
   property:
     | keyof (PurchaseorderPurchaseOrderData & { _id?: string })
     | keyof [keyof { supplier: Contact }];
   header: string;
-  render?: (datum: PurchaseorderPurchaseOrderData) => ReactNode;
+  render?: (
+    this: { props: PurchaseOrdersProps & RouteComponentProps },
+    datum: PurchaseorderPurchaseOrderData,
+  ) => ReactNode;
   format?: Function;
 }
 
@@ -35,20 +40,27 @@ const columns: PurchaseOrdersTableColumn[] = [
   {
     property: '_id',
     header: 'Actions',
-    render: () => (
-      <Box direction="row" gap="small">
-        <Edit />
-      </Box>
-    ),
+    render: function(datum) {
+      return (
+        <Box direction="row" gap="small">
+          <Edit
+            onClick={function() {
+              //@ts-ignore
+              console.log(this.props);
+            }}
+          />
+        </Box>
+      );
+    },
   },
 ];
 
 type PurchaseOrdersProps = { purchaseOrders: PurchaseorderPurchaseOrderData[] };
 
-export default class PurchaseOrders extends React.Component<
-  PurchaseOrdersProps
+class PurchaseOrdersList extends React.Component<
+  PurchaseOrdersProps & RouteComponentProps
 > {
-  displayName = 'PurchaseOrders';
+  displayName = 'PurchaseOrdersList';
 
   render() {
     return (
@@ -67,10 +79,38 @@ export default class PurchaseOrders extends React.Component<
         <Box>
           <DataTableSupressedWarning
             data={this.props.purchaseOrders}
-            columns={columns}
+            columns={[
+              {
+                property: 'po_number',
+                header: 'Number',
+              },
+              {
+                property: 'recipient_name',
+                header: 'Customer',
+              },
+              {
+                property: 'po_status',
+                header: 'Status',
+              },
+              {
+                property: '_id',
+                header: 'Actions',
+                render: datum => (
+                  <Box direction="row" gap="small">
+                    <Edit
+                      onClick={() =>
+                        this.props.history.push(`${routes.index}/${datum._id}`)
+                      }
+                    />
+                  </Box>
+                ),
+              },
+            ]}
           />
         </Box>
       </Box>
     );
   }
 }
+
+export default withRouter(PurchaseOrdersList);
