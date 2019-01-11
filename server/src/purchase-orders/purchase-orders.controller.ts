@@ -91,7 +91,7 @@ export class PurchaseOrdersController {
    * @async
    * @param {Promise<PurchaseOrder|null>} result
    */
-  async getById(@Param() params, @Req() request) {
+  async getById(@Param() params) {
     return await this.database.purchaseOrders.findOne({ _id: params.id });
   }
 }
