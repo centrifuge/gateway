@@ -36,7 +36,7 @@ export class WebhooksController {
    */
   @Post()
   async receiveMessage(@Body() notification: NotificationNotificationMessage) {
-    if (
+ if (
       notification.event_type === eventTypes.success
     ) {
       if (notification.document_type === documentTypes.invoice) {
