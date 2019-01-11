@@ -30,10 +30,9 @@ export default class SearchableDropdown<
 > {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       items: props.items,
-      selected: props.selected || props.multiple ? [] : { label: '', value: '' },
+      selected: props.selected || (props.multiple ? [] : { label: '', value: '' }),
     };
   }
 

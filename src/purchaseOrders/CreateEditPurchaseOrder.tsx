@@ -90,7 +90,14 @@ export default class CreateEditPurchaseOrder extends React.Component<
                             input={input}
                             meta={meta}
                             items={items}
-                            selected={this.props.purchaseOrder && this.props.purchaseOrder.order}
+                            selected={
+                              this.props.purchaseOrder &&
+                              this.props.contacts.find(
+                                contact =>
+                                  contact.value ===
+                                  this.props.purchaseOrder!.order,
+                              )
+                            }
                           />
                         )}
                       />
@@ -167,6 +174,14 @@ export default class CreateEditPurchaseOrder extends React.Component<
                             input={input}
                             meta={meta}
                             items={items}
+                            selected={
+                              this.props.purchaseOrder &&
+                              this.props.contacts.find(
+                                contact =>
+                                  contact.value ===
+                                  this.props.purchaseOrder!.recipient,
+                              )
+                            }
                           />
                         )}
                       />
@@ -331,6 +346,15 @@ export default class CreateEditPurchaseOrder extends React.Component<
                           input={input}
                           meta={meta}
                           items={items}
+                          selected={
+                            this.props.purchaseOrder &&
+                            this.props.contacts.filter(
+                              contact =>
+                                this.props.purchaseOrder!.collaborators!.indexOf(
+                                  contact.value,
+                                ) !== -1,
+                            )
+                          }
                         />
                       )}
                     />

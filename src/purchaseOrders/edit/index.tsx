@@ -85,6 +85,7 @@ export default connect(
       purchaseOrder: state.purchaseOrders.getById.data && {
         _id: state.purchaseOrders.getById.data._id,
         ...state.purchaseOrders.getById.data.data,
+        collaborators: state.purchaseOrders.getById.data.header!.collaborators
       },
       contactsLoading: state.contacts.get.loading,
       contacts: state.contacts.get.data
