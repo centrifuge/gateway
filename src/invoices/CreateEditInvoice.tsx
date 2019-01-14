@@ -3,13 +3,13 @@ import { Add, Checkmark } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 import { Box, Button, Heading } from 'grommet';
 import { Field, Form } from 'react-final-form';
-import { Invoice } from '../../common/models/dto/invoice';
-import SearchableDropdown from '../../components/form/SearchableDropdown';
-import { LabelValuePair } from '../../interfaces';
-import StyledTextInput from '../../components/StyledTextInput';
-import { required } from '../../validators';
-import { dateParser } from '../../parsers';
-import { dateFormatter } from '../../formatters';
+import { Invoice } from '../common/models/dto/invoice';
+import SearchableDropdown from '../components/form/SearchableDropdown';
+import { LabelValuePair } from '../interfaces/index';
+import StyledTextInput from '../components/StyledTextInput';
+import { required } from '../validators/index';
+import { dateParser } from '../parsers/index';
+import { dateFormatter } from '../formatters/index';
 
 type CreateInvoiceProps = {
   onSubmit: (invoice: Invoice) => void;
@@ -17,8 +17,8 @@ type CreateInvoiceProps = {
   contacts: LabelValuePair[];
 };
 
-export default class CreateInvoice extends React.Component<CreateInvoiceProps> {
-  displayName = 'CreateInvoice';
+export default class CreateEditInvoice extends React.Component<CreateInvoiceProps> {
+  displayName = 'CreateEditInvoice';
 
   onSubmit = (values: Invoice) => {
     return this.props.onSubmit({ ...values });
