@@ -4,12 +4,12 @@ import { Route, Switch } from 'react-router';
 import routes from '../routes';
 import Invoices from '../invoices/view';
 import CreateInvoice from '../invoices/create';
-import PurchaseOrders from '../purchaseOrders/view';
+import PurchaseOrders from '../purchase-orders/view';
 import Contacts from '../contacts/view';
 import LoginPage from '../user/login';
 import ProtectedRoute from '../components/ProtectedRoute';
-import CreatePurchaseOrder from '../purchaseOrders/create';
-import EditPurchaseOrder from '../purchaseOrders/edit';
+import CreatePurchaseOrder from '../purchase-orders/create';
+import EditPurchaseOrder from '../purchase-orders/edit';
 
 const Body: FunctionComponent = () => (
   <Box

@@ -7,7 +7,7 @@ import {
   getPurchaseOrderByIdAction,
   updatePurchaseOrderAction,
 } from '../actions/purchase-orders';
-import routes from '../purchaseOrders/routes';
+import routes from '../purchase-orders/routes';
 
 export function* getPurchaseOrders() {
   try {
