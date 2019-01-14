@@ -5,21 +5,17 @@ import { connect } from 'react-redux';
 import CreateEditPurchaseOrder from '../CreateEditPurchaseOrder';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { RequestState } from '../../reducers/http-request-reducer';
-import {
-  PurchaseorderPurchaseOrderData,
-  PurchaseorderPurchaseOrderResponse,
-} from '../../../clients/centrifuge-node/generated-client';
+import { PurchaseorderPurchaseOrderResponse } from '../../../clients/centrifuge-node/generated-client';
 import { Contact } from '../../common/models/dto/contact';
 import { getContacts } from '../../actions/contacts';
 import { LabelValuePair } from '../../interfaces';
 import {
-  createPurchaseOrder,
   getPurchaseOrderById,
   updatePurchaseOrder,
 } from '../../actions/purchase-orders';
 import { PurchaseOrder } from '../../common/models/dto/purchase-order';
 
-type ConnectedCreatePurchaseOrderProps = {
+type ConnectedEditPurchaseOrderProps = {
   updatePurchaseOrder: (purchaseOrder: PurchaseOrder) => void;
   purchaseOrder?: PurchaseOrder;
   getPurchaseOrderById: (id: string) => void;
@@ -30,8 +26,8 @@ type ConnectedCreatePurchaseOrderProps = {
   contacts?: LabelValuePair[];
 } & RouteComponentProps<{ id?: string }>;
 
-class ConnectedCreatePurchaseOrder extends React.Component<
-  ConnectedCreatePurchaseOrderProps
+class ConnectedEditPurchaseOrder extends React.Component<
+  ConnectedEditPurchaseOrderProps
 > {
   componentDidMount() {
     if (!this.props.contacts) {
@@ -85,7 +81,7 @@ export default connect(
       purchaseOrder: state.purchaseOrders.getById.data && {
         _id: state.purchaseOrders.getById.data._id,
         ...state.purchaseOrders.getById.data.data,
-        collaborators: state.purchaseOrders.getById.data.header!.collaborators
+        collaborators: state.purchaseOrders.getById.data.header!.collaborators,
       },
       contactsLoading: state.contacts.get.loading,
       contacts: state.contacts.get.data
@@ -97,9 +93,8 @@ export default connect(
     };
   },
   {
-    createPurchaseOrder,
     getContacts,
     updatePurchaseOrder,
     getPurchaseOrderById,
   },
-)(withRouter(ConnectedCreatePurchaseOrder));
+)(withRouter(ConnectedEditPurchaseOrder));

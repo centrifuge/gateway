@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import { Box, Button, Heading } from 'grommet';
 import { Field, Form } from 'react-final-form';
 import SearchableDropdown from '../components/form/SearchableDropdown';
-import { LabelValuePair } from '../interfaces/index';
+import { LabelValuePair } from '../interfaces';
 import StyledTextInput from '../components/StyledTextInput';
-import { required } from '../validators/index';
+import { required } from '../validators';
 import { PurchaseOrder } from '../common/models/dto/purchase-order';
-import { dateParser } from '../parsers/index';
-import { dateFormatter } from '../formatters/index';
+import { dateParser } from '../parsers';
+import { dateFormatter } from '../formatters';
 
 type CreatePurchaseOrderProps = {
   onSubmit: (purchaseOrder: PurchaseOrder) => void;
