@@ -5,5 +5,3 @@ export default {
   new: `${index}/new`,
   update: `${index}/:id`,
 };
-
-const a = 1;
