@@ -21,6 +21,7 @@ const Body: FunctionComponent = () => (
     <Box width="xlarge">
       <Switch>
         <ProtectedRoute path={routes.invoices.new} component={CreateInvoice} />
+        <ProtectedRoute path={routes.invoices.update} component={EditInvoice} />
         <ProtectedRoute path={routes.invoices.index} component={Invoices} />
         <ProtectedRoute
           path={routes.purchaseOrders.new}

@@ -5,19 +5,22 @@ import { Box, Button, Heading } from 'grommet';
 import { Field, Form } from 'react-final-form';
 import { Invoice } from '../common/models/dto/invoice';
 import SearchableDropdown from '../components/form/SearchableDropdown';
-import { LabelValuePair } from '../interfaces/index';
+import { LabelValuePair } from '../interfaces';
 import StyledTextInput from '../components/StyledTextInput';
-import { required } from '../validators/index';
-import { dateParser } from '../parsers/index';
-import { dateFormatter } from '../formatters/index';
+import { required } from '../validators';
+import { dateParser } from '../parsers';
+import { dateFormatter } from '../formatters';
 
 type CreateInvoiceProps = {
   onSubmit: (invoice: Invoice) => void;
   onCancel: () => void;
   contacts: LabelValuePair[];
+  invoice?: Invoice;
 };
 
-export default class CreateEditInvoice extends React.Component<CreateInvoiceProps> {
+export default class CreateEditInvoice extends React.Component<
+  CreateInvoiceProps
+> {
   displayName = 'CreateEditInvoice';
 
   onSubmit = (values: Invoice) => {
@@ -42,11 +45,14 @@ export default class CreateEditInvoice extends React.Component<CreateInvoiceProp
     return (
       <Form
         onSubmit={this.onSubmit}
+        initialValues={this.props.invoice}
         render={({ handleSubmit }) => (
           <Box>
             <form onSubmit={handleSubmit}>
               <Box justify="between" direction="row" align="center">
-                <Heading level="3">Create New Invoice</Heading>
+                <Heading level="3">
+                  {this.props.invoice ? 'Update Invoice' : 'Create New Invoice'}
+                </Heading>
                 {this.renderButtons()}
               </Box>
               <Box>
@@ -80,6 +86,13 @@ export default class CreateEditInvoice extends React.Component<CreateInvoiceProp
                             input={input}
                             meta={meta}
                             items={items}
+                            selected={
+                              this.props.invoice &&
+                              this.props.contacts.find(
+                                contact =>
+                                  contact.value === this.props.invoice!.sender,
+                              )
+                            }
                           />
                         )}
                       />
@@ -156,6 +169,14 @@ export default class CreateEditInvoice extends React.Component<CreateInvoiceProp
                             input={input}
                             meta={meta}
                             items={items}
+                            selected={
+                              this.props.invoice &&
+                              this.props.contacts.find(
+                                contact =>
+                                  contact.value ===
+                                  this.props.invoice!.recipient,
+                              )
+                            }
                           />
                         )}
                       />
@@ -282,6 +303,13 @@ export default class CreateEditInvoice extends React.Component<CreateInvoiceProp
                             input={input}
                             meta={meta}
                             items={items}
+                            selected={
+                              this.props.invoice &&
+                              this.props.contacts.find(
+                                contact =>
+                                  contact.value === this.props.invoice!.payee,
+                              )
+                            }
                           />
                         )}
                       />
@@ -334,6 +362,15 @@ export default class CreateEditInvoice extends React.Component<CreateInvoiceProp
                           input={input}
                           meta={meta}
                           items={items}
+                          selected={
+                            this.props.invoice &&
+                            this.props.contacts.filter(
+                              contact =>
+                                this.props.invoice!.collaborators!.indexOf(
+                                  contact.value,
+                                ) !== -1,
+                            )
+                          }
                         />
                       )}
                     />

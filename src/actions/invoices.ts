@@ -20,4 +20,4 @@ export const createInvoice = (invoice: Invoice) =>
 export const updateInvoice = (invoice: Invoice) =>
   action(updateInvoiceAction.start, { invoice });
 export const getInvoices = () => action(getInvoiceAction.start);
-export const getInvoiceById = () => action(getInvoiceByIdAction.start);
+export const getInvoiceById = id => action(getInvoiceByIdAction.start, { id });
