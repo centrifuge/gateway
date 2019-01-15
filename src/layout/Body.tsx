@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router';
 import routes from '../routes';
 import Invoices from '../invoices/view';
 import CreateInvoice from '../invoices/create';
+import EditInvoice from '../invoices/edit';
 import PurchaseOrders from '../purchaseOrders/view';
 import Contacts from '../contacts/view';
 import LoginPage from '../user/login';

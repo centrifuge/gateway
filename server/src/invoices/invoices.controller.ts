@@ -54,7 +54,7 @@ export class InvoicesController {
    * @async
    * @param {Promise<Invoice[]>} result
    */
-  async get(): Promise<Invoice[]> {
+  async get(): Promise<(Invoice & { supplier?: string })[]> {
     const invoices = (await this.database.invoices.find({})) as (Invoice)[];
 
     return await Promise.all(
