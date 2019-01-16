@@ -156,7 +156,7 @@ describe('InvoicesController', () => {
       expect(centrifugeClientMock.update).toHaveBeenCalledWith(
         'find_one_invoice_id',
         {
-          ...updatedInvoice,
+          data: { ...updatedInvoice },
           collaborators: ['new_collaborator'],
         },
       );

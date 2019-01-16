@@ -88,7 +88,10 @@ export class InvoicesController {
 
     const updateResult = await this.centrifugeClient.update(
       invoice.header.document_id,
-      updateInvoiceRequest,
+      {
+        collaborators: updateInvoiceRequest.collaborators,
+        data: { ...updateInvoiceRequest },
+      },
     );
 
     return await this.database.invoices.updateById(id, updateResult);
