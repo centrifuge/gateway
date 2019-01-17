@@ -84,11 +84,16 @@ describe('InvoicesController', () => {
         InvoicesController,
       );
 
-      const result = await invoicesController.create(invoiceToCreate);
+      const result = await invoicesController.create(
+        { user: { id: 'user_id' } },
+        invoiceToCreate,
+      );
       expect(result).toEqual({
         data: {
-          ...invoiceToCreate
+          ...invoiceToCreate,
         },
+        collaborators: undefined,
+        ownerId: 'user_id',
       });
 
       expect(databaseServiceMock.invoices.create).toHaveBeenCalledTimes(1);
@@ -102,7 +107,9 @@ describe('InvoicesController', () => {
           InvoicesController,
         );
 
-        const result = await invoicesController.get();
+        const result = await invoicesController.get({
+          user: { id: 'user_id' },
+        });
         expect(result[0].supplier).toBe(supplier);
         expect(databaseServiceMock.invoices.find).toHaveBeenCalledTimes(1);
       });
@@ -118,7 +125,9 @@ describe('InvoicesController', () => {
           InvoicesController,
         );
 
-        const result = await invoicesController.get();
+        const result = await invoicesController.get({
+          user: { id: 'user_id' },
+        });
         expect(result[0].supplier).toBe(undefined);
         expect(databaseServiceMock.invoices.find).toHaveBeenCalledTimes(1);
       });

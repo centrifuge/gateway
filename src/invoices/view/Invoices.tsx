@@ -8,7 +8,7 @@ import { Contact } from '../../common/models/dto/contact';
 import { InvoiceData } from '../../interfaces';
 
 interface InvoiceTableColumn {
-  property: keyof InvoiceData | keyof [keyof { supplier: Contact }];
+  property: keyof InvoiceData | keyof [keyof { supplier: Contact }] | '_id';
   header: string;
   render?: (datum: InvoiceData) => ReactNode;
   format?: Function;

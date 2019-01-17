@@ -65,12 +65,14 @@ describe('PurchaseOrdersController', () => {
       >(PurchaseOrdersController);
 
       const result = await purchaseOrdersController.create(
+        { user: { id: 'user_id' } },
         purchaseOrderToCreate,
       );
 
       expect(result).toEqual({
         collaborators: undefined,
         data: purchaseOrderToCreate,
+        ownerId: 'user_id',
       });
 
       expect(databaseServiceMock.purchaseOrders.create).toHaveBeenCalledTimes(

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { Invoice } from '../../../src/common/models/dto/invoice';
 import { ROUTES } from '../../../src/common/constants';
 import { SessionGuard } from '../auth/SessionGuard';
@@ -28,14 +36,18 @@ export class InvoicesController {
    * @param {Invoice} invoice - the body of the request
    * @return {Promise<InvoiceInvoiceResponse>} result
    */
-  async create(@Body() invoice: Invoice) {
+  async create(@Req() request, @Body() invoice: Invoice) {
     const createResult = await this.centrifugeClient.create({
       data: {
         ...invoice,
       },
       collaborators: invoice.collaborators,
     });
-    return await this.database.invoices.create(createResult);
+
+    return await this.database.invoices.create({
+      ...createResult,
+      ownerId: request.user.id,
+    });
   }
 
   @Get()
@@ -44,10 +56,10 @@ export class InvoicesController {
    * @async
    * @param {Promise<Invoice[]>} result
    */
-  async get(): Promise<InvoiceData[]> {
-    const invoices = (await this.database.invoices.find(
-      {},
-    )) as (InvoiceInvoiceData & { _id: string })[];
+  async get(@Req() request): Promise<InvoiceData[]> {
+    const invoices = (await this.database.invoices.find({
+      ownerId: request.user.id,
+    })) as (InvoiceInvoiceData & { _id: string })[];
 
     return await Promise.all(
       invoices.map(async invoice => {
