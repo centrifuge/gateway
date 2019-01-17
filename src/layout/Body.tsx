@@ -7,6 +7,7 @@ import CreateInvoice from '../invoices/create';
 import PurchaseOrders from '../purchaseOrders/view';
 import Contacts from '../contacts/view';
 import LoginPage from '../user/login';
+import RegisterPage from '../user/register/Register';
 import ProtectedRoute from '../components/ProtectedRoute';
 import CreatePurchaseOrder from '../purchaseOrders/create';
 
@@ -31,6 +32,7 @@ const Body: FunctionComponent = () => (
           component={PurchaseOrders}
         />
         <ProtectedRoute path={routes.contacts.index} component={Contacts} />
+        <Route path={routes.user.register} component={RegisterPage} />
         <Route path={routes.index} component={LoginPage} />
       </Switch>
     </Box>
