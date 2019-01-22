@@ -40,4 +40,20 @@ export class DatabaseRepository<T> {
       this.databaseConnection.findOne.bind(this.databaseConnection),
     )(query);
   }
+
+  /**
+   * Update object by id
+   * @param {string} id - The object identifier
+   * @param {object} updateObject - The update object query
+   * @returns {Promise<T|null>} promise
+   */
+  async updateById(id: string, updateObject: T) {
+    return this.updateByQuery({_id: id}, updateObject);
+  }
+
+  async updateByQuery(query: any, updateObject: T) {
+      return util.promisify(
+          this.databaseConnection.update.bind(this.databaseConnection),
+      )(query, updateObject);
+  }
 }

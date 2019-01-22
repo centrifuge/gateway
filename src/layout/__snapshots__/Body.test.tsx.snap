@@ -1665,11 +1665,19 @@ exports[`Body matches snapshot 1`] = `
       />
       <Connect(ProtectedRoute)
         component={[Function]}
+        path="/invoices/:id"
+      />
+      <Connect(ProtectedRoute)
+        component={[Function]}
         path="/invoices"
       />
       <Connect(ProtectedRoute)
         component={[Function]}
         path="/purchase-orders/new"
+      />
+      <Connect(ProtectedRoute)
+        component={[Function]}
+        path="/purchase-orders/:id"
       />
       <Connect(ProtectedRoute)
         component={[Function]}
