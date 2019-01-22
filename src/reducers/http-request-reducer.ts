@@ -1,4 +1,5 @@
 import { ActionType } from '../actions/action-type-generator';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 export type RequestState<T> = {
   loading: boolean;
@@ -24,6 +25,8 @@ export function httpRequestReducer<T>(actionType: ActionType) {
     { type, payload }: { type: string; payload?: T | Error },
   ): RequestState<T> => {
     switch (type) {
+      case LOCATION_CHANGE:
+        return { ...defaultState };
       case actionType.start: {
         return { ...defaultState, loading: true };
       }
