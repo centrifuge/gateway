@@ -21,7 +21,7 @@ describe('Users controller', function() {
 
   describe('register', function() {
     const registeredUser = {
-      id: 'user',
+      _id: 'user',
       username: 'username',
       password: 'password',
     };
@@ -32,7 +32,7 @@ describe('Users controller', function() {
           user.username === registeredUser.username
             ? registeredUser
             : undefined,
-        create: data => data,
+        create: data => ({ ...data, _id: 'new_user_id' }),
       },
     } as any) as DatabaseProvider;
 
@@ -50,13 +50,13 @@ describe('Users controller', function() {
 
     it('should create the user if the username is not taken', async function() {
       const newUser = {
-        id: 'some_user_id',
+        _id: 'some_user_id',
         username: 'new_user',
         password: 'password',
       };
       const result = await usersController.register(newUser);
 
-      expect(result).toBe(newUser);
+      expect(result).toEqual({ id: 'new_user_id' });
     });
   });
 });

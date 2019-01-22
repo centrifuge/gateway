@@ -1,6 +1,4 @@
-import {
-  userLoginAction,
-} from '../../actions/users';
+import { userLoginAction } from '../../actions/users';
 
 export type LoginState = {
   loading: boolean;

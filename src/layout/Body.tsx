@@ -8,7 +8,7 @@ import EditInvoice from '../invoices/edit';
 import PurchaseOrders from '../purchase-orders/view';
 import Contacts from '../contacts/view';
 import LoginPage from '../user/login';
-import RegisterPage from '../user/register/Register';
+import RegisterPage from '../user/register';
 import ProtectedRoute from '../components/ProtectedRoute';
 import CreatePurchaseOrder from '../purchase-orders/create';
 import EditPurchaseOrder from '../purchase-orders/edit';

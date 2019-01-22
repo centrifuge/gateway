@@ -9,6 +9,9 @@ import {
   Response,
   UseGuards,
 } from '@nestjs/common';
+
+import * as bcrypt from 'bcrypt';
+import { promisify } from 'util';
 import { ROUTES } from '../../../src/common/constants';
 import { User } from '../../../src/common/models/dto/user';
 import { SessionGuard } from '../auth/SessionGuard';
@@ -35,7 +38,7 @@ export class UsersController {
     return res.redirect('/');
   }
 
-  @Post()
+  @Post('register')
   async register(@Body() user: User) {
     const dbUser = await this.database.users.findOne({
       username: user.username,
@@ -44,6 +47,12 @@ export class UsersController {
       throw new Error('Username taken!');
     }
 
-    return this.database.users.create(user);
+    const userToCreate = {
+      username: user.username,
+      password: await promisify(bcrypt.hash)(user.password, 10),
+    };
+
+    const result = await this.database.users.create(userToCreate);
+    return { id: result._id };
   }
 }
