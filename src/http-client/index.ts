@@ -17,8 +17,12 @@ export const httpClient = {
   invoices: {
     create: async (invoice: Invoice): Promise<InvoiceInvoiceResponse> =>
       instance.post(ROUTES.INVOICES, invoice),
+    update: async (invoice: Invoice): Promise<InvoiceInvoiceResponse> =>
+      instance.put(`${ROUTES.INVOICES}/${invoice._id}`, invoice),
     read: async (): Promise<InvoiceInvoiceResponse> =>
       instance.get(ROUTES.INVOICES),
+    readById: async (id): Promise<InvoiceInvoiceResponse> =>
+      instance.get(`${ROUTES.INVOICES}/${id}`),
   },
   user: {
     login: async (user: User) => instance.post(ROUTES.USERS.login, user),
@@ -33,7 +37,16 @@ export const httpClient = {
       purchaseOrder: PurchaseOrder,
     ): Promise<PurchaseorderPurchaseOrderResponse> =>
       instance.post(ROUTES.PURCHASE_ORDERS, purchaseOrder),
+    update: async (
+      purchaseOrder: PurchaseOrder,
+    ): Promise<PurchaseorderPurchaseOrderResponse> =>
+      instance.put(
+        `${ROUTES.PURCHASE_ORDERS}/${purchaseOrder._id}`,
+        purchaseOrder,
+      ),
     read: async (): Promise<PurchaseorderPurchaseOrderResponse> =>
       instance.get(ROUTES.PURCHASE_ORDERS),
+    readById: async (id): Promise<PurchaseorderPurchaseOrderResponse> =>
+      instance.get(`${ROUTES.PURCHASE_ORDERS}/${id}`),
   },
 };

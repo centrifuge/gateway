@@ -3,7 +3,9 @@ import {
   Controller,
   Get,
   Inject,
+  Param,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -52,6 +54,32 @@ export class PurchaseOrdersController {
     });
   }
 
+  /**
+   * Updates a purchase order and saves in the centrifuge node and local database
+   * @async
+   * @param {Param} params - the query params
+   * @param {PurchaseOrder} purchaseOrder - the updated purchase order
+   * @return {Promise<PurchaseOrder>} result
+   */
+  @Put(':id')
+  async update(@Param() params, @Body() purchaseOrder: PurchaseOrder) {
+    const id = params.id;
+    const dbPurchaseOrder: PurchaseorderPurchaseOrderResponse = await this.database.purchaseOrders.findOne(
+      { _id: id },
+    );
+    const updateResult = await this.centrifugeClient.update_4(
+      dbPurchaseOrder.header.document_id,
+      {
+        data: {
+          ...purchaseOrder,
+        },
+        collaborators: purchaseOrder.collaborators,
+      },
+    );
+
+    return await this.database.purchaseOrders.updateById(id, updateResult);
+  }
+
   @Get()
   /**
    * Get the list of all purchase orders
@@ -62,5 +90,15 @@ export class PurchaseOrdersController {
     return await this.database.purchaseOrders.find({
       ownerId: request.user.id,
     });
+  }
+
+  @Get(':id')
+  /**
+   * Get a specific purchase order by id
+   * @async
+   * @param {Promise<PurchaseOrder|null>} result
+   */
+  async getById(@Param() params) {
+    return await this.database.purchaseOrders.findOne({ _id: params.id });
   }
 }
