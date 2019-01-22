@@ -15,6 +15,8 @@ export default function*() {
     fork(contacts.watchCreateContact),
     fork(contacts.watchUpdateContact),
     fork(purchaseOrders.watchCreatePurchaseOrder),
+    fork(purchaseOrders.watchUpdatePurchaseOrder),
     fork(purchaseOrders.watchGetPurchaseOrdersPage),
+    fork(purchaseOrders.watchGetPurchaseOrderById),
   ]);
 }
