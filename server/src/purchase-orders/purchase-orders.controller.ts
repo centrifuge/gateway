@@ -58,33 +58,43 @@ export class PurchaseOrdersController {
    * Updates a purchase order and saves in the centrifuge node and local database
    * @async
    * @param {Param} params - the query params
+   * @param {Param} request - the http request
    * @param {PurchaseOrder} purchaseOrder - the updated purchase order
    * @return {Promise<PurchaseOrder>} result
    */
   @Put(':id')
-  async update(@Param() params, @Body() purchaseOrder: PurchaseOrder) {
-    const id = params.id;
-    const dbPurchaseOrder: PurchaseorderPurchaseOrderResponse = await this.database.purchaseOrders.findOne(
-      { _id: id },
-    );
-    const updateResult = await this.centrifugeClient.update_4(
-      dbPurchaseOrder.header.document_id,
-      {
-        data: {
-          ...purchaseOrder,
+  async update(
+    @Param() params,
+    @Req() request,
+    @Body() purchaseOrder: PurchaseOrder,
+  ) {
+    try {
+      const id = params.id;
+      const dbPurchaseOrder: PurchaseorderPurchaseOrderResponse = await this.database.purchaseOrders.findOne(
+        { _id: id, ownerId: request.user.id },
+      );
+      const updateResult = await this.centrifugeClient.update_4(
+        dbPurchaseOrder.header.document_id,
+        {
+          data: {
+            ...purchaseOrder,
+          },
+          collaborators: purchaseOrder.collaborators,
         },
-        collaborators: purchaseOrder.collaborators,
-      },
-    );
+      );
 
-    return await this.database.purchaseOrders.updateById(id, updateResult);
+      return await this.database.purchaseOrders.updateById(id, {
+        ...updateResult,
+        ownerId: request.user.id,
+      });
+    } catch (err) {}
   }
 
   @Get()
   /**
    * Get the list of all purchase orders
    * @async
-   * @param {Promise<PurchaseOrder[]>} result
+   * @return {Promise<PurchaseOrder[]>} result
    */
   async get(@Req() request) {
     return await this.database.purchaseOrders.find({
@@ -95,10 +105,15 @@ export class PurchaseOrdersController {
   @Get(':id')
   /**
    * Get a specific purchase order by id
+   * @param params - the request parameters
+   * @param request - the http request
    * @async
-   * @param {Promise<PurchaseOrder|null>} result
+   * @return {Promise<PurchaseOrder|null>} result
    */
-  async getById(@Param() params) {
-    return await this.database.purchaseOrders.findOne({ _id: params.id });
+  async getById(@Param() params, @Req() request) {
+    return await this.database.purchaseOrders.findOne({
+      _id: params.id,
+      ownerId: request.user.id,
+    });
   }
 }

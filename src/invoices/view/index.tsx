@@ -15,7 +15,10 @@ const mapStateToProps = (state: {
   return {
     invoices:
       state.invoices.get.data &&
-      state.invoices.get.data.map(response => response.data) as InvoiceData[],
+      (state.invoices.get.data.map(response => ({
+        ...response.data,
+        _id: response._id,
+      })) as InvoiceData[]),
     loading: state.invoices.get.loading,
   };
 };

@@ -75,12 +75,12 @@ describe('PurchaseOrdersController', () => {
 
       const result = await purchaseOrdersController.create(
         { user: { id: 'user_id' } },
-        purchaseOrderToCreate,
+        purchaseOrder,
       );
 
       expect(result).toEqual({
-        collaborators: undefined,
-        data: purchaseOrderToCreate,
+        collaborators: purchaseOrder.collaborators,
+        data: purchaseOrder,
         ownerId: 'user_id',
       });
 
@@ -114,11 +114,13 @@ describe('PurchaseOrdersController', () => {
 
       const updateResult = await purchaseOrdersController.update(
         { id: 'id_to_update' },
+        { user: { id: 'user_id' } },
         { ...updatedOrder },
       );
 
       expect(databaseServiceMock.purchaseOrders.findOne).toHaveBeenCalledWith({
         _id: 'id_to_update',
+        ownerId: 'user_id',
       });
       expect(centrifugeClientMock.update_4).toHaveBeenCalledWith(
         'find_one_document_id',
@@ -133,7 +135,7 @@ describe('PurchaseOrdersController', () => {
       expect(
         databaseServiceMock.purchaseOrders.updateById,
       ).toHaveBeenCalledWith('id_to_update', {
-        ...updateResult
+        ...updateResult,
       });
     });
   });
@@ -144,9 +146,13 @@ describe('PurchaseOrdersController', () => {
         PurchaseOrdersController
       >(PurchaseOrdersController);
 
-      const result = await purchaseOrdersController.getById({ id: 'some_id' });
+      const result = await purchaseOrdersController.getById(
+        { id: 'some_id' },
+        { user: { id: 'user_id' } },
+      );
       expect(databaseServiceMock.purchaseOrders.findOne).toHaveBeenCalledWith({
         _id: 'some_id',
+        ownerId: 'user_id',
       });
 
       expect(result).toEqual({

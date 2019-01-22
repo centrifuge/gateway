@@ -16,9 +16,10 @@ const mapStateToProps = (state: {
   return {
     purchaseOrders:
       state.purchaseOrders.get.data &&
-      (state.purchaseOrders.get.data.map(
-        response => response.data,
-      ) as PurchaseorderPurchaseOrderData[]),
+      (state.purchaseOrders.get.data.map(response => ({
+        ...response.data,
+        _id: response._id,
+      })) as PurchaseorderPurchaseOrderData[]),
     loading: state.purchaseOrders.get.loading,
   };
 };

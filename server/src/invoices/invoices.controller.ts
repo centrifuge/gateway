@@ -36,6 +36,7 @@ export class InvoicesController {
   /**
    * Create an invoice and save in the centrifuge node and the local database
    * @async
+   * @param request - the http request
    * @param {Invoice} invoice - the body of the request
    * @return {Promise<InvoiceInvoiceResponse>} result
    */
@@ -57,7 +58,7 @@ export class InvoicesController {
   /**
    * Get the list of all invoices
    * @async
-   * @param {Promise<Invoice[]>} result
+   * @return {Promise<Invoice[]>} result
    */
   async get(@Req() request): Promise<InvoiceData[]> {
     const invoices = (await this.database.invoices.find({
@@ -82,22 +83,50 @@ export class InvoicesController {
   }
 
   @Get(':id')
-  async getById(@Param() params): Promise<Invoice | null> {
-    return this.database.invoices.findOne({ _id: params.id });
+  /**
+   * Get a specific invoice by id
+   * @async
+   * @param params - the request parameters
+   * @param request - the http request
+   * @return {Promise<Invoice|null>} result
+   */
+  async getById(@Param() params, @Req() request): Promise<Invoice | null> {
+    return this.database.invoices.findOne({
+      _id: params.id,
+      ownerId: request.user.id,
+    });
   }
 
+  /**
+   * Updates an invoice and saves in the centrifuge node and local database
+   * @async
+   * @param {Param} params - the query params
+   * @param {Param} request - the http request
+   * @param {PurchaseOrder} updateInvoiceRequest - the updated invoice
+   * @return {Promise<PurchaseOrder>} result
+   */
   @Put(':id')
-  async updateById(@Param() params, @Body() updateInvoiceRequest: Invoice) {
+  async updateById(
+    @Param() params,
+    @Req() request,
+    @Body() updateInvoiceRequest: Invoice,
+  ) {
     let id = params.id;
     const invoice: InvoiceInvoiceResponse = await this.database.invoices.findOne(
-      { _id: id },
+      { _id: id, ownerId: request.user.id },
     );
 
     const updateResult = await this.centrifugeClient.update(
       invoice.header.document_id,
-      updateInvoiceRequest,
+      {
+        data: { ...updateInvoiceRequest },
+        collaborators: updateInvoiceRequest.collaborators,
+      },
     );
 
-    return await this.database.invoices.updateById(id, updateResult);
+    return await this.database.invoices.updateById(id, {
+      ...updateResult,
+      ownerId: request.user.id,
+    });
   }
 }
