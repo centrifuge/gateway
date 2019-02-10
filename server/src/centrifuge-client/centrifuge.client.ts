@@ -9,9 +9,9 @@ const fetchWithHeaders = (url, options = { headers: {} }, ...rest) => {
     {
       ...(options && options),
       headers: {
-        Authorization: new Buffer(config.centrifugeId).toString('hex'),
-        ...(options && options.headers && options.headers),
+        Authorization: config.centrifugeId,
       },
+      ...(options && options.headers && options.headers),
     },
     ...rest,
   );
