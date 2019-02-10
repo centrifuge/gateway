@@ -55,6 +55,35 @@ export default class CreateEditInvoice extends React.Component<
                 </Heading>
                 {this.renderButtons()}
               </Box>
+
+              {/* Collaborators section */}
+              <Box background="white" pad="medium">
+                <Field
+                  validate={required}
+                  name="collaborators"
+                  items={this.props.contacts}
+                  // @ts-ignore - necessary until https://github.com/final-form/react-final-form/issues/398 is fixed
+                  render={({ input, meta, items }) => (
+                    <SearchableDropdown
+                      multiple
+                      label="Collaborators"
+                      input={input}
+                      meta={meta}
+                      items={items}
+                      selected={
+                        this.props.invoice &&
+                        this.props.contacts.filter(
+                          contact =>
+                            this.props.invoice!.collaborators!.indexOf(
+                              contact.value,
+                            ) !== -1,
+                        )
+                      }
+                    />
+                  )}
+                />
+              </Box>
+
               <Box>
                 <Box direction="column" gap="small">
                   {/* Invoice number section */}
@@ -341,34 +370,6 @@ export default class CreateEditInvoice extends React.Component<
                         )}
                       </Field>
                     </Box>
-                  </Box>
-
-                  {/* Collaborators section */}
-                  <Box background="white" pad="medium">
-                    <Field
-                      validate={required}
-                      name="collaborators"
-                      items={this.props.contacts}
-                      // @ts-ignore - necessary until https://github.com/final-form/react-final-form/issues/398 is fixed
-                      render={({ input, meta, items }) => (
-                        <SearchableDropdown
-                          multiple
-                          label="Collaborators"
-                          input={input}
-                          meta={meta}
-                          items={items}
-                          selected={
-                            this.props.invoice &&
-                            this.props.contacts.filter(
-                              contact =>
-                                this.props.invoice!.collaborators!.indexOf(
-                                  contact.value,
-                                ) !== -1,
-                            )
-                          }
-                        />
-                      )}
-                    />
                   </Box>
 
                   {/* Comments section */}

@@ -60,6 +60,34 @@ export default class CreateEditPurchaseOrder extends React.Component<
                 {this.renderButtons()}
               </Box>
               <Box>
+                {/* Collaborators section */}
+                <Box background="white" pad="medium">
+                  <Field
+                    validate={required}
+                    name="collaborators"
+                    items={this.props.contacts}
+                    // @ts-ignore - necessary until https://github.com/final-form/react-final-form/issues/398 is fixed
+                    render={({ input, meta, items }) => (
+                      <SearchableDropdown
+                        multiple
+                        label="Collaborators"
+                        input={input}
+                        meta={meta}
+                        items={items}
+                        selected={
+                          this.props.purchaseOrder &&
+                          this.props.contacts.filter(
+                            contact =>
+                              this.props.purchaseOrder!.collaborators!.indexOf(
+                                contact.value,
+                              ) !== -1,
+                          )
+                        }
+                      />
+                    )}
+                  />
+                </Box>
+
                 {/* Puchase order number */}
                 <Box direction="column" gap="small">
                   <Box background="white" pad="medium">
@@ -326,34 +354,6 @@ export default class CreateEditPurchaseOrder extends React.Component<
                         )}
                       </Field>
                     </Box>
-                  </Box>
-
-                  {/* Collaborators section */}
-                  <Box background="white" pad="medium">
-                    <Field
-                      validate={required}
-                      name="collaborators"
-                      items={this.props.contacts}
-                      // @ts-ignore - necessary until https://github.com/final-form/react-final-form/issues/398 is fixed
-                      render={({ input, meta, items }) => (
-                        <SearchableDropdown
-                          multiple
-                          label="Collaborators"
-                          input={input}
-                          meta={meta}
-                          items={items}
-                          selected={
-                            this.props.purchaseOrder &&
-                            this.props.contacts.filter(
-                              contact =>
-                                this.props.purchaseOrder!.collaborators!.indexOf(
-                                  contact.value,
-                                ) !== -1,
-                            )
-                          }
-                        />
-                      )}
-                    />
                   </Box>
 
                   {/* Comments section */}
