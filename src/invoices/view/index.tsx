@@ -3,16 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Invoices from './Invoices';
-import { getInvoices } from '../../actions/invoices';
+import { getInvoices, resetGetInvoices } from '../../actions/invoices';
 import { RequestState } from '../../reducers/http-request-reducer';
-import {
-  InvoiceInvoiceData,
-  InvoiceInvoiceResponse,
-} from '../../../clients/centrifuge-node/generated-client';
-
-interface InvoiceResponse extends InvoiceInvoiceResponse {
-  data: InvoiceInvoiceData & { _id: string };
-}
+import { InvoiceData, InvoiceResponse } from '../../interfaces';
 
 const mapStateToProps = (state: {
   invoices: {
@@ -22,21 +15,28 @@ const mapStateToProps = (state: {
   return {
     invoices:
       state.invoices.get.data &&
-      state.invoices.get.data.map(response => response.data),
+      (state.invoices.get.data.map(response => ({
+        ...response.data,
+        _id: response._id,
+      })) as InvoiceData[]),
     loading: state.invoices.get.loading,
   };
 };
 
 type ViewInvoicesProps = {
   getInvoices: () => void;
-  clearInvoices: () => void;
-  invoices?: InvoiceInvoiceData & { _id: string }[];
+  resetGetInvoices: () => void;
+  invoices?: InvoiceData[];
   loading: boolean;
 };
 
 class ViewInvoices extends React.Component<ViewInvoicesProps> {
   componentDidMount() {
     this.props.getInvoices();
+  }
+
+  componentWillUnmount() {
+    this.props.resetGetInvoices();
   }
 
   render() {
@@ -50,5 +50,5 @@ class ViewInvoices extends React.Component<ViewInvoicesProps> {
 
 export default connect(
   mapStateToProps,
-  { getInvoices },
+  { getInvoices, resetGetInvoices },
 )(ViewInvoices);

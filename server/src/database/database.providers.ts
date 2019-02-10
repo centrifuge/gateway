@@ -5,23 +5,25 @@ import { User } from '../../../src/common/models/dto/user';
 import { DatabaseRepository } from './database.repository';
 import {
   InvoiceInvoiceData,
-  InvoiceInvoiceResponse,
   PurchaseorderPurchaseOrderResponse,
 } from '../../../clients/centrifuge-node/generated-client';
 import { Contact } from '../../../src/common/models/dto/contact';
 import config from '../config';
+import {
+  InvoiceResponse,
+  PurchaseOrderResponse,
+} from '../../../src/interfaces';
 
 export interface DatabaseProvider {
-  invoices: DatabaseRepository<InvoiceInvoiceResponse>;
+  invoices: DatabaseRepository<InvoiceResponse>;
   users: DatabaseRepository<User>;
   contacts: DatabaseRepository<Contact>;
-  purchaseOrders: DatabaseRepository<PurchaseorderPurchaseOrderResponse>;
+  purchaseOrders: DatabaseRepository<PurchaseOrderResponse>;
 }
 
 const testUser = new User(
   'test',
   '$2b$12$o7HxJQsEl0jjwZ6FoGiEv.uQs9hLDFo2fOj5S3BnLL4nGpLfy/yW2', // password is test
-  'test_user_1',
 );
 
 /**

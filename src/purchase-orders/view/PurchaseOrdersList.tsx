@@ -1,26 +1,29 @@
 import React from 'react';
-import { Box, Button, DataTable, Heading, Text } from 'grommet';
+import { Box, Button, DataTable, Heading } from 'grommet';
 import { Add, Edit, More } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 
-import invoiceRoutes from '../routes';
-import { InvoiceData } from '../../interfaces';
+import purchaseOrderRoutes from '../routes';
+import routes from '../routes';
+import { PurchaseorderPurchaseOrderData } from '../../../clients/centrifuge-node/generated-client';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 // Casting to "any" until https://github.com/grommet/grommet/issues/2464 is fixed
 const DataTableSupressedWarning = DataTable as any;
 
-type InvoicesProps = { invoices: InvoiceData[] };
+type PurchaseOrdersProps = { purchaseOrders: PurchaseorderPurchaseOrderData[] };
 
-class Invoices extends React.Component<InvoicesProps & RouteComponentProps> {
-  displayName = 'Invoices';
+class PurchaseOrdersList extends React.Component<
+  PurchaseOrdersProps & RouteComponentProps
+> {
+  displayName = 'PurchaseOrdersList';
 
   render() {
     return (
       <Box fill>
         <Box justify="between" direction="row" align="center">
-          <Heading level="3">Invoices</Heading>
-          <Link to={invoiceRoutes.new}>
+          <Heading level="3">Purchase orders</Heading>
+          <Link to={purchaseOrderRoutes.new}>
             <Button
               icon={<Add color="white" size="small" />}
               primary
@@ -31,10 +34,10 @@ class Invoices extends React.Component<InvoicesProps & RouteComponentProps> {
 
         <Box>
           <DataTableSupressedWarning
-            data={this.props.invoices}
+            data={this.props.purchaseOrders}
             columns={[
               {
-                property: 'invoice_number',
+                property: 'po_number',
                 header: 'Number',
               },
               {
@@ -42,13 +45,7 @@ class Invoices extends React.Component<InvoicesProps & RouteComponentProps> {
                 header: 'Customer',
               },
               {
-                property: 'supplier',
-                header: 'Supplier',
-                render: data =>
-                  data.supplier ? <Text>{data.supplier.name}</Text> : null,
-              },
-              {
-                property: 'invoice_status',
+                property: 'po_status',
                 header: 'Status',
               },
               {
@@ -58,9 +55,7 @@ class Invoices extends React.Component<InvoicesProps & RouteComponentProps> {
                   <Box direction="row" gap="small">
                     <Edit
                       onClick={() =>
-                        this.props.history.push(
-                          `${invoiceRoutes.index}/${datum._id}`,
-                        )
+                        this.props.history.push(`${routes.index}/${datum._id}`)
                       }
                     />
                   </Box>
@@ -74,4 +69,4 @@ class Invoices extends React.Component<InvoicesProps & RouteComponentProps> {
   }
 }
 
-export default withRouter(Invoices);
+export default withRouter(PurchaseOrdersList);

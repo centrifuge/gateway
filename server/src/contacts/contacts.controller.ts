@@ -5,7 +5,9 @@ import {
   HttpException,
   HttpStatus,
   Inject,
+  Param,
   Post,
+  Put,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -41,7 +43,7 @@ export class ContactsController {
     const newContact = new Contact(
       contact.name,
       contact.address,
-      request.user.id,
+      request.user._id,
     );
     return await this.databaseService.contacts.create(newContact);
   }
@@ -50,11 +52,32 @@ export class ContactsController {
   /**
    * Get the list of all contacts for the authenticated user
    * @async
-   * @param {Promise<Contact[]>} result
+   * @param {Request} request - The http request
+   * @return {Promise<Contact[]>} result
    */
   async get(@Req() request) {
     return await this.databaseService.contacts.find({
-      ownerId: request.user.id,
+      ownerId: request.user._id,
     });
+  }
+
+  @Put(':id')
+  /**
+   * Update a contact by id, provided as a query parameter
+   * @async
+   * @param {any} params - the request parameters
+   * @param {Contact} updateContactObject - the update object for the contact
+   * @param {Request} request - the http request
+   * @return {Promise<Contact>} result
+   */
+  async updateById(
+    @Param() params,
+    @Body() updateContactObject: Contact,
+    @Req() request,
+  ) {
+    return this.databaseService.contacts.updateByQuery(
+      { _id: params.id, ownerId: request.user._id },
+      { ...updateContactObject, ownerId: request.user._id },
+    );
   }
 }

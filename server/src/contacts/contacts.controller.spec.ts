@@ -23,6 +23,7 @@ describe('ContactsController', () => {
     contacts = {
       create: jest.fn(val => val),
       find: jest.fn(() => fetchedContacts),
+      updateByQuery: jest.fn(data => data),
     };
   }
 
@@ -62,7 +63,7 @@ describe('ContactsController', () => {
       const userId = 'owner_id';
 
       const result = await contactsController.create(
-        { user: { id: userId } },
+        { user: { _id: userId } },
         contactToCreate,
       );
 
@@ -84,7 +85,7 @@ describe('ContactsController', () => {
       const userId = 'owner_id';
 
       try {
-        await contactsController.create({ user: { id: userId } }, {
+        await contactsController.create({ user: { _id: userId } }, {
           address: '0xc111111111a4e539741ca11b590b9447b26a8057',
         } as Contact);
       } catch (err) {
@@ -103,7 +104,7 @@ describe('ContactsController', () => {
       const userId = 'owner_id';
 
       try {
-        await contactsController.create({ user: { id: userId } }, {
+        await contactsController.create({ user: { _id: userId } }, {
           name: 'Joe',
         } as Contact);
       } catch (err) {
@@ -121,10 +122,45 @@ describe('ContactsController', () => {
       );
 
       const result = await contactsController.get({
-        user: { id: 'some_user_id' },
+        user: { _id: 'some_user_id' },
       });
       expect(result).toBe(fetchedContacts);
       expect(databaseServiceMock.contacts.find).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('update', function() {
+    it('should call the database service', async function() {
+      const contactsController = contactsModule.get<ContactsController>(
+        ContactsController,
+      );
+
+      const updateContactObject = {
+        name: 'Snow white',
+        address: 'Dark forest',
+        _id: 'snow_white_7',
+      };
+
+      const userId = 'some_user_id';
+
+      await contactsController.updateById(
+        { id: updateContactObject._id },
+        updateContactObject,
+        {
+          user: { _id: userId },
+        },
+      );
+
+      expect(databaseServiceMock.contacts.updateByQuery).toHaveBeenCalledTimes(
+        1,
+      );
+      expect(databaseServiceMock.contacts.updateByQuery).toHaveBeenCalledWith(
+        {
+          _id: updateContactObject._id,
+          ownerId: userId,
+        },
+        { ...updateContactObject, ownerId: userId },
+      );
     });
   });
 });

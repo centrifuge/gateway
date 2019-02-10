@@ -2,19 +2,21 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import CreateInvoice from './CreateInvoice';
-import { createInvoice } from '../../actions/invoices';
+import CreateEditInvoice from '../CreateEditInvoice';
+import { createInvoice, resetCreateInvoice } from '../../actions/invoices';
 import { Invoice } from '../../common/models/dto/invoice';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { RequestState } from '../../reducers/http-request-reducer';
 import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
 import { Contact } from '../../common/models/dto/contact';
-import { getContacts } from '../../actions/contacts';
+import { getContacts, resetGetContacts } from '../../actions/contacts';
 import { LabelValuePair } from '../../interfaces';
 
 type ConnectedCreateInvoiceProps = {
   createInvoice: (invoice: Invoice) => void;
+  resetCreateInvoice: () => void;
   getContacts: () => void;
+  resetGetContacts: () => void;
   creatingInvoice: boolean;
   contactsLoading: boolean;
   contacts?: LabelValuePair[];
@@ -27,6 +29,11 @@ class ConnectedCreateInvoice extends React.Component<
     if (!this.props.contacts) {
       this.props.getContacts();
     }
+  }
+
+  componentWillUnmount() {
+    this.props.resetCreateInvoice();
+    this.props.resetGetContacts();
   }
 
   createInvoice = (invoice: Invoice) => {
@@ -47,7 +54,7 @@ class ConnectedCreateInvoice extends React.Component<
     }
 
     return (
-      <CreateInvoice
+      <CreateEditInvoice
         onSubmit={this.createInvoice}
         onCancel={this.onCancel}
         contacts={this.props.contacts}
@@ -72,5 +79,5 @@ export default connect(
         : undefined,
     };
   },
-  { createInvoice, getContacts },
+  { createInvoice, resetCreateInvoice, getContacts, resetGetContacts },
 )(withRouter(ConnectedCreateInvoice));

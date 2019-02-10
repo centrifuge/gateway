@@ -3,29 +3,28 @@ import { Add, Checkmark } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 import { Box, Button, Heading } from 'grommet';
 import { Field, Form } from 'react-final-form';
-import SearchableDropdown from '../../components/form/SearchableDropdown';
-import { LabelValuePair } from '../../interfaces';
-import StyledTextInput from '../../components/StyledTextInput';
-import { required } from '../../validators';
-import { PurchaseOrder } from '../../common/models/dto/purchase-order';
-import { dateParser } from '../../parsers';
-import { dateFormatter } from '../../formatters';
+import { Invoice } from '../common/models/dto/invoice';
+import SearchableDropdown from '../components/form/SearchableDropdown';
+import { LabelValuePair } from '../interfaces';
+import StyledTextInput from '../components/StyledTextInput';
+import { required } from '../validators';
+import { dateParser } from '../parsers';
+import { dateFormatter } from '../formatters';
 
-type CreatePurchaseOrderProps = {
-  onSubmit: (purchaseOrder: PurchaseOrder) => void;
+type CreateInvoiceProps = {
+  onSubmit: (invoice: Invoice) => void;
   onCancel: () => void;
   contacts: LabelValuePair[];
+  invoice?: Invoice;
 };
 
-export default class CreatePurchaseOrder extends React.Component<
-  CreatePurchaseOrderProps
+export default class CreateEditInvoice extends React.Component<
+  CreateInvoiceProps
 > {
-  displayName = 'CreatePurchaseOrder';
+  displayName = 'CreateEditInvoice';
 
-  onSubmit = (values: PurchaseOrder) => {
-    return this.props.onSubmit({
-      ...values,
-    });
+  onSubmit = (values: Invoice) => {
+    return this.props.onSubmit({ ...values });
   };
 
   private renderButtons() {
@@ -46,100 +45,110 @@ export default class CreatePurchaseOrder extends React.Component<
     return (
       <Form
         onSubmit={this.onSubmit}
+        initialValues={this.props.invoice}
         render={({ handleSubmit }) => (
           <Box>
             <form onSubmit={handleSubmit}>
               <Box justify="between" direction="row" align="center">
-                <Heading level="3">Create New Purchase Order</Heading>
+                <Heading level="3">
+                  {this.props.invoice ? 'Update Invoice' : 'Create New Invoice'}
+                </Heading>
                 {this.renderButtons()}
               </Box>
               <Box>
-                {/* Puchase order number */}
                 <Box direction="column" gap="small">
+                  {/* Invoice number section */}
                   <Box background="white" pad="medium">
-                    <Field validate={required} name="po_number">
+                    <Field validate={required} name="invoice_number">
                       {({ input, meta }) => (
                         <StyledTextInput
                           input={input}
                           meta={meta}
-                          label="Purchase order number"
-                          description="Purchase order number or reference number"
-                          placeholder="Please enter purchase order number"
+                          label="Invoice number"
+                          description="Invoice number or reference number"
+                          placeholder="Please enter invoice number"
                         />
                       )}
                     </Field>
                   </Box>
 
-                  {/* Buyer section */}
+                  {/* Sender section */}
                   <Box background="white" pad="medium" gap="small">
                     <Box direction="row" gap="small">
                       <Field
                         validate={required}
-                        name="order"
+                        name="sender"
                         items={this.props.contacts}
                         // @ts-ignore - necessary until https://github.com/final-form/react-final-form/issues/398 is fixed
                         render={({ input, meta, items }) => (
                           <SearchableDropdown
-                            label="Buyer"
+                            label="Sender"
                             input={input}
                             meta={meta}
                             items={items}
+                            selected={
+                              this.props.invoice &&
+                              this.props.contacts.find(
+                                contact =>
+                                  contact.value === this.props.invoice!.sender,
+                              )
+                            }
                           />
                         )}
                       />
-                      <Field validate={required} name="order_name">
+                      <Field validate={required} name="sender_name">
                         {({ input, meta }) => (
                           <StyledTextInput
                             input={input}
                             meta={meta}
-                            label="Buyer name"
-                            description="Name of the buyer company"
-                            placeholder="Please enter the buyer name"
+                            label="Sender name"
+                            description="Name of the sender company"
+                            placeholder="Please enter the sender name"
                           />
                         )}
                       </Field>
                     </Box>
                     <Box direction="row" gap="small">
-                      <Field validate={required} name="order_street">
+                      <Field validate={required} name="sender_street">
                         {({ input, meta }) => (
                           <StyledTextInput
                             input={input}
                             meta={meta}
-                            label="Buyer street"
-                            placeholder="Please enter the buyer street"
+                            label="Sender street"
+                            placeholder="Please enter the sender street"
                           />
                         )}
                       </Field>
-                      <Field validate={required} name="order_country">
+                      <Field validate={required} name="sender_country">
                         {({ input, meta }) => (
                           <StyledTextInput
                             input={input}
                             meta={meta}
-                            label="Buyer country"
-                            description="Country ISO code of the buyer of this order"
-                            placeholder="Please enter the buyer country"
+                            label="Sender country"
+                            description="Country ISO code of the sender of this invoice"
+                            placeholder="Please enter the sender country"
                           />
                         )}
                       </Field>
                     </Box>
                     <Box direction="row" gap="small">
-                      <Field validate={required} name="order_city">
+                      <Field validate={required} name="sender_city">
                         {({ input, meta }) => (
                           <StyledTextInput
                             input={input}
                             meta={meta}
-                            label="Buyer city"
-                            placeholder="Please enter the buyer city"
+                            label="Sender city"
+                            placeholder="Please enter the sender city"
                           />
                         )}
                       </Field>
-                      <Field validate={required} name="order_zipcode">
+                      <Field validate={required} name="sender_zipcode">
                         {({ input, meta }) => (
                           <StyledTextInput
                             input={input}
                             meta={meta}
-                            label="Buyer ZIP code"
-                            placeholder="Please enter the buyer ZIP code"
+                            label="Sender ZIP code"
+                            placeholder="Please enter the sender ZIP code"
                           />
                         )}
                       </Field>
@@ -160,6 +169,14 @@ export default class CreatePurchaseOrder extends React.Component<
                             input={input}
                             meta={meta}
                             items={items}
+                            selected={
+                              this.props.invoice &&
+                              this.props.contacts.find(
+                                contact =>
+                                  contact.value ===
+                                  this.props.invoice!.recipient,
+                              )
+                            }
                           />
                         )}
                       />
@@ -192,7 +209,7 @@ export default class CreatePurchaseOrder extends React.Component<
                             input={input}
                             meta={meta}
                             label="Recipient country"
-                            description="Country ISO code of the recipient of this order"
+                            description="Country ISO code of the recipient of this invoice"
                             placeholder="Please enter the recipient country"
                           />
                         )}
@@ -234,6 +251,16 @@ export default class CreatePurchaseOrder extends React.Component<
                           />
                         )}
                       </Field>
+                      <Field validate={required} name="gross_amount">
+                        {({ input, meta }) => (
+                          <StyledTextInput
+                            input={input}
+                            meta={meta}
+                            label="Gross amount"
+                            placeholder="Please enter the gross amount"
+                          />
+                        )}
+                      </Field>
                       <Field validate={required} name="net_amount">
                         {({ input, meta }) => (
                           <StyledTextInput
@@ -241,16 +268,6 @@ export default class CreatePurchaseOrder extends React.Component<
                             meta={meta}
                             label="Net amount"
                             placeholder="Please enter the net amount"
-                          />
-                        )}
-                      </Field>
-                      <Field validate={required} name="order_amount">
-                        {({ input, meta }) => (
-                          <StyledTextInput
-                            input={input}
-                            meta={meta}
-                            label="Order amount"
-                            placeholder="Please enter the order amount"
                           />
                         )}
                       </Field>
@@ -276,8 +293,29 @@ export default class CreatePurchaseOrder extends React.Component<
                     </Box>
                     <Box direction="row" gap="small">
                       <Field
+                        name="payee"
                         validate={required}
-                        name="delivery_date"
+                        items={this.props.contacts}
+                        // @ts-ignore - necessary until https://github.com/final-form/react-final-form/issues/398 is fixed
+                        render={({ input, meta, items }) => (
+                          <SearchableDropdown
+                            label="Payee"
+                            input={input}
+                            meta={meta}
+                            items={items}
+                            selected={
+                              this.props.invoice &&
+                              this.props.contacts.find(
+                                contact =>
+                                  contact.value === this.props.invoice!.payee,
+                              )
+                            }
+                          />
+                        )}
+                      />
+                      <Field
+                        validate={required}
+                        name="due_date"
                         parse={dateParser}
                         format={dateFormatter}
                       >
@@ -324,6 +362,15 @@ export default class CreatePurchaseOrder extends React.Component<
                           input={input}
                           meta={meta}
                           items={items}
+                          selected={
+                            this.props.invoice &&
+                            this.props.contacts.filter(
+                              contact =>
+                                this.props.invoice!.collaborators!.indexOf(
+                                  contact.value,
+                                ) !== -1,
+                            )
+                          }
                         />
                       )}
                     />

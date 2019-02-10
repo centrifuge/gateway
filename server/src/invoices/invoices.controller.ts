@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Inject, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { Invoice } from '../../../src/common/models/dto/invoice';
 import { ROUTES } from '../../../src/common/constants';
 import { SessionGuard } from '../auth/SessionGuard';
@@ -7,6 +17,7 @@ import { tokens as databaseTokens } from '../database/database.constants';
 import {
   DocumentServiceApi,
   InvoiceInvoiceData,
+  InvoiceInvoiceResponse,
 } from '../../../clients/centrifuge-node/generated-client';
 import { DatabaseProvider } from '../database/database.providers';
 import { InvoiceData } from '../../../src/interfaces';
@@ -25,29 +36,34 @@ export class InvoicesController {
   /**
    * Create an invoice and save in the centrifuge node and the local database
    * @async
+   * @param request - the http request
    * @param {Invoice} invoice - the body of the request
    * @return {Promise<InvoiceInvoiceResponse>} result
    */
-  async create(@Body() invoice: Invoice) {
+  async create(@Req() request, @Body() invoice: Invoice) {
     const createResult = await this.centrifugeClient.create({
       data: {
         ...invoice,
       },
       collaborators: invoice.collaborators,
     });
-    return await this.database.invoices.create(createResult);
+
+    return await this.database.invoices.create({
+      ...createResult,
+      ownerId: request.user._id,
+    });
   }
 
   @Get()
   /**
    * Get the list of all invoices
    * @async
-   * @param {Promise<Invoice[]>} result
+   * @return {Promise<Invoice[]>} result
    */
-  async get(): Promise<InvoiceData[]> {
-    const invoices = (await this.database.invoices.find(
-      {},
-    )) as (InvoiceInvoiceData & { _id: string })[];
+  async get(@Req() request): Promise<InvoiceData[]> {
+    const invoices = (await this.database.invoices.find({
+      ownerId: request.user._id,
+    })) as (InvoiceInvoiceData & { _id: string })[];
 
     return await Promise.all(
       invoices.map(async invoice => {
@@ -64,5 +80,53 @@ export class InvoicesController {
         return invoice;
       }),
     );
+  }
+
+  @Get(':id')
+  /**
+   * Get a specific invoice by id
+   * @async
+   * @param params - the request parameters
+   * @param request - the http request
+   * @return {Promise<Invoice|null>} result
+   */
+  async getById(@Param() params, @Req() request): Promise<Invoice | null> {
+    return this.database.invoices.findOne({
+      _id: params.id,
+      ownerId: request.user._id,
+    });
+  }
+
+  /**
+   * Updates an invoice and saves in the centrifuge node and local database
+   * @async
+   * @param {Param} params - the query params
+   * @param {Param} request - the http request
+   * @param {PurchaseOrder} updateInvoiceRequest - the updated invoice
+   * @return {Promise<PurchaseOrder>} result
+   */
+  @Put(':id')
+  async updateById(
+    @Param() params,
+    @Req() request,
+    @Body() updateInvoiceRequest: Invoice,
+  ) {
+    let id = params.id;
+    const invoice: InvoiceInvoiceResponse = await this.database.invoices.findOne(
+      { _id: id, ownerId: request.user._id },
+    );
+
+    const updateResult = await this.centrifugeClient.update(
+      invoice.header.document_id,
+      {
+        data: { ...updateInvoiceRequest },
+        collaborators: updateInvoiceRequest.collaborators,
+      },
+    );
+
+    return await this.database.invoices.updateById(id, {
+      ...updateResult,
+      ownerId: request.user._id,
+    });
   }
 }
