@@ -40,7 +40,7 @@ export class UsersController {
   }
 
   @Post('register')
-  async register(@Body() user: User) {
+  async register(@Body() user: Partial<User>) {
     const dbUser: User = await this.database.users.findOne({
       username: user.username,
     });
@@ -48,12 +48,22 @@ export class UsersController {
     if (config.inviteOnly) {
       if (dbUser) {
         if (dbUser.invited && !dbUser.enabled) {
-          return this.upsertUser(dbUser, true);
+          return this.upsertUser(
+            {
+              _id: dbUser._id,
+              username: user.username,
+              password: user.password,
+              enabled: true,
+              invited: true,
+              permissions: [],
+            },
+            true,
+          );
         } else {
           throw new Error('Username taken!');
         }
       } else {
-        throw new Error('You need an invitation in order to register user!');
+        throw new Error('This user has not been invited!');
       }
     } else {
       if (dbUser) {
@@ -70,6 +80,14 @@ export class UsersController {
       throw new Error('Invite functionality not enabled!');
     }
 
+    const userExists = await this.database.users.findOne({
+      username: user.username,
+    });
+
+    if (userExists) {
+      throw new Error('User already invited!');
+    }
+
     await this.database.users.create({
       username: user.username,
       password: undefined,
@@ -81,7 +99,7 @@ export class UsersController {
     return 'OK';
   }
 
-  private async upsertUser(user: User, update?: boolean) {
+  private async upsertUser(user: Partial<User>, update?: boolean) {
     let id;
 
     const userToUpsert: User = {
