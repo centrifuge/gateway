@@ -13,7 +13,7 @@ import { SessionGuard } from '../auth/SessionGuard';
 import { ROUTES } from '../../../src/common/constants';
 import { DatabaseProvider } from '../database/database.providers';
 import { tokens as databaseTokens } from '../database/database.constants';
-import { PurchaseOrder } from '../../../src/common/models/dto/purchase-order';
+import { PurchaseOrder } from '../../../src/common/models/purchase-order';
 import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
 import {
   DocumentServiceApi,

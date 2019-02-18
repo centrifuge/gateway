@@ -4,6 +4,7 @@ const config = {
   centrifugeUrl: env.CENTRIFUGE_URL || 'https://localhost:8082',
   sessionSecret: env.SESSION_SECRET || 'centrifuge',
   dbPath: env.DB_PATH || '.',
+  inviteOnly: Boolean(env.INVITE_ONLY || false),
 };
 
 export default config;

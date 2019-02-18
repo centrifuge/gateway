@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpException } from '@nestjs/common';
 import { ContactsController } from './contacts.controller';
-import { Contact } from '../../../src/common/models/dto/contact';
+import { Contact } from '../../../src/common/models/contact';
 import { SessionGuard } from '../auth/SessionGuard';
 import { centrifugeClientFactory } from '../centrifuge-client/centrifuge.client';
 import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';

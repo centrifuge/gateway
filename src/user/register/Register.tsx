@@ -1,7 +1,7 @@
 import React from 'react';
 import { Anchor, Box, Button, Text, TextInput } from 'grommet';
 import { Field, Form } from 'react-final-form';
-import { User } from '../../common/models/dto/user';
+import { User } from '../../common/models/user';
 import routes from '../routes';
 import { required } from '../../validators';
 

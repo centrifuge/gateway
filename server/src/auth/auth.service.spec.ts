@@ -1,17 +1,21 @@
 import { Test } from '@nestjs/testing';
 
 import { AuthService } from './auth.service';
-import { User } from '../../../src/common/models/dto/user';
+import { User } from '../../../src/common/models/user';
 import { databaseConnectionFactory } from '../database/database.providers';
 import { tokens as databaseTokens } from '../database/database.constants';
 
 describe('LocalStrategy', function() {
   const unhashedPassword = 'my_password';
-  const mockUser = new User(
-    'my_username',
-    '$2b$12$qI.Lyik/2lJvLwfK74xFee7mOVWyKm0K20YPv4zlfis2dNOh2LJdO',
-    'user_id',
-  );
+  const mockUser: User = {
+    username: 'my_username',
+    password: '$2b$12$qI.Lyik/2lJvLwfK74xFee7mOVWyKm0K20YPv4zlfis2dNOh2LJdO',
+    _id: 'user_id',
+    enabled: true,
+    invited: false,
+    permissions: [],
+  };
+
   let authService: AuthService;
 
   beforeEach(async () => {

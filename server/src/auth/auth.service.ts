@@ -2,9 +2,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { promisify } from 'util';
 
-import { User } from '../../../src/common/models/dto/user';
+import { User } from '../../../src/common/models/user';
 import { DatabaseProvider } from '../database/database.providers';
 import { tokens } from '../database/database.constants';
+import config from '../config';
 
 @Injectable()
 export class AuthService {
@@ -23,8 +24,12 @@ export class AuthService {
    * will return the user, otherwise it returns null.
    */
   async validateUser(username: string, password: string): Promise<User | null> {
-    const user = await this.database.users.findOne({ username });
+    const user: User = await this.database.users.findOne({ username });
     if (user) {
+      if (!user.enabled) {
+        return null;
+      }
+
       const passwordMatch = await promisify(bcrypt.compare)(
         password,
         user.password,

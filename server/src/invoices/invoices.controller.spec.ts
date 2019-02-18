@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { InvoicesController } from './invoices.controller';
-import { Invoice } from '../../../src/common/models/dto/invoice';
+import { Invoice } from '../../../src/common/models/invoice';
 import { SessionGuard } from '../auth/SessionGuard';
 import { centrifugeClientFactory } from '../centrifuge-client/centrifuge.client';
 import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
 import { tokens as databaseTokens } from '../database/database.constants';
 import { databaseConnectionFactory } from '../database/database.providers';
-import { Contact } from '../../../src/common/models/dto/contact';
+import { Contact } from '../../../src/common/models/contact';
 import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
 
 describe('InvoicesController', () => {

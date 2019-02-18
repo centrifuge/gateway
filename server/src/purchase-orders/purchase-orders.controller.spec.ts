@@ -5,7 +5,7 @@ import { centrifugeClientFactory } from '../centrifuge-client/centrifuge.client'
 import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
 import { tokens as databaseTokens } from '../database/database.constants';
 import { databaseConnectionFactory } from '../database/database.providers';
-import { PurchaseOrder } from '../../../src/common/models/dto/purchase-order';
+import { PurchaseOrder } from '../../../src/common/models/purchase-order';
 
 describe('PurchaseOrdersController', () => {
   let purchaseOrdersModule: TestingModule;

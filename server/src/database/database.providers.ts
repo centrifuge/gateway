@@ -1,13 +1,13 @@
 import * as Nedb from 'nedb';
 import { promisify } from 'util';
 import { tokens } from './database.constants';
-import { User } from '../../../src/common/models/dto/user';
+import { User } from '../../../src/common/models/user';
 import { DatabaseRepository } from './database.repository';
 import {
   InvoiceInvoiceData,
   PurchaseorderPurchaseOrderResponse,
 } from '../../../clients/centrifuge-node/generated-client';
-import { Contact } from '../../../src/common/models/dto/contact';
+import { Contact } from '../../../src/common/models/contact';
 import config from '../config';
 import {
   InvoiceResponse,
@@ -21,37 +21,50 @@ export interface DatabaseProvider {
   purchaseOrders: DatabaseRepository<PurchaseOrderResponse>;
 }
 
-const testUser = new User(
-  'test',
-  '$2b$12$o7HxJQsEl0jjwZ6FoGiEv.uQs9hLDFo2fOj5S3BnLL4nGpLfy/yW2', // password is test
-);
+const testUser: User = {
+  username: 'test',
+  password: '$2b$12$o7HxJQsEl0jjwZ6FoGiEv.uQs9hLDFo2fOj5S3BnLL4nGpLfy/yW2', // password is test
+  enabled: true,
+  invited: false,
+  permissions: [],
+};
+
+const getRepository = async function<T>(path) {
+  const nedbInstance = new Nedb({ filename: path });
+  await promisify(nedbInstance.loadDatabase.bind(nedbInstance))();
+  return new DatabaseRepository<T>(nedbInstance);
+};
 
 /**
  * Initialize the database and the separate collections.
  */
 const initializeDatabase = async function() {
-  const invoicesDb = new Nedb({ filename: `${config.dbPath}/invoicesDb` });
-  await promisify(invoicesDb.loadDatabase.bind(invoicesDb))();
+  const invoicesRepository = await getRepository<InvoiceInvoiceData>(
+    `${config.dbPath}/invoicesDb`,
+  );
 
-  const usersDb = new Nedb({ filename: `${config.dbPath}/usersDb` });
-  await promisify(usersDb.loadDatabase.bind(usersDb))();
-  await promisify(usersDb.insert.bind(usersDb))(testUser);
-
-  const contactsDb = new Nedb({ filename: `${config.dbPath}/contactsDb` });
-  await promisify(contactsDb.loadDatabase.bind(contactsDb))();
-
-  const purchaseOrdersDb = new Nedb({
-    filename: `${config.dbPath}/purchaseOrdersDb`,
+  const usersRepository = await getRepository<User>(`${config.dbPath}/usersDb`);
+  const testUserFromDb = await usersRepository.findOne({
+    username: testUser.username,
   });
-  await promisify(purchaseOrdersDb.loadDatabase.bind(purchaseOrdersDb))();
+
+  if (!testUserFromDb) {
+    await usersRepository.create(testUser);
+  }
+
+  const contactsRepository = await getRepository<Contact>(
+    `${config.dbPath}/contactsDb`,
+  );
+
+  const purchaseOrdersRepository = await getRepository<
+    PurchaseorderPurchaseOrderResponse
+  >(`${config.dbPath}/purchaseOrdersDb`);
 
   return {
-    invoices: new DatabaseRepository<InvoiceInvoiceData>(invoicesDb),
-    users: new DatabaseRepository<User>(usersDb),
-    contacts: new DatabaseRepository<Contact>(contactsDb),
-    purchaseOrders: new DatabaseRepository<PurchaseorderPurchaseOrderResponse>(
-      purchaseOrdersDb,
-    ),
+    invoices: invoicesRepository,
+    users: usersRepository,
+    contacts: contactsRepository,
+    purchaseOrders: purchaseOrdersRepository,
   };
 };
 

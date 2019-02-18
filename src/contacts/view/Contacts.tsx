@@ -13,7 +13,7 @@ import {
 import { Add, Edit, More } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 
-import { Contact } from '../../common/models/dto/contact';
+import { Contact } from '../../common/models/contact';
 import { Field, Form } from 'react-final-form';
 import StyledTextInput from '../../components/StyledTextInput';
 import { required } from '../../validators';

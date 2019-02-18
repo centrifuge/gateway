@@ -9,7 +9,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { Invoice } from '../../../src/common/models/dto/invoice';
+import { Invoice } from '../../../src/common/models/invoice';
 import { ROUTES } from '../../../src/common/constants';
 import { SessionGuard } from '../auth/SessionGuard';
 import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';

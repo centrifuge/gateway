@@ -1,6 +1,6 @@
 import { UsersController } from './users.controller';
 import { DatabaseProvider } from '../database/database.providers';
-import { User } from '../../../src/common/models/dto/user';
+import { User } from '../../../src/common/models/user';
 
 describe('Users controller', function() {
   describe('logout', function() {
@@ -20,10 +20,13 @@ describe('Users controller', function() {
   });
 
   describe('register', function() {
-    const registeredUser = {
+    const registeredUser: User = {
       _id: 'user',
       username: 'username',
       password: 'password',
+      enabled: true,
+      invited: false,
+      permissions: [],
     };
 
     const dbMock = ({
@@ -49,10 +52,13 @@ describe('Users controller', function() {
     });
 
     it('should create the user if the username is not taken', async function() {
-      const newUser = {
+      const newUser: User = {
         _id: 'some_user_id',
         username: 'new_user',
         password: 'password',
+        invited: false,
+        enabled: true,
+        permissions: [],
       };
       const result = await usersController.register(newUser);
 
