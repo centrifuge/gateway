@@ -12,6 +12,7 @@ import {
   InvoiceInvoiceResponse,
   PurchaseorderPurchaseOrderResponse,
 } from '../../../clients/centrifuge-node/generated-client';
+import config from '../config';
 
 describe('WebhooksController', () => {
   let webhooksModule: TestingModule;
@@ -34,8 +35,10 @@ describe('WebhooksController', () => {
   };
 
   const centrifugeClient = {
-    get: jest.fn((): InvoiceInvoiceResponse => getResponse),
-    get_3: jest.fn((): PurchaseorderPurchaseOrderResponse => getResponse),
+    documents: {
+      get: jest.fn((): InvoiceInvoiceResponse => getResponse),
+      get_3: jest.fn((): PurchaseorderPurchaseOrderResponse => getResponse),
+    },
   };
 
   beforeEach(async () => {
@@ -50,7 +53,7 @@ describe('WebhooksController', () => {
       .compile();
 
     databaseServiceMock.invoices.create.mockClear();
-    centrifugeClient.get.mockClear();
+    centrifugeClient.documents.get.mockClear();
   });
 
   describe('when it receives success invoice creation', function() {
@@ -66,7 +69,10 @@ describe('WebhooksController', () => {
       });
 
       expect(result).toEqual('OK');
-      expect(centrifugeClient.get).toHaveBeenCalledWith(documentId);
+      expect(centrifugeClient.documents.get).toHaveBeenCalledWith(
+        documentId,
+        config.centrifugeId,
+      );
       expect(databaseServiceMock.invoices.create).toHaveBeenCalledWith(
         getResponse,
       );
@@ -86,7 +92,10 @@ describe('WebhooksController', () => {
       });
 
       expect(result).toEqual('OK');
-      expect(centrifugeClient.get_3).toHaveBeenCalledWith(documentId);
+      expect(centrifugeClient.documents.get_3).toHaveBeenCalledWith(
+        documentId,
+        config.centrifugeId,
+      );
       expect(databaseServiceMock.purchaseOrders.create).toHaveBeenCalledWith(
         getResponse,
       );
@@ -101,7 +110,7 @@ describe('WebhooksController', () => {
 
       const result = await webhooksController.receiveMessage({});
       expect(result).toBe('OK');
-      expect(centrifugeClient.get).not.toHaveBeenCalled();
+      expect(centrifugeClient.documents.get).not.toHaveBeenCalled();
       expect(databaseServiceMock.invoices.create).not.toHaveBeenCalled();
     });
   });

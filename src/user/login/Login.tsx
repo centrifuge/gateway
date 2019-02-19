@@ -1,6 +1,8 @@
 import React from 'react';
-import { Anchor, Box, Button, Text, TextInput } from 'grommet';
+import { Box, Button, Text, TextInput } from 'grommet';
 import { Field, Form } from 'react-final-form';
+import { Link } from 'react-router-dom';
+
 import { User } from '../../common/models/user';
 import routes from '../routes';
 
@@ -60,7 +62,7 @@ class Login extends React.Component<LoginProps> {
                   </Field>
                   <Text>
                     Not registered yet?{' '}
-                    <Anchor href={routes.register}>Register</Anchor>
+                    <Link to={routes.register}>Register</Link>
                   </Text>
                   <Box direction="row" height="50px">
                     <Button type="submit" primary label="Login" fill={true} />

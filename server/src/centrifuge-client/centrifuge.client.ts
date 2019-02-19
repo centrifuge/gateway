@@ -1,32 +1,21 @@
 import { tokens } from './centrifuge.constants';
-import { DocumentServiceApi } from '../../../clients/centrifuge-node/generated-client';
+import {
+  AccountServiceApi,
+  DocumentServiceApi,
+} from '../../../clients/centrifuge-node/generated-client';
 import config from '../config';
-import * as portableFetch from 'portable-fetch';
+import { CentrifugeClient } from './centrifuge.interfaces';
 
-const fetchWithHeaders = (url, options = { headers: {} }, ...rest) => {
-  return portableFetch(
-    url,
-    {
-      ...(options && options),
-      headers: {
-        Authorization: config.centrifugeId,
-      },
-      ...(options && options.headers && options.headers),
-    },
-    ...rest,
-  );
-};
+const documentsClient = new DocumentServiceApi({}, config.centrifugeUrl);
 
-// set up singleton centrifuge node client
-const centrifugeClient = new DocumentServiceApi(
-  {},
-  config.centrifugeUrl,
-  fetchWithHeaders,
-);
+const accountsClient = new AccountServiceApi({}, config.centrifugeUrl);
 
 export const centrifugeClientFactory = {
   provide: tokens.centrifugeClientFactory,
-  useFactory: () => {
-    return centrifugeClient;
+  useFactory: (): CentrifugeClient => {
+    return {
+      documents: documentsClient,
+      accounts: accountsClient,
+    };
   },
 };

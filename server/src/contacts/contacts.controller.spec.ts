@@ -30,7 +30,9 @@ describe('ContactsController', () => {
   const databaseServiceMock = new DatabaseServiceMock();
 
   class CentrifugeClientMock {
-    create = jest.fn(data => data);
+    documents = {
+      create: jest.fn(data => data),
+    };
   }
 
   const centrifugeClientMock = new CentrifugeClientMock();

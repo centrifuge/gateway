@@ -18,12 +18,16 @@ import { SessionGuard } from '../auth/SessionGuard';
 import { tokens as databaseTokens } from '../database/database.constants';
 import { DatabaseProvider } from '../database/database.providers';
 import config from '../config';
+import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
+import { CentrifugeClient } from '../centrifuge-client/centrifuge.interfaces';
 
 @Controller(ROUTES.USERS.base)
 export class UsersController {
   constructor(
     @Inject(databaseTokens.databaseConnectionFactory)
     private readonly database: DatabaseProvider,
+    @Inject(clientTokens.centrifugeClientFactory)
+    private readonly centrifugeClient: CentrifugeClient,
   ) {}
 
   @Post('login')
@@ -111,15 +115,21 @@ export class UsersController {
     };
 
     // TODO: create an account for the user
+    const generatedAccount = await this.centrifugeClient.accounts.generateAccount(
+      config.centrifugeId,
+    );
 
     if (update) {
-      const result = await this.database.users.updateById(
-        user._id,
-        userToUpsert,
-      );
+      const result = await this.database.users.updateById(user._id, {
+        ...userToUpsert,
+        account: generatedAccount.identity_id,
+      });
       id = result._id;
     } else {
-      const result = await this.database.users.create(userToUpsert);
+      const result = await this.database.users.create({
+        ...userToUpsert,
+        account: generatedAccount.identity_id,
+      });
       id = result._id;
     }
 

@@ -2,13 +2,23 @@ import { UsersController } from './users.controller';
 import { DatabaseProvider } from '../database/database.providers';
 import { User } from '../../../src/common/models/user';
 import config from '../config';
-import * as bcrypt from 'bcrypt';
-import { promisify } from 'util';
+import { CentrifugeClient } from '../centrifuge-client/centrifuge.interfaces';
 
 describe('Users controller', function() {
+  const centrifugeClientMock = ({
+    accounts: {
+      generateAccount: jest.fn(() => ({
+        identity_id: 'generated_identity_id',
+      })),
+    },
+  } as any) as CentrifugeClient;
+
   describe('logout', function() {
     it('should call request logout', async function() {
-      const usersController = new UsersController({} as DatabaseProvider);
+      const usersController = new UsersController(
+        {} as DatabaseProvider,
+        centrifugeClientMock,
+      );
       const request = {
         logout: jest.fn(),
       };
@@ -23,6 +33,33 @@ describe('Users controller', function() {
   });
 
   describe('when in invite mode', function() {
+    let registeredUser: User;
+
+    const dbMock = ({
+      users: {
+        findOne: (user): User | undefined =>
+          user.username === registeredUser.username
+            ? registeredUser
+            : undefined,
+        updateById: (userId) => ({ _id: userId }),
+        create: data => ({ ...data, _id: 'new_user_id' }),
+      },
+    } as any) as DatabaseProvider;
+
+    const usersController = new UsersController(dbMock, centrifugeClientMock);
+
+    beforeEach(() => {
+      jest.clearAllMocks();
+      registeredUser = {
+        _id: 'user',
+        username: 'username',
+        password: 'password',
+        enabled: true,
+        invited: false,
+        permissions: [],
+      };
+    });
+
     let inviteOnly;
 
     beforeAll(() => {
@@ -41,33 +78,6 @@ describe('Users controller', function() {
     });
 
     describe('register', function() {
-      let registeredUser: User;
-
-      const dbMock = ({
-        users: {
-          findOne: (user): User | undefined =>
-            user.username === registeredUser.username
-              ? registeredUser
-              : undefined,
-          updateById: (userId, userToUpsert) => ({ _id: userId }),
-          create: data => ({ ...data, _id: 'new_user_id' }),
-        },
-      } as any) as DatabaseProvider;
-
-      const usersController = new UsersController(dbMock);
-
-      beforeEach(() => {
-        jest.clearAllMocks();
-        registeredUser = {
-          _id: 'user',
-          username: 'username',
-          password: 'password',
-          enabled: true,
-          invited: false,
-          permissions: [],
-        };
-      });
-
       it('should throw if the username is taken and there is an enabled user', async function() {
         registeredUser.invited = true;
         registeredUser.enabled = true;
@@ -100,6 +110,7 @@ describe('Users controller', function() {
       });
     });
   });
+
   describe('when not in invite mode', function() {
     let inviteOnly;
 
@@ -132,7 +143,7 @@ describe('Users controller', function() {
         },
       } as any) as DatabaseProvider;
 
-      const usersController = new UsersController(dbMock);
+      const usersController = new UsersController(dbMock, centrifugeClientMock);
 
       beforeEach(() => {
         jest.clearAllMocks();
@@ -168,6 +179,7 @@ describe('Users controller', function() {
     describe('invite', function() {
       const usersController = new UsersController(
         ({} as any) as DatabaseProvider,
+        centrifugeClientMock,
       );
 
       it('should throw error', async function() {

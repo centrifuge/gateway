@@ -53,8 +53,10 @@ describe('PurchaseOrdersController', () => {
   const databaseServiceMock = new DatabaseServiceMock();
 
   class CentrifugeClientMock {
-    create_1 = jest.fn(data => data);
-    update_4 = jest.fn((id, data) => data);
+    documents = {
+      create_1: jest.fn(data => data),
+      update_4: jest.fn((id, data) => data),
+    };
   }
 
   const centrifugeClientMock = new CentrifugeClientMock();
@@ -76,7 +78,7 @@ describe('PurchaseOrdersController', () => {
 
     databaseServiceMock.purchaseOrders.create.mockClear();
     databaseServiceMock.purchaseOrders.find.mockClear();
-    centrifugeClientMock.create_1.mockClear();
+    centrifugeClientMock.documents.create_1.mockClear();
   });
 
   describe('create', () => {
@@ -90,7 +92,9 @@ describe('PurchaseOrdersController', () => {
         purchaseOrder,
       );
 
-      const collaborators = purchaseOrder.collaborators ? [...purchaseOrder.collaborators] : [];
+      const collaborators = purchaseOrder.collaborators
+        ? [...purchaseOrder.collaborators]
+        : [];
       collaborators.push(config.centrifugeId!);
 
       expect(result).toEqual({
@@ -137,7 +141,7 @@ describe('PurchaseOrdersController', () => {
         _id: 'id_to_update',
         ownerId: 'user_id',
       });
-      expect(centrifugeClientMock.update_4).toHaveBeenCalledWith(
+      expect(centrifugeClientMock.documents.update_4).toHaveBeenCalledWith(
         'find_one_document_id',
         {
           data: {
@@ -145,6 +149,7 @@ describe('PurchaseOrdersController', () => {
           },
           collaborators: ['new_collaborator'],
         },
+        config.centrifugeId,
       );
 
       expect(

@@ -15,13 +15,13 @@ import { SessionGuard } from '../auth/SessionGuard';
 import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
 import { tokens as databaseTokens } from '../database/database.constants';
 import {
-  DocumentServiceApi,
   InvoiceInvoiceData,
   InvoiceInvoiceResponse,
 } from '../../../clients/centrifuge-node/generated-client';
 import { DatabaseProvider } from '../database/database.providers';
 import { InvoiceData } from '../../../src/interfaces';
 import config from '../config';
+import { CentrifugeClient } from '../centrifuge-client/centrifuge.interfaces';
 
 @Controller(ROUTES.INVOICES)
 @UseGuards(SessionGuard)
@@ -30,7 +30,7 @@ export class InvoicesController {
     @Inject(databaseTokens.databaseConnectionFactory)
     private readonly database: DatabaseProvider,
     @Inject(clientTokens.centrifugeClientFactory)
-    private readonly centrifugeClient: DocumentServiceApi,
+    private readonly centrifugeClient: CentrifugeClient,
   ) {}
 
   @Post()
@@ -47,12 +47,15 @@ export class InvoicesController {
       : [];
     collaborators.push(config.centrifugeId);
 
-    const createResult = await this.centrifugeClient.create({
-      data: {
-        ...invoice,
+    const createResult = await this.centrifugeClient.documents.create(
+      {
+        data: {
+          ...invoice,
+        },
+        collaborators,
       },
-      collaborators,
-    });
+      config.centrifugeId,
+    );
 
     return await this.database.invoices.create({
       ...createResult,
@@ -122,12 +125,13 @@ export class InvoicesController {
       { _id: id, ownerId: request.user._id },
     );
 
-    const updateResult = await this.centrifugeClient.update(
+    const updateResult = await this.centrifugeClient.documents.update(
       invoice.header.document_id,
       {
         data: { ...updateInvoiceRequest },
         collaborators: updateInvoiceRequest.collaborators,
       },
+      config.centrifugeId,
     );
 
     return await this.database.invoices.updateById(id, {

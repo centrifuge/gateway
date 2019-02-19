@@ -15,11 +15,9 @@ import { DatabaseProvider } from '../database/database.providers';
 import { tokens as databaseTokens } from '../database/database.constants';
 import { PurchaseOrder } from '../../../src/common/models/purchase-order';
 import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
-import {
-  DocumentServiceApi,
-  PurchaseorderPurchaseOrderResponse,
-} from '../../../clients/centrifuge-node/generated-client';
+import { PurchaseorderPurchaseOrderResponse } from '../../../clients/centrifuge-node/generated-client';
 import config from '../config';
+import { CentrifugeClient } from '../centrifuge-client/centrifuge.interfaces';
 
 @Controller(ROUTES.PURCHASE_ORDERS)
 @UseGuards(SessionGuard)
@@ -28,7 +26,7 @@ export class PurchaseOrdersController {
     @Inject(databaseTokens.databaseConnectionFactory)
     private readonly database: DatabaseProvider,
     @Inject(clientTokens.centrifugeClientFactory)
-    readonly centrifugeClient: DocumentServiceApi,
+    readonly centrifugeClient: CentrifugeClient,
   ) {}
 
   @Post()
@@ -45,13 +43,14 @@ export class PurchaseOrdersController {
       : [];
     collaborators.push(config.centrifugeId);
 
-    const createResult: PurchaseorderPurchaseOrderResponse = await this.centrifugeClient.create_1(
+    const createResult: PurchaseorderPurchaseOrderResponse = await this.centrifugeClient.documents.create_1(
       {
         data: {
           ...purchaseOrder,
         },
         collaborators,
       },
+      config.centrifugeId,
     );
 
     return await this.database.purchaseOrders.create({
@@ -79,7 +78,7 @@ export class PurchaseOrdersController {
       const dbPurchaseOrder: PurchaseorderPurchaseOrderResponse = await this.database.purchaseOrders.findOne(
         { _id: id, ownerId: request.user._id },
       );
-      const updateResult = await this.centrifugeClient.update_4(
+      const updateResult = await this.centrifugeClient.documents.update_4(
         dbPurchaseOrder.header.document_id,
         {
           data: {
@@ -87,6 +86,7 @@ export class PurchaseOrdersController {
           },
           collaborators: purchaseOrder.collaborators,
         },
+        config.centrifugeId,
       );
 
       return await this.database.purchaseOrders.updateById(id, {

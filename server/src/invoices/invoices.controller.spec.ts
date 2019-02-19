@@ -63,8 +63,10 @@ describe('InvoicesController', () => {
   const databaseServiceMock = new DatabaseServiceMock();
 
   class CentrifugeClientMock {
-    create = jest.fn(data => data);
-    update = jest.fn((id, data) => data);
+    documents = {
+      create: jest.fn(data => data),
+      update: jest.fn((id, data) => data),
+    };
   }
 
   const centrifugeClientMock = new CentrifugeClientMock();
@@ -181,12 +183,13 @@ describe('InvoicesController', () => {
         _id: 'id_to_update',
         ownerId: 'user_id',
       });
-      expect(centrifugeClientMock.update).toHaveBeenCalledWith(
+      expect(centrifugeClientMock.documents.update).toHaveBeenCalledWith(
         'find_one_invoice_id',
         {
           data: { ...updatedInvoice },
           collaborators: ['new_collaborator'],
         },
+        config.centrifugeId,
       );
 
       expect(databaseServiceMock.invoices.updateById).toHaveBeenCalledWith(
