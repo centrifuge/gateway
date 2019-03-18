@@ -43,7 +43,7 @@
     "start": "run-p start:frontend start:backend",
     "start:frontend": "react-scripts start",
     "build:frontend": "react-scripts build",
-    "test:frontend": "react-scripts test",
+    "test:frontend": "react-scripts test --coverage",
     "start:backend": "nodemon",
     "test:backend": "jest --config server/jest.config.js --watch",
     "eject": "react-scripts eject"
