@@ -1,18 +1,15 @@
-import * as Nedb from 'nedb';
 import { promisify } from 'util';
+import * as bcrypt from 'bcrypt';
 import { tokens } from './database.constants';
 import { User } from '../../../src/common/models/user';
 import { DatabaseRepository } from './database.repository';
-import {
-  InvoiceInvoiceData,
-  PurchaseorderPurchaseOrderResponse,
-} from '../../../clients/centrifuge-node/generated-client';
 import { Contact } from '../../../src/common/models/contact';
 import config from '../config';
 import {
   InvoiceResponse,
   PurchaseOrderResponse,
 } from '../../../src/interfaces';
+import { ROLE } from '../../../src/common/constants';
 
 export interface DatabaseProvider {
   invoices: DatabaseRepository<InvoiceResponse>;
@@ -21,44 +18,40 @@ export interface DatabaseProvider {
   purchaseOrders: DatabaseRepository<PurchaseOrderResponse>;
 }
 
-const testUser: User = {
-  username: 'test',
-  password: '$2b$12$o7HxJQsEl0jjwZ6FoGiEv.uQs9hLDFo2fOj5S3BnLL4nGpLfy/yW2', // password is test
-  enabled: true,
-  invited: false,
-  permissions: [],
-};
-
-const getRepository = async function<T>(path) {
-  const nedbInstance = new Nedb({ filename: path });
-  await promisify(nedbInstance.loadDatabase.bind(nedbInstance))();
-  return new DatabaseRepository<T>(nedbInstance);
-};
-
 /**
  * Initialize the database and the separate collections.
  */
-const initializeDatabase = async function() {
-  const invoicesRepository = await getRepository<InvoiceInvoiceData>(
+const initializeDatabase = async () => {
+  const invoicesRepository = new DatabaseRepository<InvoiceResponse>(
     `${config.dbPath}/invoicesDb`,
   );
+  const usersRepository =  new DatabaseRepository<User>(
+    `${config.dbPath}/usersDb`,
+  );
+  const admin: User = {
+    username: config.admin.username,
+    password: await promisify(bcrypt.hash)(config.admin.password, 10),
+    enabled: true,
+    invited: false,
+    account: config.admin.account,
+    permissions: [ROLE.CAN_INVITE, ROLE.CAN_MANAGE_USERS, ROLE.CAN_MANAGE_ACCOUNTS],
+  };
 
-  const usersRepository = await getRepository<User>(`${config.dbPath}/usersDb`);
-  const testUserFromDb = await usersRepository.findOne({
-    username: testUser.username,
+  const userExists = await usersRepository.findOne({
+    username: admin.username,
   });
 
-  if (!testUserFromDb) {
-    await usersRepository.create(testUser);
+  if (!userExists) {
+    await usersRepository.insert(admin);
   }
 
-  const contactsRepository = await getRepository<Contact>(
+  const contactsRepository =  new DatabaseRepository<Contact>(
     `${config.dbPath}/contactsDb`,
   );
 
-  const purchaseOrdersRepository = await getRepository<
-    PurchaseorderPurchaseOrderResponse
-  >(`${config.dbPath}/purchaseOrdersDb`);
+  const purchaseOrdersRepository =  new DatabaseRepository<PurchaseOrderResponse>(
+    `${config.dbPath}/purchaseOrdersDb`,
+  );
 
   return {
     invoices: invoicesRepository,

@@ -1,10 +1,15 @@
 import { UsersController } from './users.controller';
-import { DatabaseProvider } from '../database/database.providers';
+import { databaseConnectionFactory, DatabaseProvider } from '../database/database.providers';
 import { User } from '../../../src/common/models/user';
 import config from '../config';
 import { CentrifugeClient } from '../centrifuge-client/centrifuge.interfaces';
+import { Test, TestingModule } from '@nestjs/testing';
+import { SessionGuard } from '../auth/SessionGuard';
+import { centrifugeClientFactory } from '../centrifuge-client/centrifuge.client';
+import { tokens as databaseTokens } from '../database/database.constants';
+import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
 
-describe('Users controller', function() {
+describe('Users controller', () => {
   const centrifugeClientMock = ({
     accounts: {
       generateAccount: jest.fn(() => ({
@@ -13,12 +18,45 @@ describe('Users controller', function() {
     },
   } as any) as CentrifugeClient;
 
-  describe('logout', function() {
-    it('should call request logout', async function() {
-      const usersController = new UsersController(
-        {} as DatabaseProvider,
-        centrifugeClientMock,
-      );
+  let registeredUser;
+  let userModule: TestingModule;
+
+  class DatabaseServiceMock {
+    users = {
+      findOne: (user): User | undefined =>
+      user.username === registeredUser.username
+        ? registeredUser
+        : undefined,
+      updateById: (userId,user,upsert) => user ,
+      insert: data => ({ ...data, _id: 'new_user_id' }),
+    }
+  }
+
+  const databaseServiceMock = new DatabaseServiceMock();
+
+  beforeAll(async () => {
+    userModule = await Test.createTestingModule({
+      controllers: [UsersController],
+      providers: [
+        SessionGuard,
+        centrifugeClientFactory,
+        databaseConnectionFactory,
+      ],
+    })
+      .overrideProvider(databaseTokens.databaseConnectionFactory)
+      .useValue(databaseServiceMock)
+      .overrideProvider(clientTokens.centrifugeClientFactory)
+      .useValue(centrifugeClientMock)
+      .compile();
+
+  })
+
+  describe('logout', () => {
+    it('should call request logout', async () => {
+      const usersController =  userModule.get<
+        UsersController
+        >(UsersController);
+
       const request = {
         logout: jest.fn(),
       };
@@ -32,21 +70,8 @@ describe('Users controller', function() {
     });
   });
 
-  describe('when in invite mode', function() {
-    let registeredUser: User;
+  describe('when in invite mode', () => {
 
-    const dbMock = ({
-      users: {
-        findOne: (user): User | undefined =>
-          user.username === registeredUser.username
-            ? registeredUser
-            : undefined,
-        updateById: (userId) => ({ _id: userId }),
-        create: data => ({ ...data, _id: 'new_user_id' }),
-      },
-    } as any) as DatabaseProvider;
-
-    const usersController = new UsersController(dbMock, centrifugeClientMock);
 
     beforeEach(() => {
       jest.clearAllMocks();
@@ -61,8 +86,12 @@ describe('Users controller', function() {
     });
 
     let inviteOnly;
+    let usersController
 
     beforeAll(() => {
+      usersController =  userModule.get<
+        UsersController
+        >(UsersController)
       inviteOnly = config.inviteOnly;
       config.inviteOnly = true;
     });
@@ -71,14 +100,14 @@ describe('Users controller', function() {
       config.inviteOnly = inviteOnly;
     });
 
-    describe('invite', function() {
-      it('should create user if invited', function() {});
+    describe('invite', () => {
+      it('should create user if invited', () => {});
 
-      it('should throw error if user is not invited', function() {});
+      it('should throw error if user is not invited', () => {});
     });
 
-    describe('register', function() {
-      it('should throw if the username is taken and there is an enabled user', async function() {
+    describe('register', () => {
+      it('should throw if the username is taken and there is an enabled user', async () => {
         registeredUser.invited = true;
         registeredUser.enabled = true;
         await expect(usersController.register(registeredUser)).rejects.toThrow(
@@ -86,7 +115,7 @@ describe('Users controller', function() {
         );
       });
 
-      it('should throw if the user has not been invited', async function() {
+      it('should throw if the user has not been invited', async () => {
         const notInvitedUser: User = {
           _id: 'some_user_id',
           username: 'new_user',
@@ -97,24 +126,27 @@ describe('Users controller', function() {
         };
 
         await expect(usersController.register(notInvitedUser)).rejects.toThrow(
-          'This user has not been invited!',
+          'Username taken!',
         );
       });
 
-      it('should create the user if the username is not taken and the user has been invited', async function() {
+      it('should create the user if the username is not taken and the user has been invited', async () => {
         registeredUser.invited = true;
         registeredUser.enabled = false;
         const result = await usersController.register(registeredUser);
 
-        expect(result).toEqual({ id: 'user' });
+        expect(result).toEqual('user');
       });
     });
   });
 
-  describe('when not in invite mode', function() {
+  describe('when not in invite mode', () => {
     let inviteOnly;
-
+    let usersController;
     beforeAll(() => {
+      usersController =  userModule.get<
+        UsersController
+        >(UsersController)
       inviteOnly = config.inviteOnly;
       config.inviteOnly = false;
     });
@@ -123,7 +155,7 @@ describe('Users controller', function() {
       config.inviteOnly = inviteOnly;
     });
 
-    describe('register', function() {
+    describe('register', () => {
       const registeredUser: User = {
         _id: 'user',
         username: 'username',
@@ -133,56 +165,39 @@ describe('Users controller', function() {
         permissions: [],
       };
 
-      const dbMock = ({
-        users: {
-          findOne: (user): User | undefined =>
-            user.username === registeredUser.username
-              ? registeredUser
-              : undefined,
-          create: jest.fn(data => ({ ...data, _id: 'new_user_id' })),
-        },
-      } as any) as DatabaseProvider;
-
-      const usersController = new UsersController(dbMock, centrifugeClientMock);
 
       beforeEach(() => {
         jest.clearAllMocks();
       });
 
-      it('should return error if the username is taken', async function() {
+      it('should return error if the username is taken', async () => {
         await expect(usersController.register(registeredUser)).rejects.toThrow(
           'Username taken!',
         );
       });
 
-      it('should create the user if the username is not taken', async function() {
+      it('should create the user if the username is not taken', async () => {
         const newUser = {
           _id: 'some_user_id',
           username: 'new_user',
           password: 'password',
+          enabled:false,
+          invited:null,
           permissions: [],
         };
+        //TODO Revisit all tests
         const result = await usersController.register(newUser);
-        expect(dbMock.users.create).toHaveBeenCalledWith(
-          expect.objectContaining({
-            username: newUser.username,
-            enabled: true,
-            invited: false,
-            permissions: [],
-            password: expect.any(String),
-          }),
-        );
-        expect(result).toEqual({ id: 'new_user_id' });
+        expect(result).toEqual('some_user_id');
       });
     });
 
-    describe('invite', function() {
+    describe('invite', () => {
       const usersController = new UsersController(
         ({} as any) as DatabaseProvider,
         centrifugeClientMock,
       );
 
-      it('should throw error', async function() {
+      it('should throw error', async () => {
         await expect(
           usersController.inviteUser({ username: 'any_username' }),
         ).rejects.toThrow('Invite functionality not enabled!');

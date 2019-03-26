@@ -45,8 +45,6 @@ export class InvoicesController {
     const collaborators = invoice.collaborators
       ? [...invoice.collaborators]
       : [];
-    collaborators.push(config.centrifugeId);
-
     const createResult = await this.centrifugeClient.documents.create(
       {
         data: {
@@ -54,10 +52,10 @@ export class InvoicesController {
         },
         collaborators,
       },
-      config.centrifugeId,
+      config.admin.account,
     );
 
-    return await this.database.invoices.create({
+    return await this.database.invoices.insert({
       ...createResult,
       ownerId: request.user._id,
     });
@@ -120,9 +118,8 @@ export class InvoicesController {
     @Req() request,
     @Body() updateInvoiceRequest: Invoice,
   ) {
-    let id = params.id;
     const invoice: InvoiceInvoiceResponse = await this.database.invoices.findOne(
-      { _id: id, ownerId: request.user._id },
+      { _id:  params.id, ownerId: request.user._id },
     );
 
     const updateResult = await this.centrifugeClient.documents.update(
@@ -131,10 +128,10 @@ export class InvoicesController {
         data: { ...updateInvoiceRequest },
         collaborators: updateInvoiceRequest.collaborators,
       },
-      config.centrifugeId,
+      config.admin.account,
     );
 
-    return await this.database.invoices.updateById(id, {
+    return await this.database.invoices.updateById( params.id, {
       ...updateResult,
       ownerId: request.user._id,
     });

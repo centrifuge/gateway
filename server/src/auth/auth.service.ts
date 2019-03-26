@@ -5,7 +5,6 @@ import { promisify } from 'util';
 import { User } from '../../../src/common/models/user';
 import { DatabaseProvider } from '../database/database.providers';
 import { tokens } from '../database/database.constants';
-import config from '../config';
 
 @Injectable()
 export class AuthService {

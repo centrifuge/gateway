@@ -2,7 +2,7 @@
 // tslint:disable
 /**
  * Centrifuge OS Node API
- *  
+ *
  *
  * OpenAPI spec version: 0.0.3
  * Contact: hello@centrifuge.io
@@ -40,7 +40,7 @@ export interface FetchAPI {
 }
 
 /**
- *  
+ *
  * @export
  * @interface FetchArgs
  */
@@ -50,7 +50,7 @@ export interface FetchArgs {
 }
 
 /**
- * 
+ *
  * @export
  * @class BaseAPI
  */
@@ -66,7 +66,7 @@ export class BaseAPI {
 };
 
 /**
- * 
+ *
  * @export
  * @class RequiredError
  * @extends {Error}
@@ -79,49 +79,49 @@ export class RequiredError extends Error {
 }
 
 /**
- * 
+ *
  * @export
  * @interface AccountAccountData
  */
 export interface AccountAccountData {
     /**
-     * 
+     *
      * @type {AccountEthereumAccount}
      * @memberof AccountAccountData
      */
     eth_account?: AccountEthereumAccount;
     /**
-     * 
+     *
      * @type {string}
      * @memberof AccountAccountData
      */
     eth_default_account_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof AccountAccountData
      */
     receive_event_notification_endpoint?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof AccountAccountData
      */
     identity_id?: string;
     /**
-     * 
+     *
      * @type {AccountKeyPair}
      * @memberof AccountAccountData
      */
     signing_key_pair?: AccountKeyPair;
     /**
-     * 
+     *
      * @type {AccountKeyPair}
      * @memberof AccountAccountData
      */
     ethauth_key_pair?: AccountKeyPair;
     /**
-     * 
+     *
      * @type {AccountKeyPair}
      * @memberof AccountAccountData
      */
@@ -129,25 +129,25 @@ export interface AccountAccountData {
 }
 
 /**
- * 
+ *
  * @export
  * @interface AccountEthereumAccount
  */
 export interface AccountEthereumAccount {
     /**
-     * 
+     *
      * @type {string}
      * @memberof AccountEthereumAccount
      */
     address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof AccountEthereumAccount
      */
     key?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof AccountEthereumAccount
      */
@@ -155,13 +155,13 @@ export interface AccountEthereumAccount {
 }
 
 /**
- * 
+ *
  * @export
  * @interface AccountGetAllAccountResponse
  */
 export interface AccountGetAllAccountResponse {
     /**
-     * 
+     *
      * @type {Array<AccountAccountData>}
      * @memberof AccountGetAllAccountResponse
      */
@@ -169,19 +169,19 @@ export interface AccountGetAllAccountResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface AccountKeyPair
  */
 export interface AccountKeyPair {
     /**
-     * 
+     *
      * @type {string}
      * @memberof AccountKeyPair
      */
     pub?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof AccountKeyPair
      */
@@ -189,19 +189,19 @@ export interface AccountKeyPair {
 }
 
 /**
- * 
+ *
  * @export
  * @interface AccountUpdateAccountRequest
  */
 export interface AccountUpdateAccountRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof AccountUpdateAccountRequest
      */
     identifier?: string;
     /**
-     * 
+     *
      * @type {AccountAccountData}
      * @memberof AccountUpdateAccountRequest
      */
@@ -209,139 +209,139 @@ export interface AccountUpdateAccountRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface ConfigConfigData
  */
 export interface ConfigConfigData {
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     storage_path?: string;
     /**
-     * 
+     *
      * @type {number}
      * @memberof ConfigConfigData
      */
     p2p_port?: number;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     p2p_external_ip?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     p2p_connection_timeout?: string;
     /**
-     * 
+     *
      * @type {number}
      * @memberof ConfigConfigData
      */
     server_port?: number;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     server_address?: string;
     /**
-     * 
+     *
      * @type {number}
      * @memberof ConfigConfigData
      */
     num_workers?: number;
     /**
-     * 
+     *
      * @type {number}
      * @memberof ConfigConfigData
      */
     worker_wait_time_ms?: number;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     eth_node_url?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     eth_context_read_wait_timeout?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     eth_context_wait_timeout?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     eth_interval_retry?: string;
     /**
-     * 
+     *
      * @type {number}
      * @memberof ConfigConfigData
      */
     eth_max_retries?: number;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     eth_gas_price?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     eth_gas_limit?: string;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof ConfigConfigData
      */
     tx_pool_enabled?: boolean;
     /**
-     * 
+     *
      * @type {string}
      * @memberof ConfigConfigData
      */
     network?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof ConfigConfigData
      */
     bootstrap_peers?: Array<string>;
     /**
-     * 
+     *
      * @type {number}
      * @memberof ConfigConfigData
      */
     network_id?: number;
     /**
-     * 
+     *
      * @type {AccountAccountData}
      * @memberof ConfigConfigData
      */
     main_identity?: AccountAccountData;
     /**
-     * 
+     *
      * @type {{ [key: string]: string; }}
      * @memberof ConfigConfigData
      */
     smart_contract_addresses?: { [key: string]: string; };
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof ConfigConfigData
      */
@@ -349,19 +349,19 @@ export interface ConfigConfigData {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentAccessTokenParams
  */
 export interface DocumentAccessTokenParams {
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentAccessTokenParams
      */
     grantee?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentAccessTokenParams
      */
@@ -369,31 +369,31 @@ export interface DocumentAccessTokenParams {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentCreateDocumentProofForVersionRequest
  */
 export interface DocumentCreateDocumentProofForVersionRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentCreateDocumentProofForVersionRequest
      */
     identifier?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentCreateDocumentProofForVersionRequest
      */
     type?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentCreateDocumentProofForVersionRequest
      */
     version?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof DocumentCreateDocumentProofForVersionRequest
      */
@@ -401,25 +401,25 @@ export interface DocumentCreateDocumentProofForVersionRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentCreateDocumentProofRequest
  */
 export interface DocumentCreateDocumentProofRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentCreateDocumentProofRequest
      */
     identifier?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentCreateDocumentProofRequest
      */
     type?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof DocumentCreateDocumentProofRequest
      */
@@ -427,19 +427,19 @@ export interface DocumentCreateDocumentProofRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentDocumentProof
  */
 export interface DocumentDocumentProof {
     /**
-     * 
+     *
      * @type {DocumentResponseHeader}
      * @memberof DocumentDocumentProof
      */
     header?: DocumentResponseHeader;
     /**
-     * 
+     *
      * @type {Array<DocumentProof>}
      * @memberof DocumentDocumentProof
      */
@@ -447,37 +447,37 @@ export interface DocumentDocumentProof {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentProof
  */
 export interface DocumentProof {
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentProof
      */
     property?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentProof
      */
     value?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentProof
      */
     salt?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentProof
      */
     hash?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof DocumentProof
      */
@@ -485,25 +485,25 @@ export interface DocumentProof {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentResponseHeader
  */
 export interface DocumentResponseHeader {
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentResponseHeader
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentResponseHeader
      */
     version_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentResponseHeader
      */
@@ -511,19 +511,19 @@ export interface DocumentResponseHeader {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentUpdateAccessTokenPayload
  */
 export interface DocumentUpdateAccessTokenPayload {
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentUpdateAccessTokenPayload
      */
     delegating_document_identifier?: string;
     /**
-     * 
+     *
      * @type {DocumentAccessTokenParams}
      * @memberof DocumentUpdateAccessTokenPayload
      */
@@ -531,19 +531,19 @@ export interface DocumentUpdateAccessTokenPayload {
 }
 
 /**
- * 
+ *
  * @export
  * @interface HealthPong
  */
 export interface HealthPong {
     /**
-     * 
+     *
      * @type {string}
      * @memberof HealthPong
      */
     version?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof HealthPong
      */
@@ -551,19 +551,19 @@ export interface HealthPong {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InvoiceInvoiceCreatePayload
  */
 export interface InvoiceInvoiceCreatePayload {
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof InvoiceInvoiceCreatePayload
      */
     collaborators?: Array<string>;
     /**
-     * 
+     *
      * @type {InvoiceInvoiceData}
      * @memberof InvoiceInvoiceCreatePayload
      */
@@ -571,151 +571,151 @@ export interface InvoiceInvoiceCreatePayload {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InvoiceInvoiceData
  */
 export interface InvoiceInvoiceData {
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     invoice_status?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     invoice_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     sender_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     sender_street?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     sender_city?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     sender_zipcode?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     sender_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     recipient_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     recipient_street?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     recipient_city?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     recipient_zipcode?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     recipient_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     currency?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     gross_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     net_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     tax_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     tax_rate?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     recipient?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     sender?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     payee?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
     comment?: string;
     /**
-     * 
+     *
      * @type {Date}
      * @memberof InvoiceInvoiceData
      */
     due_date?: Date;
     /**
-     * 
+     *
      * @type {Date}
      * @memberof InvoiceInvoiceData
      */
     date_created?: Date;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceData
      */
@@ -723,19 +723,19 @@ export interface InvoiceInvoiceData {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InvoiceInvoiceResponse
  */
 export interface InvoiceInvoiceResponse {
     /**
-     * 
+     *
      * @type {InvoiceResponseHeader}
      * @memberof InvoiceInvoiceResponse
      */
     header?: InvoiceResponseHeader;
     /**
-     * 
+     *
      * @type {InvoiceInvoiceData}
      * @memberof InvoiceInvoiceResponse
      */
@@ -743,31 +743,31 @@ export interface InvoiceInvoiceResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InvoiceInvoiceUpdatePayload
  */
 export interface InvoiceInvoiceUpdatePayload {
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceInvoiceUpdatePayload
      */
     identifier?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof InvoiceInvoiceUpdatePayload
      */
     collaborators?: Array<string>;
     /**
-     * 
+     *
      * @type {InvoiceInvoiceData}
      * @memberof InvoiceInvoiceUpdatePayload
      */
     data?: InvoiceInvoiceData;
     /**
-     * 
+     *
      * @type {DocumentUpdateAccessTokenPayload}
      * @memberof InvoiceInvoiceUpdatePayload
      */
@@ -775,37 +775,37 @@ export interface InvoiceInvoiceUpdatePayload {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InvoiceResponseHeader
  */
 export interface InvoiceResponseHeader {
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceResponseHeader
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceResponseHeader
      */
     version_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceResponseHeader
      */
     state?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof InvoiceResponseHeader
      */
     collaborators?: Array<string>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceResponseHeader
      */
@@ -813,31 +813,31 @@ export interface InvoiceResponseHeader {
 }
 
 /**
- * 
+ *
  * @export
  * @interface NftNFTMintRequest
  */
 export interface NftNFTMintRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof NftNFTMintRequest
      */
     identifier?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NftNFTMintRequest
      */
     registry_address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NftNFTMintRequest
      */
     deposit_address?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof NftNFTMintRequest
      */
@@ -845,19 +845,19 @@ export interface NftNFTMintRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface NftNFTMintResponse
  */
 export interface NftNFTMintResponse {
     /**
-     * 
+     *
      * @type {NftResponseHeader}
      * @memberof NftNFTMintResponse
      */
     header?: NftResponseHeader;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NftNFTMintResponse
      */
@@ -865,13 +865,13 @@ export interface NftNFTMintResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface NftResponseHeader
  */
 export interface NftResponseHeader {
     /**
-     * 
+     *
      * @type {string}
      * @memberof NftResponseHeader
      */
@@ -879,49 +879,49 @@ export interface NftResponseHeader {
 }
 
 /**
- * 
+ *
  * @export
  * @interface NotificationNotificationMessage
  */
 export interface NotificationNotificationMessage {
     /**
-     * 
+     *
      * @type {number}
      * @memberof NotificationNotificationMessage
      */
     event_type?: number;
     /**
-     * 
+     *
      * @type {Date}
      * @memberof NotificationNotificationMessage
      */
     recorded?: Date;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
     document_type?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
     account_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
     from_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
@@ -929,19 +929,19 @@ export interface NotificationNotificationMessage {
 }
 
 /**
- * 
+ *
  * @export
  * @interface PurchaseorderPurchaseOrderCreatePayload
  */
 export interface PurchaseorderPurchaseOrderCreatePayload {
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof PurchaseorderPurchaseOrderCreatePayload
      */
     collaborators?: Array<string>;
     /**
-     * 
+     *
      * @type {PurchaseorderPurchaseOrderData}
      * @memberof PurchaseorderPurchaseOrderCreatePayload
      */
@@ -949,151 +949,151 @@ export interface PurchaseorderPurchaseOrderCreatePayload {
 }
 
 /**
- * 
+ *
  * @export
  * @interface PurchaseorderPurchaseOrderData
  */
 export interface PurchaseorderPurchaseOrderData {
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     po_status?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     po_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     order_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     order_street?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     order_city?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     order_zipcode?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     order_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     recipient_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     recipient_street?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     recipient_city?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     recipient_zipcode?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     recipient_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     currency?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     order_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     net_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     tax_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     tax_rate?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     recipient?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     order?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     order_contact?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
     comment?: string;
     /**
-     * 
+     *
      * @type {Date}
      * @memberof PurchaseorderPurchaseOrderData
      */
     delivery_date?: Date;
     /**
-     * 
+     *
      * @type {Date}
      * @memberof PurchaseorderPurchaseOrderData
      */
     date_created?: Date;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderData
      */
@@ -1101,19 +1101,19 @@ export interface PurchaseorderPurchaseOrderData {
 }
 
 /**
- * 
+ *
  * @export
  * @interface PurchaseorderPurchaseOrderResponse
  */
 export interface PurchaseorderPurchaseOrderResponse {
     /**
-     * 
+     *
      * @type {PurchaseorderResponseHeader}
      * @memberof PurchaseorderPurchaseOrderResponse
      */
     header?: PurchaseorderResponseHeader;
     /**
-     * 
+     *
      * @type {PurchaseorderPurchaseOrderData}
      * @memberof PurchaseorderPurchaseOrderResponse
      */
@@ -1121,31 +1121,31 @@ export interface PurchaseorderPurchaseOrderResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface PurchaseorderPurchaseOrderUpdatePayload
  */
 export interface PurchaseorderPurchaseOrderUpdatePayload {
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderPurchaseOrderUpdatePayload
      */
     identifier?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof PurchaseorderPurchaseOrderUpdatePayload
      */
     collaborators?: Array<string>;
     /**
-     * 
+     *
      * @type {PurchaseorderPurchaseOrderData}
      * @memberof PurchaseorderPurchaseOrderUpdatePayload
      */
     data?: PurchaseorderPurchaseOrderData;
     /**
-     * 
+     *
      * @type {DocumentUpdateAccessTokenPayload}
      * @memberof PurchaseorderPurchaseOrderUpdatePayload
      */
@@ -1153,37 +1153,37 @@ export interface PurchaseorderPurchaseOrderUpdatePayload {
 }
 
 /**
- * 
+ *
  * @export
  * @interface PurchaseorderResponseHeader
  */
 export interface PurchaseorderResponseHeader {
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderResponseHeader
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderResponseHeader
      */
     version_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderResponseHeader
      */
     state?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof PurchaseorderResponseHeader
      */
     collaborators?: Array<string>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderResponseHeader
      */
@@ -1191,31 +1191,31 @@ export interface PurchaseorderResponseHeader {
 }
 
 /**
- * 
+ *
  * @export
  * @interface TransactionsTransactionStatusResponse
  */
 export interface TransactionsTransactionStatusResponse {
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransactionsTransactionStatusResponse
      */
     transaction_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransactionsTransactionStatusResponse
      */
     status?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransactionsTransactionStatusResponse
      */
     message?: string;
     /**
-     * 
+     *
      * @type {Date}
      * @memberof TransactionsTransactionStatusResponse
      */
@@ -1231,7 +1231,7 @@ export const AccountServiceApiFetchParamCreator = function (configuration?: Conf
     return {
         /**
          * Creates an Account
-         * @param {AccountAccountData} body 
+         * @param {AccountAccountData} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1302,7 +1302,7 @@ export const AccountServiceApiFetchParamCreator = function (configuration?: Conf
         },
         /**
          * Get Account
-         * @param {string} identifier 
+         * @param {string} identifier
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1370,8 +1370,8 @@ export const AccountServiceApiFetchParamCreator = function (configuration?: Conf
         },
         /**
          * Updates an Account
-         * @param {string} identifier 
-         * @param {AccountUpdateAccountRequest} body 
+         * @param {string} identifier
+         * @param {AccountUpdateAccountRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1425,7 +1425,7 @@ export const AccountServiceApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Creates an Account
-         * @param {AccountAccountData} body 
+         * @param {AccountAccountData} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1462,7 +1462,7 @@ export const AccountServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Get Account
-         * @param {string} identifier 
+         * @param {string} identifier
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1499,8 +1499,8 @@ export const AccountServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Updates an Account
-         * @param {string} identifier 
-         * @param {AccountUpdateAccountRequest} body 
+         * @param {string} identifier
+         * @param {AccountUpdateAccountRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1528,7 +1528,7 @@ export const AccountServiceApiFactory = function (configuration?: Configuration,
     return {
         /**
          * Creates an Account
-         * @param {AccountAccountData} body 
+         * @param {AccountAccountData} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1547,7 +1547,7 @@ export const AccountServiceApiFactory = function (configuration?: Configuration,
         },
         /**
          * Get Account
-         * @param {string} identifier 
+         * @param {string} identifier
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1566,8 +1566,8 @@ export const AccountServiceApiFactory = function (configuration?: Configuration,
         },
         /**
          * Updates an Account
-         * @param {string} identifier 
-         * @param {AccountUpdateAccountRequest} body 
+         * @param {string} identifier
+         * @param {AccountUpdateAccountRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1587,7 +1587,7 @@ export const AccountServiceApiFactory = function (configuration?: Configuration,
 export class AccountServiceApi extends BaseAPI {
     /**
      * Creates an Account
-     * @param {AccountAccountData} body 
+     * @param {AccountAccountData} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1610,7 +1610,7 @@ export class AccountServiceApi extends BaseAPI {
 
     /**
      * Get Account
-     * @param {string} identifier 
+     * @param {string} identifier
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1633,8 +1633,8 @@ export class AccountServiceApi extends BaseAPI {
 
     /**
      * Updates an Account
-     * @param {string} identifier 
-     * @param {AccountUpdateAccountRequest} body 
+     * @param {string} identifier
+     * @param {AccountUpdateAccountRequest} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1759,7 +1759,7 @@ export const DocumentServiceApiFetchParamCreator = function (configuration?: Con
     return {
         /**
          * Creates an invoice
-         * @param {InvoiceInvoiceCreatePayload} body 
+         * @param {InvoiceInvoiceCreatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1799,8 +1799,8 @@ export const DocumentServiceApiFetchParamCreator = function (configuration?: Con
         },
         /**
          * Creates a list of precise proofs for the specified fields of the document given by ID
-         * @param {string} identifier 
-         * @param {DocumentCreateDocumentProofRequest} body 
+         * @param {string} identifier
+         * @param {DocumentCreateDocumentProofRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1845,9 +1845,9 @@ export const DocumentServiceApiFetchParamCreator = function (configuration?: Con
         },
         /**
          * Creates a list of precise proofs for the specified fields of the given version of the document given by ID
-         * @param {string} identifier 
-         * @param {string} version 
-         * @param {DocumentCreateDocumentProofForVersionRequest} body 
+         * @param {string} identifier
+         * @param {string} version
+         * @param {DocumentCreateDocumentProofForVersionRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1897,7 +1897,7 @@ export const DocumentServiceApiFetchParamCreator = function (configuration?: Con
         },
         /**
          * Creates a purchase order
-         * @param {PurchaseorderPurchaseOrderCreatePayload} body 
+         * @param {PurchaseorderPurchaseOrderCreatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1937,7 +1937,7 @@ export const DocumentServiceApiFetchParamCreator = function (configuration?: Con
         },
         /**
          * Get the current invoice
-         * @param {string} identifier 
+         * @param {string} identifier
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1974,8 +1974,8 @@ export const DocumentServiceApiFetchParamCreator = function (configuration?: Con
         },
         /**
          * Get a specific version of an invoice
-         * @param {string} identifier 
-         * @param {string} version 
+         * @param {string} identifier
+         * @param {string} version
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2017,8 +2017,8 @@ export const DocumentServiceApiFetchParamCreator = function (configuration?: Con
         },
         /**
          * Get a specific version of a purchase order
-         * @param {string} identifier 
-         * @param {string} version 
+         * @param {string} identifier
+         * @param {string} version
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2060,7 +2060,7 @@ export const DocumentServiceApiFetchParamCreator = function (configuration?: Con
         },
         /**
          * Get the current version of a purchase order
-         * @param {string} identifier 
+         * @param {string} identifier
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2097,8 +2097,8 @@ export const DocumentServiceApiFetchParamCreator = function (configuration?: Con
         },
         /**
          * Updates an invoice
-         * @param {string} identifier 
-         * @param {InvoiceInvoiceUpdatePayload} body 
+         * @param {string} identifier
+         * @param {InvoiceInvoiceUpdatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2143,8 +2143,8 @@ export const DocumentServiceApiFetchParamCreator = function (configuration?: Con
         },
         /**
          * Updates a purchase order
-         * @param {string} identifier 
-         * @param {PurchaseorderPurchaseOrderUpdatePayload} body 
+         * @param {string} identifier
+         * @param {PurchaseorderPurchaseOrderUpdatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2198,13 +2198,14 @@ export const DocumentServiceApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Creates an invoice
-         * @param {InvoiceInvoiceCreatePayload} body 
+         * @param {InvoiceInvoiceCreatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         create(body: InvoiceInvoiceCreatePayload, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<InvoiceInvoiceResponse> {
             const localVarFetchArgs = DocumentServiceApiFetchParamCreator(configuration).create(body, authorization, options);
+            console.log(localVarFetchArgs);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
                     if (response.status >= 200 && response.status < 300) {
@@ -2217,8 +2218,8 @@ export const DocumentServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Creates a list of precise proofs for the specified fields of the document given by ID
-         * @param {string} identifier 
-         * @param {DocumentCreateDocumentProofRequest} body 
+         * @param {string} identifier
+         * @param {DocumentCreateDocumentProofRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2237,9 +2238,9 @@ export const DocumentServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Creates a list of precise proofs for the specified fields of the given version of the document given by ID
-         * @param {string} identifier 
-         * @param {string} version 
-         * @param {DocumentCreateDocumentProofForVersionRequest} body 
+         * @param {string} identifier
+         * @param {string} version
+         * @param {DocumentCreateDocumentProofForVersionRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2258,7 +2259,7 @@ export const DocumentServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Creates a purchase order
-         * @param {PurchaseorderPurchaseOrderCreatePayload} body 
+         * @param {PurchaseorderPurchaseOrderCreatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2277,7 +2278,7 @@ export const DocumentServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Get the current invoice
-         * @param {string} identifier 
+         * @param {string} identifier
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2296,8 +2297,8 @@ export const DocumentServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Get a specific version of an invoice
-         * @param {string} identifier 
-         * @param {string} version 
+         * @param {string} identifier
+         * @param {string} version
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2316,8 +2317,8 @@ export const DocumentServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Get a specific version of a purchase order
-         * @param {string} identifier 
-         * @param {string} version 
+         * @param {string} identifier
+         * @param {string} version
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2336,7 +2337,7 @@ export const DocumentServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Get the current version of a purchase order
-         * @param {string} identifier 
+         * @param {string} identifier
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2355,8 +2356,8 @@ export const DocumentServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Updates an invoice
-         * @param {string} identifier 
-         * @param {InvoiceInvoiceUpdatePayload} body 
+         * @param {string} identifier
+         * @param {InvoiceInvoiceUpdatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2375,8 +2376,8 @@ export const DocumentServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Updates a purchase order
-         * @param {string} identifier 
-         * @param {PurchaseorderPurchaseOrderUpdatePayload} body 
+         * @param {string} identifier
+         * @param {PurchaseorderPurchaseOrderUpdatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2404,7 +2405,7 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
     return {
         /**
          * Creates an invoice
-         * @param {InvoiceInvoiceCreatePayload} body 
+         * @param {InvoiceInvoiceCreatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2414,8 +2415,8 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
         },
         /**
          * Creates a list of precise proofs for the specified fields of the document given by ID
-         * @param {string} identifier 
-         * @param {DocumentCreateDocumentProofRequest} body 
+         * @param {string} identifier
+         * @param {DocumentCreateDocumentProofRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2425,9 +2426,9 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
         },
         /**
          * Creates a list of precise proofs for the specified fields of the given version of the document given by ID
-         * @param {string} identifier 
-         * @param {string} version 
-         * @param {DocumentCreateDocumentProofForVersionRequest} body 
+         * @param {string} identifier
+         * @param {string} version
+         * @param {DocumentCreateDocumentProofForVersionRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2437,7 +2438,7 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
         },
         /**
          * Creates a purchase order
-         * @param {PurchaseorderPurchaseOrderCreatePayload} body 
+         * @param {PurchaseorderPurchaseOrderCreatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2447,7 +2448,7 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
         },
         /**
          * Get the current invoice
-         * @param {string} identifier 
+         * @param {string} identifier
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2457,8 +2458,8 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
         },
         /**
          * Get a specific version of an invoice
-         * @param {string} identifier 
-         * @param {string} version 
+         * @param {string} identifier
+         * @param {string} version
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2468,8 +2469,8 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
         },
         /**
          * Get a specific version of a purchase order
-         * @param {string} identifier 
-         * @param {string} version 
+         * @param {string} identifier
+         * @param {string} version
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2479,7 +2480,7 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
         },
         /**
          * Get the current version of a purchase order
-         * @param {string} identifier 
+         * @param {string} identifier
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2489,8 +2490,8 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
         },
         /**
          * Updates an invoice
-         * @param {string} identifier 
-         * @param {InvoiceInvoiceUpdatePayload} body 
+         * @param {string} identifier
+         * @param {InvoiceInvoiceUpdatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2500,8 +2501,8 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
         },
         /**
          * Updates a purchase order
-         * @param {string} identifier 
-         * @param {PurchaseorderPurchaseOrderUpdatePayload} body 
+         * @param {string} identifier
+         * @param {PurchaseorderPurchaseOrderUpdatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2521,7 +2522,7 @@ export const DocumentServiceApiFactory = function (configuration?: Configuration
 export class DocumentServiceApi extends BaseAPI {
     /**
      * Creates an invoice
-     * @param {InvoiceInvoiceCreatePayload} body 
+     * @param {InvoiceInvoiceCreatePayload} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2533,8 +2534,8 @@ export class DocumentServiceApi extends BaseAPI {
 
     /**
      * Creates a list of precise proofs for the specified fields of the document given by ID
-     * @param {string} identifier 
-     * @param {DocumentCreateDocumentProofRequest} body 
+     * @param {string} identifier
+     * @param {DocumentCreateDocumentProofRequest} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2546,9 +2547,9 @@ export class DocumentServiceApi extends BaseAPI {
 
     /**
      * Creates a list of precise proofs for the specified fields of the given version of the document given by ID
-     * @param {string} identifier 
-     * @param {string} version 
-     * @param {DocumentCreateDocumentProofForVersionRequest} body 
+     * @param {string} identifier
+     * @param {string} version
+     * @param {DocumentCreateDocumentProofForVersionRequest} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2560,7 +2561,7 @@ export class DocumentServiceApi extends BaseAPI {
 
     /**
      * Creates a purchase order
-     * @param {PurchaseorderPurchaseOrderCreatePayload} body 
+     * @param {PurchaseorderPurchaseOrderCreatePayload} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2572,7 +2573,7 @@ export class DocumentServiceApi extends BaseAPI {
 
     /**
      * Get the current invoice
-     * @param {string} identifier 
+     * @param {string} identifier
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2584,8 +2585,8 @@ export class DocumentServiceApi extends BaseAPI {
 
     /**
      * Get a specific version of an invoice
-     * @param {string} identifier 
-     * @param {string} version 
+     * @param {string} identifier
+     * @param {string} version
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2597,8 +2598,8 @@ export class DocumentServiceApi extends BaseAPI {
 
     /**
      * Get a specific version of a purchase order
-     * @param {string} identifier 
-     * @param {string} version 
+     * @param {string} identifier
+     * @param {string} version
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2610,7 +2611,7 @@ export class DocumentServiceApi extends BaseAPI {
 
     /**
      * Get the current version of a purchase order
-     * @param {string} identifier 
+     * @param {string} identifier
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2622,8 +2623,8 @@ export class DocumentServiceApi extends BaseAPI {
 
     /**
      * Updates an invoice
-     * @param {string} identifier 
-     * @param {InvoiceInvoiceUpdatePayload} body 
+     * @param {string} identifier
+     * @param {InvoiceInvoiceUpdatePayload} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2635,8 +2636,8 @@ export class DocumentServiceApi extends BaseAPI {
 
     /**
      * Updates a purchase order
-     * @param {string} identifier 
-     * @param {PurchaseorderPurchaseOrderUpdatePayload} body 
+     * @param {string} identifier
+     * @param {PurchaseorderPurchaseOrderUpdatePayload} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2761,7 +2762,7 @@ export const NFTServiceApiFetchParamCreator = function (configuration?: Configur
     return {
         /**
          * Mint an NFT from a Centrifuge Document
-         * @param {NftNFTMintRequest} body 
+         * @param {NftNFTMintRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2810,7 +2811,7 @@ export const NFTServiceApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Mint an NFT from a Centrifuge Document
-         * @param {NftNFTMintRequest} body 
+         * @param {NftNFTMintRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2838,7 +2839,7 @@ export const NFTServiceApiFactory = function (configuration?: Configuration, fet
     return {
         /**
          * Mint an NFT from a Centrifuge Document
-         * @param {NftNFTMintRequest} body 
+         * @param {NftNFTMintRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2858,7 +2859,7 @@ export const NFTServiceApiFactory = function (configuration?: Configuration, fet
 export class NFTServiceApi extends BaseAPI {
     /**
      * Mint an NFT from a Centrifuge Document
-     * @param {NftNFTMintRequest} body 
+     * @param {NftNFTMintRequest} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2983,7 +2984,7 @@ export const TransactionServiceApiFetchParamCreator = function (configuration?: 
     return {
         /**
          * Get Transaction Status
-         * @param {string} transaction_id 
+         * @param {string} transaction_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3029,7 +3030,7 @@ export const TransactionServiceApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Get Transaction Status
-         * @param {string} transaction_id 
+         * @param {string} transaction_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3057,7 +3058,7 @@ export const TransactionServiceApiFactory = function (configuration?: Configurat
     return {
         /**
          * Get Transaction Status
-         * @param {string} transaction_id 
+         * @param {string} transaction_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3077,7 +3078,7 @@ export const TransactionServiceApiFactory = function (configuration?: Configurat
 export class TransactionServiceApi extends BaseAPI {
     /**
      * Get Transaction Status
-     * @param {string} transaction_id 
+     * @param {string} transaction_id
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

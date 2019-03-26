@@ -14,12 +14,12 @@ describe('InvoicesController', () => {
   let centrifugeId;
 
   beforeAll(() => {
-    centrifugeId = config.centrifugeId;
-    config.centrifugeId = 'centrifuge_id';
+    centrifugeId = config.admin.account;
+    config.admin.account = 'centrifuge_id';
   });
 
   afterAll(() => {
-    config.centrifugeId = centrifugeId;
+    config.admin.account = centrifugeId;
   });
 
   let invoicesModule: TestingModule;
@@ -39,7 +39,7 @@ describe('InvoicesController', () => {
 
   class DatabaseServiceMock {
     invoices = {
-      create: jest.fn(val => val),
+      insert: jest.fn(val => val),
       find: jest.fn(() =>
         fetchedInvoices.map(
           (data: Invoice): InvoiceInvoiceData => ({
@@ -95,7 +95,7 @@ describe('InvoicesController', () => {
       .useValue(centrifugeClientMock)
       .compile();
 
-    databaseServiceMock.invoices.create.mockClear();
+    databaseServiceMock.invoices.insert.mockClear();
     databaseServiceMock.invoices.find.mockClear();
     databaseServiceMock.contacts.findOne.mockClear();
   });
@@ -109,7 +109,7 @@ describe('InvoicesController', () => {
       const collaborators = invoice.collaborators
         ? [...invoice.collaborators]
         : [];
-      collaborators.push(config.centrifugeId!);
+      collaborators.push(config.admin.account!);
 
       const result = await invoicesController.create(
         { user: { _id: 'user_id' } },
@@ -123,7 +123,7 @@ describe('InvoicesController', () => {
         ownerId: 'user_id',
       });
 
-      expect(databaseServiceMock.invoices.create).toHaveBeenCalledTimes(1);
+      expect(databaseServiceMock.invoices.insert).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -189,7 +189,7 @@ describe('InvoicesController', () => {
           data: { ...updatedInvoice },
           collaborators: ['new_collaborator'],
         },
-        config.centrifugeId,
+        config.admin.account,
       );
 
       expect(databaseServiceMock.invoices.updateById).toHaveBeenCalledWith(

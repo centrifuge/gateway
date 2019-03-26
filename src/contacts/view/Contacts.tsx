@@ -45,7 +45,7 @@ export default class Contacts extends React.Component<
 
   renderRow(contact: Contact) {
     return (
-      <TableRow>
+      <TableRow key={contact.address}>
         <TableCell>
           <Box direction="row" fill gap="xsmall">
             <Box fill>

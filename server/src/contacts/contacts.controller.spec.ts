@@ -21,7 +21,8 @@ describe('ContactsController', () => {
 
   class DatabaseServiceMock {
     contacts = {
-      create: jest.fn(val => val),
+      insert: jest.fn(val => val),
+      update: jest.fn(val => val),
       find: jest.fn(() => fetchedContacts),
       updateByQuery: jest.fn(data => data),
     };
@@ -52,7 +53,7 @@ describe('ContactsController', () => {
       .useValue(centrifugeClientMock)
       .compile();
 
-    databaseServiceMock.contacts.create.mockClear();
+    databaseServiceMock.contacts.insert.mockClear();
     databaseServiceMock.contacts.find.mockClear();
   });
 
@@ -75,7 +76,7 @@ describe('ContactsController', () => {
         address: contactToCreate.address,
       });
 
-      expect(databaseServiceMock.contacts.create).toHaveBeenCalledTimes(1);
+      expect(databaseServiceMock.contacts.insert).toHaveBeenCalledTimes(1);
     });
 
     it('should throw error when no name specified', async function() {
@@ -153,10 +154,10 @@ describe('ContactsController', () => {
         },
       );
 
-      expect(databaseServiceMock.contacts.updateByQuery).toHaveBeenCalledTimes(
+      expect(databaseServiceMock.contacts.update).toHaveBeenCalledTimes(
         1,
       );
-      expect(databaseServiceMock.contacts.updateByQuery).toHaveBeenCalledWith(
+      expect(databaseServiceMock.contacts.update).toHaveBeenCalledWith(
         {
           _id: updateContactObject._id,
           ownerId: userId,

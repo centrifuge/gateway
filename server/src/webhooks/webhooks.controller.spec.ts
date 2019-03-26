@@ -18,10 +18,10 @@ describe('WebhooksController', () => {
   let webhooksModule: TestingModule;
   const databaseServiceMock = {
     invoices: {
-      create: jest.fn(data => data),
+      insert: jest.fn(data => data),
     },
     purchaseOrders: {
-      create: jest.fn(data => data),
+      insert: jest.fn(data => data),
     },
   };
 
@@ -52,7 +52,7 @@ describe('WebhooksController', () => {
       .useValue(centrifugeClient)
       .compile();
 
-    databaseServiceMock.invoices.create.mockClear();
+    databaseServiceMock.invoices.insert.mockClear();
     centrifugeClient.documents.get.mockClear();
   });
 
@@ -71,9 +71,9 @@ describe('WebhooksController', () => {
       expect(result).toEqual('OK');
       expect(centrifugeClient.documents.get).toHaveBeenCalledWith(
         documentId,
-        config.centrifugeId,
+        config.admin.account,
       );
-      expect(databaseServiceMock.invoices.create).toHaveBeenCalledWith(
+      expect(databaseServiceMock.invoices.insert).toHaveBeenCalledWith(
         getResponse,
       );
     });
@@ -94,9 +94,9 @@ describe('WebhooksController', () => {
       expect(result).toEqual('OK');
       expect(centrifugeClient.documents.get_3).toHaveBeenCalledWith(
         documentId,
-        config.centrifugeId,
+        config.admin.account,
       );
-      expect(databaseServiceMock.purchaseOrders.create).toHaveBeenCalledWith(
+      expect(databaseServiceMock.purchaseOrders.insert).toHaveBeenCalledWith(
         getResponse,
       );
     });
@@ -111,7 +111,7 @@ describe('WebhooksController', () => {
       const result = await webhooksController.receiveMessage({});
       expect(result).toBe('OK');
       expect(centrifugeClient.documents.get).not.toHaveBeenCalled();
-      expect(databaseServiceMock.invoices.create).not.toHaveBeenCalled();
+      expect(databaseServiceMock.invoices.insert).not.toHaveBeenCalled();
     });
   });
 });

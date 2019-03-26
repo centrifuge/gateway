@@ -39,15 +39,15 @@ export class WebhooksController {
       if (notification.document_type === documentTypes.invoice) {
         const result = await this.centrifugeClient.documents.get(
           notification.document_id,
-          config.centrifugeId,
+          config.admin.account,
         );
-        await this.databaseService.invoices.create(result);
+        await this.databaseService.invoices.insert(result);
       } else if (notification.document_type === documentTypes.purchaseOrder) {
         const result = await this.centrifugeClient.documents.get_3(
           notification.document_id,
-          config.centrifugeId,
+          config.admin.account,
         );
-        await this.databaseService.purchaseOrders.create(result);
+        await this.databaseService.purchaseOrders.insert(result);
       }
     }
 

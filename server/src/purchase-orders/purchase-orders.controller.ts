@@ -41,8 +41,6 @@ export class PurchaseOrdersController {
     const collaborators = purchaseOrder.collaborators
       ? [...purchaseOrder.collaborators]
       : [];
-    collaborators.push(config.centrifugeId);
-
     const createResult: PurchaseorderPurchaseOrderResponse = await this.centrifugeClient.documents.create_1(
       {
         data: {
@@ -50,10 +48,10 @@ export class PurchaseOrdersController {
         },
         collaborators,
       },
-      config.centrifugeId,
+      config.admin.account,
     );
 
-    return await this.database.purchaseOrders.create({
+    return await this.database.purchaseOrders.insert({
       ...createResult,
       ownerId: request.user._id,
     });
@@ -86,7 +84,7 @@ export class PurchaseOrdersController {
           },
           collaborators: purchaseOrder.collaborators,
         },
-        config.centrifugeId,
+        config.admin.account,
       );
 
       return await this.database.purchaseOrders.updateById(id, {

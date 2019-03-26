@@ -12,12 +12,12 @@ describe('PurchaseOrdersController', () => {
   let centrifugeId;
 
   beforeAll(() => {
-    centrifugeId = config.centrifugeId;
-    config.centrifugeId = 'centrifuge_id';
+    centrifugeId = config.admin.account;
+    config.admin.account = 'centrifuge_id';
   });
 
   afterAll(() => {
-    config.centrifugeId = centrifugeId;
+    config.admin.account = centrifugeId;
   });
 
   let purchaseOrdersModule: TestingModule;
@@ -38,7 +38,7 @@ describe('PurchaseOrdersController', () => {
 
   class DatabaseServiceMock {
     purchaseOrders = {
-      create: jest.fn(val => val),
+      insert: jest.fn(val => val),
       find: jest.fn(() => fetchedPurchaseOrders),
       findOne: jest.fn(() => ({
         data: purchaseOrder,
@@ -76,7 +76,7 @@ describe('PurchaseOrdersController', () => {
       .useValue(centrifugeClientMock)
       .compile();
 
-    databaseServiceMock.purchaseOrders.create.mockClear();
+    databaseServiceMock.purchaseOrders.insert.mockClear();
     databaseServiceMock.purchaseOrders.find.mockClear();
     centrifugeClientMock.documents.create_1.mockClear();
   });
@@ -95,7 +95,7 @@ describe('PurchaseOrdersController', () => {
       const collaborators = purchaseOrder.collaborators
         ? [...purchaseOrder.collaborators]
         : [];
-      collaborators.push(config.centrifugeId!);
+      collaborators.push(config.admin.account!);
 
       expect(result).toEqual({
         collaborators,
@@ -103,7 +103,7 @@ describe('PurchaseOrdersController', () => {
         ownerId: 'user_id',
       });
 
-      expect(databaseServiceMock.purchaseOrders.create).toHaveBeenCalledTimes(
+      expect(databaseServiceMock.purchaseOrders.insert).toHaveBeenCalledTimes(
         1,
       );
     });
@@ -149,7 +149,7 @@ describe('PurchaseOrdersController', () => {
           },
           collaborators: ['new_collaborator'],
         },
-        config.centrifugeId,
+        config.admin.account,
       );
 
       expect(

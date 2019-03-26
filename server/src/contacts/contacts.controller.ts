@@ -45,7 +45,7 @@ export class ContactsController {
       contact.address,
       request.user._id,
     );
-    return await this.databaseService.contacts.create(newContact);
+    return await this.databaseService.contacts.insert(newContact);
   }
 
   @Get()
@@ -75,7 +75,7 @@ export class ContactsController {
     @Body() updateContactObject: Contact,
     @Req() request,
   ) {
-    return this.databaseService.contacts.updateByQuery(
+    return this.databaseService.contacts.update(
       { _id: params.id, ownerId: request.user._id },
       { ...updateContactObject, ownerId: request.user._id },
     );

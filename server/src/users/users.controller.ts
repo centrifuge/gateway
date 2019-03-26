@@ -3,6 +3,8 @@ import {
   Controller,
   Get,
   HttpCode,
+  HttpException,
+  HttpStatus,
   Inject,
   Post,
   Request,
@@ -28,11 +30,12 @@ export class UsersController {
     private readonly database: DatabaseProvider,
     @Inject(clientTokens.centrifugeClientFactory)
     private readonly centrifugeClient: CentrifugeClient,
-  ) {}
+  ) {
+  }
 
   @Post('login')
   @HttpCode(200)
-  async login(@Body() user: User) {
+  async login(@Body() user: User,@Request() req) {
     return 'OK';
   }
 
@@ -44,95 +47,79 @@ export class UsersController {
   }
 
   @Post('register')
-  async register(@Body() user: Partial<User>) {
-    const dbUser: User = await this.database.users.findOne({
+  async register(@Body() user: User) {
+
+    const existingUser: User = await this.database.users.findOne({
       username: user.username,
     });
 
     if (config.inviteOnly) {
-      if (dbUser) {
-        if (dbUser.invited && !dbUser.enabled) {
-          return this.upsertUser(
-            {
-              _id: dbUser._id,
-              username: user.username,
-              password: user.password,
-              enabled: true,
-              invited: true,
-              permissions: [],
-            },
-            true,
-          );
-        } else {
-          throw new Error('Username taken!');
-        }
+      if (existingUser && existingUser.invited && !existingUser.enabled) {
+        return this.upsertUser({
+            ...user,
+            enabled: true,
+          },
+          existingUser._id,
+        );
       } else {
-        throw new Error('This user has not been invited!');
+          throw new HttpException('Username taken!', HttpStatus.FORBIDDEN);
       }
     } else {
-      if (dbUser) {
-        throw new Error('Username taken!');
+      if (existingUser) {
+        throw new HttpException('Username taken!', HttpStatus.FORBIDDEN);
       }
 
-      return this.upsertUser(user);
+      return this.upsertUser({
+        ...user,
+        enabled: true,
+        invited: false,
+      });
     }
   }
 
   @Post('invite')
   async inviteUser(@Body() user: { username: string }) {
     if (!config.inviteOnly) {
-      throw new Error('Invite functionality not enabled!');
+      throw new HttpException('Invite functionality not enabled!', HttpStatus.FORBIDDEN);
     }
-
     const userExists = await this.database.users.findOne({
       username: user.username,
     });
 
     if (userExists) {
-      throw new Error('User already invited!');
+      throw new HttpException('User already invited!', HttpStatus.FORBIDDEN);
     }
 
-    await this.database.users.create({
+    return this.upsertUser({
       username: user.username,
       password: undefined,
       enabled: false,
       invited: true,
       permissions: [],
     });
-
-    return 'OK';
   }
 
-  private async upsertUser(user: Partial<User>, update?: boolean) {
-    let id;
+    private async upsertUser(user: User, id: string = '') {
 
-    const userToUpsert: User = {
-      username: user.username,
-      password: await promisify(bcrypt.hash)(user.password, 10),
-      enabled: true,
-      invited: config.inviteOnly,
-      permissions: [],
-    };
+      // Create centrifuge identity in case user does not have one
+      // if (!user.account) {
+      //   const account = await this.centrifugeClient.accounts.generateAccount(
+      //     config.admin.account,
+      //   );
+      //   user.account = account.identity_id;
+      // }
 
-    // TODO: create an account for the user
-    const generatedAccount = await this.centrifugeClient.accounts.generateAccount(
-      config.centrifugeId,
-    );
+      // Hash Password, and invited one should not have a password
+      if (user.password) {
+        user.password = await promisify(bcrypt.hash)(user.password, 10);
+      }
 
-    if (update) {
-      const result = await this.database.users.updateById(user._id, {
-        ...userToUpsert,
-        account: generatedAccount.identity_id,
-      });
-      id = result._id;
-    } else {
-      const result = await this.database.users.create({
-        ...userToUpsert,
-        account: generatedAccount.identity_id,
-      });
-      id = result._id;
-    }
+      console.log('sss',this.database.users.updateById);
+      console.log('sss1',this.database.users.updateById('2',new User()));
 
-    return { id };
+      const result: User = await this.database.users.updateById(id, user,true );
+      return result._id;
   }
+
+
 }
