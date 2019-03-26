@@ -9,10 +9,6 @@ import { CentrifugeModule } from '../centrifuge-client/centrifuge.module';
 
 @Module({
   controllers: [InvoicesController],
-  providers: [
-    databaseConnectionFactory,
-    centrifugeClientFactory,
-  ],
   imports: [DatabaseModule, AuthModule, CentrifugeModule],
 })
 export class InvoicesModule {}

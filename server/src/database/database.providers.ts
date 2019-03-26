@@ -11,7 +11,7 @@ import {
 } from '../../../src/interfaces';
 import { ROLE } from '../../../src/common/constants';
 
-export interface DatabaseProvider {
+export class DatabaseProvider {
   invoices: DatabaseRepository<InvoiceResponse>;
   users: DatabaseRepository<User>;
   contacts: DatabaseRepository<Contact>;
@@ -76,3 +76,15 @@ export const databaseConnectionFactory = {
     return initializeDatabasePromise;
   },
 };
+
+export const databaseConnection = {
+  provide: DatabaseProvider,
+  useFactory: async (): Promise<DatabaseProvider> => {
+    if (!initializeDatabasePromise) {
+      initializeDatabasePromise = initializeDatabase();
+    }
+
+    return initializeDatabasePromise;
+  },
+};
+

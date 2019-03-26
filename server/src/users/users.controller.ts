@@ -114,9 +114,6 @@ export class UsersController {
         user.password = await promisify(bcrypt.hash)(user.password, 10);
       }
 
-      console.log('sss',this.database.users.updateById);
-      console.log('sss1',this.database.users.updateById('2',new User()));
-
       const result: User = await this.database.users.updateById(id, user,true );
       return result._id;
   }
