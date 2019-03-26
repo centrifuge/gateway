@@ -1,13 +1,12 @@
 import { UsersController } from './users.controller';
-import { databaseConnectionFactory, DatabaseProvider } from '../database/database.providers';
+import { databaseServiceProvider } from '../database/database.providers';
 import { User } from '../../../src/common/models/user';
 import config from '../config';
-import { CentrifugeClient } from '../centrifuge-client/centrifuge.interfaces';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SessionGuard } from '../auth/SessionGuard';
-import { centrifugeClientFactory } from '../centrifuge-client/centrifuge.client';
-import { tokens as databaseTokens } from '../database/database.constants';
-import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
+import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.provider';
+import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
+import { DatabaseService } from '../database/database.service';
 
 describe('Users controller', () => {
   const centrifugeClientMock = ({
@@ -16,7 +15,7 @@ describe('Users controller', () => {
         identity_id: 'generated_identity_id',
       })),
     },
-  } as any) as CentrifugeClient;
+  } as any) as CentrifugeService;
 
   let registeredUser;
   let userModule: TestingModule;
@@ -39,13 +38,13 @@ describe('Users controller', () => {
       controllers: [UsersController],
       providers: [
         SessionGuard,
-        centrifugeClientFactory,
-        databaseConnectionFactory,
+        centrifugeServiceProvider,
+        databaseServiceProvider,
       ],
     })
-      .overrideProvider(databaseTokens.databaseConnectionFactory)
+      .overrideProvider(DatabaseService)
       .useValue(databaseServiceMock)
-      .overrideProvider(clientTokens.centrifugeClientFactory)
+      .overrideProvider(CentrifugeService)
       .useValue(centrifugeClientMock)
       .compile();
 
@@ -193,7 +192,7 @@ describe('Users controller', () => {
 
     describe('invite', () => {
       const usersController = new UsersController(
-        ({} as any) as DatabaseProvider,
+        ({} as any) as DatabaseService,
         centrifugeClientMock,
       );
 

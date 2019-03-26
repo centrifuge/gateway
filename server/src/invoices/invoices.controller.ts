@@ -12,25 +12,21 @@ import {
 import { Invoice } from '../../../src/common/models/invoice';
 import { ROUTES } from '../../../src/common/constants';
 import { SessionGuard } from '../auth/SessionGuard';
-import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
-import { tokens as databaseTokens } from '../database/database.constants';
 import {
   InvoiceInvoiceData,
   InvoiceInvoiceResponse,
 } from '../../../clients/centrifuge-node/generated-client';
-import { DatabaseProvider } from '../database/database.providers';
+import { DatabaseService } from '../database/database.service';
 import { InvoiceData } from '../../../src/interfaces';
 import config from '../config';
-import { CentrifugeClient } from '../centrifuge-client/centrifuge.interfaces';
+import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 
 @Controller(ROUTES.INVOICES)
 @UseGuards(SessionGuard)
 export class InvoicesController {
   constructor(
-    @Inject(databaseTokens.databaseConnectionFactory)
-    private readonly database: DatabaseProvider,
-    @Inject(clientTokens.centrifugeClientFactory)
-    private readonly centrifugeClient: CentrifugeClient,
+    private readonly database: DatabaseService,
+    private readonly centrifugeService: CentrifugeService,
   ) {}
 
   @Post()
@@ -45,7 +41,7 @@ export class InvoicesController {
     const collaborators = invoice.collaborators
       ? [...invoice.collaborators]
       : [];
-    const createResult = await this.centrifugeClient.documents.create(
+    const createResult = await this.centrifugeService.documents.create(
       {
         data: {
           ...invoice,
@@ -122,7 +118,7 @@ export class InvoicesController {
       { _id:  params.id, ownerId: request.user._id },
     );
 
-    const updateResult = await this.centrifugeClient.documents.update(
+    const updateResult = await this.centrifugeService.documents.update(
       invoice.header.document_id,
       {
         data: { ...updateInvoiceRequest },

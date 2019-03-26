@@ -2,8 +2,8 @@ import { Test } from '@nestjs/testing';
 
 import { AuthService } from './auth.service';
 import { User } from '../../../src/common/models/user';
-import { databaseConnectionFactory } from '../database/database.providers';
-import { tokens as databaseTokens } from '../database/database.constants';
+import { databaseServiceProvider } from '../database/database.providers';
+import { DatabaseService } from '../database/database.service';
 
 describe('LocalStrategy', function() {
   const unhashedPassword = 'my_password';
@@ -28,9 +28,9 @@ describe('LocalStrategy', function() {
     const databaseServiceMock = new DatabaseServiceMock();
 
     const module = await Test.createTestingModule({
-      providers: [AuthService, databaseConnectionFactory],
+      providers: [AuthService, databaseServiceProvider],
     })
-      .overrideProvider(databaseTokens.databaseConnectionFactory)
+      .overrideProvider(DatabaseService)
       .useValue(databaseServiceMock)
       .compile();
 

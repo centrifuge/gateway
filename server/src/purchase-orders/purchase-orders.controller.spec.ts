@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PurchaseOrdersController } from './purchase-orders.controller';
 import { SessionGuard } from '../auth/SessionGuard';
-import { centrifugeClientFactory } from '../centrifuge-client/centrifuge.client';
-import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
-import { tokens as databaseTokens } from '../database/database.constants';
-import { databaseConnectionFactory } from '../database/database.providers';
+import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.provider';
+import { databaseServiceProvider } from '../database/database.providers';
 import { PurchaseOrder } from '../../../src/common/models/purchase-order';
 import config from '../config';
+import { DatabaseService } from '../database/database.service';
+import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 
 describe('PurchaseOrdersController', () => {
   let centrifugeId;
@@ -66,13 +66,13 @@ describe('PurchaseOrdersController', () => {
       controllers: [PurchaseOrdersController],
       providers: [
         SessionGuard,
-        centrifugeClientFactory,
-        databaseConnectionFactory,
+        centrifugeServiceProvider,
+        databaseServiceProvider,
       ],
     })
-      .overrideProvider(databaseTokens.databaseConnectionFactory)
+      .overrideProvider(DatabaseService)
       .useValue(databaseServiceMock)
-      .overrideProvider(clientTokens.centrifugeClientFactory)
+      .overrideProvider(CentrifugeService)
       .useValue(centrifugeClientMock)
       .compile();
 
@@ -92,13 +92,8 @@ describe('PurchaseOrdersController', () => {
         purchaseOrder,
       );
 
-      const collaborators = purchaseOrder.collaborators
-        ? [...purchaseOrder.collaborators]
-        : [];
-      collaborators.push(config.admin.account!);
-
       expect(result).toEqual({
-        collaborators,
+        collaborators: [...purchaseOrder.collaborators],
         data: purchaseOrder,
         ownerId: 'user_id',
       });

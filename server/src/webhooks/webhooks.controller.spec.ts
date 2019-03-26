@@ -4,15 +4,15 @@ import {
   eventTypes,
   WebhooksController,
 } from './webhooks.controller';
-import { centrifugeClientFactory } from '../centrifuge-client/centrifuge.client';
-import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
-import { tokens as databaseTokens } from '../database/database.constants';
-import { databaseConnectionFactory } from '../database/database.providers';
+import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.provider';
+import { databaseServiceProvider } from '../database/database.providers';
 import {
   InvoiceInvoiceResponse,
   PurchaseorderPurchaseOrderResponse,
 } from '../../../clients/centrifuge-node/generated-client';
 import config from '../config';
+import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
+import { DatabaseService } from '../database/database.service';
 
 describe('WebhooksController', () => {
   let webhooksModule: TestingModule;
@@ -44,11 +44,11 @@ describe('WebhooksController', () => {
   beforeEach(async () => {
     webhooksModule = await Test.createTestingModule({
       controllers: [WebhooksController],
-      providers: [databaseConnectionFactory, centrifugeClientFactory],
+      providers: [databaseServiceProvider, centrifugeServiceProvider],
     })
-      .overrideProvider(databaseTokens.databaseConnectionFactory)
+      .overrideProvider(DatabaseService)
       .useValue(databaseServiceMock)
-      .overrideProvider(clientTokens.centrifugeClientFactory)
+      .overrideProvider(CentrifugeService)
       .useValue(centrifugeClient)
       .compile();
 

@@ -1,18 +1,18 @@
-import { tokens } from './centrifuge.constants';
+
 import {
   AccountServiceApi,
   DocumentServiceApi,
 } from '../../../clients/centrifuge-node/generated-client';
 import config from '../config';
-import { CentrifugeClient } from './centrifuge.interfaces';
+import { CentrifugeService } from './centrifuge.service';
 
 const documentsClient = new DocumentServiceApi({}, config.centrifugeUrl);
 
 const accountsClient = new AccountServiceApi({}, config.centrifugeUrl);
 
-export const centrifugeClientFactory = {
-  provide: tokens.centrifugeClientFactory,
-  useFactory: (): CentrifugeClient => {
+export const centrifugeServiceProvider = {
+  provide: CentrifugeService,
+  useFactory: (): CentrifugeService => {
     return {
       documents: documentsClient,
       accounts: accountsClient,

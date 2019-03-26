@@ -3,10 +3,10 @@ import { HttpException } from '@nestjs/common';
 import { ContactsController } from './contacts.controller';
 import { Contact } from '../../../src/common/models/contact';
 import { SessionGuard } from '../auth/SessionGuard';
-import { centrifugeClientFactory } from '../centrifuge-client/centrifuge.client';
-import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
-import { tokens as databaseTokens } from '../database/database.constants';
-import { databaseConnectionFactory } from '../database/database.providers';
+import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.provider';
+import { databaseServiceProvider } from '../database/database.providers';
+import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
+import { DatabaseService } from '../database/database.service';
 
 describe('ContactsController', () => {
   let contactsModule: TestingModule;
@@ -43,13 +43,13 @@ describe('ContactsController', () => {
       controllers: [ContactsController],
       providers: [
         SessionGuard,
-        centrifugeClientFactory,
-        databaseConnectionFactory,
+        centrifugeServiceProvider,
+        databaseServiceProvider,
       ],
     })
-      .overrideProvider(databaseTokens.databaseConnectionFactory)
+      .overrideProvider(DatabaseService)
       .useValue(databaseServiceMock)
-      .overrideProvider(clientTokens.centrifugeClientFactory)
+      .overrideProvider(CentrifugeService)
       .useValue(centrifugeClientMock)
       .compile();
 

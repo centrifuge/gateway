@@ -1,6 +1,5 @@
 import { promisify } from 'util';
 import * as bcrypt from 'bcrypt';
-import { tokens } from './database.constants';
 import { User } from '../../../src/common/models/user';
 import { DatabaseRepository } from './database.repository';
 import { Contact } from '../../../src/common/models/contact';
@@ -10,13 +9,11 @@ import {
   PurchaseOrderResponse,
 } from '../../../src/interfaces';
 import { ROLE } from '../../../src/common/constants';
+import { DatabaseService } from './database.service';
 
-export class DatabaseProvider {
-  invoices: DatabaseRepository<InvoiceResponse>;
-  users: DatabaseRepository<User>;
-  contacts: DatabaseRepository<Contact>;
-  purchaseOrders: DatabaseRepository<PurchaseOrderResponse>;
-}
+// TODO refactor this in mutiple providers,services
+
+
 
 /**
  * Initialize the database and the separate collections.
@@ -66,20 +63,11 @@ const initializeDatabase = async () => {
  */
 let initializeDatabasePromise;
 
-export const databaseConnectionFactory = {
-  provide: tokens.databaseConnectionFactory,
-  useFactory: async (): Promise<DatabaseProvider> => {
-    if (!initializeDatabasePromise) {
-      initializeDatabasePromise = initializeDatabase();
-    }
 
-    return initializeDatabasePromise;
-  },
-};
 
-export const databaseConnection = {
-  provide: DatabaseProvider,
-  useFactory: async (): Promise<DatabaseProvider> => {
+export const databaseServiceProvider = {
+  provide: DatabaseService,
+  useFactory: async (): Promise<DatabaseService> => {
     if (!initializeDatabasePromise) {
       initializeDatabasePromise = initializeDatabase();
     }

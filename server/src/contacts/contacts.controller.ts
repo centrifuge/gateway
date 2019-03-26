@@ -14,15 +14,13 @@ import {
 import { SessionGuard } from '../auth/SessionGuard';
 import { Contact } from '../../../src/common/models/contact';
 import { ROUTES } from '../../../src/common/constants';
-import { DatabaseProvider } from '../database/database.providers';
-import { tokens as databaseTokens } from '../database/database.constants';
+import { DatabaseService } from '../database/database.service';
 
 @Controller(ROUTES.CONTACTS)
 @UseGuards(SessionGuard)
 export class ContactsController {
   constructor(
-    @Inject(databaseTokens.databaseConnectionFactory)
-    private readonly databaseService: DatabaseProvider,
+    private readonly databaseService: DatabaseService,
   ) {}
 
   @Post()

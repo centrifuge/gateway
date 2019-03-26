@@ -2,13 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { InvoicesController } from './invoices.controller';
 import { Invoice } from '../../../src/common/models/invoice';
 import { SessionGuard } from '../auth/SessionGuard';
-import { centrifugeClientFactory } from '../centrifuge-client/centrifuge.client';
-import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
-import { tokens as databaseTokens } from '../database/database.constants';
-import { databaseConnectionFactory } from '../database/database.providers';
+import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.provider';
+import { databaseServiceProvider } from '../database/database.providers';
 import { Contact } from '../../../src/common/models/contact';
 import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
 import config from '../config';
+import { DatabaseService } from '../database/database.service';
+import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 
 describe('InvoicesController', () => {
   let centrifugeId;
@@ -28,6 +28,7 @@ describe('InvoicesController', () => {
     invoice_number: '999',
     sender_name: 'cinderella',
     recipient_name: 'step mother',
+    collaborators:[],
   };
   let fetchedInvoices: Invoice[];
 
@@ -85,13 +86,13 @@ describe('InvoicesController', () => {
       controllers: [InvoicesController],
       providers: [
         SessionGuard,
-        centrifugeClientFactory,
-        databaseConnectionFactory,
+        centrifugeServiceProvider,
+        databaseServiceProvider,
       ],
     })
-      .overrideProvider(databaseTokens.databaseConnectionFactory)
+      .overrideProvider(DatabaseService)
       .useValue(databaseServiceMock)
-      .overrideProvider(clientTokens.centrifugeClientFactory)
+      .overrideProvider(CentrifugeService)
       .useValue(centrifugeClientMock)
       .compile();
 
@@ -106,11 +107,6 @@ describe('InvoicesController', () => {
         InvoicesController,
       );
 
-      const collaborators = invoice.collaborators
-        ? [...invoice.collaborators]
-        : [];
-      collaborators.push(config.admin.account!);
-
       const result = await invoicesController.create(
         { user: { _id: 'user_id' } },
         invoice,
@@ -119,7 +115,7 @@ describe('InvoicesController', () => {
         data: {
           ...invoice,
         },
-        collaborators,
+        collaborators:[...invoice.collaborators],
         ownerId: 'user_id',
       });
 

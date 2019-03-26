@@ -3,14 +3,12 @@ import * as bcrypt from 'bcrypt';
 import { promisify } from 'util';
 
 import { User } from '../../../src/common/models/user';
-import { DatabaseProvider } from '../database/database.providers';
-import { tokens } from '../database/database.constants';
+import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @Inject(tokens.databaseConnectionFactory)
-    private readonly database: DatabaseProvider,
+    private readonly database: DatabaseService,
   ) {}
 
   /**

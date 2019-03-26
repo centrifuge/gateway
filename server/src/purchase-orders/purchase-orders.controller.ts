@@ -11,22 +11,18 @@ import {
 } from '@nestjs/common';
 import { SessionGuard } from '../auth/SessionGuard';
 import { ROUTES } from '../../../src/common/constants';
-import { DatabaseProvider } from '../database/database.providers';
-import { tokens as databaseTokens } from '../database/database.constants';
+import { DatabaseService } from '../database/database.service';
 import { PurchaseOrder } from '../../../src/common/models/purchase-order';
-import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
 import { PurchaseorderPurchaseOrderResponse } from '../../../clients/centrifuge-node/generated-client';
 import config from '../config';
-import { CentrifugeClient } from '../centrifuge-client/centrifuge.interfaces';
+import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 
 @Controller(ROUTES.PURCHASE_ORDERS)
 @UseGuards(SessionGuard)
 export class PurchaseOrdersController {
   constructor(
-    @Inject(databaseTokens.databaseConnectionFactory)
-    private readonly database: DatabaseProvider,
-    @Inject(clientTokens.centrifugeClientFactory)
-    readonly centrifugeClient: CentrifugeClient,
+    private readonly databaseService: DatabaseService,
+    readonly centrifugeService: CentrifugeService,
   ) {}
 
   @Post()
@@ -41,7 +37,7 @@ export class PurchaseOrdersController {
     const collaborators = purchaseOrder.collaborators
       ? [...purchaseOrder.collaborators]
       : [];
-    const createResult: PurchaseorderPurchaseOrderResponse = await this.centrifugeClient.documents.create_1(
+    const createResult: PurchaseorderPurchaseOrderResponse = await this.centrifugeService.documents.create_1(
       {
         data: {
           ...purchaseOrder,
@@ -51,7 +47,7 @@ export class PurchaseOrdersController {
       config.admin.account,
     );
 
-    return await this.database.purchaseOrders.insert({
+    return await this.databaseService.purchaseOrders.insert({
       ...createResult,
       ownerId: request.user._id,
     });
@@ -73,10 +69,10 @@ export class PurchaseOrdersController {
   ) {
     try {
       const id = params.id;
-      const dbPurchaseOrder: PurchaseorderPurchaseOrderResponse = await this.database.purchaseOrders.findOne(
+      const dbPurchaseOrder: PurchaseorderPurchaseOrderResponse = await this.databaseService.purchaseOrders.findOne(
         { _id: id, ownerId: request.user._id },
       );
-      const updateResult = await this.centrifugeClient.documents.update_4(
+      const updateResult = await this.centrifugeService.documents.update_4(
         dbPurchaseOrder.header.document_id,
         {
           data: {
@@ -87,7 +83,7 @@ export class PurchaseOrdersController {
         config.admin.account,
       );
 
-      return await this.database.purchaseOrders.updateById(id, {
+      return await this.databaseService.purchaseOrders.updateById(id, {
         ...updateResult,
         ownerId: request.user._id,
       });
@@ -101,7 +97,7 @@ export class PurchaseOrdersController {
    * @return {Promise<PurchaseOrder[]>} result
    */
   async get(@Req() request) {
-    return await this.database.purchaseOrders.find({
+    return await this.databaseService.purchaseOrders.find({
       ownerId: request.user._id,
     });
   }
@@ -115,7 +111,7 @@ export class PurchaseOrdersController {
    * @return {Promise<PurchaseOrder|null>} result
    */
   async getById(@Param() params, @Req() request) {
-    return await this.database.purchaseOrders.findOne({
+    return await this.databaseService.purchaseOrders.findOne({
       _id: params.id,
       ownerId: request.user._id,
     });

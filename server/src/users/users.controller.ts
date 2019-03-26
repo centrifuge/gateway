@@ -5,7 +5,6 @@ import {
   HttpCode,
   HttpException,
   HttpStatus,
-  Inject,
   Post,
   Request,
   Response,
@@ -17,19 +16,15 @@ import { promisify } from 'util';
 import { ROUTES } from '../../../src/common/constants';
 import { User } from '../../../src/common/models/user';
 import { SessionGuard } from '../auth/SessionGuard';
-import { tokens as databaseTokens } from '../database/database.constants';
-import { DatabaseProvider } from '../database/database.providers';
+import { DatabaseService } from '../database/database.service';
 import config from '../config';
-import { tokens as clientTokens } from '../centrifuge-client/centrifuge.constants';
-import { CentrifugeClient } from '../centrifuge-client/centrifuge.interfaces';
+import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 
 @Controller(ROUTES.USERS.base)
 export class UsersController {
   constructor(
-    @Inject(databaseTokens.databaseConnectionFactory)
-    private readonly database: DatabaseProvider,
-    @Inject(clientTokens.centrifugeClientFactory)
-    private readonly centrifugeClient: CentrifugeClient,
+    private readonly databaseService: DatabaseService,
+    private readonly centrifugeService: CentrifugeService,
   ) {
   }
 
@@ -49,7 +44,7 @@ export class UsersController {
   @Post('register')
   async register(@Body() user: User) {
 
-    const existingUser: User = await this.database.users.findOne({
+    const existingUser: User = await this.databaseService.users.findOne({
       username: user.username,
     });
 
@@ -82,7 +77,7 @@ export class UsersController {
     if (!config.inviteOnly) {
       throw new HttpException('Invite functionality not enabled!', HttpStatus.FORBIDDEN);
     }
-    const userExists = await this.database.users.findOne({
+    const userExists = await this.databaseService.users.findOne({
       username: user.username,
     });
 
@@ -103,7 +98,7 @@ export class UsersController {
 
       // Create centrifuge identity in case user does not have one
       // if (!user.account) {
-      //   const account = await this.centrifugeClient.accounts.generateAccount(
+      //   const account = await this.centrifugeService.accounts.generateAccount(
       //     config.admin.account,
       //   );
       //   user.account = account.identity_id;
@@ -114,7 +109,7 @@ export class UsersController {
         user.password = await promisify(bcrypt.hash)(user.password, 10);
       }
 
-      const result: User = await this.database.users.updateById(id, user,true );
+      const result: User = await this.databaseService.users.updateById(id, user,true );
       return result._id;
   }
 
