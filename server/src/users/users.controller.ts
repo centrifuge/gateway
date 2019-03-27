@@ -48,6 +48,10 @@ export class UsersController {
       username: user.username,
     });
 
+    if (!user.password || !user.password.trim()) {
+      throw new HttpException('Password is mandatory', HttpStatus.FORBIDDEN);
+    }
+
     if (config.inviteOnly) {
       if (existingUser && existingUser.invited && !existingUser.enabled) {
         return this.upsertUser({
@@ -73,7 +77,7 @@ export class UsersController {
   }
 
   @Post('invite')
-  async inviteUser(@Body() user: { username: string }) {
+  async invite(@Body() user: { username: string }) {
     if (!config.inviteOnly) {
       throw new HttpException('Invite functionality not enabled!', HttpStatus.FORBIDDEN);
     }
@@ -86,6 +90,7 @@ export class UsersController {
     }
 
     return this.upsertUser({
+      ...user,
       username: user.username,
       password: undefined,
       enabled: false,
@@ -97,19 +102,19 @@ export class UsersController {
     private async upsertUser(user: User, id: string = '') {
 
       // Create centrifuge identity in case user does not have one
-      // if (!user.account) {
-      //   const account = await this.centrifugeService.accounts.generateAccount(
-      //     config.admin.account,
-      //   );
-      //   user.account = account.identity_id;
-      // }
+      if (!user.account) {
+        const account = await this.centrifugeService.accounts.generateAccount(
+          config.admin.account,
+        );
+        user.account = account.identity_id;
+      }
 
       // Hash Password, and invited one should not have a password
       if (user.password) {
         user.password = await promisify(bcrypt.hash)(user.password, 10);
       }
-
       const result: User = await this.databaseService.users.updateById(id, user,true );
+      // TODO return "public" User here not just the id
       return result._id;
   }
 

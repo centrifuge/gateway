@@ -15,7 +15,7 @@ export class User {
   password: string;
   _id?: string;
   account?: string;
-  permissions: ROLE[];
+  permissions: ROLE[] = [];
   enabled: boolean = false;
   invited: boolean = false;
 }

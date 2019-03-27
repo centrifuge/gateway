@@ -9,26 +9,40 @@ import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import { DatabaseService } from '../database/database.service';
 
 describe('Users controller', () => {
+  const userAccount = 'generated_identity_id';
   const centrifugeClientMock = ({
     accounts: {
       generateAccount: jest.fn(() => ({
-        identity_id: 'generated_identity_id',
+        identity_id: userAccount,
       })),
     },
   } as any) as CentrifugeService;
-
-  let registeredUser;
+  // TODO Mocking/Reimplementing all nedb moethods is error prone
+  // Considering that nedb is local we can run it in the test with a different config
+  // for storage and we will not need a DatabaseServiceMock
+  // https://app.zenhub.com/workspaces/centrifuge-5ba350114b5806bc2be90978/issues/centrifuge/centrifuge-starter-kit/98
+  let registeredUser: User;
   let userModule: TestingModule;
+  let insertedUsers = {};
 
   class DatabaseServiceMock {
     users = {
-      findOne: (user): User | undefined =>
-      user.username === registeredUser.username
-        ? registeredUser
-        : undefined,
-      updateById: (userId,user,upsert) => user ,
-      insert: data => ({ ...data, _id: 'new_user_id' }),
-    }
+      findOne: (user): User | undefined => {
+        for (let key in insertedUsers) {
+          if (insertedUsers[key].username === user.username) {
+            return insertedUsers[key];
+          }
+        }
+        return null;
+      },
+      updateById: (userId, user, upsert) => {
+        insertedUsers[user._id] = user;
+        return user;
+      },
+      insert: data => {
+        return { ...data, _id: 'new_user_id' };
+      },
+    };
   }
 
   const databaseServiceMock = new DatabaseServiceMock();
@@ -48,13 +62,11 @@ describe('Users controller', () => {
       .useValue(centrifugeClientMock)
       .compile();
 
-  })
+  });
 
   describe('logout', () => {
     it('should call request logout', async () => {
-      const usersController =  userModule.get<
-        UsersController
-        >(UsersController);
+      const usersController = userModule.get<UsersController>(UsersController);
 
       const request = {
         logout: jest.fn(),
@@ -82,15 +94,15 @@ describe('Users controller', () => {
         invited: false,
         permissions: [],
       };
+      insertedUsers = {};
+      insertedUsers[registeredUser._id] = registeredUser;
     });
 
     let inviteOnly;
-    let usersController
+    let usersController;
 
     beforeAll(() => {
-      usersController =  userModule.get<
-        UsersController
-        >(UsersController)
+      usersController = userModule.get<UsersController>(UsersController);
       inviteOnly = config.inviteOnly;
       config.inviteOnly = true;
     });
@@ -100,9 +112,31 @@ describe('Users controller', () => {
     });
 
     describe('invite', () => {
-      it('should create user if invited', () => {});
+      it('should fail if the user exists', async () => {
+        await expect(usersController.invite(registeredUser)).rejects.toThrow(
+          'User already invited!',
+        );
+      });
+      it('should add user to the database with invite true and enabled false', async () => {
 
-      it('should throw error if user is not invited', () => {});
+        const user: User = {
+          ...new User(),
+          _id: 'random' + Math.random(),
+          username: 'new_user',
+          password: 'password',
+        };
+
+        const invite = await usersController.invite(user);
+        expect(insertedUsers[user._id]).toEqual({
+          ...user,
+          password: undefined,
+          invited: true,
+          enabled: false,
+          account: userAccount,
+        });
+      });
+
+
     });
 
     describe('register', () => {
@@ -143,9 +177,7 @@ describe('Users controller', () => {
     let inviteOnly;
     let usersController;
     beforeAll(() => {
-      usersController =  userModule.get<
-        UsersController
-        >(UsersController)
+      usersController = userModule.get<UsersController>(UsersController);
       inviteOnly = config.inviteOnly;
       config.inviteOnly = false;
     });
@@ -155,18 +187,21 @@ describe('Users controller', () => {
     });
 
     describe('register', () => {
-      const registeredUser: User = {
-        _id: 'user',
-        username: 'username',
-        password: 'password',
-        enabled: true,
-        invited: false,
-        permissions: [],
-      };
 
 
       beforeEach(() => {
         jest.clearAllMocks();
+        registeredUser = {
+          _id: 'user',
+          username: 'username',
+          password: 'password',
+          enabled: true,
+          invited: false,
+          permissions: [],
+        };
+        insertedUsers = {};
+        insertedUsers[registeredUser._id] = registeredUser;
+
       });
 
       it('should return error if the username is taken', async () => {
@@ -180,14 +215,58 @@ describe('Users controller', () => {
           _id: 'some_user_id',
           username: 'new_user',
           password: 'password',
-          enabled:false,
-          invited:null,
+          enabled: false,
+          invited: false,
           permissions: [],
         };
-        //TODO Revisit all tests
+
         const result = await usersController.register(newUser);
         expect(result).toEqual('some_user_id');
       });
+      it('should not create the user if the password is empty or not set', async () => {
+
+        await expect(
+          usersController.register({
+            _id: 'undefinedPassword',
+            username: 'new_user',
+            password: undefined,
+            enabled: false,
+            invited: false,
+            permissions: [],
+          }),
+        ).rejects.toThrow(
+          'Password is mandatory',
+        );
+
+        await expect(
+          usersController.register({
+            _id: 'undefinedPassword',
+            username: 'new_user',
+            password: null,
+            enabled: false,
+            invited: false,
+            permissions: [],
+          }),
+        ).rejects.toThrow(
+          'Password is mandatory',
+        );
+
+
+        await expect(
+          usersController.register({
+            _id: 'undefinedPassword',
+            username: 'new_user',
+            password: '  ',
+            enabled: false,
+            invited: false,
+            permissions: [],
+          }),
+        ).rejects.toThrow(
+          'Password is mandatory',
+        );
+
+      });
+
     });
 
     describe('invite', () => {
@@ -198,7 +277,7 @@ describe('Users controller', () => {
 
       it('should throw error', async () => {
         await expect(
-          usersController.inviteUser({ username: 'any_username' }),
+          usersController.invite({ username: 'any_username' }),
         ).rejects.toThrow('Invite functionality not enabled!');
       });
     });
