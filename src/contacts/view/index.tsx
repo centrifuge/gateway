@@ -9,8 +9,8 @@ import {
   resetGetContacts,
   resetUpdateContact,
   updateContact,
-} from '../../actions/contacts';
-import { RequestState } from '../../reducers/http-request-reducer';
+} from '../../store/actions/contacts';
+import { RequestState } from '../../store/reducers/http-request-reducer';
 import { Contact } from '../../common/models/contact';
 import Contacts from './Contacts';
 

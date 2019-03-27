@@ -1,13 +1,13 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
-import { httpClient } from '../http-client';
+import { httpClient } from '../../http-client';
 import {
   createInvoiceAction,
   getInvoiceAction,
   getInvoiceByIdAction,
   updateInvoiceAction,
 } from '../actions/invoices';
-import routes from '../invoices/routes';
+import routes from '../../invoices/routes';
 
 export function* getInvoices() {
   try {

@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import Login from './Login';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import { User } from '../../common/models/user';
-import { login } from '../../actions/users';
+import { login } from '../../store/actions/users';
 import routes from '../../routes';
-import { LoginState } from '../../reducers/user/auth';
+import { LoginState } from '../../store/reducers/user/auth';
 
 type ConnectedLoginPageProps = {
   login: (user: User) => void;

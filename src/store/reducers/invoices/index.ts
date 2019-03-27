@@ -6,8 +6,8 @@ import {
   updateInvoiceAction,
 } from '../../actions/invoices';
 import { httpRequestReducer } from '../http-request-reducer';
-import { InvoiceData } from '../../interfaces';
-import { Invoice } from '../../common/models/invoice';
+import { InvoiceData } from '../../../interfaces';
+import { Invoice } from '../../../common/models/invoice';
 
 const get = httpRequestReducer<InvoiceData>(getInvoiceAction);
 const create = httpRequestReducer<Invoice>(createInvoiceAction);

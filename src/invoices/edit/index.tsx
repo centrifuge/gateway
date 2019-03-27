@@ -8,13 +8,13 @@ import {
   resetGetInvoiceById,
   resetUpdateInvoice,
   updateInvoice,
-} from '../../actions/invoices';
+} from '../../store/actions/invoices';
 import { Invoice } from '../../common/models/invoice';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { RequestState } from '../../reducers/http-request-reducer';
+import { RequestState } from '../../store/reducers/http-request-reducer';
 import { InvoiceInvoiceResponse } from '../../../clients/centrifuge-node/generated-client';
 import { Contact } from '../../common/models/contact';
-import { getContacts, resetGetContacts } from '../../actions/contacts';
+import { getContacts, resetGetContacts } from '../../store/actions/contacts';
 import { LabelValuePair } from '../../interfaces';
 
 type ConnectedEditInvoiceProps = {

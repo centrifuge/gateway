@@ -3,8 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Invoices from './Invoices';
-import { getInvoices, resetGetInvoices } from '../../actions/invoices';
-import { RequestState } from '../../reducers/http-request-reducer';
+import { getInvoices, resetGetInvoices } from '../../store/actions/invoices';
+import { RequestState } from '../../store/reducers/http-request-reducer';
 import { InvoiceData, InvoiceResponse } from '../../interfaces';
 
 const mapStateToProps = (state: {

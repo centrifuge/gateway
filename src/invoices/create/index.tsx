@@ -3,13 +3,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import CreateEditInvoice from '../CreateEditInvoice';
-import { createInvoice, resetCreateInvoice } from '../../actions/invoices';
+import { createInvoice, resetCreateInvoice } from '../../store/actions/invoices';
 import { Invoice } from '../../common/models/invoice';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { RequestState } from '../../reducers/http-request-reducer';
+import { RequestState } from '../../store/reducers/http-request-reducer';
 import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
 import { Contact } from '../../common/models/contact';
-import { getContacts, resetGetContacts } from '../../actions/contacts';
+import { getContacts, resetGetContacts } from '../../store/actions/contacts';
 import { LabelValuePair } from '../../interfaces';
 
 type ConnectedCreateInvoiceProps = {

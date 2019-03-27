@@ -3,12 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import PurchaseOrders from './PurchaseOrdersList';
-import { RequestState } from '../../reducers/http-request-reducer';
+import { RequestState } from '../../store/reducers/http-request-reducer';
 import { PurchaseorderPurchaseOrderData } from '../../../clients/centrifuge-node/generated-client';
 import {
   getPurchaseOrders,
   resetGetPurchaseOrders,
-} from '../../actions/purchase-orders';
+} from '../../store/actions/purchase-orders';
 import { PurchaseOrderResponse } from '../../interfaces';
 
 const mapStateToProps = (state: {
