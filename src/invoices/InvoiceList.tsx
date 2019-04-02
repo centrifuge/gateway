@@ -3,8 +3,8 @@ import { Box, Button, DataTable, Heading, Text } from 'grommet';
 import { Add, Edit, More } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 
-import invoiceRoutes from '../routes';
-import { InvoiceData } from '../../interfaces';
+import invoiceRoutes from './routes';
+import { InvoiceData } from '../common/interfaces';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 // Casting to "any" until https://github.com/grommet/grommet/issues/2464 is fixed
@@ -12,7 +12,7 @@ const DataTableSupressedWarning = DataTable as any;
 
 type InvoicesProps = { invoices: InvoiceData[] };
 
-class Invoices extends React.Component<InvoicesProps & RouteComponentProps> {
+class InvoiceList extends React.Component<InvoicesProps & RouteComponentProps> {
   displayName = 'Invoices';
 
   render() {
@@ -74,4 +74,4 @@ class Invoices extends React.Component<InvoicesProps & RouteComponentProps> {
   }
 }
 
-export default withRouter(Invoices);
+export default withRouter(InvoiceList);

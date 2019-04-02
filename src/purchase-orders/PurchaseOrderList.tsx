@@ -3,17 +3,19 @@ import { Box, Button, DataTable, Heading } from 'grommet';
 import { Add, Edit, More } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 
-import purchaseOrderRoutes from '../routes';
-import routes from '../routes';
-import { PurchaseorderPurchaseOrderData } from '../../../clients/centrifuge-node/generated-client';
+import purchaseOrderRoutes from './routes';
+import routes from './routes';
+import { PurchaseorderPurchaseOrderData } from '../../clients/centrifuge-node/generated-client';
 import { RouteComponentProps, withRouter } from 'react-router';
 
+
+//TODO this can be reused across all views and should be moved to components and become more genereric
 // Casting to "any" until https://github.com/grommet/grommet/issues/2464 is fixed
 const DataTableSupressedWarning = DataTable as any;
 
 type PurchaseOrdersProps = { purchaseOrders: PurchaseorderPurchaseOrderData[] };
 
-class PurchaseOrdersList extends React.Component<
+class PurchaseOrderList extends React.Component<
   PurchaseOrdersProps & RouteComponentProps
 > {
   displayName = 'PurchaseOrdersList';
@@ -69,4 +71,4 @@ class PurchaseOrdersList extends React.Component<
   }
 }
 
-export default withRouter(PurchaseOrdersList);
+export default withRouter(PurchaseOrderList);

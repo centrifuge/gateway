@@ -2,10 +2,10 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import Invoices from './Invoices';
-import { getInvoices, resetGetInvoices } from '../../store/actions/invoices';
-import { RequestState } from '../../store/reducers/http-request-reducer';
-import { InvoiceData, InvoiceResponse } from '../../interfaces';
+import Invoices from './InvoiceList';
+import { getInvoices, resetGetInvoices } from '../store/actions/invoices';
+import { RequestState } from '../store/reducers/http-request-reducer';
+import { InvoiceData, InvoiceResponse } from '../common/interfaces';
 
 const mapStateToProps = (state: {
   invoices: {

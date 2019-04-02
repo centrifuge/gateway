@@ -9,10 +9,10 @@ import {
   resetGetContacts,
   resetUpdateContact,
   updateContact,
-} from '../../store/actions/contacts';
-import { RequestState } from '../../store/reducers/http-request-reducer';
-import { Contact } from '../../common/models/contact';
-import Contacts from './Contacts';
+} from '../store/actions/contacts';
+import { RequestState } from '../store/reducers/http-request-reducer';
+import { Contact } from '../common/models/contact';
+import ContactList from './ContactList';
 
 const mapStateToProps = (state: {
   contacts: { get: RequestState<Contact[]> };
@@ -51,7 +51,7 @@ class ViewContacts extends React.Component<ViewContactsProps> {
     }
 
     return (
-      <Contacts
+      <ContactList
         contacts={this.props.contacts as Contact[]}
         refresh={this.props.getContacts}
         createContact={this.props.createContact}

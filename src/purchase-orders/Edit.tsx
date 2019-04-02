@@ -2,20 +2,20 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import CreateEditPurchaseOrder from '../CreateEditPurchaseOrder';
+import PurchaseOrderForm from './PurchaseOrderForm';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { RequestState } from '../../store/reducers/http-request-reducer';
-import { PurchaseorderPurchaseOrderResponse } from '../../../clients/centrifuge-node/generated-client';
-import { Contact } from '../../common/models/contact';
-import { getContacts, resetGetContacts } from '../../store/actions/contacts';
-import { LabelValuePair } from '../../interfaces';
+import { RequestState } from '../store/reducers/http-request-reducer';
+import { PurchaseorderPurchaseOrderResponse } from '../../clients/centrifuge-node/generated-client';
+import { Contact } from '../common/models/contact';
+import { getContacts, resetGetContacts } from '../store/actions/contacts';
+import { LabelValuePair } from '../common/interfaces';
 import {
   getPurchaseOrderById,
   resetGetPurchaseOrderById,
   resetUpdatePurchaseOrder,
   updatePurchaseOrder,
-} from '../../store/actions/purchase-orders';
-import { PurchaseOrder } from '../../common/models/purchase-order';
+} from '../store/actions/purchase-orders';
+import { PurchaseOrder } from '../common/models/purchase-order';
 
 type ConnectedEditPurchaseOrderProps = {
   updatePurchaseOrder: (purchaseOrder: PurchaseOrder) => void;
@@ -68,7 +68,7 @@ class ConnectedEditPurchaseOrder extends React.Component<
     }
 
     return (
-      <CreateEditPurchaseOrder
+      <PurchaseOrderForm
         onSubmit={this.updatePurchaseOrder}
         onCancel={this.onCancel}
         contacts={this.props.contacts}

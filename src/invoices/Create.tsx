@@ -2,15 +2,15 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import CreateEditInvoice from '../CreateEditInvoice';
-import { createInvoice, resetCreateInvoice } from '../../store/actions/invoices';
-import { Invoice } from '../../common/models/invoice';
+import InvoiceForm from './InvoiceForm';
+import { createInvoice, resetCreateInvoice } from '../store/actions/invoices';
+import { Invoice } from '../common/models/invoice';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { RequestState } from '../../store/reducers/http-request-reducer';
-import { InvoiceInvoiceData } from '../../../clients/centrifuge-node/generated-client';
-import { Contact } from '../../common/models/contact';
-import { getContacts, resetGetContacts } from '../../store/actions/contacts';
-import { LabelValuePair } from '../../interfaces';
+import { RequestState } from '../store/reducers/http-request-reducer';
+import { InvoiceInvoiceData } from '../../clients/centrifuge-node/generated-client';
+import { Contact } from '../common/models/contact';
+import { getContacts, resetGetContacts } from '../store/actions/contacts';
+import { LabelValuePair } from '../common/interfaces';
 
 type ConnectedCreateInvoiceProps = {
   createInvoice: (invoice: Invoice) => void;
@@ -54,7 +54,7 @@ class ConnectedCreateInvoice extends React.Component<
     }
 
     return (
-      <CreateEditInvoice
+      <InvoiceForm
         onSubmit={this.createInvoice}
         onCancel={this.onCancel}
         contacts={this.props.contacts}

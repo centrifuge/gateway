@@ -2,18 +2,18 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import CreatePurchaseOrder from '../CreateEditPurchaseOrder';
+import CreatePurchaseOrder from './PurchaseOrderForm';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { RequestState } from '../../store/reducers/http-request-reducer';
-import { PurchaseorderPurchaseOrderData } from '../../../clients/centrifuge-node/generated-client';
-import { Contact } from '../../common/models/contact';
-import { getContacts, resetGetContacts } from '../../store/actions/contacts';
-import { LabelValuePair } from '../../interfaces';
+import { RequestState } from '../store/reducers/http-request-reducer';
+import { PurchaseorderPurchaseOrderData } from '../../clients/centrifuge-node/generated-client';
+import { Contact } from '../common/models/contact';
+import { getContacts, resetGetContacts } from '../store/actions/contacts';
+import { LabelValuePair } from '../common/interfaces';
 import {
   createPurchaseOrder,
   resetCreatePurchaseOrder,
-} from '../../store/actions/purchase-orders';
-import { PurchaseOrder } from '../../common/models/purchase-order';
+} from '../store/actions/purchase-orders';
+import { PurchaseOrder } from '../common/models/purchase-order';
 
 type ConnectedCreatePurchaseOrderProps = {
   createPurchaseOrder: (purchaseOrder: PurchaseOrder) => void;

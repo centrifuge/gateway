@@ -2,15 +2,15 @@ import React from 'react';
 import { Field, Form } from 'react-final-form';
 import { Link } from 'react-router-dom';
 import { Box, Button, Text, TextInput } from 'grommet';
-import { User } from '../../common/models/user';
-import routes from '../routes';
-import { required } from '../../validators';
+import { User } from '../common/models/user';
+import routes from './routes';
+import { required } from '../common/validators';
 
 interface RegisterProps {
   onSubmit: (values: any) => void;
 }
 
-class Register extends React.Component<RegisterProps> {
+class RegisterForm extends React.Component<RegisterProps> {
   onSubmit = values => {
     this.props.onSubmit(values as User);
   };
@@ -81,4 +81,4 @@ class Register extends React.Component<RegisterProps> {
   }
 }
 
-export default Register;
+export default RegisterForm;

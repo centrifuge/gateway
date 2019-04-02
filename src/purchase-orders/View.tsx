@@ -2,14 +2,14 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import PurchaseOrders from './PurchaseOrdersList';
-import { RequestState } from '../../store/reducers/http-request-reducer';
-import { PurchaseorderPurchaseOrderData } from '../../../clients/centrifuge-node/generated-client';
+import PurchaseOrders from './PurchaseOrderList';
+import { RequestState } from '../store/reducers/http-request-reducer';
+import { PurchaseorderPurchaseOrderData } from '../../clients/centrifuge-node/generated-client';
 import {
   getPurchaseOrders,
   resetGetPurchaseOrders,
-} from '../../store/actions/purchase-orders';
-import { PurchaseOrderResponse } from '../../interfaces';
+} from '../store/actions/purchase-orders';
+import { PurchaseOrderResponse } from '../common/interfaces';
 
 const mapStateToProps = (state: {
   purchaseOrders: {

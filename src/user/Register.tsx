@@ -3,12 +3,12 @@ import React from 'react';
 import { Text } from 'grommet';
 import { connect } from 'react-redux';
 
-import Register from './Register';
+import RegisterForm from './RegisterForm';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
-import { User } from '../../common/models/user';
-import { register } from '../../store/actions/users';
-import { RequestState } from '../../store/reducers/http-request-reducer';
-import routes from '../../routes';
+import { User } from '../common/models/user';
+import { register } from '../store/actions/users';
+import { RequestState } from '../store/reducers/http-request-reducer';
+import routes from '../routes';
 
 type ConnectedRegisterPageProps = {
   register: (user: User) => void;
@@ -28,7 +28,7 @@ class ConnectedRegisterPage extends React.Component<
       return <Redirect to={routes.index} />;
     }
 
-    return <Register onSubmit={this.props.register} />;
+    return <RegisterForm onSubmit={this.props.register} />;
   }
 }
 

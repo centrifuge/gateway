@@ -2,12 +2,12 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import Login from './Login';
+import LoginForm from './LoginForm';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
-import { User } from '../../common/models/user';
-import { login } from '../../store/actions/users';
-import routes from '../../routes';
-import { LoginState } from '../../store/reducers/user/auth';
+import { User } from '../common/models/user';
+import { login } from '../store/actions/users';
+import routes from '../routes';
+import { LoginState } from '../store/reducers/user/auth';
 
 type ConnectedLoginPageProps = {
   login: (user: User) => void;
@@ -23,7 +23,7 @@ class ConnectedLoginPage extends React.Component<ConnectedLoginPageProps> {
     return this.props.loggedIn ? (
       <Redirect to={routes.invoices.index} />
     ) : (
-      <Login onSubmit={this.login} />
+      <LoginForm onSubmit={this.login} />
     );
   }
 }

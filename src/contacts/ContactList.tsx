@@ -13,10 +13,10 @@ import {
 import { Add, Edit, More } from 'grommet-icons';
 import { Link } from 'react-router-dom';
 
-import { Contact } from '../../common/models/contact';
+import { Contact } from '../common/models/contact';
 import { Field, Form } from 'react-final-form';
-import StyledTextInput from '../../components/StyledTextInput';
-import { required } from '../../validators';
+import StyledTextInput from '../components/StyledTextInput';
+import { required } from '../common/validators';
 
 interface ContactsProps {
   contacts?: (Contact & { isEditing?: boolean })[];
@@ -30,7 +30,7 @@ interface ContactsState {
   contacts: (Contact & { isEditing?: boolean })[];
 }
 
-export default class Contacts extends React.Component<
+export default class ContactList extends React.Component<
   ContactsProps,
   ContactsState
 > {
