@@ -1,7 +1,6 @@
-import { Component } from 'react';
-import { Box, Select, Text } from 'grommet';
-import React from 'react';
-import { FieldRenderProps } from 'react-final-form';
+import React, { Component } from 'react';
+import { Select, SelectProps } from 'grommet';
+import { Omit } from 'grommet/utils';
 
 export interface SearchSelectItem {
   label: string;
@@ -13,16 +12,16 @@ interface SearchSelectState {
   selected: SearchSelectItem | SearchSelectItem[];
 }
 
-export default class SearchSelect<
-  SearchSelectItem
-> extends Component<
-  FieldRenderProps & {
-    items: any[];
-    label: string;
-    selected?: SearchSelectItem | SearchSelectItem[];
-  },
-  SearchSelectState
-> {
+interface SearchSelectProps extends Omit<SelectProps,"selected">{
+  items: any[];
+  label: string;
+  selected?: SearchSelectItem | SearchSelectItem[];
+}
+
+
+export default class SearchSelect<SearchSelectItem> extends Component<
+  SearchSelectProps,
+  SearchSelectState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,7 +33,7 @@ export default class SearchSelect<
 
   onChange = change => {
     this.setState({ selected: change.value }, () => {
-      this.props.onChange(
+      this.props.onChange && this.props.onChange(
         Array.isArray(this.state.selected)
           ? this.state.selected.map(opt => opt.value)
           : this.state.selected.value,
@@ -54,10 +53,10 @@ export default class SearchSelect<
     return (
       <Select
         plain
-        size={"medium" as any}
+        size={'medium'}
         placeholder="Select"
         options={this.state.items}
-        value={this.state.selected as any}
+        value={this.state.selected}
         labelKey="label"
         valueKey="value"
         onChange={this.onChange}
