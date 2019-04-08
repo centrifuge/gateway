@@ -81,33 +81,6 @@ export default class InvoiceForm extends React.Component<InvoiceFormProps> {
                 {this.renderButtons()}
               </Box>
 
-              {/* Collaborators section */}
-              {/* <Box background="white" pad="medium">
-              <Field
-                validate={required}
-                name="collaborators"
-                items={this.props.contacts}
-                // @ts-ignore - necessary until https://github.com/final-form/react-final-form/issues/398 is fixed
-                render={({ input, meta, items }) => (
-                  <SearchableDropdown
-                    multiple
-                    label="Collaborators"
-                    input={input}
-                    meta={meta}
-                    items={items}
-                    selected={
-                      this.props.invoice &&
-                      this.props.contacts.filter(
-                        contact =>
-                          this.props.invoice!.collaborators!.indexOf(
-                            contact.value,
-                          ) !== -1,
-                      )
-                    }
-                  />
-                )}
-              />
-            </Box>*/}
 
               <Box>
                 <Box direction="column" gap="small">
@@ -128,16 +101,14 @@ export default class InvoiceForm extends React.Component<InvoiceFormProps> {
                   {/* Sender section */}
                   <Box pad="medium" gap="small">
                     <Box direction="row" gap="small" responsiveChildren>
-                      {/*<Field
-                      name="sender"
-                      items={this.props.contacts}
-                      // @ts-ignore - necessary until https://github.com/final-form/react-final-form/issues/398 is fixed
-                      render={({ input, meta, items }) => (
-                        <SearchableDropdown
-                          label="Sender"
-                          input={input}
-                          meta={meta}
-                          items={items}
+
+                      <FormField
+                        label="Sender"
+                        error={errors.sender}
+                      >
+                        <SearchSelect
+                          onChange={handleChange}
+                          items={this.props.contacts}
                           selected={
                             this.props.invoice &&
                             this.props.contacts.find(
@@ -146,8 +117,7 @@ export default class InvoiceForm extends React.Component<InvoiceFormProps> {
                             )
                           }
                         />
-                      )}
-                    />*/}
+                      </FormField>
 
                       <FormField
                         label="Sender name"
@@ -212,16 +182,14 @@ export default class InvoiceForm extends React.Component<InvoiceFormProps> {
                   {/* Recipient section */}
                   <Box pad="medium" gap="small">
                     <Box direction="row" gap="small" responsiveChildren>
-                      {/* <Field
-                      name="recipient"
-                      items={this.props.contacts}
-                      // @ts-ignore - necessary until https://github.com/final-form/react-final-form/issues/398 is fixed
-                      render={({ input, meta, items }) => (
-                        <SearchableDropdown
-                          label="Recipient"
-                          input={input}
-                          meta={meta}
-                          items={items}
+
+                      <FormField
+                        label="Recipient"
+                        error={errors.recipient}
+                      >
+                        <SearchSelect
+                          onChange={handleChange}
+                          items={this.props.contacts}
                           selected={
                             this.props.invoice &&
                             this.props.contacts.find(
@@ -231,8 +199,7 @@ export default class InvoiceForm extends React.Component<InvoiceFormProps> {
                             )
                           }
                         />
-                      )}
-                    />*/}
+                      </FormField>
 
                       <FormField
                         label="Recipient Name"
