@@ -570,6 +570,35 @@ export default class InvoiceForm extends React.Component<InvoiceFormProps> {
 
                   </Box>
 
+                  {/* Credit note section */}
+                  <Box direction="row" gap={columnGap}>
+
+                    <Box direction="row" basis={"1/2"} gap={columnGap} responsiveChildren>
+                      <FormField
+                        label="Original invoice number"
+                        error={errors!.credit_note_invoice_number}
+                      >
+                        <TextInput
+                          name="credit_note_invoice_number"
+                          value={values!.credit_note_invoice_number || ''}
+                          onChange={handleChange}
+                        />
+                      </FormField>
+                      <FormField
+                        label="Original invoice date"
+                        error={errors!.credit_for_invoice_date}
+                      >
+                        <TextInput
+                          name="credit_for_invoice_date"
+                          type="date"
+                          value={dateFormatter(values!.credit_for_invoice_date) || ''}
+                          onChange={handleChange}
+                        />
+                      </FormField>
+                    </Box>
+
+                  </Box>
+
                   {/* Comments section */}
                   <Box>
                     <FormField
