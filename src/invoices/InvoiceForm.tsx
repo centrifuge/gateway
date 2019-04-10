@@ -87,11 +87,11 @@ export default class InvoiceForm extends React.Component<InvoiceFormProps> {
                   <Box>
                     <FormField
                       label="Invoice number"
-                      error={errors!.invoice_number}
+                      error={errors!.number}
                     >
                       <TextInput
-                        name="invoice_number"
-                        value={values!.invoice_number || ''}
+                        name="number"
+                        value={values!.number || ''}
                         onChange={handleChange}
                       />
                     </FormField>
