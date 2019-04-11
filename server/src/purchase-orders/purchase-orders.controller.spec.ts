@@ -53,7 +53,7 @@ describe('PurchaseOrdersController', () => {
   const databaseServiceMock = new DatabaseServiceMock();
 
   class CentrifugeClientMock {
-    purchaseOrder = {
+    purchaseOrders = {
       create: jest.fn(data => data),
       get: jest.fn((id, data) => data),
       update: jest.fn((id, data) => data),
@@ -79,7 +79,7 @@ describe('PurchaseOrdersController', () => {
 
     databaseServiceMock.purchaseOrders.insert.mockClear();
     databaseServiceMock.purchaseOrders.find.mockClear();
-    centrifugeClientMock.purchaseOrder.create.mockClear();
+    centrifugeClientMock.purchaseOrders.create.mockClear();
   });
 
   describe('create', () => {
@@ -139,7 +139,7 @@ describe('PurchaseOrdersController', () => {
         _id: 'id_to_update',
         ownerId: 'user_id',
       });
-      expect(centrifugeClientMock.purchaseOrder.update).toHaveBeenCalledWith(
+      expect(centrifugeClientMock.purchaseOrders.update).toHaveBeenCalledWith(
         'find_one_document_id',
         {
           data: {
