@@ -37,7 +37,7 @@ export class PurchaseOrdersController {
     const collaborators = purchaseOrder.collaborators
       ? [...purchaseOrder.collaborators]
       : [];
-    const createResult: PurchaseorderPurchaseOrderResponse = await this.centrifugeService.purchaseOrder.create(
+    const createResult: PurchaseorderPurchaseOrderResponse = await this.centrifugeService.purchaseOrders.create(
       {
         data: {
           ...purchaseOrder,
@@ -74,7 +74,7 @@ export class PurchaseOrdersController {
       const dbPurchaseOrder: PurchaseorderPurchaseOrderResponse = await this.databaseService.purchaseOrders.findOne(
         { _id: id, ownerId: request.user._id },
       );
-      const updateResult = await this.centrifugeService.purchaseOrder.update(
+      const updateResult = await this.centrifugeService.purchaseOrders.update(
         dbPurchaseOrder.header.document_id,
         {
           data: {
