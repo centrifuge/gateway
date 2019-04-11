@@ -32,7 +32,6 @@ describe('Search Select', () => {
     beforeEach(() => {
       searchSelectShallow = shallow(
         <SearchSelect
-          label="Some field"
           {...inputProps}
           options={items}
         />,
