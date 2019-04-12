@@ -20,7 +20,11 @@ describe('LocalStrategy', () => {
   beforeEach(async () => {
     class DatabaseServiceMock {
       users = {
-        findOne: jest.fn(() => mockUser),
+        findOne: jest.fn(() => ({
+            ...mockUser,
+            password: '$2b$12$qI.Lyik/2lJvLwfK74xFee7mOVWyKm0K20YPv4zlfis2dNOh2LJdO',
+          }),
+        ),
       };
     }
 
@@ -41,7 +45,7 @@ describe('LocalStrategy', () => {
       mockUser.username,
       unhashedPassword,
     );
-    expect(result).toBe(mockUser);
+    expect(result).toEqual(mockUser);
   });
 
   it('should return null if username is invalid', async () => {
