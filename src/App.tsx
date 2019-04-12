@@ -6,13 +6,14 @@ import Routing from './Routing';
 import Header from './Header';
 import { connect } from 'react-redux';
 import { User } from './common/models/user';
-import { push } from 'connected-react-router';
+import { push, RouterAction } from 'connected-react-router';
 
 interface AppPros {
   selectedRoute: string;
   loggedInUser: User | null;
-  p
+  push: (route) => RouterAction
 }
+
 
 class App extends Component<AppPros> {
   render() {
