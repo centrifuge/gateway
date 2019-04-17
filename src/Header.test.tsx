@@ -5,10 +5,9 @@ import { createStore } from 'redux';
 import getRootReducer from './store/reducers';
 import { User } from './common/models/user';
 import renderer from 'react-test-renderer';
-import { history } from './store';
 import { BrowserRouter } from "react-router-dom";
 
-const store = createStore(getRootReducer(history),{router:{location: {pathname:'/'}}});
+const store = createStore(getRootReducer({}),{router:{location: {pathname:'/'}}});
 
 describe('Header', () => {
 
