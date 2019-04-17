@@ -1,7 +1,7 @@
 import {
   Body,
   Controller,
-  Get,
+  Get, HttpException, HttpStatus,
   Inject,
   Param,
   Post,
@@ -38,9 +38,17 @@ export class InvoicesController {
    * @return {Promise<InvoiceInvoiceResponse>} result
    */
   async create(@Req() request, @Body() invoice: Invoice) {
-    const collaborators = invoice.collaborators
-      ? [...invoice.collaborators]
-      : [];
+    const collaborators = [invoice.sender]
+    console.log(config.admin.account)
+    console.log(JSON.stringify({
+      data: {
+        ...invoice,
+      },
+      write_access: {
+        collaborators,
+      },
+    }));
+    //return;
     const createResult = await this.centrifugeService.invoices.create(
       {
         data: {
@@ -51,7 +59,10 @@ export class InvoicesController {
         },
       },
       config.admin.account,
-    );
+    ).catch(async (error) => {
+      throw new HttpException( await error.json(), error.status);
+    });
+
 
     return await this.database.invoices.insert({
       ...createResult,
