@@ -38,7 +38,7 @@ export class RemitToForm extends React.Component<ConnectedRemitToProps> {
           >
             <TextInput
               name="remit_to_company_name"
-              value={values!.remit_to_company_name || ''}
+              value={values!.remit_to_company_name}
               onChange={handleChange}
             />
           </FormField>
@@ -48,7 +48,7 @@ export class RemitToForm extends React.Component<ConnectedRemitToProps> {
           >
             <TextInput
               name="remit_to_contact_person_name"
-              value={values!.remit_to_contact_person_name || ''}
+              value={values!.remit_to_contact_person_name}
               onChange={handleChange}
             />
           </FormField>
@@ -58,7 +58,7 @@ export class RemitToForm extends React.Component<ConnectedRemitToProps> {
           >
             <TextInput
               name="remit_to_vat_number"
-              value={values!.remit_to_vat_number || ''}
+              value={values!.remit_to_vat_number}
               onChange={handleChange}
             />
           </FormField>
@@ -68,7 +68,7 @@ export class RemitToForm extends React.Component<ConnectedRemitToProps> {
           >
             <TextInput
               name="remit_to_local_tax_id"
-              value={values!.remit_to_local_tax_id || ''}
+              value={values!.remit_to_local_tax_id}
               onChange={handleChange}
             />
           </FormField>
@@ -78,7 +78,7 @@ export class RemitToForm extends React.Component<ConnectedRemitToProps> {
           >
             <TextInput
               name="remit_to_tax_country"
-              value={values!.remit_to_tax_country || ''}
+              value={values!.remit_to_tax_country}
               onChange={handleChange}
             />
           </FormField>
@@ -92,7 +92,7 @@ export class RemitToForm extends React.Component<ConnectedRemitToProps> {
             <TextInput
               placeholder="Street name and number"
               name="remit_to_street1"
-              value={values!.remit_to_street1 || ''}
+              value={values!.remit_to_street1}
               onChange={handleChange}
             />
           </FormField>
@@ -103,7 +103,7 @@ export class RemitToForm extends React.Component<ConnectedRemitToProps> {
             <TextInput
               placeholder="Apartment, unit, office, etc"
               name="remit_to_street2"
-              value={values!.remit_to_street2 || ''}
+              value={values!.remit_to_street2}
               onChange={handleChange}
             />
           </FormField>
@@ -114,7 +114,7 @@ export class RemitToForm extends React.Component<ConnectedRemitToProps> {
             <TextInput
               name="remit_to_city"
               placeholder="City or state"
-              value={values!.remit_to_city || ''}
+              value={values!.remit_to_city}
               onChange={handleChange}
             />
           </FormField>
@@ -124,7 +124,7 @@ export class RemitToForm extends React.Component<ConnectedRemitToProps> {
           >
             <TextInput
               name="remit_to_country"
-              value={values!.remit_to_country || ''}
+              value={values!.remit_to_country}
               onChange={handleChange}
             />
           </FormField>
@@ -134,7 +134,7 @@ export class RemitToForm extends React.Component<ConnectedRemitToProps> {
           >
             <TextInput
               name="remit_to_zipcode"
-              value={values!.remit_to_zipcode || ''}
+              value={values!.remit_to_zipcode}
               onChange={handleChange}
             />
           </FormField>

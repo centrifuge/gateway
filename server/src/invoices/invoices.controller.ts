@@ -39,16 +39,7 @@ export class InvoicesController {
    */
   async create(@Req() request, @Body() invoice: Invoice) {
     const collaborators = [invoice.sender]
-    console.log(config.admin.account)
-    console.log(JSON.stringify({
-      data: {
-        ...invoice,
-      },
-      write_access: {
-        collaborators,
-      },
-    }));
-    //return;
+
     const createResult = await this.centrifugeService.invoices.create(
       {
         data: {

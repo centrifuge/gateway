@@ -62,7 +62,7 @@ export class PaymentForm extends React.Component<ConnectedPaymentFormProps> {
               <TextInput
                 name="date_created"
                 type="date"
-                value={dateFormatter(values!.date_created) || ''}
+                value={dateFormatter(values!.date_created)}
                 onChange={handleChange}
               />
             </FormField>
@@ -74,7 +74,7 @@ export class PaymentForm extends React.Component<ConnectedPaymentFormProps> {
             >
               <TextInput
                 name="gross_amount"
-                value={values!.gross_amount || ''}
+                value={values!.gross_amount}
                 onChange={handleChange}
               />
             </FormField>
@@ -86,7 +86,7 @@ export class PaymentForm extends React.Component<ConnectedPaymentFormProps> {
             >
               <TextInput
                 name="tax_amount"
-                value={values!.tax_amount || ''}
+                value={values!.tax_amount}
                 onChange={handleChange}
               />
             </FormField>
@@ -101,7 +101,7 @@ export class PaymentForm extends React.Component<ConnectedPaymentFormProps> {
             >
               <TextInput
                 name="currency"
-                value={values!.currency || ''}
+                value={values!.currency}
                 onChange={handleChange}
               />
             </FormField>
@@ -114,7 +114,7 @@ export class PaymentForm extends React.Component<ConnectedPaymentFormProps> {
               <TextInput
                 name="date_due"
                 type="date"
-                value={dateFormatter(values!.date_due) || ''}
+                value={dateFormatter(values!.date_due)}
                 onChange={handleChange}
               />
             </FormField>
@@ -126,7 +126,7 @@ export class PaymentForm extends React.Component<ConnectedPaymentFormProps> {
             >
               <TextInput
                 name="net_amount"
-                value={values!.net_amount || ''}
+                value={values!.net_amount}
                 onChange={handleChange}
               />
             </FormField>
@@ -138,7 +138,7 @@ export class PaymentForm extends React.Component<ConnectedPaymentFormProps> {
             >
               <TextInput
                 name="tax_rate"
-                value={values!.tax_rate || ''}
+                value={values!.tax_rate}
                 onChange={handleChange}
               />
             </FormField>

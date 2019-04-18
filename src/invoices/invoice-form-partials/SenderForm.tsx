@@ -58,7 +58,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
           >
             <TextInput
               name="sender_company_name"
-              value={values!.sender_company_name || ''}
+              value={values!.sender_company_name}
               onChange={handleChange}
             />
           </FormField>
@@ -71,7 +71,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
             <TextInput
               name="sender_street1"
               placeholder="Street name and number"
-              value={values!.sender_street1 || ''}
+              value={values!.sender_street1}
               onChange={handleChange}
             />
           </FormField>
@@ -82,7 +82,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
             <TextInput
               name="sender_street2"
               placeholder="Apartment, unit, office, etc"
-              value={values!.sender_street2 || ''}
+              value={values!.sender_street2}
               onChange={handleChange}
             />
           </FormField>
@@ -93,7 +93,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
             <TextInput
               name="sender_city"
               placeholder="City or state"
-              value={values!.sender_city || ''}
+              value={values!.sender_city}
               onChange={handleChange}
             />
           </FormField>
@@ -103,7 +103,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
           >
             <TextInput
               name="sender_country"
-              value={values!.sender_country || ''}
+              value={values!.sender_country}
               onChange={handleChange}
             />
           </FormField>
@@ -113,7 +113,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
           >
             <TextInput
               name="sender_zipcode"
-              value={values!.sender_zipcode || ''}
+              value={values!.sender_zipcode}
               onChange={handleChange}
             />
           </FormField>

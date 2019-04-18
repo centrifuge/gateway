@@ -39,7 +39,7 @@ export class CreditNoteForm extends React.Component<ConnectedCreditNoteFormProps
             >
               <TextInput
                 name="credit_note_invoice_number"
-                value={values!.credit_note_invoice_number || ''}
+                value={values!.credit_note_invoice_number}
                 onChange={handleChange}
               />
             </FormField>
@@ -53,7 +53,7 @@ export class CreditNoteForm extends React.Component<ConnectedCreditNoteFormProps
               <TextInput
                 name="credit_for_invoice_date"
                 type="date"
-                value={dateFormatter(values!.credit_for_invoice_date) || ''}
+                value={dateFormatter(values!.credit_for_invoice_date)}
                 onChange={handleChange}
               />
             </FormField>

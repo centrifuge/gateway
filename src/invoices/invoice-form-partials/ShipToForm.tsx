@@ -38,7 +38,7 @@ export class ShipToForm extends React.Component<ConnectedShipToFormProps> {
           >
             <TextInput
               name="ship_to_company_name"
-              value={values!.ship_to_company_name || ''}
+              value={values!.ship_to_company_name}
               onChange={handleChange}
             />
           </FormField>
@@ -48,7 +48,7 @@ export class ShipToForm extends React.Component<ConnectedShipToFormProps> {
           >
             <TextInput
               name="ship_to_contact_person_name"
-              value={values!.ship_to_contact_person_name || ''}
+              value={values!.ship_to_contact_person_name}
               onChange={handleChange}
             />
           </FormField>
@@ -61,7 +61,7 @@ export class ShipToForm extends React.Component<ConnectedShipToFormProps> {
             <TextInput
               placeholder="Street name and number"
               name="ship_to_street1"
-              value={values!.ship_to_street1 || ''}
+              value={values!.ship_to_street1}
               onChange={handleChange}
             />
           </FormField>
@@ -72,7 +72,7 @@ export class ShipToForm extends React.Component<ConnectedShipToFormProps> {
             <TextInput
               placeholder="Apartment, unit, office, etc"
               name="ship_to_street2"
-              value={values!.ship_to_street2 || ''}
+              value={values!.ship_to_street2}
               onChange={handleChange}
             />
           </FormField>
@@ -83,7 +83,7 @@ export class ShipToForm extends React.Component<ConnectedShipToFormProps> {
             <TextInput
               name="ship_to_city"
               placeholder="City or state"
-              value={values!.ship_to_city || ''}
+              value={values!.ship_to_city}
               onChange={handleChange}
             />
           </FormField>
@@ -93,7 +93,7 @@ export class ShipToForm extends React.Component<ConnectedShipToFormProps> {
           >
             <TextInput
               name="ship_to_country"
-              value={values!.ship_to_country || ''}
+              value={values!.ship_to_country}
               onChange={handleChange}
             />
           </FormField>
@@ -103,7 +103,7 @@ export class ShipToForm extends React.Component<ConnectedShipToFormProps> {
           >
             <TextInput
               name="ship_to_zipcode"
-              value={values!.ship_to_zipcode || ''}
+              value={values!.ship_to_zipcode}
               onChange={handleChange}
             />
           </FormField>

@@ -57,7 +57,7 @@ export class RecipientForm extends React.Component<ConnectedRecipientFormProps> 
           >
             <TextInput
               name="bill_to_company_name"
-              value={values!.bill_to_company_name || ''}
+              value={values!.bill_to_company_name}
               onChange={handleChange}
             />
           </FormField>
@@ -70,7 +70,7 @@ export class RecipientForm extends React.Component<ConnectedRecipientFormProps> 
             <TextInput
               name="bill_to_street1"
               placeholder="Street name and number"
-              value={values!.bill_to_street1 || ''}
+              value={values!.bill_to_street1}
               onChange={handleChange}
             />
           </FormField>
@@ -81,7 +81,7 @@ export class RecipientForm extends React.Component<ConnectedRecipientFormProps> 
             <TextInput
               name="bill_to_street2"
               placeholder="Apartment, unit, office, etc"
-              value={values!.bill_to_street2 || ''}
+              value={values!.bill_to_street2}
               onChange={handleChange}
             />
           </FormField>
@@ -92,7 +92,7 @@ export class RecipientForm extends React.Component<ConnectedRecipientFormProps> 
             <TextInput
               name="bill_to_city"
               placeholder="City or state"
-              value={values!.bill_to_city || ''}
+              value={values!.bill_to_city}
               onChange={handleChange}
             />
           </FormField>
@@ -102,7 +102,7 @@ export class RecipientForm extends React.Component<ConnectedRecipientFormProps> 
           >
             <TextInput
               name="bill_to_country"
-              value={values!.bill_to_country || ''}
+              value={values!.bill_to_country}
               onChange={handleChange}
             />
           </FormField>
@@ -112,7 +112,7 @@ export class RecipientForm extends React.Component<ConnectedRecipientFormProps> 
           >
             <TextInput
               name="bill_to_zipcode"
-              value={values!.bill_to_zipcode || ''}
+              value={values!.bill_to_zipcode}
               onChange={handleChange}
             />
           </FormField>
