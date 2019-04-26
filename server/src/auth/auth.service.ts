@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { promisify } from 'util';
+import {PERMISSIONS} from "../../../src/common/constants";
 
 import { User } from '../../../src/common/models/user';
 import { DatabaseService } from '../database/database.service';
@@ -28,8 +29,8 @@ export class AuthService {
     // make sure we do not return the password
     const { password, ...user } = databaseUser;
     const passwordMatch = await promisify(bcrypt.compare)(
-      passwordValue,
-      password,
+        passwordValue,
+        password,
     );
 
     if (!passwordMatch) {
@@ -38,4 +39,28 @@ export class AuthService {
 
     return user;
   }
+
+  /**
+   * Checks that user has specified permissions
+   * @async
+   * @param {string} usernameValue
+   * @param {string} passwordValue
+   *
+   * @return {Promise<User|null>} promise - a promise with the validation results. If successful
+   * will return the user, otherwise it returns null.
+   */
+  async validatePermissions(usernameValue: string, passwordValue: string, permissions: PERMISSIONS): Promise<User | null> {
+
+    const user = await this.validateUser(usernameValue, passwordValue)
+
+    if (!user) {
+      return null
+    }
+
+    if (!user.permissions.includes(permissions)) {
+      return null
+    }
+    return user;
+  }
+
 }

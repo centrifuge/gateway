@@ -2,6 +2,7 @@ import { all, fork } from 'redux-saga/effects';
 import invoices from './invoices';
 import users from './user';
 import contacts from './contacts';
+import admin from './admin'
 
 export default function*() {
   yield all([
@@ -13,6 +14,7 @@ export default function*() {
     fork(users.watchUserRegister),
     fork(contacts.watchGetContactsPage),
     fork(contacts.watchCreateContact),
-    fork(contacts.watchUpdateContact)
+    fork(contacts.watchUpdateContact),
+    fork(admin.watchGetAccountsPage),
   ]);
 }

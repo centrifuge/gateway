@@ -6,6 +6,7 @@ import { ROUTES } from '../common/constants';
 import { User } from '../common/models/user';
 import { Contact } from '../common/models/contact';
 import {
+  AccountGetAllAccountResponse,
   InvoiceInvoiceResponse,
 } from '../../clients/centrifuge-node';
 
@@ -25,12 +26,16 @@ export const httpClient = {
   user: {
     login: async (user: User) => instance.post(ROUTES.USERS.login, user),
     logout: async () => instance.get(ROUTES.USERS.logout),
-      register: async(user: User) => instance.post(ROUTES.USERS.register, user)
+    register: async(user: User) => instance.post(ROUTES.USERS.register, user)
   },
   contacts: {
     create: async (contact: Contact) => instance.post(ROUTES.CONTACTS, contact),
     read: async () => instance.get(ROUTES.CONTACTS),
     update: async (contact: Contact) =>
       instance.put(`${ROUTES.CONTACTS}/${contact._id}`, contact),
+  },
+  admin: {
+    read: async () : Promise<AccountGetAllAccountResponse> =>
+        instance.get(ROUTES.ACCOUNTS)
   }
 };

@@ -16,11 +16,11 @@ export const ROUTES = Object.freeze({
   CONTACTS: `${API_BASE}/contacts`,
   WEBHOOKS: `${API_BASE}/webhooks`,
   PURCHASE_ORDERS: `${API_BASE}/purchase_orders`,
+  ACCOUNTS: `/accounts`
 });
 
 export enum PERMISSIONS {
   CAN_INVITE = 'can_invite',
-  CAN_LIST_USERS = 'can_list_users',
   CAN_MANAGE_USERS = 'can_manage_users',
   CAN_MANAGE_ACCOUNTS = 'can_manage_accounts',
 }

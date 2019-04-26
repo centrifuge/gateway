@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { WebhooksModule } from './webhooks/webhooks.module';
 import { PurchaseOrdersModule } from './purchase-orders/purchase-orders.module';
+import {AccountsModule} from "./admin/accounts.module";
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { PurchaseOrdersModule } from './purchase-orders/purchase-orders.module';
     ContactsModule,
     PurchaseOrdersModule,
     WebhooksModule,
+    AccountsModule
   ],
 })
 export class AppModule {}
