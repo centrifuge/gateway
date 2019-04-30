@@ -16,15 +16,13 @@ import {
   AccountGetAllAccountResponse,
 } from '../../../clients/centrifuge-node';
 import { DatabaseService } from '../database/database.service';
-// import { InvoiceData } from '../../../src/common/interfaces';
 import config from '../config';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
-import { AuthGuard } from '@nestjs/passport';
-
+import {AccountAuthGuard} from "../auth/account.auth.guard";
 
 @Controller(ROUTES.ACCOUNTS)
 @UseGuards(SessionGuard)
-@UseGuards(AuthGuard('permissions'))
+@UseGuards(AccountAuthGuard)
 export class AccountsController {
   constructor(
       private readonly database: DatabaseService,

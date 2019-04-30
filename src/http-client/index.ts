@@ -34,7 +34,7 @@ export const httpClient = {
     update: async (contact: Contact) =>
       instance.put(`${ROUTES.CONTACTS}/${contact._id}`, contact),
   },
-  admin: {
+  accounts: {
     read: async () : Promise<AccountGetAllAccountResponse> =>
         instance.get(ROUTES.ACCOUNTS)
   }

@@ -36,7 +36,7 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
 
     if (loggedInUser.permissions.includes(PERMISSIONS.CAN_MANAGE_ACCOUNTS)) {
       mainMenuItems.unshift(
-          {label: 'Admin', route: adminRoutes.index},
+          {label: 'Admin', route: adminRoutes.accounts},
       )
     }
   }

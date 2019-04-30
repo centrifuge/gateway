@@ -16,7 +16,7 @@ export const ROUTES = Object.freeze({
   CONTACTS: `${API_BASE}/contacts`,
   WEBHOOKS: `${API_BASE}/webhooks`,
   PURCHASE_ORDERS: `${API_BASE}/purchase_orders`,
-  ACCOUNTS: `/accounts`
+  ACCOUNTS: `/admin/accounts`
 });
 
 export enum PERMISSIONS {

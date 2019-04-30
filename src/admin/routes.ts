@@ -2,5 +2,5 @@ const index = '/admin';
 
 export default {
   index,
-  getAccounts: `/accounts`,
+  accounts: `${index}/accounts`,
 };
