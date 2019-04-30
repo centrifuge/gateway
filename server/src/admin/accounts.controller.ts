@@ -18,7 +18,7 @@ import {
 import { DatabaseService } from '../database/database.service';
 import config from '../config';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
-import {AccountAuthGuard} from "../auth/account.auth.guard";
+import { AccountAuthGuard } from "../auth/account.auth.guard";
 
 @Controller(ROUTES.ACCOUNTS)
 @UseGuards(SessionGuard)

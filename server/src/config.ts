@@ -1,5 +1,5 @@
-import {env} from 'process';
-import {PERMISSIONS} from "../../src/common/constants";
+import { env } from 'process';
+import { PERMISSIONS } from "../../src/common/constants";
 
 const config = {
   centrifugeUrl: env.CENTRIFUGE_URL || 'http://127.0.0.1:8084',

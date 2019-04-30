@@ -1,9 +1,9 @@
-import React, {FunctionComponent} from 'react';
-import {Link} from 'react-router-dom';
-import {Anchor, Box, Image} from 'grommet';
+import React, { FunctionComponent } from 'react';
+import { Link } from 'react-router-dom';
+import { Anchor, Box, Image } from 'grommet';
 import logo from './logo.png';
-import {User} from './common/models/user';
-import {PERMISSIONS} from './common/constants';
+import { User } from './common/models/user';
+import { PERMISSIONS } from './common/constants';
 import adminRoutes from './admin/routes'
 import invoicesRoutes from './invoices/routes'
 import contactsRoutes from './contacts/routes'
@@ -40,8 +40,6 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
       )
     }
   }
-
-  console.log(props)
 
   return <Box
     justify="center"

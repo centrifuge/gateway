@@ -1,8 +1,8 @@
-import {Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import {promisify} from 'util';
-import {User} from '../../../src/common/models/user';
-import {DatabaseService} from '../database/database.service';
+import { promisify } from 'util';
+import { User } from '../../../src/common/models/user';
+import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class AuthService {
@@ -27,8 +27,8 @@ export class AuthService {
     // make sure we do not return the password
     const { password, ...user } = databaseUser;
     const passwordMatch = await promisify(bcrypt.compare)(
-        passwordValue,
-        password,
+       passwordValue,
+       password,
     );
     if (!passwordMatch) {
       return null;
