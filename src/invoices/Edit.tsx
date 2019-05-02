@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
-
 import InvoiceForm from './InvoiceForm';
 import {
   getInvoiceById,

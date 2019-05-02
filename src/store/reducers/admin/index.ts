@@ -6,6 +6,6 @@ import {
 import { httpRequestReducer } from '../http-request-reducer';
 import {AccountGetAllAccountResponse} from "../../../../clients/centrifuge-node";
 
-const get = httpRequestReducer<AccountGetAllAccountResponse>(getAllAccountsAction);
+const getAccounts = httpRequestReducer<AccountGetAllAccountResponse>(getAllAccountsAction);
 
-export default combineReducers({ get });
+export default combineReducers({ getAccounts });

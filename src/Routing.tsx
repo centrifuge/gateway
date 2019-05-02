@@ -10,7 +10,7 @@ import RegisterPage from './user/Register';
 import { User } from './common/models/user';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { ConnectedInvoiceDetails } from './invoices/InvoiceDetails';
-import AccountsList from "./admin/AccountsList";
+import AccountsList from "./admin/accounts/AccountsList";
 
 
 interface RoutingProps {
