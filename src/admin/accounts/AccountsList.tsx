@@ -1,18 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getAllAccounts, resetGetAllAccounts } from '../../store/actions/admin';
+import {
+  getAllAccounts,
+  resetGetAllAccounts,
+  generateNewAccount,
+  resetGenerateNewAccount,
+} from '../../store/actions/admin';
 import { RequestState } from '../../store/reducers/http-request-reducer';
 import {Box, Button, DataTable, Heading, Text, Layer} from 'grommet';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { AccountGetAllAccountResponse } from '../../../clients/centrifuge-node';
-import adminRoutes from '../routes'
+import {AccountAccountData, AccountGetAllAccountResponse} from '../../../clients/centrifuge-node';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup'
 
 type AccountsListProps = {
   getAllAccounts: () => void;
   resetGetAllAccounts: () => void;
+  resetGenerateNewAccount: () => void;
+  generateNewAccount: () => void;
   accounts?: AccountGetAllAccountResponse[];
   loading: boolean;
 };
@@ -29,11 +35,17 @@ class AccountsList extends React.Component<AccountsListProps & RouteComponentPro
 
   componentWillUnmount() {
     this.props.resetGetAllAccounts();
+    this.props.resetGenerateNewAccount();
   }
 
   // onSubmit = (values: Invoice) => {
   //   return this.props.onSubmit && this.props.onSubmit({ ...values });
   // };
+
+  generateNewAccount = () => {
+    console.log('generating!')
+    this.props.generateNewAccount()
+  }
 
   renderAccounts = (data) => {
     return (
@@ -108,9 +120,14 @@ class AccountsList extends React.Component<AccountsListProps & RouteComponentPro
         <Box fill>
           <Box justify="between" direction="row" align="center">
             <Heading level="3">Account Management</Heading>
-            {/*<Link to={adminRoutes.newAccount}>*/}
+            {/*<Link to={adminRoutes.generateNewAccount}>*/}
               <Box>
-                <Button primary label="Add New Account" onClick={() => { this.setState({show: true})}} />
+                <Button primary label="Add New Account" onClick={
+                  () => {
+                    this.generateNewAccount()
+                    // this.setState({show: true})
+                  }
+                } />
               </Box>
             {/*</Link>*/}
             { this.state.show && this.renderForm() }
@@ -125,6 +142,7 @@ export default connect(
     (state: {
       admin: {
         getAccounts: RequestState<AccountGetAllAccountResponse[]>;
+        generateNewAccount: RequestState<AccountAccountData>;
       };
     }) => {
       return {
@@ -133,6 +151,6 @@ export default connect(
       };
     },
     {
-      getAllAccounts, resetGetAllAccounts
+      getAllAccounts, resetGetAllAccounts, generateNewAccount, resetGenerateNewAccount
     },
 )(withRouter(AccountsList));

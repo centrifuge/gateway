@@ -2,6 +2,7 @@ import { DatabaseRepository } from './database.repository';
 import { InvoiceResponse, PurchaseOrderResponse } from '../../../src/common/interfaces';
 import { User } from '../../../src/common/models/user';
 import { Contact } from '../../../src/common/models/contact';
+import {AccountAccountData} from "../../../clients/centrifuge-node";
 
 export class DatabaseService {
   constructor(

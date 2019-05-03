@@ -1,6 +1,7 @@
 const API_BASE = '/api';
 
 const baseUsersRoute = `${API_BASE}/users`;
+const baseAdminRoute = '/admin'
 
 const userRoutes = {
   base: baseUsersRoute,
@@ -9,6 +10,12 @@ const userRoutes = {
   register: `${baseUsersRoute}/register`,
 };
 
+const adminRoutes = {
+  base: baseAdminRoute,
+  getAllAccounts: `${baseAdminRoute}/accounts`,
+  generateNewAccount: `${baseAdminRoute}/accounts/generate`
+}
+
 export const ROUTES = Object.freeze({
   API_BASE,
   INVOICES: `${API_BASE}/invoices`,
@@ -16,7 +23,7 @@ export const ROUTES = Object.freeze({
   CONTACTS: `${API_BASE}/contacts`,
   WEBHOOKS: `${API_BASE}/webhooks`,
   PURCHASE_ORDERS: `${API_BASE}/purchase_orders`,
-  ACCOUNTS: `/admin/accounts`
+  ADMIN: adminRoutes,
 });
 
 export enum PERMISSIONS {

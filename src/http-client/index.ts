@@ -36,6 +36,9 @@ export const httpClient = {
   },
   accounts: {
     read: async () : Promise<AccountGetAllAccountResponse> =>
-        instance.get(ROUTES.ACCOUNTS)
+        instance.get(ROUTES.ADMIN.getAllAccounts),
+    // typecasting for return value
+    create: async () : Promise<any> =>
+        instance.post(ROUTES.ADMIN.generateNewAccount)
   }
 };
