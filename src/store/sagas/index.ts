@@ -16,6 +16,6 @@ export default function*() {
     fork(contacts.watchCreateContact),
     fork(contacts.watchUpdateContact),
     fork(admin.watchGetAccountsPage),
-    fork(admin.watchGenerateNewAccountPage),
+    fork(admin.watchGenerateAccountPage),
   ]);
 }

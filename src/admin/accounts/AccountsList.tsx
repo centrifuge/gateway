@@ -4,21 +4,21 @@ import { Link } from 'react-router-dom';
 import {
   getAllAccounts,
   resetGetAllAccounts,
-  generateNewAccount,
-  resetGenerateNewAccount,
+  generateAccount,
+  resetGenerateAccount,
 } from '../../store/actions/admin';
 import { RequestState } from '../../store/reducers/http-request-reducer';
-import {Box, Button, DataTable, Heading, Text, Layer} from 'grommet';
+import {Box, Button, DataTable, Heading, Text, Layer, FormField, TextInput } from 'grommet';
 import { RouteComponentProps, withRouter } from 'react-router';
 import {AccountAccountData, AccountGetAllAccountResponse} from '../../../clients/centrifuge-node';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 
 type AccountsListProps = {
   getAllAccounts: () => void;
   resetGetAllAccounts: () => void;
-  resetGenerateNewAccount: () => void;
-  generateNewAccount: () => void;
+  resetGenerateAccount: () => void;
+  generateAccount: () => void;
   accounts?: AccountGetAllAccountResponse[];
   loading: boolean;
 };
@@ -35,7 +35,7 @@ class AccountsList extends React.Component<AccountsListProps & RouteComponentPro
 
   componentWillUnmount() {
     this.props.resetGetAllAccounts();
-    this.props.resetGenerateNewAccount();
+    this.props.resetGenerateAccount();
   }
 
   // onSubmit = (values: Invoice) => {
@@ -43,8 +43,7 @@ class AccountsList extends React.Component<AccountsListProps & RouteComponentPro
   // };
 
   generateNewAccount = () => {
-    console.log('generating!')
-    this.props.generateNewAccount()
+    this.props.generateAccount()
   }
 
   renderAccounts = (data) => {
@@ -80,27 +79,47 @@ class AccountsList extends React.Component<AccountsListProps & RouteComponentPro
         <Layer onEsc={() => this.setState({show: false})} onClickOutside={() => this.setState({show: false})}>
           <Formik
               initialValues={{ name: '', email: '' }}
-              validate={newAccountValidation}
+              validationSchema={newAccountValidation}
               onSubmit={(values, { setSubmitting }) => {
                 // if (!values) return;
                 // this.onSubmit(values);
                 // setSubmitting(true);
               }}
           >
-            {({ isSubmitting, handleSubmit }) => (
+            {({ values,errors,handleChange, handleSubmit }) => (
                 <Box direction='column'>
                   <Heading margin='medium' level='5'>Add Account</Heading>
                   <Form>
-                    <Box fill pad='medium'>
-                      Name
-                      <Field name="name" />
-                      <ErrorMessage name="name" component="div" />
-                      Email
-                      <Field name="email" />
-                      <ErrorMessage name="email">{msg => <div className="error error-message">{msg}</div>}</ErrorMessage>
+                    <Box fill pad='medium' gap="medium">
+
+                      <FormField
+                          label="Name"
+                          error={errors!.name}
+                      >
+                        <TextInput
+                            name="name"
+                            value={values!.name}
+                            onChange={handleChange}
+                        />
+                      </FormField>
+
+                      <FormField
+                          label="Email"
+                          error={errors!.email}
+                      >
+                        <TextInput
+                            name="email"
+                            value={values!.email}
+                            onChange={handleChange}
+                        />
+                      </FormField>
                       <Box direction="row" gap="large" pad="large">
                         <Button label="Discard" onClick={() => this.setState({show: false})} />
-                        <Button type="submit" primary label="Save" onClick={() => this.setState({show: false})} />
+                        <Button type="submit" primary label="Save" onClick={() => {
+                          this.generateNewAccount()
+                          this.setState({show: false})
+                        }}
+                        />
                       </Box>
                     </Box>
                   </Form>
@@ -120,16 +139,13 @@ class AccountsList extends React.Component<AccountsListProps & RouteComponentPro
         <Box fill>
           <Box justify="between" direction="row" align="center">
             <Heading level="3">Account Management</Heading>
-            {/*<Link to={adminRoutes.generateNewAccount}>*/}
               <Box>
                 <Button primary label="Add New Account" onClick={
                   () => {
-                    this.generateNewAccount()
-                    // this.setState({show: true})
+                    this.setState({show: true})
                   }
                 } />
               </Box>
-            {/*</Link>*/}
             { this.state.show && this.renderForm() }
           </Box>
           { this.renderAccounts(this.props.accounts) }
@@ -151,6 +167,6 @@ export default connect(
       };
     },
     {
-      getAllAccounts, resetGetAllAccounts, generateNewAccount, resetGenerateNewAccount
+      getAllAccounts, resetGetAllAccounts, generateAccount, resetGenerateAccount
     },
 )(withRouter(AccountsList));

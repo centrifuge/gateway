@@ -13,7 +13,7 @@ const userRoutes = {
 const adminRoutes = {
   base: baseAdminRoute,
   getAllAccounts: `${baseAdminRoute}/accounts`,
-  generateNewAccount: `${baseAdminRoute}/accounts/generate`
+  generateAccount: `${baseAdminRoute}/accounts/generate`
 }
 
 export const ROUTES = Object.freeze({

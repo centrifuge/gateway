@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get, HttpException, HttpStatus,
   Post,
@@ -42,14 +43,13 @@ export class AccountsController {
     }
   }
 
-  @Post()
+  @Post('/generate')
   /**
    * Generate a new account
    * @async
    * @return {Promise<AccountData>} result
    */
-  async create(@Req() request) : Promise<AccountAccountData>{
-    console.log('inside the create function')
+  async create(@Req() request, @Body(){}) : Promise<AccountAccountData>{
     try {
       return await this.centrifugeService.accounts.generateAccount(
           config.admin.account,

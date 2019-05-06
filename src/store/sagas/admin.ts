@@ -2,7 +2,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import { httpClient } from '../../http-client';
 import {
   getAllAccountsAction,
-  generateNewAccountAction
+  generateAccountAction
 } from '../actions/admin';
 
 export function* getAllAccounts() {
@@ -17,20 +17,20 @@ export function* getAllAccounts() {
   }
 }
 
-export function* generateNewAccount() {
+export function* generateAccount() {
   try {
     const response = yield call(httpClient.accounts.create);
     yield put({
-      type: generateNewAccountAction.success,
+      type: generateAccountAction.success,
       payload: response.data,
     });
   } catch (e) {
-    yield put({ type: generateNewAccountAction.fail, payload: e });
+    yield put({ type: generateAccountAction.fail, payload: e });
   }
 }
 
 
 export default {
   watchGetAccountsPage: () => takeEvery(getAllAccountsAction.start, getAllAccounts),
-  watchGenerateNewAccountPage: () => takeEvery(generateNewAccountAction.start, generateNewAccount),
+  watchGenerateAccountPage: () => takeEvery(generateAccountAction.start, generateAccount),
 };

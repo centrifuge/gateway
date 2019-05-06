@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 
 import {
   getAllAccountsAction,
-  generateNewAccountAction,
+  generateAccountAction,
 } from '../../actions/admin';
 import { httpRequestReducer } from '../http-request-reducer';
 import {AccountAccountData, AccountGetAllAccountResponse} from "../../../../clients/centrifuge-node";
 
 const getAccounts = httpRequestReducer<AccountGetAllAccountResponse>(getAllAccountsAction);
-const generateNewAccount = httpRequestReducer<AccountAccountData>(generateNewAccountAction)
+const generateAccount = httpRequestReducer<AccountAccountData>(generateAccountAction)
 
-export default combineReducers({ getAccounts, generateNewAccount });
+export default combineReducers({ getAccounts, generateAccount });
