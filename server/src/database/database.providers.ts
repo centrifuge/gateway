@@ -25,6 +25,8 @@ const initializeDatabase = async () => {
   const admin: User = {
     username: config.admin.username,
     password: await promisify(bcrypt.hash)(config.admin.password, 10),
+    email: 'test@test.org',
+    date_added: new Date(),
     enabled: true,
     invited: false,
     account: config.admin.account,
