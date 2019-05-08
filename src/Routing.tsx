@@ -23,7 +23,7 @@ const Routing: FunctionComponent<RoutingProps> = (props) => {
     return (
       <Switch>
         <Route exact path={routes.index} component={LoginPage}/>
-        <Route exact path={routes.user.register} component={RegisterPage}/>
+        {/*<Route exact path={routes.user.register} component={RegisterPage}/>*/}
         <ProtectedRoute exact path={routes.user.index} component={UsersList} authorized={authorized}/>
         <ProtectedRoute exact path={routes.invoices.new} component={CreateInvoice} authorized={authorized}/>
         <ProtectedRoute exact path={routes.invoices.view} component={ConnectedInvoiceDetails} authorized={authorized}/>

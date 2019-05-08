@@ -11,6 +11,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup'
 import { User } from "../../common/models/user";
+import {PERMISSIONS} from "../../common/constants";
 
 type UsersListProps = {
   getAllUsers: () => void;
@@ -36,12 +37,18 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
   //   return this.props.onSubmit && this.props.onSubmit({ ...values });
   // };
 
+  containsPermission = (permissions) => {
+
+  }
+
 
   renderUsers = (data) => {
+
     return (
         <Box>
           <DataTable
               data={data}
+              sortable-={true}
               columns={[
                 {
                   property: 'username',
@@ -60,6 +67,21 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
                   header: 'Centrifuge ID',
                   render: data =>
                       data.account ? <Text>{data.account}</Text> : null,
+                },
+                {
+                  property: 'user_rights',
+                  header: 'User Rights',
+                  render: data =>
+                  { if (data.permissions) {
+                      let displayedPermissions = '
+                      switch (data.permissions) {
+                        case PERMISSIONS.CAN_MANAGE_USERS {
+                          displayedPermissions.concat('Admin')
+                        }
+                    }
+                    data.permissions ? <Text>{data.account}</Text> : null
+                  }
+                  },
                 },
               ]}
           />

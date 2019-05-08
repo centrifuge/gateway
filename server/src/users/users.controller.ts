@@ -98,6 +98,7 @@ export class UsersController {
       ...user,
       username: user.username,
       password: undefined,
+      email: undefined
       enabled: false,
       invited: true,
       permissions: [],
