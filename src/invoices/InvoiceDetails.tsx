@@ -75,7 +75,7 @@ export class InvoiceDetails extends React.Component<ConnectedInvoiceDetailsProps
             <Button
               active={false}
               onClick={() => {
-                this.props.history.push(
+                invoice._id && this.props.history.push(
                   invoiceRoutes.edit.replace(':id', invoice._id),
                 );
               }}

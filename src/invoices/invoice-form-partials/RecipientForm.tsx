@@ -28,8 +28,6 @@ export class RecipientForm extends React.Component<ConnectedRecipientFormProps> 
       handleChange,
     } = this.props.formik;
 
-    console.log(this.props.formik);
-
     const {
       contacts,
       columnGap,
