@@ -33,9 +33,7 @@ export default class SearchSelect<SearchSelectItem> extends Component<
   onChange = event => {
     this.setState({ selected: event.value }, () => {
       this.props.onChange && this.props.onChange(
-        Array.isArray(this.state.selected)
-          ? this.state.selected.map(opt => opt.value)
-          : this.state.selected.value,
+        this.state.selected
       );
     });
   };

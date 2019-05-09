@@ -28,6 +28,8 @@ export class RecipientForm extends React.Component<ConnectedRecipientFormProps> 
       handleChange,
     } = this.props.formik;
 
+    console.log(this.props.formik);
+
     const {
       contacts,
       columnGap,
@@ -37,11 +39,15 @@ export class RecipientForm extends React.Component<ConnectedRecipientFormProps> 
       <Box direction="row" gap={columnGap} basis={'1/2'}>
         <Box gap={columnGap} basis={'1/2'}>
           <FormField
-            label="Centrifuge ID"
+            label="Name"
             error={errors!.recipient}
           >
             <SearchSelect
-              onChange={(value) => setFieldValue('recipient', value)}
+              onChange={(item) => {
+                setFieldValue('recipient', item.value)
+                setFieldValue('bill_to_company_name', item.label)
+              }}
+
               options={contacts}
               selected={
                 contacts.find(
@@ -51,16 +57,7 @@ export class RecipientForm extends React.Component<ConnectedRecipientFormProps> 
               }
             />
           </FormField>
-          <FormField
-            label="Company name"
-            error={errors!.bill_to_company_name}
-          >
-            <TextInput
-              name="bill_to_company_name"
-              value={values!.bill_to_company_name}
-              onChange={handleChange}
-            />
-          </FormField>
+
         </Box>
         <Box gap={columnGap} basis={'1/2'}>
           <FormField
