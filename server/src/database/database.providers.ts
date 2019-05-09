@@ -30,7 +30,7 @@ const initializeDatabase = async () => {
     enabled: true,
     invited: false,
     account: config.admin.account,
-    permissions: [PERMISSIONS.CAN_MANAGE_USERS, PERMISSIONS.CAN_MANAGE_ACCOUNTS, PERMISSIONS.CAN_CREATE_INVOICES, PERMISSIONS.CAN_FUND_INVOICES],
+    permissions: [PERMISSIONS.CAN_MANAGE_USERS],
   };
 
   const userExists = await usersRepository.findOne({

@@ -21,7 +21,7 @@ class ConnectedLoginPage extends React.Component<ConnectedLoginPageProps> {
 
   render() {
     return this.props.loggedInUser ? (
-      <Redirect to={routes.invoices.index} />
+      <Redirect to={routes.contacts.index} />
     ) : (
       <LoginForm onSubmit={this.login} />
     );

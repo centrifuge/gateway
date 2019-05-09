@@ -49,23 +49,31 @@ class App extends Component<AppPros> {
     let routeItems: RouteItem[] = [];
 
     if (loggedInUser) {
+      menuItems.push(
+          { label: 'Contacts', route: contactsRoutes.index }
+      )
+      routeItems.push(
+          {
+            path: routes.contacts.index,
+            component: Contacts,
+          }
+      )
 
       if (loggedInUser.permissions.includes(PERMISSIONS.CAN_MANAGE_USERS)) {
-        menuItems.unshift(
+        menuItems.push(
             {label: 'Users', route: userRoutes.index},
         )
         routeItems.push(
             {
               path: routes.user.index,
               component: UsersList,
-            }
+            },
         )
       }
 
       if(loggedInUser.permissions.includes(PERMISSIONS.CAN_CREATE_INVOICES)) {
         menuItems.push(...[
           { label: 'Invoices', route: invoicesRoutes.index },
-          { label: 'Contacts', route: contactsRoutes.index }
         ])
 
         routeItems.push(
@@ -85,10 +93,6 @@ class App extends Component<AppPros> {
             path: routes.invoices.edit,
             component: EditInvoice,
           },
-          {
-            path: routes.contacts.index,
-            component: Contacts,
-          }
         )
       }
 

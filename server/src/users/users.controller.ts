@@ -19,6 +19,7 @@ import { DatabaseService } from '../database/database.service';
 import config from '../config';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import {UserAuthGuard} from "../auth/admin.auth.guard";
+import {DatabaseRepository} from "../database/database.repository";
 
 @Controller(ROUTES.USERS.base)
 export class UsersController {
@@ -121,8 +122,15 @@ export class UsersController {
     if (user.password) {
       user.password = await promisify(bcrypt.hash)(user.password, 10);
     }
-    const result: User = await this.databaseService.users.updateById(id, user, true);
+
+    const usersRepository =  new DatabaseRepository<User>(
+        `${config.dbPath}/usersDb`,
+    );
+    console.log('inserting user', user)
+    return await usersRepository.insert(user);
+
+    // const result: User = await this.databaseService.users.updateById(id, user, true);
     // TODO return "public" User here not just the id
-    return result._id;
+    // return result._id;
   }
 }
