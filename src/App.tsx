@@ -18,6 +18,7 @@ import CreateInvoice from "./invoices/Create";
 import {ConnectedInvoiceDetails} from "./invoices/InvoiceDetails";
 import EditInvoice from "./invoices/Edit";
 import Contacts from "./contacts/View";
+import RegisterForm from "./user/RegisterForm";
 
 interface AppPros {
   selectedRoute: string;
@@ -46,7 +47,12 @@ class App extends Component<AppPros> {
     } = this.props;
 
     let menuItems: MenuItem[] = [];
-    let routeItems: RouteItem[] = [];
+    let routeItems: RouteItem[] = [
+      {
+        path: routes.user.register,
+        component: RegisterForm,
+      },
+    ];
 
     if (loggedInUser) {
       menuItems.push(

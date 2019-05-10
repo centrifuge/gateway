@@ -58,7 +58,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
         <Box>
           <DataTable
               data={data}
-              sortable-={true}
+              sortable={true}
               columns={[
                 {
                   property: 'username',
