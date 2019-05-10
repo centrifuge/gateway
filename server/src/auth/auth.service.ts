@@ -23,6 +23,7 @@ export class AuthService {
    */
   async validateUser(emailValue: string, passwordValue: string): Promise<User | null> {
     const databaseUser: User = await this.database.users.findOne({ email: emailValue });
+    console.log(databaseUser, 'databaseUser')
     if (!databaseUser || !databaseUser.enabled)
       return null;
     // make sure we do not return the password

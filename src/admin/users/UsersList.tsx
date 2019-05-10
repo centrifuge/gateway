@@ -61,10 +61,10 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
               sortable={true}
               columns={[
                 {
-                  property: 'username',
+                  property: 'name',
                   header: 'Name',
                   render: data =>
-                      data.username ? <Text>{data.username}</Text> : null,
+                      data.name ? <Text>{data.name}</Text> : null,
                 },
                 {
                   property: 'email',

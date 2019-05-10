@@ -13,12 +13,13 @@ export class LocalStrategy extends PassportStrategy(PassportLocalStrategy) {
   }
 
   /**
-   * Validates a user by a specified username and password
+   * Validates a user by a specified email and password
    * @async
-   * @param username
+   * @param email
    * @param password
    */
   async validate(email: string, password: string) {
+    console.log(email, password, "********")
     const user = await this.authService.validateUser(email, password);
     if (!user) {
       throw new UnauthorizedException();

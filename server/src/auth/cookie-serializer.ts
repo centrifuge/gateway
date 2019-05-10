@@ -15,11 +15,11 @@ export class CookieSerializer extends PassportSerializer {
    * Callback for serializing a user
    * @callback CookieSerializer~serializeUserCallback
    * @param {Error|null} error
-   * @param {string} username
+   * @param {string} email
    */
 
   /**
-   * Serializes a user by their username
+   * Serializes a user by their email
    * @param {User} user - the user to serialize
    * @param {CookieSerializer~serializeUserCallback} done
    */
@@ -35,9 +35,9 @@ export class CookieSerializer extends PassportSerializer {
    */
 
   /**
-   * Deserializes a user by specifying a username
+   * Deserializes a user by specifying an email
    * @async
-   * @param {string} username
+   * @param {string} email
    * @param {CookieSerializer~deserializeUserCallback} done
    */
   async deserializeUser(email: string, done: Function): Promise<void> {

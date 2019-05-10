@@ -17,6 +17,7 @@ type ConnectedLoginPageProps = {
 
 class ConnectedLoginPage extends React.Component<ConnectedLoginPageProps> {
   login = (user: User) => {
+    console.log(user)
     this.props.login(user);
   };
 
