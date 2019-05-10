@@ -58,7 +58,7 @@ export class ShipTo extends React.Component<ShipToProps> {
             value={invoice!.ship_to_zipcode}
           />
         </Box>
-      </Box> : <Paragraph>Shipment was not send to a third-party</Paragraph> }
+      </Box> : <Paragraph>Shipment was not sent to a third-party</Paragraph> }
       </Section>
 
     );

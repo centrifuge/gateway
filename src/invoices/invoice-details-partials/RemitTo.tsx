@@ -78,7 +78,7 @@ export class RemitTo extends React.Component<RemitToProps> {
               />
 
             </Box>
-          </Box> : <Paragraph>This invoice will not be payed to a third-party</Paragraph>}
+          </Box> : <Paragraph>This invoice will not be paid to a third-party</Paragraph>}
       </Section>
     );
 

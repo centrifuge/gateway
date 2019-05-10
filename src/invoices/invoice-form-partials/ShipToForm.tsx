@@ -29,11 +29,11 @@ export class ShipToForm extends React.Component<ConnectedShipToFormProps> {
       columnGap,
     } = this.props;
 
-    // In edit mode if the invoice has shit_to props the section should not be collapsed
+    // In edit mode if the invoice has ship_to props the section should not be collapsed
     const collapsed = !invoiceHasShipTo(values);
 
     return (
-      <Section headingLevel="5" title="Ship to" basis={'1/2'} collapsed={collapsed} collapsibleLabel="Shipment was send to a third-party">
+      <Section headingLevel="5" title="Ship to" basis={'1/2'} collapsed={collapsed} collapsibleLabel="Shipment was sent to a third-party">
         <Box direction="row" gap={columnGap}>
 
           <Box gap={columnGap} basis={'1/2'}>
