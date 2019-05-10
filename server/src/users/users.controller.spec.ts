@@ -1,12 +1,13 @@
-import { UsersController } from './users.controller';
-import { databaseServiceProvider } from '../database/database.providers';
-import { User } from '../../../src/common/models/user';
+import {UsersController} from './users.controller';
+import {databaseServiceProvider} from '../database/database.providers';
+import {User} from '../../../src/common/models/user';
 import config from '../config';
-import { Test, TestingModule } from '@nestjs/testing';
-import { SessionGuard } from '../auth/SessionGuard';
-import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.provider';
-import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
-import { DatabaseService } from '../database/database.service';
+import {Test, TestingModule} from '@nestjs/testing';
+import {SessionGuard} from '../auth/SessionGuard';
+import {centrifugeServiceProvider} from '../centrifuge-client/centrifuge.provider';
+import {CentrifugeService} from '../centrifuge-client/centrifuge.service';
+import {DatabaseService} from '../database/database.service';
+import {PERMISSIONS} from "../../../src/common/constants";
 
 describe('Users controller', () => {
   const userAccount = 'generated_identity_id';
@@ -283,7 +284,7 @@ describe('Users controller', () => {
 
       it('should throw error', async () => {
         await expect(
-          usersController.invite({ username: 'any_username' }),
+          usersController.invite({ username: 'any_username', email: 'test', permissions: [PERMISSIONS.CAN_CREATE_INVOICES] }),
         ).rejects.toThrow('Invite functionality not enabled!');
       });
     });
