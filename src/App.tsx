@@ -47,12 +47,7 @@ class App extends Component<AppPros> {
     } = this.props;
 
     let menuItems: MenuItem[] = [];
-    let routeItems: RouteItem[] = [
-      {
-        path: routes.user.register,
-        component: RegisterForm,
-      },
-    ];
+    let routeItems: RouteItem[] = [];
 
     if (loggedInUser) {
       menuItems.push(

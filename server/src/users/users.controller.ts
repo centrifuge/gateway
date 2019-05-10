@@ -48,7 +48,6 @@ export class UsersController {
   }
 
   @Post('register')
-  @UseGuards(UserAuthGuard)
   async register(@Body() user: User) {
 
     const existingUser: User = await this.databaseService.users.findOne({
