@@ -19,6 +19,7 @@ import { DatabaseService } from '../database/database.service';
 import config from '../config';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import {UserAuthGuard} from "../auth/admin.auth.guard";
+import {dateFormatter} from "../../../src/common/formaters";
 
 @Controller(ROUTES.USERS.base)
 export class UsersController {
@@ -96,11 +97,12 @@ export class UsersController {
       throw new HttpException('User already invited!', HttpStatus.FORBIDDEN);
     }
 
+
     return this.upsertUser({
       ...user,
       username: user.username,
       email: user.email,
-      date_added: new Date(),
+      date_added: dateFormatter(new Date()),
       password: undefined,
       enabled: false,
       invited: true,

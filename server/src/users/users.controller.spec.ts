@@ -8,6 +8,7 @@ import {centrifugeServiceProvider} from '../centrifuge-client/centrifuge.provide
 import {CentrifugeService} from '../centrifuge-client/centrifuge.service';
 import {DatabaseService} from '../database/database.service';
 import {PERMISSIONS} from "../../../src/common/constants";
+import {dateFormatter} from "../../../src/common/formaters";
 
 describe('Users controller', () => {
   const userAccount = 'generated_identity_id';
@@ -91,7 +92,7 @@ describe('Users controller', () => {
         _id: 'user',
         username: 'username',
         email: 'test',
-        date_added: new Date(),
+        date_added: dateFormatter(new Date()),
         password: 'password',
         enabled: true,
         invited: false,
@@ -157,7 +158,7 @@ describe('Users controller', () => {
           username: 'new_user',
           email: 'test',
           password: 'password',
-          date_added: new Date(),
+          date_added: dateFormatter(new Date()),
           invited: false,
           enabled: true,
           permissions: [],
@@ -201,7 +202,7 @@ describe('Users controller', () => {
           username: 'username',
           password: 'password',
           email: 'test',
-          date_added: new Date(),
+          date_added: dateFormatter(new Date()),
           enabled: true,
           invited: false,
           permissions: [],

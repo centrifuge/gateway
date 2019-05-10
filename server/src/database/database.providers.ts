@@ -7,6 +7,7 @@ import config from '../config';
 import {InvoiceResponse, PurchaseOrderResponse,} from '../../../src/common/interfaces';
 import {PERMISSIONS} from '../../../src/common/constants';
 import {DatabaseService} from './database.service';
+import {dateFormatter} from "../../../src/common/formaters";
 
 // TODO refactor this in mutiple providers,services
 
@@ -26,7 +27,7 @@ const initializeDatabase = async () => {
     username: config.admin.username,
     password: await promisify(bcrypt.hash)(config.admin.password, 10),
     email: 'test@test.org',
-    date_added: new Date(),
+    date_added: dateFormatter(new Date()),
     enabled: true,
     invited: false,
     account: config.admin.account,
