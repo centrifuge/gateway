@@ -78,8 +78,6 @@ class LoginForm extends React.Component<LoginProps> {
                         onChange={handleChange}
                       />
                     </FormField>
-
-
                     <Text>
                       Not registered yet?{' '}
                       <Link to={routes.register}>Register</Link>
