@@ -51,7 +51,7 @@ export class UsersController {
   async register(@Body() user: User) {
 
     const existingUser: User = await this.databaseService.users.findOne({
-      username: user.username,
+      email: user.email,
     });
 
     if (!user.password || !user.password.trim()) {
@@ -67,11 +67,11 @@ export class UsersController {
           existingUser._id,
         );
       } else {
-        throw new HttpException('Username taken!', HttpStatus.FORBIDDEN);
+        throw new HttpException('Email taken!', HttpStatus.FORBIDDEN);
       }
     } else {
       if (existingUser) {
-        throw new HttpException('Username taken!', HttpStatus.FORBIDDEN);
+        throw new HttpException('Email taken!', HttpStatus.FORBIDDEN);
       }
 
       return this.upsertUser({
@@ -84,12 +84,12 @@ export class UsersController {
 
   @Post('invite')
   @UseGuards(UserAuthGuard)
-  async invite(@Body() user: { username: string, email: string, permissions: PERMISSIONS[] }) {
+  async invite(@Body() user: { name:string; email: string, permissions: PERMISSIONS[] }) {
     if (!config.inviteOnly) {
       throw new HttpException('Invite functionality not enabled!', HttpStatus.FORBIDDEN);
     }
     const userExists = await this.databaseService.users.findOne({
-      username: user.username,
+      email: user.email,
     });
 
     if (userExists) {
@@ -99,7 +99,7 @@ export class UsersController {
 
     return this.upsertUser({
       ...user,
-      username: user.username,
+      name: user.name,
       email: user.email,
       date_added: dateFormatter(new Date()),
       password: undefined,

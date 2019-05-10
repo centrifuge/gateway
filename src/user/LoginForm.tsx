@@ -56,12 +56,12 @@ class LoginForm extends React.Component<LoginProps> {
                   <Box gap="small">
 
                     <FormField
-                      label="Username"
-                      error={errors.username}
+                      label="Email"
+                      error={errors.email}
                     >
                       <TextInput
-                        name="username"
-                        value={values.username || ''}
+                        name="email"
+                        value={values.email || ''}
                         onChange={handleChange}
                       />
                     </FormField>

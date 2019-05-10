@@ -24,7 +24,7 @@ export class CookieSerializer extends PassportSerializer {
    * @param {CookieSerializer~serializeUserCallback} done
    */
   serializeUser(user: User, done: Function): void {
-    done(null, user.username);
+    done(null, user.email);
   }
 
   /**
@@ -40,10 +40,10 @@ export class CookieSerializer extends PassportSerializer {
    * @param {string} username
    * @param {CookieSerializer~deserializeUserCallback} done
    */
-  async deserializeUser(username: string, done: Function): Promise<void> {
+  async deserializeUser(email: string, done: Function): Promise<void> {
     try {
       const user = await this.databaseService.users.findOne({
-        username,
+        email,
       });
 
       return done(null, user);

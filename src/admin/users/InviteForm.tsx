@@ -33,7 +33,7 @@ class InviteForm extends React.Component<InviteProps> {
   render() {
 
     const newUserValidation = Yup.object().shape({
-      username: Yup.string()
+      name: Yup.string()
           .max(40, 'Please enter no more than 40 characters')
           .required( 'This field is required'),
       email: Yup.string()
@@ -73,16 +73,14 @@ class InviteForm extends React.Component<InviteProps> {
                             handleSubmit();
                           }}
                       >
-
                         <Box gap="small">
-
                           <FormField
-                              label="Username"
-                              error={errors.username}
+                              label="Name"
+                              error={errors.name}
                           >
                             <TextInput
-                                name="username"
-                                value={values.username || ''}
+                                name="name"
+                                value={values.name || ''}
                                 onChange={handleChange}
                             />
                           </FormField>

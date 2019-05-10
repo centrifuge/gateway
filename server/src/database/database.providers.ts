@@ -24,7 +24,7 @@ const initializeDatabase = async () => {
     `${config.dbPath}/usersDb`,
   );
   const admin: User = {
-    username: config.admin.username,
+    name: config.admin.name,
     password: await promisify(bcrypt.hash)(config.admin.password, 10),
     email: 'test@test.org',
     date_added: dateFormatter(new Date()),
@@ -35,7 +35,7 @@ const initializeDatabase = async () => {
   };
 
   const userExists = await usersRepository.findOne({
-    username: admin.username,
+    email: admin.email,
   });
 
   if (!userExists) {

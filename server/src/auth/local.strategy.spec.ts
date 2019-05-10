@@ -8,7 +8,7 @@ import {dateFormatter} from "../../../src/common/formaters";
 
 describe('LocalStrategy', function() {
   const mockUser: User = {
-    username: 'my_username',
+    name: 'my_username',
     password: 'my_password',
     email: 'test@test.com',
     date_added: dateFormatter(new Date()),
@@ -31,7 +31,7 @@ describe('LocalStrategy', function() {
 
     const httpStrategy = module.get<LocalStrategy>(LocalStrategy);
     const result = await httpStrategy.validate(
-      mockUser.username,
+      mockUser.email,
       mockUser.password,
     );
     expect(result).toBe(mockUser);

@@ -31,7 +31,7 @@ describe('Users controller', () => {
     users = {
       findOne: (user): User | undefined => {
         for (let key in insertedUsers) {
-          if (insertedUsers[key].username === user.username) {
+          if (insertedUsers[key].email === user.email) {
             return insertedUsers[key];
           }
         }
@@ -90,7 +90,7 @@ describe('Users controller', () => {
       jest.clearAllMocks();
       registeredUser = {
         _id: 'user',
-        username: 'username',
+        name: 'username',
         email: 'test',
         date_added: dateFormatter(new Date()),
         password: 'password',
@@ -126,7 +126,7 @@ describe('Users controller', () => {
         const user: User = {
           ...new User(),
           _id: 'random' + Math.random(),
-          username: 'new_user',
+          name: 'new_user',
           password: 'password',
           email: 'test',
           date_added: dateFormatter(new Date()),
@@ -150,14 +150,14 @@ describe('Users controller', () => {
         registeredUser.invited = true;
         registeredUser.enabled = true;
         await expect(usersController.register(registeredUser)).rejects.toThrow(
-          'Username taken!',
+          'Email taken!',
         );
       });
 
       it('should throw if the user has not been invited', async () => {
         const notInvitedUser: User = {
           _id: 'some_user_id',
-          username: 'new_user',
+          name: 'new_user',
           email: 'test',
           password: 'password',
           date_added: dateFormatter(new Date()),
@@ -167,11 +167,11 @@ describe('Users controller', () => {
         };
 
         await expect(usersController.register(notInvitedUser)).rejects.toThrow(
-          'Username taken!',
+          'Email taken!',
         );
       });
 
-      it('should create the user if the username is not taken and the user has been invited', async () => {
+      it('should create the user if the email is not taken and the user has been invited', async () => {
         registeredUser.invited = true;
         registeredUser.enabled = false;
         const result = await usersController.register(registeredUser);
@@ -201,7 +201,7 @@ describe('Users controller', () => {
         jest.clearAllMocks();
         registeredUser = {
           _id: 'user',
-          username: 'username',
+          name: 'username',
           password: 'password',
           email: 'test',
           date_added: dateFormatter(new Date()),
@@ -223,7 +223,8 @@ describe('Users controller', () => {
       it('should create the user if the username is not taken', async () => {
         const newUser = {
           _id: 'some_user_id',
-          username: 'new_user',
+          name: 'new_user',
+          email: 'new_email',
           password: 'password',
           enabled: false,
           invited: false,
@@ -238,7 +239,8 @@ describe('Users controller', () => {
         await expect(
           usersController.register({
             _id: 'undefinedPassword',
-            username: 'new_user',
+            name: 'new_user',
+            email: 'new_email',
             password: undefined,
             enabled: false,
             invited: false,
@@ -251,7 +253,8 @@ describe('Users controller', () => {
         await expect(
           usersController.register({
             _id: 'undefinedPassword',
-            username: 'new_user',
+            name: 'new_user',
+            email: 'new_email',
             password: null,
             enabled: false,
             invited: false,
@@ -265,7 +268,8 @@ describe('Users controller', () => {
         await expect(
           usersController.register({
             _id: 'undefinedPassword',
-            username: 'new_user',
+            name: 'new_user',
+            email: 'new_email',
             password: '  ',
             enabled: false,
             invited: false,
@@ -287,7 +291,7 @@ describe('Users controller', () => {
 
       it('should throw error', async () => {
         await expect(
-          usersController.invite({ username: 'any_username', email: 'test', permissions: [PERMISSIONS.CAN_CREATE_INVOICES] }),
+          usersController.invite({ name: 'any_username', email: 'test', permissions: [PERMISSIONS.CAN_CREATE_INVOICES] }),
         ).rejects.toThrow('Invite functionality not enabled!');
       });
     });
