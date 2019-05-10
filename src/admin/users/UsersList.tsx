@@ -40,13 +40,13 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
   }
 
   renderPermission = (permissions) => {
-      if (permissions.includes(PERMISSIONS.CAN_MANAGE_USERS)) {
+      if (permissions === PERMISSIONS.CAN_MANAGE_USERS) {
         return( <Text>Admin</Text>)
       }
-      if (permissions.includes(PERMISSIONS.CAN_FUND_INVOICES)) {
+      if (permissions === PERMISSIONS.CAN_FUND_INVOICES) {
         return (<Text>Funder</Text>)
       }
-      if (permissions.includes(PERMISSIONS.CAN_CREATE_INVOICES)) {
+      if (permissions === PERMISSIONS.CAN_CREATE_INVOICES) {
         return (<Text>Supplier</Text>)
       }
   }
@@ -89,7 +89,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
                   header: 'User Rights',
                   render: data =>
                   {
-                    data.permissions.length > 0 ? this.renderPermission(data.permissions) : null
+                    data.permissions.length > 0 ? this.renderPermission(data.permissions[0]) : null
                   }},
               ]}
           />

@@ -32,7 +32,6 @@ export class UsersController {
   @Post('login')
   @HttpCode(200)
   async login(@Body() user: User, @Request() req): Promise<User> {
-    console.log(req.user, 'user')
     return req.user;
   }
 
