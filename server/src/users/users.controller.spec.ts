@@ -89,6 +89,8 @@ describe('Users controller', () => {
       registeredUser = {
         _id: 'user',
         username: 'username',
+        email: 'test',
+        date_added: new Date(),
         password: 'password',
         enabled: true,
         invited: false,
@@ -152,7 +154,9 @@ describe('Users controller', () => {
         const notInvitedUser: User = {
           _id: 'some_user_id',
           username: 'new_user',
+          email: 'test',
           password: 'password',
+          date_added: new Date(),
           invited: false,
           enabled: true,
           permissions: [],
@@ -195,6 +199,8 @@ describe('Users controller', () => {
           _id: 'user',
           username: 'username',
           password: 'password',
+          email: 'test',
+          date_added: new Date(),
           enabled: true,
           invited: false,
           permissions: [],
