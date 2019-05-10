@@ -10,6 +10,7 @@ import { push, RouterAction } from 'connected-react-router';
 import {PERMISSIONS} from "./common/constants";
 import invoicesRoutes from "./invoices/routes";
 import contactsRoutes from "./contacts/routes";
+import agreementsRoutes from "./agreements/routes";
 import userRoutes from "./user/routes";
 import routes from "./routes";
 import InvoiceList from "./invoices/InvoiceList";
@@ -18,6 +19,7 @@ import CreateInvoice from "./invoices/Create";
 import {ConnectedInvoiceDetails} from "./invoices/InvoiceDetails";
 import EditInvoice from "./invoices/Edit";
 import Contacts from "./contacts/View";
+import FundingAgreementsList from "./agreements/FundingAgreementsList";
 
 interface AppPros {
   selectedRoute: string;
@@ -93,8 +95,15 @@ class App extends Component<AppPros> {
       }
 
       if(loggedInUser.permissions.includes(PERMISSIONS.CAN_FUND_INVOICES)) {
-        // add items to menuItems
-        // add routes to routes
+        menuItems.push(...[
+          { label: 'Funding Agreements', route: agreementsRoutes.index },
+        ])
+        routeItems.push(
+            {
+              path: routes.agreements.index,
+              component: FundingAgreementsList,
+            }
+        )
       }
 
       menuItems.push({ label: 'Logout', route: userRoutes.logout, external: true })
