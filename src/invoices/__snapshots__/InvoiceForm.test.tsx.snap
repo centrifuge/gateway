@@ -1036,7 +1036,7 @@ exports[`InvoiceForm Should not render empty form 1`] = `
                 />
               </div>
               <span>
-                Shipment was send to a third-party
+                Shipment was sent to a third-party
               </span>
             </label>
           </div>
@@ -2838,7 +2838,7 @@ exports[`InvoiceForm Should not render form with sender and recipient selected 1
                 />
               </div>
               <span>
-                Shipment was send to a third-party
+                Shipment was sent to a third-party
               </span>
             </label>
           </div>

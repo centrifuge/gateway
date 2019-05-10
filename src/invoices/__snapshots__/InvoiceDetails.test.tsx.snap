@@ -767,7 +767,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               <p
                 className="StyledParagraph-tbetod-0 kxFtnQ"
               >
-                Shipment was not send to a third-party
+                Shipment was not sent to a third-party
               </p>
             </div>
           </div>
@@ -799,7 +799,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               <p
                 className="StyledParagraph-tbetod-0 kxFtnQ"
               >
-                This invoice will not be payed to a third-party
+                This invoice will not be paid to a third-party
               </p>
             </div>
           </div>
@@ -1661,7 +1661,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               <p
                 className="StyledParagraph-tbetod-0 kxFtnQ"
               >
-                Shipment was not send to a third-party
+                Shipment was not sent to a third-party
               </p>
             </div>
           </div>
@@ -1693,7 +1693,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               <p
                 className="StyledParagraph-tbetod-0 kxFtnQ"
               >
-                This invoice will not be payed to a third-party
+                This invoice will not be paid to a third-party
               </p>
             </div>
           </div>
