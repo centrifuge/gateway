@@ -40,14 +40,16 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
   }
 
   renderPermission = (permission) => {
-      if (permission === PERMISSIONS.CAN_MANAGE_USERS) {
-        return( <Text>Admin</Text>)
-      }
-      if (permission === PERMISSIONS.CAN_FUND_INVOICES) {
-        return (<Text>Funder</Text>)
-      }
-      if (permission === PERMISSIONS.CAN_CREATE_INVOICES) {
-        return (<Text>Supplier</Text>)
+      switch (permission) {
+        case PERMISSIONS.CAN_MANAGE_USERS: {
+          return <Text>Admin</Text>
+        }
+        case PERMISSIONS.CAN_FUND_INVOICES: {
+          return <Text>Funder</Text>
+        }
+        case PERMISSIONS.CAN_CREATE_INVOICES: {
+          return <Text>Supplier</Text>
+        }
       }
   }
 

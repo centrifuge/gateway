@@ -5,9 +5,6 @@ import { Box, DataTable, Heading, Text } from 'grommet';
 import { RouteComponentProps, withRouter } from 'react-router';
 
 type FundingAgreementsListProps = {
-  // getAllAccounts: () => void;
-  // resetGetAllAccounts: () => void;
-  // accounts?: AccountGetAllAccountResponse[];
   loading: boolean;
 };
 
@@ -32,12 +29,19 @@ class FundingAgreementsList extends React.Component<FundingAgreementsListProps &
         <Box>
           <DataTable
               data={data}
+              sortable={true}
               columns={[
                 {
-                  property: 'funding_agreement_number',
-                  header: 'Funding Agreement Number',
+                  property: 'borrower',
+                  header: 'Borrower',
                   render: data =>
-                      data.funding_agreement_number ? <Text>{data.funding_agreement_number}</Text> : null,
+                      data.borrower ? <Text>{data.borrower}</Text> : null,
+                },
+                {
+                  property: 'funding_id',
+                  header: 'Funding Agreement ID',
+                  render: data =>
+                      data.funding_id ? <Text>{data.funding_id}</Text> : null,
                 },
                 {
                   property: 'invoice_number',
@@ -46,22 +50,22 @@ class FundingAgreementsList extends React.Component<FundingAgreementsListProps &
                       data.invoice_number ? <Text>{data.invoice_number}</Text> : null,
                 },
                 {
-                  property: 'borrower',
-                  header: 'Borrower',
+                  property: 'invoice_total',
+                  header: 'Invoice Total',
                   render: data =>
-                      data.borrower ? <Text>{data.borrower}</Text> : null,
+                      data.invoice_total ? <Text>{data.invoice_total}</Text> : null,
                 },
                 {
-                  property: 'finance_amount',
-                  header: 'Finance Amount',
+                  property: 'amount',
+                  header: 'Funded Amount',
                   render: data =>
-                      data.finance_amount ? <Text>{data.finance_amount}</Text> : null,
+                      data.amount ? <Text>{data.amount}</Text> : null,
                 },
                 {
-                  property: 'due_date',
-                  header: 'Due Date',
+                  property: 'repayment_due_date',
+                  header: 'Repayment Due Date',
                   render: data =>
-                      data.due_date ? <Text>{data.due_date}</Text> : null,
+                      data.repayment_due_date ? <Text>{data.repayment_due_date}</Text> : null,
                 },
                 {
                   property: 'status',
@@ -91,11 +95,21 @@ class FundingAgreementsList extends React.Component<FundingAgreementsListProps &
 
     const data = [
       {
-        funding_agreement_number: 1111,
-        invoice_number: 1111,
+        funding_id: 1111,
+        invoice_number: 2222,
+        invoice_total: 5555,
         borrower: 'asterix',
-        finance_amount: 1337,
-        due_date: 'Whenever',
+        amount: 13371,
+        repayment_due_date: 'Whenever',
+        status: 'active',
+      },
+      {
+        funding_id: 1111,
+        invoice_number: 2222,
+        invoice_total: 5555,
+        borrower: 'asterix',
+        amount: 13371,
+        repayment_due_date: 'Whenever',
         status: 'active',
       }
     ]
