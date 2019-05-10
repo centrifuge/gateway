@@ -128,6 +128,8 @@ describe('Users controller', () => {
           _id: 'random' + Math.random(),
           username: 'new_user',
           password: 'password',
+          email: 'test',
+          date_added: dateFormatter(new Date()),
         };
 
         const invite = await usersController.invite(user);
