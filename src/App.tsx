@@ -1,7 +1,6 @@
-import React, {Component, ComponentClass} from 'react';
+import React, {Component} from 'react';
 import { Box } from 'grommet';
 import { AxisTheme } from '@centrifuge/axis-theme';
-
 import Routing from './Routing';
 import Header from './Header';
 import { connect } from 'react-redux';
