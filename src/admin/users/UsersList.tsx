@@ -11,7 +11,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { User } from "../../common/models/user";
 import {PERMISSIONS} from "../../common/constants";
 import { Modal } from '@centrifuge/axis-modal'
-import RegisterForm from "../../user/RegisterForm";
+import InviteForm from "./InviteForm";
 
 type UsersListProps = {
   users: any;
@@ -100,7 +100,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
   renderForm = () => {
 
     return (
-        <RegisterForm
+        <InviteForm
             reveal={this.clickOut}
         />
         )

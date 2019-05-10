@@ -49,6 +49,7 @@ export class DatabaseRepository<T> {
    * @returns {Promise<T|null>} promise
    */
   updateById(id: string, updateObject: T, upsert: boolean = false): Promise<T | null> {
+    console.log('updating', updateObject)
     return this.update({ _id: id }, updateObject, { returnUpdatedDocs: true, upsert });
   }
 

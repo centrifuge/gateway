@@ -20,6 +20,6 @@ export class User implements IUser{
   _id?: string;
   account?: string;
   permissions: PERMISSIONS[] = [];
-  enabled: boolean = false;
-  invited: boolean = false;
+  enabled: boolean;
+  invited: boolean;
 }

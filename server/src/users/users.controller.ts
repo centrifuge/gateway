@@ -19,7 +19,6 @@ import { DatabaseService } from '../database/database.service';
 import config from '../config';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import {UserAuthGuard} from "../auth/admin.auth.guard";
-import {DatabaseRepository} from "../database/database.repository";
 
 @Controller(ROUTES.USERS.base)
 export class UsersController {
@@ -48,7 +47,10 @@ export class UsersController {
   }
 
   @Post('register')
+  @UseGuards(UserAuthGuard)
   async register(@Body() user: User) {
+
+    console.log('registering this user:', user)
 
     const existingUser: User = await this.databaseService.users.findOne({
       username: user.username,
@@ -60,6 +62,7 @@ export class UsersController {
 
     if (config.inviteOnly) {
       if (existingUser && existingUser.invited && !existingUser.enabled) {
+        console.log('fulfilled conditions')
         return this.upsertUser({
             ...user,
             enabled: true,
@@ -67,17 +70,19 @@ export class UsersController {
           existingUser._id,
         );
       } else {
+        console.log('not fulfilled 1 conditions')
         throw new HttpException('Username taken!', HttpStatus.FORBIDDEN);
       }
     } else {
       if (existingUser) {
+        console.log('not fulfilled conditions')
         throw new HttpException('Username taken!', HttpStatus.FORBIDDEN);
       }
 
       return this.upsertUser({
         ...user,
         enabled: true,
-        invited: false,
+        invited: true,
       });
     }
   }
@@ -96,12 +101,14 @@ export class UsersController {
       throw new HttpException('User already invited!', HttpStatus.FORBIDDEN);
     }
 
+    console.log('inviting this user:', user)
+
     return this.upsertUser({
       ...user,
       username: user.username,
-      password: undefined,
       email: undefined,
-      date_added: undefined,
+      date_added: new Date(),
+      password: undefined,
       enabled: false,
       invited: true,
       permissions: [],
@@ -110,11 +117,14 @@ export class UsersController {
 
   private async upsertUser(user: User, id: string = '') {
 
+    console.log('upserting this user', user)
+
     // Create centrifuge identity in case user does not have one
     if (!user.account) {
       const account = await this.centrifugeService.accounts.generateAccount(
         config.admin.account,
       );
+      console.log(account, 'account')
       user.account = account.identity_id;
     }
 
@@ -122,15 +132,9 @@ export class UsersController {
     if (user.password) {
       user.password = await promisify(bcrypt.hash)(user.password, 10);
     }
-
-    const usersRepository =  new DatabaseRepository<User>(
-        `${config.dbPath}/usersDb`,
-    );
-    console.log('inserting user', user)
-    return await usersRepository.insert(user);
-
-    // const result: User = await this.databaseService.users.updateById(id, user, true);
+    const result: User = await this.databaseService.users.updateById(id, user, true);
+    console.log('result', result)
     // TODO return "public" User here not just the id
-    // return result._id;
+    return result._id;
   }
 }

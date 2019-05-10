@@ -10,6 +10,8 @@ describe('LocalStrategy', () => {
   const mockUser: User = {
     username: 'my_username',
     _id: 'user_id',
+    email: 'test@test.test',
+    date_added: new Date(),
     enabled: true,
     invited: false,
     permissions: [],

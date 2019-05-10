@@ -9,7 +9,7 @@ const config = {
     password: env.CENTRIFUGE_ADMIN_PASSWORD || 'admin',
     account: env.CENTRIFUGE_ID || env.CENTRIFUGE_ADMIN_ACCOUNT || '0x5f2bBFcf948a0083bbE77C0aD97A64142D6b1D48',
   },
-  inviteOnly: Boolean(env.INVITE_ONLY || false),
+  inviteOnly: Boolean(env.INVITE_ONLY || true),
 };
 
 export default config;

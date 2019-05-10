@@ -80,10 +80,10 @@ class LoginForm extends React.Component<LoginProps> {
                     </FormField>
 
 
-                    {/*<Text>*/}
-                      {/*Not registered yet?{' '}*/}
-                      {/*<Link to={routes.register}>Register</Link>*/}
-                    {/*</Text>*/}
+                    <Text>
+                      Not registered yet?{' '}
+                      <Link to={routes.register}>Register</Link>
+                    </Text>
                     <Box direction="row" height="50px">
                       <Button type="submit" primary label="Login" fill={true}/>
                     </Box>

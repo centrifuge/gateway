@@ -9,6 +9,8 @@ describe('LocalStrategy', function() {
   const mockUser: User = {
     username: 'my_username',
     password: 'my_password',
+    email: 'test@test.com',
+    date_added: new Date(),
     _id: 'my_id',
     enabled: true,
     invited: false,
