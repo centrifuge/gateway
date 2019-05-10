@@ -128,7 +128,7 @@ describe('Users controller', () => {
           _id: 'random' + Math.random(),
           name: 'new_user',
           password: 'password',
-          email: 'test',
+          email: 'test1',
           date_added: dateFormatter(new Date()),
         };
 
@@ -214,9 +214,9 @@ describe('Users controller', () => {
 
       });
 
-      it('should return error if the username is taken', async () => {
+      it('should return error if the email is taken', async () => {
         await expect(usersController.register(registeredUser)).rejects.toThrow(
-          'Username taken!',
+          'Email taken!',
         );
       });
 
