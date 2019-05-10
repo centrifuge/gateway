@@ -53,14 +53,14 @@ class App extends Component<AppPros> {
     if (loggedInUser) {
 
       if (loggedInUser.permissions.includes(PERMISSIONS.CAN_MANAGE_USERS)) {
-        menuItems.unshift(
+        menuItems.push(
             {label: 'Users', route: userRoutes.index},
         )
         routeItems.push(
             {
               path: routes.user.index,
               component: UsersList,
-            }
+            },
         )
       }
 
