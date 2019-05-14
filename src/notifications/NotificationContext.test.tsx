@@ -8,7 +8,7 @@ import toJson from 'enzyme-to-json';
 
 
 const serializeSnapshot = (component) => {
-  // We are not interested in the theme prop and we remove in order to reduce file size
+  // We are not interested in the theme prop and we remove it in order to reduce file size
   return toJson(
     component,
     {
