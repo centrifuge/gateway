@@ -11,7 +11,7 @@ export enum NOTIFICATION {
 
 
 const CONTEXT_API = {
-  notify: (title: string, message: string, options: NotificationOptions) => {
+  notify: (title: string, message: string, options: NotificationOptions = {}) => {
   },
   close: () => {
   },
@@ -65,8 +65,6 @@ export class NotificationProvider extends Component<{}, NotificationState> {
         ...options
       }
     });
-
-    console.log(this.state)
   };
 
   close = () => {
