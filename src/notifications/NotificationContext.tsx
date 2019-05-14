@@ -29,11 +29,11 @@ interface NotificationState {
 }
 
 interface NotificationOptions {
-  cancelable?: boolean,
-  type?: NOTIFICATION,
-  confirmLabel?: string,
-  onClose?: () => void,
-  onConfirm?: () => void
+  cancelable?: boolean, // modal can self close(x icon and click outside)
+  type?: NOTIFICATION, // DEFAULT, SUCCESS, ERROR, WARNING
+  confirmLabel?: string, // Label for the modal button
+  onClose?: () => void, // callback for when the modal is closed.
+  onConfirm?: () => void, // callback for when the modal is closed.
 }
 
 
@@ -57,13 +57,13 @@ export class NotificationProvider extends Component<{}, NotificationState> {
 
   notify = (title: string, message: string, options: NotificationOptions = {}) => {
     this.setState({
-      opened:true,
+      opened: true,
       title,
       message,
       options: {
         ...this.state.options,
-        ...options
-      }
+        ...options,
+      },
     });
   };
 
@@ -80,6 +80,7 @@ export class NotificationProvider extends Component<{}, NotificationState> {
   render() {
     const { children } = this.props;
     const { opened, title, message, options } = this.state;
+    // TODO this can be exposed as provider values
     let modalProps: any = {
       headingProps: {
         level: 3,
