@@ -86,179 +86,199 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                handleChange,
                setFieldValue,
                handleSubmit,
-             }) => (
-              <form
-                onSubmit={event => {
-                  event.preventDefault();
-                  this.setState({ submitted: true });
-                  handleSubmit();
-                }}
-              >
-                <Box direction="column" gap={sectionGap}>
+             }) => {
 
-                  <Box gap={columnGap}>
-                    <Box direction="row" gap={columnGap}>
-                      <Box basis={'1/2'} gap={columnGap}>
-                        <FormField
-                          label="Funder's Name"
-                          error={errors!.funder}
-                        >
-                          <SearchSelect
-                            onChange={(item) => {
-                              setFieldValue('funder', item.value);
+              // Calculate days and repayment_amount
+              let days;
+              let repaymentAmount;
+              const today = new Date();
+              const repaymentDate = new Date(values.repayment_due_date);
+              const diff = repaymentDate.getTime() - today.getTime();
+              days =  Math.ceil(diff / (1000 * 60 * 60 * 24));
+              repaymentAmount = values.amount * (1 + (values.apr / 100) /  365 * days) + (values.amount * (values.fee / 100));
 
-                            }}
-                            options={contacts}
-                            selected={
-                              contacts.find(
-                                contact =>
-                                  contact.value === values!.funder,
-                              )
-                            }
-                          />
-                        </FormField>
+              if(isNaN(repaymentAmount)) repaymentAmount = 0;
+              if(isNaN(days)) days = 0;
 
+              values.days = days;
+              values.repayment_amount = repaymentAmount.toFixed(2)
+
+              return (
+                <form
+                  onSubmit={event => {
+                    this.setState({ submitted: true });
+                    console.log('### Handle Submit',handleSubmit)
+                    handleSubmit(event);
+                  }}
+                >
+                  <Box direction="column" gap={sectionGap}>
+
+                    <Box gap={columnGap}>
+                      <Box direction="row" gap={columnGap}>
+                        <Box basis={'1/2'} gap={columnGap}>
+                          <FormField
+                            label="Funder's Name"
+                            error={errors!.funder}
+                          >
+                            <SearchSelect
+                              onChange={(item) => {
+                                setFieldValue('funder', item.value);
+
+                              }}
+                              options={contacts}
+                              selected={
+                                contacts.find(
+                                  contact =>
+                                    contact.value === values!.funder,
+                                )
+                              }
+                            />
+                          </FormField>
+
+                        </Box>
+                        <Box basis={'1/2'} gap={columnGap}>
+                          <FormField
+                            label="Funding Agreement ID"
+                            error={errors!.funding_id}
+                          >
+                            <TextInput
+                              name="funding_id"
+                              value={values!.funding_id}
+                              onChange={handleChange}
+                            />
+                          </FormField>
+                        </Box>
                       </Box>
-                      <Box basis={'1/2'} gap={columnGap}>
-                        <FormField
-                          label="Funding Agreement ID"
-                          error={errors!.funding_id}
-                        >
-                          <TextInput
-                            name="funding_id"
-                            value={values!.funding_id}
-                            onChange={handleChange}
-                          />
-                        </FormField>
+                      <Box direction="row" gap={columnGap}>
+                        <Box basis={'1/2'} gap={columnGap}>
+
+                          <FormField
+                            label="ETH address"
+                            error={errors!.wallet_address}
+                          >
+                            <TextInput
+                              name="wallet_address"
+                              placeholder="Your own Ethereum Wallet address for NFT minting"
+                              value={values!.wallet_address}
+                              onChange={handleChange}
+                            />
+                          </FormField>
+                        </Box>
+                        <Box basis={'1/2'} gap={columnGap}>
+
+                        </Box>
                       </Box>
                     </Box>
-                    <Box direction="row" gap={columnGap}>
-                      <Box basis={'1/2'} gap={columnGap}>
+                    <Box gap={columnGap}>
+                      <Box direction="row" gap={columnGap}>
+                        <Box basis={'1/4'} gap={columnGap}>
+                          <FormField
+                            label="Currency"
+                            error={errors!.currency}
+                          >
 
-                        <FormField
-                          label="ETH address"
-                          error={errors!.wallet_address}
-                        >
-                          <TextInput
-                            name="funding_id"
-                            placeholder="Your own Ethereum Wallet address for NFT minting"
-                            value={values!.wallet_address}
-                            onChange={handleChange}
-                          />
-                        </FormField>
+                            <TextInput
+                              disabled={true}
+                              name="currency"
+                              value={values!.currency}
+                              onChange={handleChange}
+                            />
+                          </FormField>
+                        </Box>
+                        <Box basis={'1/4'} gap={columnGap}>
+                          <FormField
+                            label="Finance amount"
+                            error={errors!.amount}
+                          >
+                            <TextInput
+                              name="amount"
+                              value={values!.amount}
+                              onChange={handleChange}
+                            />
+                          </FormField>
+
+                        </Box>
+                        <Box basis={'1/4'} gap={columnGap}>
+                          <FormField
+                            label="APR, %"
+                            error={errors!.apr}
+                          >
+                            <TextInput
+                              name="apr"
+                              value={values!.apr}
+                              onChange={handleChange}
+                            />
+                          </FormField>
+                        </Box>
+                        <Box basis={'1/4'} gap={columnGap}>
+                          <FormField
+                            label="Fee, %"
+                            error={errors!.fee}
+                          >
+                            <TextInput
+                              name="fee"
+                              value={values!.fee}
+                              onChange={(ev) => {
+                                handleChange(ev)
+                              }}
+                            />
+                          </FormField>
+                        </Box>
                       </Box>
-                      <Box basis={'1/2'} gap={columnGap}>
+                      <Box direction="row" gap={columnGap}>
+                        <Box basis={'1/4'} gap={columnGap}>
+                          <FormField
+                            label="Repayment Due Date"
+                            error={errors!.repayment_due_date}
+                          >
+                            <TextInput
+                              name="repayment_due_date"
+                              type="date"
+                              value={dateFormatter(values!.repayment_due_date)}
+                              onChange={ev => {
+                                setFieldValue('repayment_due_date', parseDate(ev.target.value));
+                              }}
+                            />
+                          </FormField>
+                        </Box>
+                        <Box basis={'1/4'} gap={columnGap}>
+                          <FormField
+                            label="Repayment amount"
+                            error={errors!.repayment_amount}
+                          >
+                            <TextInput
+                              disabled={true}
+                              name="repayment_amount"
+                              value={values!.repayment_amount}
+                              onChange={handleChange}
+                            />
+                          </FormField>
+                        </Box>
+                        <Box basis={'1/4'} gap={columnGap}>
 
+                        </Box>
+                        <Box basis={'1/4'} gap={columnGap}>
+
+                        </Box>
                       </Box>
                     </Box>
+
                   </Box>
-                  <Box gap={columnGap}>
-                    <Box direction="row" gap={columnGap}>
-                      <Box basis={'1/4'} gap={columnGap}>
-                        <FormField
-                          label="Currency"
-                          error={errors!.currency}
-                        >
+                  <Box direction="row" justify={'end'} gap="medium">
+                    <Button
+                      onClick={this.onDiscard}
+                      label="Discard"
+                    />
 
-                          <TextInput
-                            disabled={true}
-                            name="currency"
-                            value={values!.currency}
-                            onChange={handleChange}
-                          />
-                        </FormField>
-                      </Box>
-                      <Box basis={'1/4'} gap={columnGap}>
-                        <FormField
-                          label="Finance amount"
-                          error={errors!.amount}
-                        >
-                          <TextInput
-                            name="amount"
-                            value={values!.amount}
-                            onChange={handleChange}
-                          />
-                        </FormField>
-
-                      </Box>
-                      <Box basis={'1/4'} gap={columnGap}>
-                        <FormField
-                          label="APR, %"
-                          error={errors!.apr}
-                        >
-                          <TextInput
-                            name="apr"
-                            value={values!.apr}
-                            onChange={handleChange}
-                          />
-                        </FormField>
-                      </Box>
-                      <Box basis={'1/4'} gap={columnGap}>
-                        <FormField
-                          label="Fee, %"
-                          error={errors!.fee}
-                        >
-                          <TextInput
-                            name="fee"
-                            value={values!.fee}
-                            onChange={handleChange}
-                          />
-                        </FormField>
-                      </Box>
-                    </Box>
-                    <Box direction="row" gap={columnGap}>
-                      <Box basis={'1/4'} gap={columnGap}>
-                        <FormField
-                          label="Repayment Due Date"
-                          error={errors!.repayment_due_date}
-                        >
-                          <TextInput
-                            name="repayment_due_date"
-                            type="date"
-                            value={dateFormatter(values!.repayment_due_date)}
-                            onChange={ev => {
-                              setFieldValue('repayment_due_date', parseDate(ev.target.value));
-                            }}
-                          />
-                        </FormField>
-                      </Box>
-                      <Box basis={'1/4'} gap={columnGap}>
-                        <FormField
-                          label="Repayment amount"
-                          error={errors!.repayment_amount}
-                        >
-                          <TextInput
-                            disabled={true}
-                            name="repayment_amount"
-                            value={values!.repayment_amount}
-                            onChange={handleChange}
-                          />
-                        </FormField>
-                      </Box>
-                      <Box basis={'1/4'} gap={columnGap}>
-
-                      </Box>
-                      <Box basis={'1/4'} gap={columnGap}>
-
-                      </Box>
-                    </Box>
+                    <Button
+                      type="submit"
+                      primary
+                      label="Send"
+                    />
                   </Box>
-
-                </Box>
-                <Box direction="row" justify={'end'} gap="medium">
-                  <Button
-                    onClick={this.onDiscard}
-                    label="Discard"
-                  />
-
-                  <Button
-                    type="submit"
-                    primary
-                    label="Send"
-                  />
-                </Box>
-              </form>
-            )
+                </form>
+              );
+            }
           }
         </Formik>
       </Box>

@@ -2,7 +2,7 @@
 
 exports[`InvoiceDetails Should not render an empty form 1`] = `
 <div
-  className="StyledGrommet-sc-19lkkz7-0 eUfLDp"
+  className="StyledGrommet-sc-19lkkz7-0 eWRwfm"
 >
   <div
     className="StyledBox-sc-13pk1d4-0 hOJKqu"
@@ -20,7 +20,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
         >
           <svg
             aria-label="LinkPrevious"
-            className="StyledIcon-ofa7kd-0 iOkQrb"
+            className="StyledIcon-ofa7kd-0 cgOtHq"
             viewBox="0 0 24 24"
           >
             <path
@@ -36,7 +36,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
           className="StyledBox__StyledBoxGap-sc-13pk1d4-1 iChEkS"
         />
         <h3
-          className="StyledHeading-sc-1rdh4aw-0 gRvHvF"
+          className="StyledHeading-sc-1rdh4aw-0 YlnAZ"
         >
           Invoice #
         </h3>
@@ -45,7 +45,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
         className="StyledBox-sc-13pk1d4-0 ffeAql"
       >
         <button
-          className="StyledButton-sc-323bzc-0 kHrfdt"
+          className="StyledButton-sc-323bzc-0 iIyTDn"
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
@@ -59,8 +59,9 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
           className="StyledBox__StyledBoxGap-sc-13pk1d4-1 hyyRSo"
         />
         <button
-          className="StyledButton-sc-323bzc-0 aNlbA"
+          className="StyledButton-sc-323bzc-0 ibWwqS"
           onBlur={[Function]}
+          onClick={[Function]}
           onFocus={[Function]}
           onMouseOut={[Function]}
           onMouseOver={[Function]}
@@ -83,18 +84,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
             className="StyledBox-sc-13pk1d4-0 IRSNj"
           >
             <div
-              className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+              className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
             >
               <label
-                className="StyledText-sc-1sadyjn-0 bMXxti"
+                className="StyledText-sc-1sadyjn-0 fZYfTe"
               >
                 Invoice number
               </label>
               <div
-                className="StyledBox-sc-13pk1d4-0 gZSidW"
+                className="StyledBox-sc-13pk1d4-0 exlMvl"
               >
                 <p
-                  className="StyledParagraph-tbetod-0 fbHsbZ"
+                  className="StyledParagraph-tbetod-0 dBXmID"
                   onBlur={[Function]}
                   onFocus={[Function]}
                 />
@@ -115,7 +116,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -137,18 +138,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 clLqce"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Centrifuge ID
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -158,18 +159,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Company name
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -183,18 +184,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 clLqce"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Street
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -204,18 +205,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Street
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -225,18 +226,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       City
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -246,18 +247,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Country
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -267,18 +268,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       ZIP code
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -298,7 +299,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -320,18 +321,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 clLqce"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Centrifuge ID
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -341,18 +342,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Company name
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -366,18 +367,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 clLqce"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Street
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -387,18 +388,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Street
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -408,18 +409,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       City
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -429,18 +430,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Country
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -450,18 +451,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       ZIP code
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -485,7 +486,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -507,18 +508,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Invoice Status
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -532,18 +533,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Currency
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -557,18 +558,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Date created
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -582,18 +583,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Due date
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -617,7 +618,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -639,18 +640,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Net amount
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -664,18 +665,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Tax rate
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -689,18 +690,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Tax amount
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -714,18 +715,18 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Gross amount
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -749,7 +750,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -765,7 +766,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               open={true}
             >
               <p
-                className="StyledParagraph-tbetod-0 kxFtnQ"
+                className="StyledParagraph-tbetod-0 dIDtVY"
               >
                 Shipment was not sent to a third-party
               </p>
@@ -781,7 +782,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -797,7 +798,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               open={true}
             >
               <p
-                className="StyledParagraph-tbetod-0 kxFtnQ"
+                className="StyledParagraph-tbetod-0 dIDtVY"
               >
                 This invoice will not be paid to a third-party
               </p>
@@ -817,7 +818,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -833,7 +834,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               open={true}
             >
               <p
-                className="StyledParagraph-tbetod-0 kxFtnQ"
+                className="StyledParagraph-tbetod-0 dIDtVY"
               >
                 Invoice is not credit note
               </p>
@@ -853,7 +854,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -869,13 +870,13 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               open={true}
             >
               <div
-                className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
               >
                 <div
-                  className="StyledBox-sc-13pk1d4-0 gZSidW"
+                  className="StyledBox-sc-13pk1d4-0 exlMvl"
                 >
                   <p
-                    className="StyledParagraph-tbetod-0 fbHsbZ"
+                    className="StyledParagraph-tbetod-0 dBXmID"
                     onBlur={[Function]}
                     onFocus={[Function]}
                   />
@@ -892,7 +893,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
 
 exports[`InvoiceDetails Should render the form with proper values for contact fields 1`] = `
 <div
-  className="StyledGrommet-sc-19lkkz7-0 eUfLDp"
+  className="StyledGrommet-sc-19lkkz7-0 eWRwfm"
 >
   <div
     className="StyledBox-sc-13pk1d4-0 hOJKqu"
@@ -910,7 +911,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
         >
           <svg
             aria-label="LinkPrevious"
-            className="StyledIcon-ofa7kd-0 iOkQrb"
+            className="StyledIcon-ofa7kd-0 cgOtHq"
             viewBox="0 0 24 24"
           >
             <path
@@ -926,7 +927,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
           className="StyledBox__StyledBoxGap-sc-13pk1d4-1 iChEkS"
         />
         <h3
-          className="StyledHeading-sc-1rdh4aw-0 gRvHvF"
+          className="StyledHeading-sc-1rdh4aw-0 YlnAZ"
         >
           Invoice #
         </h3>
@@ -935,7 +936,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
         className="StyledBox-sc-13pk1d4-0 ffeAql"
       >
         <button
-          className="StyledButton-sc-323bzc-0 kHrfdt"
+          className="StyledButton-sc-323bzc-0 iIyTDn"
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
@@ -949,8 +950,9 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
           className="StyledBox__StyledBoxGap-sc-13pk1d4-1 hyyRSo"
         />
         <button
-          className="StyledButton-sc-323bzc-0 aNlbA"
+          className="StyledButton-sc-323bzc-0 ibWwqS"
           onBlur={[Function]}
+          onClick={[Function]}
           onFocus={[Function]}
           onMouseOut={[Function]}
           onMouseOver={[Function]}
@@ -973,18 +975,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
             className="StyledBox-sc-13pk1d4-0 IRSNj"
           >
             <div
-              className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+              className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
             >
               <label
-                className="StyledText-sc-1sadyjn-0 bMXxti"
+                className="StyledText-sc-1sadyjn-0 fZYfTe"
               >
                 Invoice number
               </label>
               <div
-                className="StyledBox-sc-13pk1d4-0 gZSidW"
+                className="StyledBox-sc-13pk1d4-0 exlMvl"
               >
                 <p
-                  className="StyledParagraph-tbetod-0 fbHsbZ"
+                  className="StyledParagraph-tbetod-0 dBXmID"
                   onBlur={[Function]}
                   onFocus={[Function]}
                 />
@@ -1005,7 +1007,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1027,18 +1029,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 clLqce"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Centrifuge ID
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       >
@@ -1050,18 +1052,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Company name
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1075,18 +1077,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 clLqce"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Street
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1096,18 +1098,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Street
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1117,18 +1119,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       City
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1138,18 +1140,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Country
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1159,18 +1161,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       ZIP code
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1190,7 +1192,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1212,18 +1214,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 clLqce"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Centrifuge ID
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       >
@@ -1235,18 +1237,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Company name
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1260,18 +1262,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 clLqce"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Street
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1281,18 +1283,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Street
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1302,18 +1304,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       City
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1323,18 +1325,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Country
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1344,18 +1346,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
                   />
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       ZIP code
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1379,7 +1381,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1401,18 +1403,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Invoice Status
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1426,18 +1428,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Currency
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1451,18 +1453,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Date created
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1476,18 +1478,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Due date
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1511,7 +1513,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1533,18 +1535,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Net amount
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1558,18 +1560,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Tax rate
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1583,18 +1585,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Tax amount
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1608,18 +1610,18 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                   className="StyledBox-sc-13pk1d4-0 dRJqWv"
                 >
                   <div
-                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                    className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 bMXxti"
+                      className="StyledText-sc-1sadyjn-0 fZYfTe"
                     >
                       Gross amount
                     </label>
                     <div
-                      className="StyledBox-sc-13pk1d4-0 gZSidW"
+                      className="StyledBox-sc-13pk1d4-0 exlMvl"
                     >
                       <p
-                        className="StyledParagraph-tbetod-0 fbHsbZ"
+                        className="StyledParagraph-tbetod-0 dBXmID"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
@@ -1643,7 +1645,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1659,7 +1661,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               open={true}
             >
               <p
-                className="StyledParagraph-tbetod-0 kxFtnQ"
+                className="StyledParagraph-tbetod-0 dIDtVY"
               >
                 Shipment was not sent to a third-party
               </p>
@@ -1675,7 +1677,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1691,7 +1693,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               open={true}
             >
               <p
-                className="StyledParagraph-tbetod-0 kxFtnQ"
+                className="StyledParagraph-tbetod-0 dIDtVY"
               >
                 This invoice will not be paid to a third-party
               </p>
@@ -1711,7 +1713,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1727,7 +1729,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               open={true}
             >
               <p
-                className="StyledParagraph-tbetod-0 kxFtnQ"
+                className="StyledParagraph-tbetod-0 dIDtVY"
               >
                 Invoice is not credit note
               </p>
@@ -1747,7 +1749,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 djDvmr"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -1763,13 +1765,13 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               open={true}
             >
               <div
-                className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
+                className="sc-bdVaJa cqKCKG FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
               >
                 <div
-                  className="StyledBox-sc-13pk1d4-0 gZSidW"
+                  className="StyledBox-sc-13pk1d4-0 exlMvl"
                 >
                   <p
-                    className="StyledParagraph-tbetod-0 fbHsbZ"
+                    className="StyledParagraph-tbetod-0 dBXmID"
                     onBlur={[Function]}
                     onFocus={[Function]}
                   />
@@ -1786,7 +1788,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
 
 exports[`InvoiceDetails Should render the loading state 1`] = `
 <div
-  className="StyledGrommet-sc-19lkkz7-0 eUfLDp"
+  className="StyledGrommet-sc-19lkkz7-0 eWRwfm"
 >
   Loading invoice
 </div>
