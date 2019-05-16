@@ -6,7 +6,7 @@ import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.provi
 import { databaseServiceProvider } from '../database/database.providers';
 import { Contact } from '../../../src/common/models/contact';
 import { InvoiceInvoiceData } from '../../../clients/centrifuge-node';
-import config from '../config';
+import config from '../../../src/common/config';
 import { DatabaseService } from '../database/database.service';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 
