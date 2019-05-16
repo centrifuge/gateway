@@ -7,7 +7,7 @@ import {
 import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.provider';
 import { databaseServiceProvider } from '../database/database.providers';
 import {
-  InvoiceInvoiceResponse,
+  InvInvoiceResponse,
   PurchaseorderPurchaseOrderResponse,
 } from '../../../clients/centrifuge-node';
 import config from '../config';
@@ -36,7 +36,7 @@ describe('WebhooksController', () => {
 
   const centrifugeClient = {
     invoices: {
-      get: jest.fn((): InvoiceInvoiceResponse => getResponse),
+      get: jest.fn((): InvInvoiceResponse => getResponse),
 
     },
     purchaseOrders: {
