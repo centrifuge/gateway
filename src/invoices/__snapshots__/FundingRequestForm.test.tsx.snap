@@ -105,44 +105,6 @@ exports[`RequestFundingForm Should render empty form 1`] = `
               <label
                 className="StyledText-sc-1sadyjn-0 bMXxti"
               >
-                Funding Agreement ID
-              </label>
-              <div
-                className="StyledBox-sc-13pk1d4-0 gZSidW"
-              >
-                <div
-                  className="StyledTextInput__StyledTextInputContainer-sc-1x30a0s-1 yIdXy"
-                >
-                  <input
-                    autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
-                    name="funding_id"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
-        />
-        <div
-          className="StyledBox-sc-13pk1d4-0 ffeAql"
-        >
-          <div
-            className="StyledBox-sc-13pk1d4-0 clLqce"
-          >
-            <div
-              className="FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
-            >
-              <label
-                className="StyledText-sc-1sadyjn-0 bMXxti"
-              >
                 ETH address
               </label>
               <div
@@ -166,12 +128,6 @@ exports[`RequestFundingForm Should render empty form 1`] = `
               </div>
             </div>
           </div>
-          <div
-            className="StyledBox__StyledBoxGap-sc-13pk1d4-1 hyyRSo"
-          />
-          <div
-            className="StyledBox-sc-13pk1d4-0 clLqce"
-          />
         </div>
       </div>
       <div
@@ -271,13 +227,14 @@ exports[`RequestFundingForm Should render empty form 1`] = `
                 >
                   <input
                     autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
+                    className="StyledTextInput-sc-1x30a0s-0 hYAxcs"
+                    disabled={true}
                     name="apr"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
                     onKeyDown={[Function]}
-                    value={0}
+                    value={5}
                   />
                 </div>
               </div>
@@ -305,7 +262,8 @@ exports[`RequestFundingForm Should render empty form 1`] = `
                 >
                   <input
                     autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
+                    className="StyledTextInput-sc-1x30a0s-0 hYAxcs"
+                    disabled={true}
                     name="fee"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -343,7 +301,8 @@ exports[`RequestFundingForm Should render empty form 1`] = `
                 >
                   <input
                     autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
+                    className="StyledTextInput-sc-1x30a0s-0 hYAxcs"
+                    disabled={true}
                     name="repayment_due_date"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -543,44 +502,6 @@ exports[`RequestFundingForm Should render form with sender default values and co
               <label
                 className="StyledText-sc-1sadyjn-0 bMXxti"
               >
-                Funding Agreement ID
-              </label>
-              <div
-                className="StyledBox-sc-13pk1d4-0 gZSidW"
-              >
-                <div
-                  className="StyledTextInput__StyledTextInputContainer-sc-1x30a0s-1 yIdXy"
-                >
-                  <input
-                    autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
-                    name="funding_id"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    value="SOMEID"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
-        />
-        <div
-          className="StyledBox-sc-13pk1d4-0 ffeAql"
-        >
-          <div
-            className="StyledBox-sc-13pk1d4-0 clLqce"
-          >
-            <div
-              className="FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
-            >
-              <label
-                className="StyledText-sc-1sadyjn-0 bMXxti"
-              >
                 ETH address
               </label>
               <div
@@ -604,12 +525,6 @@ exports[`RequestFundingForm Should render form with sender default values and co
               </div>
             </div>
           </div>
-          <div
-            className="StyledBox__StyledBoxGap-sc-13pk1d4-1 hyyRSo"
-          />
-          <div
-            className="StyledBox-sc-13pk1d4-0 clLqce"
-          />
         </div>
       </div>
       <div
@@ -709,7 +624,8 @@ exports[`RequestFundingForm Should render form with sender default values and co
                 >
                   <input
                     autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
+                    className="StyledTextInput-sc-1x30a0s-0 hYAxcs"
+                    disabled={true}
                     name="apr"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -743,7 +659,8 @@ exports[`RequestFundingForm Should render form with sender default values and co
                 >
                   <input
                     autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
+                    className="StyledTextInput-sc-1x30a0s-0 hYAxcs"
+                    disabled={true}
                     name="fee"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -781,14 +698,15 @@ exports[`RequestFundingForm Should render form with sender default values and co
                 >
                   <input
                     autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
+                    className="StyledTextInput-sc-1x30a0s-0 hYAxcs"
+                    disabled={true}
                     name="repayment_due_date"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
                     onKeyDown={[Function]}
                     type="date"
-                    value="2019-06-15"
+                    value="2019-06-16"
                   />
                 </div>
               </div>
@@ -981,44 +899,6 @@ exports[`RequestFundingForm Should render form with sender default values and co
               <label
                 className="StyledText-sc-1sadyjn-0 bMXxti"
               >
-                Funding Agreement ID
-              </label>
-              <div
-                className="StyledBox-sc-13pk1d4-0 gZSidW"
-              >
-                <div
-                  className="StyledTextInput__StyledTextInputContainer-sc-1x30a0s-1 yIdXy"
-                >
-                  <input
-                    autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
-                    name="funding_id"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    value="SOMEID"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
-        />
-        <div
-          className="StyledBox-sc-13pk1d4-0 ffeAql"
-        >
-          <div
-            className="StyledBox-sc-13pk1d4-0 clLqce"
-          >
-            <div
-              className="FormField__FormFieldBox-m9hood-0 eshLKp StyledBox-sc-13pk1d4-0 CAsMy"
-            >
-              <label
-                className="StyledText-sc-1sadyjn-0 bMXxti"
-              >
                 ETH address
               </label>
               <div
@@ -1042,12 +922,6 @@ exports[`RequestFundingForm Should render form with sender default values and co
               </div>
             </div>
           </div>
-          <div
-            className="StyledBox__StyledBoxGap-sc-13pk1d4-1 hyyRSo"
-          />
-          <div
-            className="StyledBox-sc-13pk1d4-0 clLqce"
-          />
         </div>
       </div>
       <div
@@ -1147,7 +1021,8 @@ exports[`RequestFundingForm Should render form with sender default values and co
                 >
                   <input
                     autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
+                    className="StyledTextInput-sc-1x30a0s-0 hYAxcs"
+                    disabled={true}
                     name="apr"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -1181,7 +1056,8 @@ exports[`RequestFundingForm Should render form with sender default values and co
                 >
                   <input
                     autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
+                    className="StyledTextInput-sc-1x30a0s-0 hYAxcs"
+                    disabled={true}
                     name="fee"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -1219,14 +1095,15 @@ exports[`RequestFundingForm Should render form with sender default values and co
                 >
                   <input
                     autoComplete="off"
-                    className="StyledTextInput-sc-1x30a0s-0 bYBgFP"
+                    className="StyledTextInput-sc-1x30a0s-0 hYAxcs"
+                    disabled={true}
                     name="repayment_due_date"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
                     onKeyDown={[Function]}
                     type="date"
-                    value="2019-06-15"
+                    value="2019-06-16"
                   />
                 </div>
               </div>

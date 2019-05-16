@@ -59,7 +59,8 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
           className="StyledBox__StyledBoxGap-sc-13pk1d4-1 hyyRSo"
         />
         <button
-          className="StyledButton-sc-323bzc-0 ibWwqS"
+          className="StyledButton-sc-323bzc-0 SBKZb"
+          disabled={true}
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
@@ -950,7 +951,8 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
           className="StyledBox__StyledBoxGap-sc-13pk1d4-1 hyyRSo"
         />
         <button
-          className="StyledButton-sc-323bzc-0 ibWwqS"
+          className="StyledButton-sc-323bzc-0 SBKZb"
+          disabled={true}
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}

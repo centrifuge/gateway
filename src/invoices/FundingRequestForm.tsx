@@ -8,7 +8,7 @@ import { FundingRequest } from '../common/models/funding-request';
 import SearchSelect from '../components/form/SearchSelect';
 import { dateFormatter } from '../common/formaters';
 import { parseDate } from '../common/parsers';
-
+import { isValidAddress } from 'ethereumjs-util';
 type FundingRequestFormProps = {
   onSubmit: (fundingRequest: FundingRequest) => void;
   onDiscard: () => void;
@@ -51,8 +51,11 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
     const fundingRequestValidation = Yup.object().shape({
       funder: Yup.string()
         .required('This field is required'),
-      funding_id: Yup.string()
-        .max(40, 'Please enter no more than 40 characters')
+      //TODO add eth address validation here
+        wallet_address: Yup.string()
+        .test('is-eth-address', 'Please enter a valid eth address',(value) => {
+          return isValidAddress(value);
+        })
         .required('This field is required'),
       amount: Yup.number()
         .required('This field is required'),
@@ -107,7 +110,6 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                 <form
                   onSubmit={event => {
                     this.setState({ submitted: true });
-                    console.log('### Handle Submit',handleSubmit)
                     handleSubmit(event);
                   }}
                 >
@@ -138,21 +140,6 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                         </Box>
                         <Box basis={'1/2'} gap={columnGap}>
                           <FormField
-                            label="Funding Agreement ID"
-                            error={errors!.funding_id}
-                          >
-                            <TextInput
-                              name="funding_id"
-                              value={values!.funding_id}
-                              onChange={handleChange}
-                            />
-                          </FormField>
-                        </Box>
-                      </Box>
-                      <Box direction="row" gap={columnGap}>
-                        <Box basis={'1/2'} gap={columnGap}>
-
-                          <FormField
                             label="ETH address"
                             error={errors!.wallet_address}
                           >
@@ -164,10 +151,8 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                             />
                           </FormField>
                         </Box>
-                        <Box basis={'1/2'} gap={columnGap}>
-
-                        </Box>
                       </Box>
+
                     </Box>
                     <Box gap={columnGap}>
                       <Box direction="row" gap={columnGap}>

@@ -1,7 +1,7 @@
 export interface IFundingRequest {
   funder: string,
   wallet_address: string,
-  funding_id: string,
+  funding_id?: string,
   amount: number,
   days:number,
   apr: number,
@@ -15,7 +15,7 @@ export interface IFundingRequest {
 export class FundingRequest implements IFundingRequest {
   public funder: string = '';
   public wallet_address: string = '';
-  public funding_id: string = '';
+  public funding_id?: string;
   public amount: number = 0;
   public days:number = 0;
   public apr: number = 5;
