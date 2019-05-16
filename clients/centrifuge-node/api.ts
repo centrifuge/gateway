@@ -1123,105 +1123,105 @@ export interface EntityRelationshipResponse {
 /**
  * 
  * @export
- * @interface FundingFundingCreatePayload
+ * @interface FunFundingCreatePayload
  */
-export interface FundingFundingCreatePayload {
+export interface FunFundingCreatePayload {
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingCreatePayload
+     * @memberof FunFundingCreatePayload
      */
     identifier?: string;
     /**
      * 
      * @type {DocumentReadAccess}
-     * @memberof FundingFundingCreatePayload
+     * @memberof FunFundingCreatePayload
      */
     read_access?: DocumentReadAccess;
     /**
      * 
      * @type {DocumentWriteAccess}
-     * @memberof FundingFundingCreatePayload
+     * @memberof FunFundingCreatePayload
      */
     write_access?: DocumentWriteAccess;
     /**
      * 
-     * @type {FundingFundingData}
-     * @memberof FundingFundingCreatePayload
+     * @type {FunFundingData}
+     * @memberof FunFundingCreatePayload
      */
-    data?: FundingFundingData;
+    data?: FunFundingData;
 }
 
 /**
  * 
  * @export
- * @interface FundingFundingData
+ * @interface FunFundingData
  */
-export interface FundingFundingData {
+export interface FunFundingData {
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     funding_id?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     amount?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     apr?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     days?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     fee?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     repayment_due_date?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     repayment_occurred_date?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     repayment_amount?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     currency?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     nft_address?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingData
+     * @memberof FunFundingData
      */
     payment_details_id?: string;
 }
@@ -1229,91 +1229,91 @@ export interface FundingFundingData {
 /**
  * 
  * @export
- * @interface FundingFundingListResponse
+ * @interface FunFundingListResponse
  */
-export interface FundingFundingListResponse {
+export interface FunFundingListResponse {
     /**
      * 
      * @type {DocumentResponseHeader}
-     * @memberof FundingFundingListResponse
+     * @memberof FunFundingListResponse
      */
     header?: DocumentResponseHeader;
     /**
      * 
-     * @type {Array<FundingFundingResponseData>}
-     * @memberof FundingFundingListResponse
+     * @type {Array<FunFundingResponseData>}
+     * @memberof FunFundingListResponse
      */
-    data?: Array<FundingFundingResponseData>;
+    data?: Array<FunFundingResponseData>;
 }
 
 /**
  * 
  * @export
- * @interface FundingFundingResponse
+ * @interface FunFundingResponse
  */
-export interface FundingFundingResponse {
+export interface FunFundingResponse {
     /**
      * 
      * @type {DocumentResponseHeader}
-     * @memberof FundingFundingResponse
+     * @memberof FunFundingResponse
      */
     header?: DocumentResponseHeader;
     /**
      * 
-     * @type {FundingFundingResponseData}
-     * @memberof FundingFundingResponse
+     * @type {FunFundingResponseData}
+     * @memberof FunFundingResponse
      */
-    data?: FundingFundingResponseData;
+    data?: FunFundingResponseData;
 }
 
 /**
  * 
  * @export
- * @interface FundingFundingResponseData
+ * @interface FunFundingResponseData
  */
-export interface FundingFundingResponseData {
+export interface FunFundingResponseData {
     /**
      * 
-     * @type {FundingFundingData}
-     * @memberof FundingFundingResponseData
+     * @type {FunFundingData}
+     * @memberof FunFundingResponseData
      */
-    funding?: FundingFundingData;
+    funding?: FunFundingData;
     /**
      * 
-     * @type {Array<FundingFundingSignature>}
-     * @memberof FundingFundingResponseData
+     * @type {Array<FunFundingSignature>}
+     * @memberof FunFundingResponseData
      */
-    signatures?: Array<FundingFundingSignature>;
+    signatures?: Array<FunFundingSignature>;
 }
 
 /**
  * 
  * @export
- * @interface FundingFundingSignature
+ * @interface FunFundingSignature
  */
-export interface FundingFundingSignature {
+export interface FunFundingSignature {
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingSignature
+     * @memberof FunFundingSignature
      */
     valid?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingSignature
+     * @memberof FunFundingSignature
      */
     outdated_signature?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingSignature
+     * @memberof FunFundingSignature
      */
     identity?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingSignature
+     * @memberof FunFundingSignature
      */
     signed_version?: string;
 }
@@ -1321,57 +1321,57 @@ export interface FundingFundingSignature {
 /**
  * 
  * @export
- * @interface FundingFundingUpdatePayload
+ * @interface FunFundingUpdatePayload
  */
-export interface FundingFundingUpdatePayload {
+export interface FunFundingUpdatePayload {
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingUpdatePayload
+     * @memberof FunFundingUpdatePayload
      */
     identifier?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingFundingUpdatePayload
+     * @memberof FunFundingUpdatePayload
      */
     funding_id?: string;
     /**
      * 
      * @type {DocumentReadAccess}
-     * @memberof FundingFundingUpdatePayload
+     * @memberof FunFundingUpdatePayload
      */
     read_access?: DocumentReadAccess;
     /**
      * 
      * @type {DocumentWriteAccess}
-     * @memberof FundingFundingUpdatePayload
+     * @memberof FunFundingUpdatePayload
      */
     write_access?: DocumentWriteAccess;
     /**
      * 
-     * @type {FundingFundingData}
-     * @memberof FundingFundingUpdatePayload
+     * @type {FunFundingData}
+     * @memberof FunFundingUpdatePayload
      */
-    data?: FundingFundingData;
+    data?: FunFundingData;
 }
 
 /**
  * 
  * @export
- * @interface FundingRequest
+ * @interface FunRequest
  */
-export interface FundingRequest {
+export interface FunRequest {
     /**
      * 
      * @type {string}
-     * @memberof FundingRequest
+     * @memberof FunRequest
      */
     identifier?: string;
     /**
      * 
      * @type {string}
-     * @memberof FundingRequest
+     * @memberof FunRequest
      */
     funding_id?: string;
 }
@@ -3889,12 +3889,12 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
         /**
          * Adds a funding to a document
          * @param {string} identifier 
-         * @param {FundingFundingCreatePayload} body 
+         * @param {FunFundingCreatePayload} body 
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        create(identifier: string, body: FundingFundingCreatePayload, authorization: string, options: any = {}): FetchArgs {
+        create(identifier: string, body: FunFundingCreatePayload, authorization: string, options: any = {}): FetchArgs {
             // verify required parameter 'identifier' is not null or undefined
             if (identifier === null || identifier === undefined) {
                 throw new RequiredError('identifier','Required parameter identifier was null or undefined when calling create.');
@@ -3924,7 +3924,7 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"FundingFundingCreatePayload" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (<any>"FunFundingCreatePayload" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
@@ -4108,12 +4108,12 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
          * Signs funding agreement in a document
          * @param {string} identifier 
          * @param {string} funding_id 
-         * @param {FundingRequest} body 
+         * @param {FunRequest} body 
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        sign(identifier: string, funding_id: string, body: FundingRequest, authorization: string, options: any = {}): FetchArgs {
+        sign(identifier: string, funding_id: string, body: FunRequest, authorization: string, options: any = {}): FetchArgs {
             // verify required parameter 'identifier' is not null or undefined
             if (identifier === null || identifier === undefined) {
                 throw new RequiredError('identifier','Required parameter identifier was null or undefined when calling sign.');
@@ -4148,7 +4148,7 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"FundingRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (<any>"FunRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
@@ -4160,12 +4160,12 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
          * Updates a funding agreement in a document
          * @param {string} identifier 
          * @param {string} funding_id 
-         * @param {FundingFundingUpdatePayload} body 
+         * @param {FunFundingUpdatePayload} body 
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        update(identifier: string, funding_id: string, body: FundingFundingUpdatePayload, authorization: string, options: any = {}): FetchArgs {
+        update(identifier: string, funding_id: string, body: FunFundingUpdatePayload, authorization: string, options: any = {}): FetchArgs {
             // verify required parameter 'identifier' is not null or undefined
             if (identifier === null || identifier === undefined) {
                 throw new RequiredError('identifier','Required parameter identifier was null or undefined when calling update.');
@@ -4200,7 +4200,7 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
             // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
             delete localVarUrlObj.search;
             localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
-            const needsSerialization = (<any>"FundingFundingUpdatePayload" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            const needsSerialization = (<any>"FunFundingUpdatePayload" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
             localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
 
             return {
@@ -4220,12 +4220,12 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
         /**
          * Adds a funding to a document
          * @param {string} identifier 
-         * @param {FundingFundingCreatePayload} body 
+         * @param {FunFundingCreatePayload} body 
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        create(identifier: string, body: FundingFundingCreatePayload, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FundingFundingResponse> {
+        create(identifier: string, body: FunFundingCreatePayload, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FunFundingResponse> {
             const localVarFetchArgs = FundingServiceApiFetchParamCreator(configuration).create(identifier, body, authorization, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
@@ -4245,7 +4245,7 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        get(identifier: string, funding_id: string, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FundingFundingResponse> {
+        get(identifier: string, funding_id: string, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FunFundingResponse> {
             const localVarFetchArgs = FundingServiceApiFetchParamCreator(configuration).get(identifier, funding_id, authorization, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
@@ -4264,7 +4264,7 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getList(identifier: string, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FundingFundingListResponse> {
+        getList(identifier: string, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FunFundingListResponse> {
             const localVarFetchArgs = FundingServiceApiFetchParamCreator(configuration).getList(identifier, authorization, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
@@ -4284,7 +4284,7 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getListVersion(identifier: string, version: string, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FundingFundingListResponse> {
+        getListVersion(identifier: string, version: string, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FunFundingListResponse> {
             const localVarFetchArgs = FundingServiceApiFetchParamCreator(configuration).getListVersion(identifier, version, authorization, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
@@ -4305,7 +4305,7 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVersion(identifier: string, version: string, funding_id: string, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FundingFundingResponse> {
+        getVersion(identifier: string, version: string, funding_id: string, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FunFundingResponse> {
             const localVarFetchArgs = FundingServiceApiFetchParamCreator(configuration).getVersion(identifier, version, funding_id, authorization, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
@@ -4321,12 +4321,12 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
          * Signs funding agreement in a document
          * @param {string} identifier 
          * @param {string} funding_id 
-         * @param {FundingRequest} body 
+         * @param {FunRequest} body 
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        sign(identifier: string, funding_id: string, body: FundingRequest, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FundingFundingResponse> {
+        sign(identifier: string, funding_id: string, body: FunRequest, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FunFundingResponse> {
             const localVarFetchArgs = FundingServiceApiFetchParamCreator(configuration).sign(identifier, funding_id, body, authorization, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
@@ -4342,12 +4342,12 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
          * Updates a funding agreement in a document
          * @param {string} identifier 
          * @param {string} funding_id 
-         * @param {FundingFundingUpdatePayload} body 
+         * @param {FunFundingUpdatePayload} body 
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        update(identifier: string, funding_id: string, body: FundingFundingUpdatePayload, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FundingFundingResponse> {
+        update(identifier: string, funding_id: string, body: FunFundingUpdatePayload, authorization: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<FunFundingResponse> {
             const localVarFetchArgs = FundingServiceApiFetchParamCreator(configuration).update(identifier, funding_id, body, authorization, options);
             return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
                 return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
@@ -4371,12 +4371,12 @@ export const FundingServiceApiFactory = function (configuration?: Configuration,
         /**
          * Adds a funding to a document
          * @param {string} identifier 
-         * @param {FundingFundingCreatePayload} body 
+         * @param {FunFundingCreatePayload} body 
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        create(identifier: string, body: FundingFundingCreatePayload, authorization: string, options?: any) {
+        create(identifier: string, body: FunFundingCreatePayload, authorization: string, options?: any) {
             return FundingServiceApiFp(configuration).create(identifier, body, authorization, options)(fetch, basePath);
         },
         /**
@@ -4427,24 +4427,24 @@ export const FundingServiceApiFactory = function (configuration?: Configuration,
          * Signs funding agreement in a document
          * @param {string} identifier 
          * @param {string} funding_id 
-         * @param {FundingRequest} body 
+         * @param {FunRequest} body 
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        sign(identifier: string, funding_id: string, body: FundingRequest, authorization: string, options?: any) {
+        sign(identifier: string, funding_id: string, body: FunRequest, authorization: string, options?: any) {
             return FundingServiceApiFp(configuration).sign(identifier, funding_id, body, authorization, options)(fetch, basePath);
         },
         /**
          * Updates a funding agreement in a document
          * @param {string} identifier 
          * @param {string} funding_id 
-         * @param {FundingFundingUpdatePayload} body 
+         * @param {FunFundingUpdatePayload} body 
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        update(identifier: string, funding_id: string, body: FundingFundingUpdatePayload, authorization: string, options?: any) {
+        update(identifier: string, funding_id: string, body: FunFundingUpdatePayload, authorization: string, options?: any) {
             return FundingServiceApiFp(configuration).update(identifier, funding_id, body, authorization, options)(fetch, basePath);
         },
     };
@@ -4460,13 +4460,13 @@ export class FundingServiceApi extends BaseAPI {
     /**
      * Adds a funding to a document
      * @param {string} identifier 
-     * @param {FundingFundingCreatePayload} body 
+     * @param {FunFundingCreatePayload} body 
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FundingServiceApi
      */
-    public create(identifier: string, body: FundingFundingCreatePayload, authorization: string, options?: any) {
+    public create(identifier: string, body: FunFundingCreatePayload, authorization: string, options?: any) {
         return FundingServiceApiFp(this.configuration).create(identifier, body, authorization, options)(this.fetch, this.basePath);
     }
 
@@ -4526,13 +4526,13 @@ export class FundingServiceApi extends BaseAPI {
      * Signs funding agreement in a document
      * @param {string} identifier 
      * @param {string} funding_id 
-     * @param {FundingRequest} body 
+     * @param {FunRequest} body 
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FundingServiceApi
      */
-    public sign(identifier: string, funding_id: string, body: FundingRequest, authorization: string, options?: any) {
+    public sign(identifier: string, funding_id: string, body: FunRequest, authorization: string, options?: any) {
         return FundingServiceApiFp(this.configuration).sign(identifier, funding_id, body, authorization, options)(this.fetch, this.basePath);
     }
 
@@ -4540,13 +4540,13 @@ export class FundingServiceApi extends BaseAPI {
      * Updates a funding agreement in a document
      * @param {string} identifier 
      * @param {string} funding_id 
-     * @param {FundingFundingUpdatePayload} body 
+     * @param {FunFundingUpdatePayload} body 
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FundingServiceApi
      */
-    public update(identifier: string, funding_id: string, body: FundingFundingUpdatePayload, authorization: string, options?: any) {
+    public update(identifier: string, funding_id: string, body: FunFundingUpdatePayload, authorization: string, options?: any) {
         return FundingServiceApiFp(this.configuration).update(identifier, funding_id, body, authorization, options)(this.fetch, this.basePath);
     }
 
