@@ -8,7 +8,6 @@ import { ConnectedRouter } from 'connected-react-router';
 import configureStore, { history } from './store';
 
 import 'normalize.css';
-import { InvoiceInvoiceData } from '../clients/centrifuge-node';
 import config from './common/config';
 
 const runApplication = (store) => {
@@ -20,27 +19,24 @@ const runApplication = (store) => {
     </Provider>,
     document.getElementById('root'),
   );
-}
-
+};
 
 
 // in dev mode we do not have the prerendering of redux so need to login the user
 if (process.env.NODE_ENV === 'development') {
-  console.log()
-  const loginData = {}
-  console.log(loginData,JSON.stringify(loginData))
+
+  // AUTO login the admin user
   fetch('/api/users/login', {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    mode: 'cors', // no-cors, cors, *same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
-      // 'Content-Type': 'application/x-www-form-urlencoded',
     },
-    redirect: 'follow', // manual, *follow, error
-    referrer: 'no-referrer', // no-referrer, *client
-    body: JSON.stringify(config.admin), // body data type must match "Content-Type" header
+    redirect: 'follow',
+    referrer: 'no-referrer',
+    body: JSON.stringify(config.admin),
   })
     .then(res => res.json())
     .then(response => {
@@ -51,8 +47,7 @@ if (process.env.NODE_ENV === 'development') {
           },
         },
       }));
-    })
-
+    });
 
 
 } else {
