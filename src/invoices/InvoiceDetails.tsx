@@ -26,6 +26,7 @@ import invoices from '../store/sagas/invoices';
 import {Modal} from '@centrifuge/axis-modal';
 import FundingRequestForm from './FundingRequestForm';
 import { FundingRequest } from '../common/models/funding-request';
+import { dateFormatter } from '../common/formaters';
 
 type ConnectedInvoiceDetailsProps = {
   getInvoiceById: (id: string) => void;
@@ -76,9 +77,20 @@ export class InvoiceDetails extends React.Component<ConnectedInvoiceDetailsProps
     if (!invoice || !contacts) {
       return 'Loading invoice';
     }
-    // TODO make currency mandatory in invoice
-    fundingRequest.currency = invoice.currency || 'USD';
 
+    // TODO make currency and due_date mandatory in invoice
+    //@ts-ignore
+    fundingRequest.currency = invoice.currency;
+    //@ts-ignore
+    fundingRequest.repayment_due_date = invoice.date_due || dateFormatter(new Date());
+
+    // We can fund invoices only that have date due greated then today
+    // and have the status unpaid
+    //@ts-ignore
+    const canRequestFunding = (new Date(invoice.date_due)) > (new Date())
+      && invoice.status === 'unpaid'
+      && invoice.currency
+      && invoice.date_due;
 
     return (
       <>
@@ -112,6 +124,7 @@ export class InvoiceDetails extends React.Component<ConnectedInvoiceDetailsProps
                 label="Edit"
               />
               <Button
+                disabled={!canRequestFunding}
                 primary
                 onClick={ this.openFundingRequest }
                 label="Request Funding"

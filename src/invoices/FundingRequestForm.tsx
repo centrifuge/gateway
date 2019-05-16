@@ -204,6 +204,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                             error={errors!.apr}
                           >
                             <TextInput
+                              disabled={true}
                               name="apr"
                               value={values!.apr}
                               onChange={handleChange}
@@ -217,6 +218,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                           >
                             <TextInput
                               name="fee"
+                              disabled={true}
                               value={values!.fee}
                               onChange={(ev) => {
                                 handleChange(ev)
@@ -232,6 +234,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                             error={errors!.repayment_due_date}
                           >
                             <TextInput
+                              disabled={true}
                               name="repayment_due_date"
                               type="date"
                               value={dateFormatter(values!.repayment_due_date)}
