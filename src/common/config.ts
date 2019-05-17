@@ -7,7 +7,7 @@ const config = {
   dbPath: env.DB_PATH || './db',
   admin: {
     name: env.CENTRIFUGE_ADMIN_USER || 'admin',
-    email: env.CENTRIFUGE_ADMIN_USER || 'test@test.org',
+    email: env.CENTRIFUGE_ADMIN_EMAIL || 'test@test.org',
     password: env.CENTRIFUGE_ADMIN_PASSWORD || 'admin',
     account: env.CENTRIFUGE_ID || env.CENTRIFUGE_ADMIN_ACCOUNT || '0x5f2bBFcf948a0083bbE77C0aD97A64142D6b1D48',
     permissions:[PERMISSIONS.CAN_MANAGE_USERS],
