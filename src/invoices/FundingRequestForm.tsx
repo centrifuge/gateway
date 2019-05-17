@@ -140,12 +140,12 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                         </Box>
                         <Box basis={'1/2'} gap={columnGap}>
                           <FormField
-                            label="ETH address"
+                            label="NFT Deposit Address"
                             error={errors!.wallet_address}
                           >
                             <TextInput
                               name="wallet_address"
-                              placeholder="Your own Ethereum Wallet address for NFT minting"
+                              placeholder="Your NFT will be deposited into this Ethereum account"
                               value={values!.wallet_address}
                               onChange={handleChange}
                             />
