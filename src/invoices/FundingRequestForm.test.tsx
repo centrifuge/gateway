@@ -39,7 +39,7 @@ describe('RequestFundingForm', () => {
 
   it('Should render form with sender default values and correctly calculate the computed values', () => {
 
-    var date = new Date();
+    var date = new Date('2019-05-17T07:36:26.419Z');
     date.setDate(date.getDate() + 31);
 
     const fundingRequest = {
