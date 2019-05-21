@@ -1,4 +1,5 @@
 export interface IFundingRequest {
+  document_id:string,
   funder: string,
   wallet_address: string,
   funding_id?: string,
@@ -13,6 +14,8 @@ export interface IFundingRequest {
 
 
 export class FundingRequest implements IFundingRequest {
+  public invoice_id:string;
+  public document_id: string;
   public funder: string = '';
   public wallet_address: string = '';
   public funding_id?: string;
