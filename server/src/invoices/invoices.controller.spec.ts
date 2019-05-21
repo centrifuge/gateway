@@ -65,8 +65,22 @@ describe('InvoicesController', () => {
 
   class CentrifugeClientMock {
     invoices = {
-      create: jest.fn(data => data),
-      update: jest.fn((id, data) => data),
+      create: jest.fn(data => {
+       return {
+         header: {
+           job_id: 'some_job_id',
+         },
+         ...data,
+       }
+      }),
+      update: jest.fn(data => {
+        return {
+          header: {
+            job_id: 'some_job_id',
+          },
+          ...data,
+        }
+      }),
     };
     funding = {
       getList: jest.fn((documentId, auth) => {
@@ -74,6 +88,8 @@ describe('InvoicesController', () => {
         return { data: null };
       }),
     };
+
+    pullForJobComplete = () => true;
   }
 
   const centrifugeClientMock = new CentrifugeClientMock();
@@ -123,6 +139,9 @@ describe('InvoicesController', () => {
         },
         write_access: {
           collaborators: [...invoice.collaborators],
+        },
+        header: {
+          job_id: 'some_job_id',
         },
         ownerId: 'user_id',
       });

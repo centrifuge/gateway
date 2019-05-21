@@ -22,7 +22,7 @@ export class FundingRequest implements IFundingRequest {
   public amount: number = 0;
   public days:number = 0;
   public apr: number = 5;
-  public fee: number = 0;
+  public fee: number = 1;
   public repayment_due_date: string = '';
   public repayment_amount: number = 0;
   public currency: string = '';

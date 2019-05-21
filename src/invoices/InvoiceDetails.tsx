@@ -89,7 +89,7 @@ export class InvoiceDetails extends React.Component<ConnectedInvoiceDetailsProps
       return <Box align="center" justify="center" fill={true}>Loading invoice</Box>;
     }
 
-    if(creatingFunding.loading) {
+    if(creatingFunding && creatingFunding.loading) {
       return <Box align="center" justify="center" fill={true}>Create Funding Agreement</Box>;
     }
 

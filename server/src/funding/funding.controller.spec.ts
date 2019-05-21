@@ -92,6 +92,7 @@ describe('Funding controller', () => {
     it('should return the created invoice', async () => {
 
       const fundingRequest = {
+        invoice_id:"some_id",
         document_id: 'document_id',
         funder: 'funder',
         wallet_address: 'wallet_address',
