@@ -21,6 +21,8 @@ export interface InvoiceResponse extends InvInvoiceResponse {
   data?: InvoiceData;
   ownerId?: string;
   _id?: string;
+  createdAt: Date,
+  updatedAt: Date
 }
 
 export interface InvoiceResponseWithFunding extends InvoiceResponse {
