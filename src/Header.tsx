@@ -26,9 +26,6 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
   const sectionGap = 'medium';
   const itemGap = 'small';
 
-  console.log(window.innerWidth);
-  console.log(document.documentElement.clientWidth)
-
   return <Box
     justify="center"
     align="center"
