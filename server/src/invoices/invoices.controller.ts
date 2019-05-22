@@ -2,9 +2,9 @@ import { Body, Controller, Get, HttpException, Param, Post, Put, Req, UseGuards 
 import { Invoice } from '../../../src/common/models/invoice';
 import { ROUTES } from '../../../src/common/constants';
 import { SessionGuard } from '../auth/SessionGuard';
-import { FunFundingListResponse, InvInvoiceData, InvInvoiceResponse } from '../../../clients/centrifuge-node';
+import { FunFundingListResponse, InvInvoiceResponse } from '../../../clients/centrifuge-node';
 import { DatabaseService } from '../database/database.service';
-import { InvoiceData, InvoiceResponse, InvoiceResponseWithFunding } from '../../../src/common/interfaces';
+import { InvoiceResponse, InvoiceResponseWithFunding } from '../../../src/common/interfaces';
 import config from '../../../src/common/config';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 
@@ -60,7 +60,7 @@ export class InvoicesController {
   async get(@Req() request): Promise<InvoiceResponse[]> {
     const invoices = this.database.invoices.getCursor({
       ownerId: request.user._id,
-    }).sort({'updatedAt': -1}).exec();
+    }).sort({ updatedAt: -1 }).exec();
     return invoices;
   }
 
