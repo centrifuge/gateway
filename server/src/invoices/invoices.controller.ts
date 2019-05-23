@@ -60,7 +60,7 @@ export class InvoicesController {
   async get(@Req() request): Promise<InvoiceResponse[]> {
     const invoices = this.database.invoices.getCursor({
       ownerId: request.user._id,
-    }).sort({'updatedAt': -1}).exec();
+    }).sort({updatedAt: -1}).exec();
     return invoices;
   }
 
