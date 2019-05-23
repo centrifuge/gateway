@@ -45,7 +45,8 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
         className="StyledBox-sc-13pk1d4-0 ffeAql"
       >
         <button
-          className="StyledButton-sc-323bzc-0 iIyTDn"
+          className="StyledButton-sc-323bzc-0 fnJqDf"
+          disabled={true}
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
@@ -321,27 +322,6 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                 <div
                   className="StyledBox-sc-13pk1d4-0 clLqce"
                 >
-                  <div
-                    className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
-                  >
-                    <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
-                    >
-                      Centrifuge ID
-                    </label>
-                    <div
-                      className="StyledBox-sc-13pk1d4-0 exlMvl"
-                    >
-                      <p
-                        className="StyledParagraph-tbetod-0 dBXmID"
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
-                  />
                   <div
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
@@ -937,7 +917,8 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
         className="StyledBox-sc-13pk1d4-0 ffeAql"
       >
         <button
-          className="StyledButton-sc-323bzc-0 iIyTDn"
+          className="StyledButton-sc-323bzc-0 fnJqDf"
+          disabled={true}
           onBlur={[Function]}
           onClick={[Function]}
           onFocus={[Function]}
@@ -1046,7 +1027,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                         onBlur={[Function]}
                         onFocus={[Function]}
                       >
-                        Alice
+                        0x1111
                       </p>
                     </div>
                   </div>
@@ -1215,29 +1196,6 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                 <div
                   className="StyledBox-sc-13pk1d4-0 clLqce"
                 >
-                  <div
-                    className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
-                  >
-                    <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
-                    >
-                      Centrifuge ID
-                    </label>
-                    <div
-                      className="StyledBox-sc-13pk1d4-0 exlMvl"
-                    >
-                      <p
-                        className="StyledParagraph-tbetod-0 dBXmID"
-                        onBlur={[Function]}
-                        onFocus={[Function]}
-                      >
-                        Alice
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
-                  />
                   <div
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
