@@ -89,7 +89,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
               className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
             >
               <label
-                className="StyledText-sc-1sadyjn-0 fZYfTe"
+                className="StyledText-sc-1sadyjn-0 gtjeKK"
               >
                 Invoice number
               </label>
@@ -143,7 +143,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Centrifuge ID
                     </label>
@@ -164,7 +164,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Company name
                     </label>
@@ -189,7 +189,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Street
                     </label>
@@ -210,7 +210,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Street
                     </label>
@@ -231,7 +231,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       City
                     </label>
@@ -252,7 +252,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Country
                     </label>
@@ -273,7 +273,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       ZIP code
                     </label>
@@ -326,7 +326,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Company name
                     </label>
@@ -351,7 +351,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Street
                     </label>
@@ -372,7 +372,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Street
                     </label>
@@ -393,7 +393,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       City
                     </label>
@@ -414,7 +414,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Country
                     </label>
@@ -435,7 +435,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       ZIP code
                     </label>
@@ -492,7 +492,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Invoice Status
                     </label>
@@ -517,7 +517,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Currency
                     </label>
@@ -542,7 +542,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Date created
                     </label>
@@ -567,7 +567,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Due date
                     </label>
@@ -624,7 +624,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Net amount
                     </label>
@@ -649,7 +649,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Tax rate
                     </label>
@@ -674,7 +674,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Tax amount
                     </label>
@@ -699,7 +699,7 @@ exports[`InvoiceDetails Should not render an empty form 1`] = `
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Gross amount
                     </label>
@@ -961,7 +961,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
               className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
             >
               <label
-                className="StyledText-sc-1sadyjn-0 fZYfTe"
+                className="StyledText-sc-1sadyjn-0 gtjeKK"
               >
                 Invoice number
               </label>
@@ -1015,7 +1015,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Centrifuge ID
                     </label>
@@ -1038,7 +1038,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Company name
                     </label>
@@ -1063,7 +1063,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Street
                     </label>
@@ -1084,7 +1084,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Street
                     </label>
@@ -1105,7 +1105,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       City
                     </label>
@@ -1126,7 +1126,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Country
                     </label>
@@ -1147,7 +1147,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       ZIP code
                     </label>
@@ -1200,7 +1200,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Company name
                     </label>
@@ -1225,7 +1225,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Street
                     </label>
@@ -1246,7 +1246,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Street
                     </label>
@@ -1267,7 +1267,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       City
                     </label>
@@ -1288,7 +1288,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Country
                     </label>
@@ -1309,7 +1309,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       ZIP code
                     </label>
@@ -1366,7 +1366,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Invoice Status
                     </label>
@@ -1391,7 +1391,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Currency
                     </label>
@@ -1416,7 +1416,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Date created
                     </label>
@@ -1441,7 +1441,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Due date
                     </label>
@@ -1498,7 +1498,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Net amount
                     </label>
@@ -1523,7 +1523,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Tax rate
                     </label>
@@ -1548,7 +1548,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Tax amount
                     </label>
@@ -1573,7 +1573,7 @@ exports[`InvoiceDetails Should render the form with proper values for contact fi
                     className="sc-bdVaJa cZtluK FormField__FormFieldBox-m9hood-0 KIPoQ StyledBox-sc-13pk1d4-0 hehMJe"
                   >
                     <label
-                      className="StyledText-sc-1sadyjn-0 fZYfTe"
+                      className="StyledText-sc-1sadyjn-0 gtjeKK"
                     >
                       Gross amount
                     </label>
