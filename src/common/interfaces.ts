@@ -29,6 +29,10 @@ export interface InvoiceResponseWithFunding extends InvoiceResponse {
   fundingAgreement: FunFundingResponseData | null
 }
 
+export interface InvoiceResponseWithFunding extends InvoiceResponse {
+  fundingAgreement: FunFundingResponseData | null
+}
+
 export interface PurchaseOrderResponse
   extends PoPurchaseOrderResponse {
   ownerId?: string;
