@@ -269,7 +269,7 @@ exports[`RequestFundingForm Should render empty form 1`] = `
                     onChange={[Function]}
                     onFocus={[Function]}
                     onKeyDown={[Function]}
-                    value={1}
+                    value={0}
                   />
                 </div>
               </div>
