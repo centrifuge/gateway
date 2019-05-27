@@ -35,6 +35,9 @@ export class WebhooksController {
   @Post()
   async receiveMessage(@Body() notification: NotificationNotificationMessage) {
 
+
+    console.log('NOTIFY', notification);
+
     if (notification.event_type === eventTypes.DOCUMENT) {
       // Search for the user in the database
       const user = await this.databaseService.users.findOne({ account: notification.to_id });
@@ -55,10 +58,15 @@ export class WebhooksController {
         if (invoice.data.attributes && invoice.data.attributes.funding_agreement) {
           const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(invoice.header.document_id, user.account);
           invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
+          // We need to delete the attributes prop because nebd does not allow for . in field names
           delete invoice.data.attributes;
         }
-        // We need to delete the attributes prop because nebd does not allow for . in field names
-        await this.databaseService.invoices.insert(invoice);
+        await this.databaseService.invoices.update(
+          { 'header.document_id': notification.document_id, 'ownerId': user._id },
+          invoice,
+          { upsert: true },
+        );
+
       } else if (notification.document_type === documentTypes.purchaseOrder) {
         const result = await this.centrifugeService.purchaseOrders.get(
           notification.document_id,

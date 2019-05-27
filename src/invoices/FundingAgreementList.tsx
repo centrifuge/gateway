@@ -100,7 +100,7 @@ class FundingAgreementList extends React.Component<ViewInvoicesProps & RouteComp
 
               {
                 property: 'invoice_status',
-                header: 'Document Status',
+                header: 'Funding Status',
                 render: datum => {
                   return datum.signatures ? <Text color={'status-ok'}>Accepted</Text> : <Text>Received</Text>;
                 },
