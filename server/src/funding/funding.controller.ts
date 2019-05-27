@@ -48,7 +48,8 @@ export class FundingController {
       deposit_address: fundingRequest.wallet_address,
     };
 
-    // Mint and UnpaidNFT. THis will fail if the document already has a nft minted
+    // Mint an UnpaidInvoiceNFT.
+    // This will fail if the document already has a nft minted
     const nftResult = await this.centrifugeService.nft.mintInvoiceUnpaidNFT(fundingRequest.document_id, nftPayload, req.user.account)
       .catch(async error => {
         throw new HttpException(await error.json(), error.status);
@@ -85,8 +86,8 @@ export class FundingController {
     await this.centrifugeService.pullForJobComplete(fundingResponse.header.job_id, req.user.account);
 
     const invoiceWithFunding = await this.centrifugeService.invoices.get(fundingRequest.document_id, req.user.account);
-    // We need to delete the attributes prop because nebd does not allow for . in field names
-
+    // We need to delete the attributes prop because NEDB does not allow for . in field names
+    // Ex: funding[0].amount
     delete invoiceWithFunding.data.attributes;
     // Update the document in the database
     await this.databaseService.invoices.update(
