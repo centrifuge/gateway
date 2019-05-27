@@ -9,7 +9,6 @@ import {
   FunRequest,
   NftNFTMintInvoiceUnpaidRequest,
 } from '../../../clients/centrifuge-node';
-import invoices from '../../../src/store/sagas/invoices';
 
 @Controller()
 export class FundingController {
@@ -31,7 +30,7 @@ export class FundingController {
     delete updatedInvoice.data.attributes;
     // Find all the invoices for the document ID
     await this.databaseService.invoices.update(
-      { 'header.document_id': payload.identifier,  'ownerId': req.user._id},
+      { 'header.document_id': payload.identifier, 'ownerId': req.user._id },
       {
         ...updatedInvoice,
         ownerId: req.user._id,
@@ -91,7 +90,7 @@ export class FundingController {
     delete invoiceWithFunding.data.attributes;
     // Update the document in the database
     await this.databaseService.invoices.update(
-      { 'header.document_id': fundingRequest.document_id,  'ownerId': req.user._id},
+      { 'header.document_id': fundingRequest.document_id, 'ownerId': req.user._id },
       {
         ...invoiceWithFunding,
         ownerId: req.user._id,

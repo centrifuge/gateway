@@ -35,9 +35,6 @@ export class WebhooksController {
   @Post()
   async receiveMessage(@Body() notification: NotificationNotificationMessage) {
 
-
-    console.log('NOTIFY', notification);
-
     if (notification.event_type === eventTypes.DOCUMENT) {
       // Search for the user in the database
       const user = await this.databaseService.users.findOne({ account: notification.to_id });
@@ -47,7 +44,7 @@ export class WebhooksController {
       if (notification.document_type === documentTypes.invoice) {
         const result = await this.centrifugeService.invoices.get(
           notification.document_id,
-          config.admin.account,
+          user.account,
         );
 
         const invoice: InvoiceResponse = {
@@ -70,7 +67,7 @@ export class WebhooksController {
       } else if (notification.document_type === documentTypes.purchaseOrder) {
         const result = await this.centrifugeService.purchaseOrders.get(
           notification.document_id,
-          config.admin.account,
+          user.account,
         );
         await this.databaseService.purchaseOrders.insert(result);
       }
