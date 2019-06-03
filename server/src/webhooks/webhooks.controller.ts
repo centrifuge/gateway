@@ -55,7 +55,7 @@ export class WebhooksController {
         if (invoice.data.attributes && invoice.data.attributes.funding_agreement) {
           const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(invoice.header.document_id, user.account);
           invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
-          // We need to delete the attributes prop because nebd does not allow for . in field names
+          // We need to delete the attributes prop because nedb does not allow for . in field names
           delete invoice.data.attributes;
         }
         await this.databaseService.invoices.update(
