@@ -6,7 +6,7 @@ import { Anchor, Box, DataTable, Heading, Text } from 'grommet';
 import { fundingRoutes } from './routes';
 import { View } from 'grommet-icons';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { formatDate } from '../common/formaters';
+import { formatCurrency, formatDate } from '../common/formaters';
 import { FunFundingData, FunFundingSignature } from '../../clients/centrifuge-node';
 
 
@@ -80,11 +80,17 @@ class FundingAgreementList extends React.Component<ViewInvoicesProps & RouteComp
                 property: 'net_amount',
                 header: 'Invoice Total',
                 align: 'end',
+                render: datum => {
+                  return formatCurrency(datum.amount, datum.currency);
+                },
               },
               {
                 property: 'amount',
                 header: 'Funding Amount',
                 align: 'end',
+                render: datum => {
+                  return formatCurrency(datum.amount, datum.currency);
+                },
               },
               {
                 property: 'repayment_due_date',
