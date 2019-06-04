@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { connect, FormikContext } from 'formik';
 import { Invoice } from '../../common/models/invoice';
 import { Section } from '../../components/Section';
 import { Box, FormField, Select, TextInput } from 'grommet';
-import { dateFormatter } from '../../common/formaters';
-import { parseDate } from '../../common/parsers';
+import { dateToString, extractDate } from '../../common/formaters';
 
 
 interface DetailsFormProps {
@@ -72,26 +70,27 @@ export class DetailsForm extends React.Component<ConnectedDetailsFormProps> {
               <TextInput
                 name="date_created"
                 type="date"
-                value={dateFormatter(values!.date_created)}
+                value={extractDate(values!.date_created)}
                 onChange={ev => {
-                  setFieldValue('date_created', parseDate(ev.target.value));
+                  setFieldValue('date_created', dateToString(ev.target.value));
                 }}
               />
             </FormField>
           </Box>
-
 
           <Box basis={'1/4'}>
             <FormField
               label="Due date"
               error={errors!.date_due}
             >
+              {console.log(values!.date_due)}
               <TextInput
                 name="date_due"
                 type="date"
-                value={dateFormatter(values!.date_due)}
+                value={extractDate(values!.date_due)}
                 onChange={ev => {
-                  setFieldValue('date_due', parseDate(ev.target.value));
+                  console.log(ev.target.value);
+                  setFieldValue('date_due', dateToString(ev.target.value));
                 }}
               />
             </FormField>
