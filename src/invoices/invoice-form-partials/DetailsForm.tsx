@@ -83,13 +83,11 @@ export class DetailsForm extends React.Component<ConnectedDetailsFormProps> {
               label="Due date"
               error={errors!.date_due}
             >
-              {console.log(values!.date_due)}
               <TextInput
                 name="date_due"
                 type="date"
                 value={extractDate(values!.date_due)}
                 onChange={ev => {
-                  console.log(ev.target.value);
                   setFieldValue('date_due', dateToString(ev.target.value));
                 }}
               />

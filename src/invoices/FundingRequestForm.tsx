@@ -104,7 +104,6 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
 
               values.days = days;
               values.repayment_amount = repaymentAmount.toFixed(2)
-              console.log(days)
 
               return (
                 <form

@@ -43,7 +43,6 @@ class FundingAgreementList extends React.Component<ViewInvoicesProps & RouteComp
       return <></>;
     }
 
-    console.log(this.props.fundingAgreements);
 
     return (
 
