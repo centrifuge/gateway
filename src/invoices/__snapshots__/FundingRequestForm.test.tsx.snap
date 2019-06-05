@@ -105,7 +105,7 @@ exports[`RequestFundingForm Should render empty form 1`] = `
               <label
                 className="StyledText-sc-1sadyjn-0 bKLvLm"
               >
-                NFT Deposit Address
+                NFT deposit address
               </label>
               <div
                 className="StyledBox-sc-13pk1d4-0 gZSidW"
@@ -291,7 +291,7 @@ exports[`RequestFundingForm Should render empty form 1`] = `
               <label
                 className="StyledText-sc-1sadyjn-0 bKLvLm"
               >
-                Repayment Due Date
+                Repayment due date
               </label>
               <div
                 className="StyledBox-sc-13pk1d4-0 gZSidW"
@@ -502,7 +502,7 @@ exports[`RequestFundingForm Should render form with sender default values and co
               <label
                 className="StyledText-sc-1sadyjn-0 bKLvLm"
               >
-                NFT Deposit Address
+                NFT deposit address
               </label>
               <div
                 className="StyledBox-sc-13pk1d4-0 gZSidW"
@@ -688,7 +688,7 @@ exports[`RequestFundingForm Should render form with sender default values and co
               <label
                 className="StyledText-sc-1sadyjn-0 bKLvLm"
               >
-                Repayment Due Date
+                Repayment due date
               </label>
               <div
                 className="StyledBox-sc-13pk1d4-0 gZSidW"
@@ -899,7 +899,7 @@ exports[`RequestFundingForm Should render form with sender default values and co
               <label
                 className="StyledText-sc-1sadyjn-0 bKLvLm"
               >
-                NFT Deposit Address
+                NFT deposit address
               </label>
               <div
                 className="StyledBox-sc-13pk1d4-0 gZSidW"
@@ -1085,7 +1085,7 @@ exports[`RequestFundingForm Should render form with sender default values and co
               <label
                 className="StyledText-sc-1sadyjn-0 bKLvLm"
               >
-                Repayment Due Date
+                Repayment due date
               </label>
               <div
                 className="StyledBox-sc-13pk1d4-0 gZSidW"
@@ -1296,7 +1296,7 @@ exports[`RequestFundingForm Should render form with sender default values and co
               <label
                 className="StyledText-sc-1sadyjn-0 bKLvLm"
               >
-                NFT Deposit Address
+                NFT deposit address
               </label>
               <div
                 className="StyledBox-sc-13pk1d4-0 gZSidW"
@@ -1482,7 +1482,7 @@ exports[`RequestFundingForm Should render form with sender default values and co
               <label
                 className="StyledText-sc-1sadyjn-0 bKLvLm"
               >
-                Repayment Due Date
+                Repayment due date
               </label>
               <div
                 className="StyledBox-sc-13pk1d4-0 gZSidW"

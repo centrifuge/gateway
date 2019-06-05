@@ -97,7 +97,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
             >
               <TextInput
                 name="sender_state"
-                value={values!.sender_city}
+                value={values!.sender_state}
                 onChange={handleChange}
               />
             </FormField>
