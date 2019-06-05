@@ -61,7 +61,7 @@ export class FundingAgreementView extends React.Component<ConnectedFundingAgreem
     }
 
     if (signingFunding && signingFunding.loading) {
-      return <Box align="center" justify="center" fill={true}>Signing Funding Agreement</Box>;
+      return <Box align="center" justify="center" fill={true}>Approving Funding Agreement</Box>;
     }
     const canApproveFunding = !(fundingAgreement && fundingAgreement.signatures);
 

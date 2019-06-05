@@ -87,7 +87,16 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
             >
               <TextInput
                 name="sender_city"
-                placeholder="City or state"
+                value={values!.sender_city}
+                onChange={handleChange}
+              />
+            </FormField>
+            <FormField
+              label="State"
+              error={errors!.sender_state}
+            >
+              <TextInput
+                name="sender_state"
                 value={values!.sender_city}
                 onChange={handleChange}
               />

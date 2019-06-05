@@ -97,6 +97,16 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
                   return <Text color={'status-ok'}>Created</Text>;
                 },
               },
+
+              {
+                property: 'fundingAgreement',
+                header: 'Funding Status',
+                render: datum => {
+                  if(!datum.fundingAgreement) return '';
+                  return datum.fundingAgreement.signatures ? <Text color={'status-ok'}>Approved</Text> : <Text>Pending</Text>;
+                },
+              },
+
               {
                 property: '_id',
                 header: 'Actions',
@@ -136,6 +146,7 @@ const mapStateToProps = (state) => {
       (state.invoices.get.data.map(response => ({
         ...response.data,
         _id: response._id,
+        fundingAgreement: response.fundingAgreement,
         createdAt: response.createdAt,
 
       })) as InvoiceData[]),

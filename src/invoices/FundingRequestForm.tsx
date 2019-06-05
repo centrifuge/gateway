@@ -118,7 +118,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                       <Box direction="row" gap={columnGap}>
                         <Box basis={'1/2'} gap={columnGap}>
                           <FormField
-                            label="Funder's Name"
+                            label="Funder"
                             error={errors!.funder}
                           >
                             <SearchSelect
@@ -251,7 +251,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                     </Box>
 
                   </Box>
-                  <Box direction="row" justify={'end'} gap="medium">
+                  <Box direction="row" justify={'end'} gap="medium" margin={{ top: 'medium' }}>
                     <Button
                       onClick={this.onDiscard}
                       label="Discard"
@@ -260,7 +260,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                     <Button
                       type="submit"
                       primary
-                      label="Send"
+                      label="Request"
                     />
                   </Box>
                 </form>
