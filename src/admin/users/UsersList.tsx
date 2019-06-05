@@ -146,18 +146,15 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    users: state.user.list.data || null,
+    invitingUser: state.user.invite,
+  };
+};
+
 export default connect(
-  (state: {
-    user: {
-      list: RequestState<User[]>;
-      create: RequestState<User>
-    };
-  }) => {
-    return {
-      users: state.user.list.data || null,
-      invitingUser: state.user.invite,
-    };
-  },
+  mapStateToProps,
   {
     getAllUsers, resetGetAllUsers, invite,
   },
