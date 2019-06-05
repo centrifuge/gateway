@@ -13,6 +13,7 @@ import routes from '../routes';
 import { Modal } from '@centrifuge/axis-modal';
 import { signFunding } from '../store/actions/funding';
 import { InvoiceDetails } from './InvoiceDetails';
+import { Invoice } from '../common/models/invoice';
 
 type ConnectedFundingAgreementViewProps = {
   getInvoiceById: typeof getInvoiceById;
@@ -20,7 +21,7 @@ type ConnectedFundingAgreementViewProps = {
   getContacts: typeof getContacts;
   signFunding: typeof signFunding;
   resetGetContacts: typeof resetGetInvoiceById;
-  invoice: InvoiceData | null;
+  invoice: Invoice | null;
   header: DocumentResponseHeader | null,
   fundingAgreement: FunFundingResponseData | null,
   id: string | null,

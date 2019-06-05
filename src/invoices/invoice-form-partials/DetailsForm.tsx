@@ -30,8 +30,9 @@ export class DetailsForm extends React.Component<ConnectedDetailsFormProps> {
       columnGap,
     } = this.props;
 
-    values.tax_amount = (parseFloat(values.net_amount) * parseFloat(values.tax_rate)).toFixed(2);
-    values.gross_amount = (parseFloat(values.net_amount) + parseFloat(values.tax_amount)).toFixed(2);
+
+    values.tax_amount = (parseFloat(values.net_amount || '') * parseFloat(values.tax_rate || '')).toFixed(2);
+    values.gross_amount = (parseFloat(values.net_amount || '') + parseFloat(values.tax_amount || '')).toFixed(2);
 
     return (
       <Section headingLevel="5" title="Invoice Details">
@@ -122,10 +123,10 @@ export class DetailsForm extends React.Component<ConnectedDetailsFormProps> {
               >
                 <TextInput
                   name="tax_rate"
-                  value={(values.tax_rate * 100)}
+                  value={(parseFloat(values.tax_rate || '') * 100)}
                   onChange={(ev) => {
-
-                    setFieldValue('tax_rate', ((isNaN(ev.target.value) ? 0 : ev.target.value) / 100).toString());
+                    const no = parseFloat(ev.target.value);
+                    setFieldValue('tax_rate', ((isNaN(no) ? 0 : no) / 100).toString());
                   }}
                 />
               </FormField>
