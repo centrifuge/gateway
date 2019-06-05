@@ -216,7 +216,7 @@ export default class ContactList extends React.Component<ContactsProps,
                       <Text weight={500}>Name</Text>
                     </Box>
                     <Box fill>
-                      <Text weight={500}>Centrifuge Id</Text>
+                      <Text weight={500}>Centrifuge ID</Text>
                     </Box>
                     <Box fill>
                       <Text weight={500}>Actions</Text>

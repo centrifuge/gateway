@@ -139,7 +139,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                         </Box>
                         <Box basis={'1/2'} gap={columnGap}>
                           <FormField
-                            label="NFT Deposit Address"
+                            label="NFT deposit address"
                             error={errors!.wallet_address}
                           >
                             <TextInput
@@ -214,7 +214,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                       <Box direction="row" gap={columnGap}>
                         <Box basis={'1/4'} gap={columnGap}>
                           <FormField
-                            label="Repayment Due Date"
+                            label="Repayment due date"
                             error={errors!.repayment_due_date}
                           >
                             <TextInput

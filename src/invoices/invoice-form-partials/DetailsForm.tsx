@@ -85,7 +85,7 @@ export class DetailsForm extends React.Component<ConnectedDetailsFormProps> {
 
           <Box basis={'1/4'}>
             <FormField
-              label="Date Due"
+              label="Date due"
               error={errors!.date_due}
             >
               <TextInput
