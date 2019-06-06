@@ -1015,6 +1015,7 @@ exports[`NotificationContext Should render a default popup 1`] = `
                                                                               "toString": [Function],
                                                                               "warnTooManyClasses": [Function],
                                                                               "withComponent": [Function],
+                                                                              Symbol(Symbol.hasInstance): [Function],
                                                                             }
                                                                           }
                                                                           forwardedRef={null}
@@ -2535,6 +2536,7 @@ exports[`NotificationContext Should render a error popup 1`] = `
                                                                               "toString": [Function],
                                                                               "warnTooManyClasses": [Function],
                                                                               "withComponent": [Function],
+                                                                              Symbol(Symbol.hasInstance): [Function],
                                                                             }
                                                                           }
                                                                           forwardedRef={null}
@@ -4055,6 +4057,7 @@ exports[`NotificationContext Should render a success popup 1`] = `
                                                                               "toString": [Function],
                                                                               "warnTooManyClasses": [Function],
                                                                               "withComponent": [Function],
+                                                                              Symbol(Symbol.hasInstance): [Function],
                                                                             }
                                                                           }
                                                                           forwardedRef={null}
@@ -5575,6 +5578,7 @@ exports[`NotificationContext Should render a warning popup 1`] = `
                                                                               "toString": [Function],
                                                                               "warnTooManyClasses": [Function],
                                                                               "withComponent": [Function],
+                                                                              Symbol(Symbol.hasInstance): [Function],
                                                                             }
                                                                           }
                                                                           forwardedRef={null}
@@ -7095,6 +7099,7 @@ exports[`NotificationContext Should set the proper label for the confirm button 
                                                                               "toString": [Function],
                                                                               "warnTooManyClasses": [Function],
                                                                               "withComponent": [Function],
+                                                                              Symbol(Symbol.hasInstance): [Function],
                                                                             }
                                                                           }
                                                                           forwardedRef={null}
