@@ -131,13 +131,14 @@ describe('Funding controller', () => {
         { user: { _id: 'user_id' } },
       );
       expect(result).toEqual({
-        'write_access': { 'collaborators': [fundingRequest.funder] },
         header: {
           job_id: 'some_job_id',
         },
         data: {
           'amount': '0',
           'apr': '5',
+          'borrower_id': undefined,
+          'funder_id': 'funder',
           'currency': 'USD',
           'days': '0',
           'fee': '0',
