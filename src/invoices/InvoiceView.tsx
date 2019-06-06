@@ -78,7 +78,7 @@ export class InvoiceView extends React.Component<ConnectedInvoiceViewProps> {
 
 
     if (!invoice || !contacts) {
-      return <></>
+      return <Preloader message="Loading"/>
     }
 
     if (creatingFunding && creatingFunding.loading) {

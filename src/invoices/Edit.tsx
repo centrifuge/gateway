@@ -53,7 +53,7 @@ class ConnectedEditInvoice extends React.Component<ConnectedEditInvoiceProps> {
     const { loggedInUser, updatingInvoice } = this.props;
 
     if (!this.props.invoice || !this.props.contacts) {
-      return <></>
+      return <Preloader message="Loading"/>
     }
 
     if (updatingInvoice) {

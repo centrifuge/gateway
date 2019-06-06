@@ -50,7 +50,7 @@ class ConnectedCreateInvoice extends React.Component<ConnectedCreateInvoiceProps
     const { loggedInUser } = this.props;
 
     if (!this.props.contacts) {
-      return <></>;
+      return <Preloader message="Loading"/>;
     }
 
     if (this.props.creatingInvoice) {

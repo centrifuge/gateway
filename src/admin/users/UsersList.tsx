@@ -118,7 +118,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
     const { users, invitingUser } = this.props;
 
     if (!this.props.users) {
-      return <></>;
+      return <Preloader message="Loading"/>;
     }
 
     if (invitingUser && invitingUser.loading) {

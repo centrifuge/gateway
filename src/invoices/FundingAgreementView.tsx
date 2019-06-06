@@ -59,7 +59,7 @@ export class FundingAgreementView extends React.Component<ConnectedFundingAgreem
   render() {
     const { invoice, contacts, fundingAgreement, signingFunding,header, id } = this.props;
     if (!invoice || !contacts) {
-      return <></>
+      return <Preloader message="Loading"/>
     }
 
     if (signingFunding && signingFunding.loading) {
