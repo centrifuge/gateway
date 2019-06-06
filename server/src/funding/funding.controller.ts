@@ -38,32 +38,37 @@ export class FundingController {
         ownerId: req.user._id,
         fundingAgreement: signatureResponse.data,
       },
+        {returnUpdatedDocs: true}
     );
 
     // transfer should eventually be its own method so we don't couple signing and transfer
     //this block needs to be adjusted, only accounts for two signatures for now, transfers the token to the second signature
-    if (signatureResponse.data.signatures.length > 1 ) {
+    if (signatureResponse.data.signatures &&
+        signatureResponse.data.signatures.length > 1
+    ) {
       const nfts = invoiceWithNft.header.nfts
-      let token = nfts.find( nft => {
-        return nft.token_id === invoiceWithNft.fundingAgreement.funding.nft_address;
+      const nft = nfts.find( n => {
+        return n.token_id === invoiceWithNft.fundingAgreement.funding.nft_address;
       });
 
-      if (token == undefined) {
+      if (nft === undefined) {
         throw new HttpException(await 'NFT not attached to Invoice, NFT not found', HttpStatus.CONFLICT);
       }
 
-      const registry = token.registry
-      const tokenId = token.token_id
+      const registry = nft.registry
+      const tokenId = nft.token_id
       const newOwner = invoiceWithNft.fundingAgreement.funding.funder_id
 
-      if (token.owner == invoiceWithNft.fundingAgreement.funding.borrower_id) {
+      if (nft.owner.toLowerCase() === invoiceWithNft.fundingAgreement.funding.borrower_id.toLowerCase()) {
         const transferResponse = await this.centrifugeService.nft.tokenTransfer(tokenId, {
               'token_id': tokenId,
               'registry_address': registry,
               'to': newOwner
             },
-            token.owner)
+            nft.owner)
         await this.centrifugeService.pullForJobComplete(transferResponse.header.job_id, req.user.account);
+      } else {
+        throw new HttpException(await 'token owner does not correspond to the borrower', HttpStatus.FORBIDDEN);
       }
     }
 
