@@ -38,7 +38,6 @@ export class FundingController {
       },
     );
 
-    return signatureResponse;
     // transfer should eventually be its own method so we don't couple signing and transfer
     //this block needs to be adjusted, only accounts for two signatures for now, transfers the token to the second signature
 
