@@ -8,10 +8,12 @@ import { FundingRequest } from '../common/models/funding-request';
 import SearchSelect from '../components/form/SearchSelect';
 import { dateToString, extractDate } from '../common/formaters';
 import { isValidAddress } from 'ethereumjs-util';
+
 type FundingRequestFormProps = {
   onSubmit: (fundingRequest: FundingRequest) => void;
   onDiscard: () => void;
   contacts: LabelValuePair[];
+  today: Date;
   fundingRequest: FundingRequest;
 };
 
@@ -24,6 +26,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
     onDiscard: () => {
       // do nothing by default
     },
+    today: new Date(),
     fundingRequest: new FundingRequest(),
     contacts: [],
   };
@@ -42,7 +45,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
   render() {
 
     const { submitted } = this.state;
-    const { fundingRequest, contacts } = this.props;
+    const { fundingRequest, contacts, today } = this.props;
     const columnGap = 'medium';
     const sectionGap = 'large';
 
@@ -87,17 +90,17 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
               // Calculate days and repayment_amount
               let days;
               let repaymentAmount;
-              const today = new Date();
               const repaymentDate = new Date(values.repayment_due_date);
               const diff = repaymentDate.getTime() - today.getTime();
-              days =  Math.ceil(diff / (1000 * 60 * 60 * 24));
-              repaymentAmount = values.amount * (1 + (values.apr) /  365 * days) + (values.amount * (values.fee));
+              days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+              console.log('days', days);
+              repaymentAmount = values.amount * (1 + (values.apr) / 365 * days) + (values.amount * (values.fee));
 
-              if(isNaN(repaymentAmount)) repaymentAmount = 0;
-              if(isNaN(days)) days = 0;
+              if (isNaN(repaymentAmount)) repaymentAmount = 0;
+              if (isNaN(days)) days = 0;
 
               values.days = days;
-              values.repayment_amount = repaymentAmount.toFixed(2)
+              values.repayment_amount = repaymentAmount.toFixed(2);
 
               return (
                 <form
@@ -112,7 +115,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                       <Box direction="row" gap={columnGap}>
                         <Box basis={'1/2'} gap={columnGap}>
                           <FormField
-                            label="Funder's Name"
+                            label="Funder"
                             error={errors!.funder}
                           >
                             <SearchSelect
@@ -186,7 +189,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                               disabled={true}
                               value={values!.fee * 100}
                               onChange={(ev) => {
-                                handleChange(ev)
+                                handleChange(ev);
                               }}
                             />
                           </FormField>
@@ -195,7 +198,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                       <Box direction="row" gap={columnGap}>
                         <Box basis={'1/4'} gap={columnGap}>
                           <FormField
-                            label="Repayment Due Date"
+                            label="Repayment due date"
                             error={errors!.repayment_due_date}
                           >
                             <TextInput
@@ -232,7 +235,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                     </Box>
 
                   </Box>
-                  <Box direction="row" justify={'end'} gap="medium">
+                  <Box direction="row" justify={'end'} gap="medium" margin={{ top: 'medium' }}>
                     <Button
                       onClick={this.onDiscard}
                       label="Discard"
@@ -241,7 +244,7 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
                     <Button
                       type="submit"
                       primary
-                      label="Send"
+                      label="Request"
                     />
                   </Box>
                 </form>
