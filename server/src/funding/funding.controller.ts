@@ -40,7 +40,7 @@ export class FundingController {
       },
       { returnUpdatedDocs: true },
     );
-
+    
     // transfer should eventually be its own method so we don't couple signing and transfer
     // this block needs to be adjusted, only accounts for two signatures for now, transfers the token to the second signature
     if (
@@ -55,9 +55,9 @@ export class FundingController {
 
       // to be enabled
       
-      // if (nft === undefined) {
-      //   throw new HttpException(await 'NFT not attached to Invoice, NFT not found', HttpStatus.CONFLICT);
-      // }
+      if (nft === undefined) {
+        throw new HttpException(await 'NFT not attached to Invoice, NFT not found', HttpStatus.CONFLICT);
+      }
 
       const registry = nft.registry
       const tokenId = nft.token_id

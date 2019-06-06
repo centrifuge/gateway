@@ -16,7 +16,8 @@ describe('Funding controller', () => {
           header: {
             nfts: [
               {
-                token_id: '0x11111',
+                token_id: 'token_id',
+                owner: 'owner'
               },
             ],
           },
@@ -45,12 +46,18 @@ describe('Funding controller', () => {
           const result = {
             header: {
               job_id: 'some_job_id',
+              nfts: [
+                {
+                  token_id: payload.nft_address,
+                  owner: account
+                }
+              ]
             },
             data: {
               funding: {
                 ...payload,
               },
-              signatures: [ 'signature_data_1'],
+              signatures: ['signature_data_1'],
             }}
           resolve(result);
         });
@@ -64,6 +71,17 @@ describe('Funding controller', () => {
                 job_id: 'some_job_id',
               },
             },
+          );
+        });
+      },
+
+      tokenTransfer: () => {
+        return new Promise((resolve, reject) => {
+          resolve({
+                header: {
+                  job_id: 'some_job_id',
+                },
+              },
           );
         });
       },
@@ -142,7 +160,7 @@ describe('Funding controller', () => {
           'currency': 'USD',
           'days': '0',
           'fee': '0',
-          'nft_address': '0x11111',
+          'nft_address': 'token_id',
           'repayment_amount': '0',
           'repayment_due_date': 'next week',
         },
@@ -157,6 +175,8 @@ describe('Funding controller', () => {
       const fundingRequest = {
         identifier:"0x4444",
         agreement_id: 'agreement_id',
+        nft_address: 'token_id',
+        borrower_id: 'owner'
       };
 
       const fundingController = fundingModule.get<FundingController>(
@@ -170,6 +190,11 @@ describe('Funding controller', () => {
       expect(result).toEqual({
         header: {
           job_id: 'some_job_id',
+          nfts: [
+            {
+              token_id: 'token_id',
+            },
+          ],
         },
         data: {
           funding: {
