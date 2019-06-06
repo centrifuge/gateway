@@ -49,7 +49,7 @@ export class FundingController {
     ) {
 
       const nfts = invoiceWithNft.header.nfts;
-      let token = nfts.find(nft => {
+      let nft = nfts.find(nft => {
         return nft.token_id === invoiceWithNft.fundingAgreement.funding.nft_address;
       });
 
@@ -71,7 +71,7 @@ export class FundingController {
           throw new HttpException(await error.json(), error.status);
         });
 
-        await this.centrifugeService.pullForJobComplete(transferResponse.header.job_id, token.owner);
+        await this.centrifugeService.pullForJobComplete(transferResponse.header.job_id, nft.owner);
       } else {
         throw new HttpException(await 'token owner does not correspond to the borrower', HttpStatus.FORBIDDEN);
       }
