@@ -7,7 +7,7 @@ import {
   FunFundingCreatePayload,
   FunFundingResponse,
   FunRequest,
-  NftNFTMintInvoiceUnpaidRequest, NftTokenTransferRequest,
+  NftNFTMintInvoiceUnpaidRequest,
 } from '../../../clients/centrifuge-node';
 
 @Controller()
@@ -26,9 +26,7 @@ export class FundingController {
       });
 
     await this.centrifugeService.pullForJobComplete(signatureResponse.header.job_id, req.user.account);
-
     const updatedInvoice = await this.centrifugeService.invoices.get(payload.identifier, req.user.account);
-
     delete updatedInvoice.data.attributes;
     // Find all the invoices for the document ID
     const invoiceWithNft = await this.databaseService.invoices.update(
@@ -40,6 +38,7 @@ export class FundingController {
       },
     );
 
+    return signatureResponse;
     // transfer should eventually be its own method so we don't couple signing and transfer
     //this block needs to be adjusted, only accounts for two signatures for now, transfers the token to the second signature
 
