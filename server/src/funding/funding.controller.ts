@@ -7,7 +7,7 @@ import {
   FunFundingCreatePayload,
   FunFundingResponse,
   FunRequest,
-  NftNFTMintInvoiceUnpaidRequest,
+  NftNFTMintInvoiceUnpaidRequest, NftTokenTransferRequest,
 } from '../../../clients/centrifuge-node';
 
 @Controller()
@@ -26,10 +26,12 @@ export class FundingController {
       });
 
     await this.centrifugeService.pullForJobComplete(signatureResponse.header.job_id, req.user.account);
+
     const updatedInvoice = await this.centrifugeService.invoices.get(payload.identifier, req.user.account);
+
     delete updatedInvoice.data.attributes;
     // Find all the invoices for the document ID
-    await this.databaseService.invoices.update(
+    const invoiceWithNft = await this.databaseService.invoices.update(
       { 'header.document_id': payload.identifier, 'ownerId': req.user._id },
       {
         ...updatedInvoice,
@@ -37,6 +39,41 @@ export class FundingController {
         fundingAgreement: signatureResponse.data,
       },
     );
+
+    // transfer should eventually be its own method so we don't couple signing and transfer
+    //this block needs to be adjusted, only accounts for two signatures for now, transfers the token to the second signature
+
+    if (signatureResponse.data.signatures.length > 1) {
+
+      const nfts = invoiceWithNft.header.nfts
+
+      // error handling?
+      if (!nfts[0]) {
+        console.log('no associated nft')
+        return
+      }
+
+      let token
+      for (let i = 0; i < nfts.length; i++) {
+        if (nfts[i].token_id == invoiceWithNft.fundingAgreement.funding.nft_address) {
+          token = nfts[i]
+        }
+      }
+
+      const registry = token.registry
+      const tokenId = token.token_id
+      const newOwner = invoiceWithNft.fundingAgreement.funding.funder_id
+
+      if (token.ownerId == invoiceWithNft.fundingAgreement.funding.borrower_id) {
+        const transferResponse = await this.centrifugeService.nft.tokenTransfer(tokenId, {
+              'token_id': tokenId,
+              'registry_address': registry,
+              'to': newOwner
+            },
+            req.user.account)
+        await this.centrifugeService.pullForJobComplete(transferResponse.header.job_id, req.user.account);
+      }
+    }
 
     return signatureResponse;
   }
