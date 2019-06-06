@@ -42,16 +42,10 @@ export class FundingController {
     //this block needs to be adjusted, only accounts for two signatures for now, transfers the token to the second signature
 
     if (signatureResponse.data.signatures.length > 1) {
-
+      
       const nfts = invoiceWithNft.header.nfts
-
-      // error handling?
-      if (!nfts[0]) {
-        console.log('no associated nft')
-        return
-      }
-
       let token
+
       for (let i = 0; i < nfts.length; i++) {
         if (nfts[i].token_id == invoiceWithNft.fundingAgreement.funding.nft_address) {
           token = nfts[i]
