@@ -46,15 +46,15 @@ describe('Funding controller', () => {
             header: {
               job_id: 'some_job_id',
             },
-            funding: {
-              ...payload,
-            },
-            signatures: [ 'signature_data_1'],
-          };
+            data: {
+              funding: {
+                ...payload,
+              },
+              signatures: [ 'signature_data_1'],
+            }}
           resolve(result);
         });
       }),
-
     };
     nft = {
       mintInvoiceUnpaidNFT: () => {
@@ -171,15 +171,14 @@ describe('Funding controller', () => {
         header: {
           job_id: 'some_job_id',
         },
-        funding: {
-         ...fundingRequest,
-        },
-        signatures:['signature_data_1'],
-
+        data: {
+          funding: {
+            ...fundingRequest,
+          },
+          signatures:['signature_data_1'],
+        }
       });
     });
   });
-
-
 });
 

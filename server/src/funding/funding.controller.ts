@@ -9,7 +9,6 @@ import {
   FunRequest,
   NftNFTMintInvoiceUnpaidRequest,
 } from '../../../clients/centrifuge-node';
-import {throwError} from "rxjs";
 
 @Controller()
 export class FundingController {
@@ -29,6 +28,8 @@ export class FundingController {
     await this.centrifugeService.pullForJobComplete(signatureResponse.header.job_id, req.user.account);
     const updatedInvoice = await this.centrifugeService.invoices.get(payload.identifier, req.user.account);
     delete updatedInvoice.data.attributes;
+
+
     // Find all the invoices for the document ID
     const invoiceWithNft = await this.databaseService.invoices.update(
       { 'header.document_id': payload.identifier, 'ownerId': req.user._id },
@@ -41,17 +42,14 @@ export class FundingController {
 
     // transfer should eventually be its own method so we don't couple signing and transfer
     //this block needs to be adjusted, only accounts for two signatures for now, transfers the token to the second signature
-
-    if (signatureResponse.data.signatures.length > 1) {
-
+    if (signatureResponse.data.signatures.length > 1 ) {
       const nfts = invoiceWithNft.header.nfts
-
       let token = nfts.find( nft => {
         return nft.token_id === invoiceWithNft.fundingAgreement.funding.nft_address;
       });
 
       if (token == undefined) {
-        throw new HttpException(await 'nft not found', HttpStatus.NOT_FOUND);
+        throw new HttpException(await 'NFT not attached to Invoice, NFT not found', HttpStatus.CONFLICT);
       }
 
       const registry = token.registry
