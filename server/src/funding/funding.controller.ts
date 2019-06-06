@@ -62,7 +62,7 @@ export class FundingController {
               'registry_address': registry,
               'to': newOwner
             },
-            req.user.account)
+            token.owner)
         await this.centrifugeService.pullForJobComplete(transferResponse.header.job_id, req.user.account);
       }
     }
