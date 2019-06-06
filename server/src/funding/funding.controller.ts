@@ -1,4 +1,4 @@
-import { Body, Controller, HttpException, Post, Request } from '@nestjs/common';
+import {Body, Controller, HttpException, HttpStatus, Post, Request} from '@nestjs/common';
 import { ROUTES } from '../../../src/common/constants';
 import { DatabaseService } from '../database/database.service';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
@@ -9,6 +9,7 @@ import {
   FunRequest,
   NftNFTMintInvoiceUnpaidRequest,
 } from '../../../clients/centrifuge-node';
+import {throwError} from "rxjs";
 
 @Controller()
 export class FundingController {
@@ -42,21 +43,22 @@ export class FundingController {
     //this block needs to be adjusted, only accounts for two signatures for now, transfers the token to the second signature
 
     if (signatureResponse.data.signatures.length > 1) {
-      
-      const nfts = invoiceWithNft.header.nfts
-      let token
 
-      for (let i = 0; i < nfts.length; i++) {
-        if (nfts[i].token_id == invoiceWithNft.fundingAgreement.funding.nft_address) {
-          token = nfts[i]
-        }
+      const nfts = invoiceWithNft.header.nfts
+
+      let token = nfts.find( nft => {
+        return nft.token_id === invoiceWithNft.fundingAgreement.funding.nft_address;
+      });
+
+      if (token == undefined) {
+        throw new HttpException(await 'nft not found', HttpStatus.NOT_FOUND);
       }
 
       const registry = token.registry
       const tokenId = token.token_id
       const newOwner = invoiceWithNft.fundingAgreement.funding.funder_id
 
-      if (token.ownerId == invoiceWithNft.fundingAgreement.funding.borrower_id) {
+      if (token.owner == invoiceWithNft.fundingAgreement.funding.borrower_id) {
         const transferResponse = await this.centrifugeService.nft.tokenTransfer(tokenId, {
               'token_id': tokenId,
               'registry_address': registry,
