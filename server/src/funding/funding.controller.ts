@@ -51,9 +51,11 @@ export class FundingController {
         return n.token_id === invoiceWithNft.fundingAgreement.funding.nft_address;
       });
 
-      if (nft === undefined) {
-        throw new HttpException(await 'NFT not attached to Invoice, NFT not found', HttpStatus.CONFLICT);
-      }
+      // to be enabled
+      
+      // if (nft === undefined) {
+      //   throw new HttpException(await 'NFT not attached to Invoice, NFT not found', HttpStatus.CONFLICT);
+      // }
 
       const registry = nft.registry
       const tokenId = nft.token_id
