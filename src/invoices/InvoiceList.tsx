@@ -35,6 +35,8 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
       return <></>;
     }
 
+
+
     return (
       <Box fill>
         <Box justify="between" direction="row" align="center">

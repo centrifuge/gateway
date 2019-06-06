@@ -50,11 +50,11 @@ class ConnectedCreateInvoice extends React.Component<ConnectedCreateInvoiceProps
     const { loggedInUser } = this.props;
 
     if (!this.props.contacts) {
-      return <Preloader message="Loading"/>
+      return <></>;
     }
 
     if (this.props.creatingInvoice) {
-      return <Preloader message="Saving Invoice" withSound={true}/>
+      return <Preloader message="Saving invoice" withSound={true}/>
     }
     // Add logged in user to contacts
     const contacts: LabelValuePair[] = [
