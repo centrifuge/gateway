@@ -53,25 +53,27 @@ export class FundingController {
         return nft.token_id === invoiceWithNft.fundingAgreement.funding.nft_address;
       });
 
-      if (token == undefined) {
+      if (nft === undefined) {
         throw new HttpException(await 'NFT not attached to Invoice, NFT not found', HttpStatus.CONFLICT);
       }
 
-      const registry = token.registry;
-      const tokenId = token.token_id;
-      const newOwner = invoiceWithNft.fundingAgreement.funding.funder_id;
+      const registry = nft.registry
+      const tokenId = nft.token_id
+      const newOwner = invoiceWithNft.fundingAgreement.funding.funder_id
 
-      if (token.owner.toLowerCase() === invoiceWithNft.fundingAgreement.funding.borrower_id.toLowerCase()) {
+      if (nft.owner.toLowerCase() === invoiceWithNft.fundingAgreement.funding.borrower_id.toLowerCase()) {
         const transferResponse = await this.centrifugeService.nft.tokenTransfer(tokenId, {
             token_id: tokenId,
             registry_address: registry,
             to: newOwner,
           },
-          token.owner).catch(async error => {
+          nft.owner).catch(async error => {
           throw new HttpException(await error.json(), error.status);
         });
 
         await this.centrifugeService.pullForJobComplete(transferResponse.header.job_id, token.owner);
+      } else {
+        throw new HttpException(await 'token owner does not correspond to the borrower', HttpStatus.FORBIDDEN);
       }
     }
 
