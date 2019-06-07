@@ -2,7 +2,7 @@ FROM node:10.13.0
 
 WORKDIR /usr/src/app
 
-CMD ["npm", "run", "build:frontend"]
+RUN npm run build:frontend
 
 COPY . ./
 
