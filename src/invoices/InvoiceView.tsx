@@ -14,16 +14,18 @@ import { Modal } from '@centrifuge/axis-modal';
 import FundingRequestForm from './FundingRequestForm';
 import { FundingRequest } from '../common/models/funding-request';
 import { dateToString } from '../common/formaters';
-import { createFunding, resetCreateFunding } from '../store/actions/funding';
+import { clearCreateFundingError, createFunding, resetCreateFunding } from '../store/actions/funding';
 import { InvoiceDetails } from './InvoiceDetails';
 import { RequestState } from '../store/reducers/http-request-reducer';
 import { Invoice } from '../common/models/invoice';
 import { Preloader } from '../components/Preloader';
+import { NOTIFICATION, NotificationContext } from '../notifications/NotificationContext';
 
 type ConnectedInvoiceViewProps = {
   getInvoiceById: (id: string) => void;
   resetGetInvoiceById: () => void;
   resetCreateFunding: () => void;
+  clearCreateFundingError: () => void;
   createFunding: (fundingRequest: FundingRequest) => void;
   getContacts: () => void;
   resetGetContacts: () => void;
@@ -70,19 +72,29 @@ export class InvoiceView extends React.Component<ConnectedInvoiceViewProps> {
   }
 
   render() {
-    const { id, header, invoice, contacts, fundingAgreement, creatingFunding } = this.props;
+    const { id, header, invoice, contacts, fundingAgreement, creatingFunding, clearCreateFundingError } = this.props;
     const { requestFunding } = this.state;
-    const columnGap = 'medium';
-    const sectionGap = 'medium';
     const fundingRequest: FundingRequest = new FundingRequest();
 
 
     if (!invoice || !contacts) {
-      return <Preloader message="Loading"/>
+      return <Preloader message="Loading"/>;
     }
 
     if (creatingFunding && creatingFunding.loading) {
-      return <Preloader message="Requesting funding agreement" withSound={true}/>
+      return <Preloader message="Requesting funding agreement" withSound={true}/>;
+    }
+
+    if (creatingFunding.error) {
+      this.context.notify(
+        {
+          title: 'Failed to request funding',
+          message: creatingFunding.error.message,
+          type: NOTIFICATION.ERROR,
+          confirmLabel: 'Ok',
+          onConfirm: clearCreateFundingError,
+        },
+      );
     }
 
 
@@ -160,6 +172,8 @@ export class InvoiceView extends React.Component<ConnectedInvoiceViewProps> {
   }
 }
 
+InvoiceView.contextType = NotificationContext;
+
 const mapStateToProps = (state) => {
   return {
     ...(!state.invoices.getById.data ? {
@@ -193,6 +207,7 @@ export const ConnectedInvoiceView = connect(
     resetGetInvoiceById,
     createFunding,
     resetCreateFunding,
+    clearCreateFundingError,
   },
 )(withRouter(InvoiceView));
 

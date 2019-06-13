@@ -9,6 +9,7 @@ import { Edit, View } from 'grommet-icons';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { formatCurrency, formatDate } from '../common/formaters';
 import { Preloader } from '../components/Preloader';
+import { NOTIFICATION, NotificationContext } from '../notifications/NotificationContext';
 
 
 type ViewInvoicesProps = {
@@ -16,12 +17,20 @@ type ViewInvoicesProps = {
   resetGetInvoices: () => void;
   invoices?: InvoiceData[];
   loading: boolean;
+  error: any;
 };
 
 class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProps> {
+
   displayName = 'InvoiceList';
 
-  componentDidMount() {
+
+  constructor(props) {
+    super(props);
+    console.log("Constructor",props);
+  }
+
+  componentWillMount() {
     this.props.getInvoices();
   }
 
@@ -32,14 +41,30 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
 
   render() {
 
-    if (this.props.loading || !this.props.invoices) {
+
+    console.log('REnder', this.props);
+
+    if (this.props.loading) {
       return <Preloader message="Loading"/>;
     }
 
 
+    if ((this.props.error)) {
+      this.context.notify(
+        {
+          title: 'Could not load invoices',
+          message: this.props.error.message,
+          type: NOTIFICATION.ERROR,
+          confirmLabel: 'Retry',
+          onConfirm: this.props.getInvoices,
+        },
+      );
+    }
+
 
     return (
       <Box fill>
+
         <Box justify="between" direction="row" align="center">
           <Heading level="3">Invoices</Heading>
           <Link to={invoiceRoutes.new}>
@@ -102,8 +127,9 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
                 property: 'fundingAgreement',
                 header: 'Funding status',
                 render: datum => {
-                  if(!datum.fundingAgreement) return '';
-                  return datum.fundingAgreement.signatures ? <Text color={'status-ok'}>Approved</Text> : <Text>Pending</Text>;
+                  if (!datum.fundingAgreement) return '';
+                  return datum.fundingAgreement.signatures ? <Text color={'status-ok'}>Approved</Text> :
+                    <Text>Pending</Text>;
                 },
               },
 
@@ -139,6 +165,8 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
   }
 }
 
+InvoiceList.contextType = NotificationContext;
+
 const mapStateToProps = (state) => {
   return {
     invoices:
@@ -151,10 +179,16 @@ const mapStateToProps = (state) => {
 
       })) as InvoiceData[]),
     loading: state.invoices.get.loading,
+    error: state.invoices.get.error,
   };
 };
 
+
+
 export default connect(
   mapStateToProps,
-  { getInvoices, resetGetInvoices },
+  {
+    getInvoices,
+    resetGetInvoices,
+  },
 )(withRouter(InvoiceList));
