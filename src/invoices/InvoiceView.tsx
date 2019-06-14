@@ -158,7 +158,6 @@ export class InvoiceView extends React.Component<ConnectedInvoiceViewProps> {
   }
 }
 
-InvoiceView.contextType = NotificationContext;
 
 const mapStateToProps = (state) => {
   return {

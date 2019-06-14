@@ -125,8 +125,6 @@ class ConnectedCreateInvoice extends React.Component<ConnectedCreateInvoiceProps
   }
 }
 
-ConnectedCreateInvoice.contextType = NotificationContext;
-
 const mapStateToProps = (state) => {
   return {
     loggedInUser: state.user.auth.loggedInUser,

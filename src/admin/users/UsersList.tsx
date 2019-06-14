@@ -148,8 +148,6 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
   }
 }
 
-UsersList.contextType = NotificationContext;
-
 const mapStateToProps = (state) => {
   return {
     users: state.user.list.data || null,

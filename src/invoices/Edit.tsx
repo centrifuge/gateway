@@ -101,9 +101,6 @@ class ConnectedEditInvoice extends React.Component<ConnectedEditInvoiceProps> {
   }
 }
 
-ConnectedEditInvoice.contextType = NotificationContext;
-
-
 const mapStateToProps = (state) => {
   return {
     loggedInUser: state.user.auth.loggedInUser,

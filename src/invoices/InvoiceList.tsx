@@ -148,8 +148,6 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
   }
 }
 
-InvoiceList.contextType = NotificationContext;
-
 const mapStateToProps = (state) => {
   return {
     invoices:
