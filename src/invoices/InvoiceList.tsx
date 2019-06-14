@@ -9,7 +9,7 @@ import { Edit, View } from 'grommet-icons';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { formatCurrency, formatDate } from '../common/formaters';
 import { Preloader } from '../components/Preloader';
-import { NOTIFICATION, NotificationContext } from '../notifications/NotificationContext';
+import { NotificationContext } from '../notifications/NotificationContext';
 
 
 type ViewInvoicesProps = {
@@ -27,7 +27,7 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
 
   constructor(props) {
     super(props);
-    console.log("Constructor",props);
+    console.log('Constructor', props);
   }
 
   componentWillMount() {
@@ -41,26 +41,9 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
 
   render() {
 
-
-    console.log('REnder', this.props);
-
     if (this.props.loading) {
       return <Preloader message="Loading"/>;
     }
-
-
-    if ((this.props.error)) {
-      this.context.notify(
-        {
-          title: 'Could not load invoices',
-          message: this.props.error.message,
-          type: NOTIFICATION.ERROR,
-          confirmLabel: 'Retry',
-          onConfirm: this.props.getInvoices,
-        },
-      );
-    }
-
 
     return (
       <Box fill>
@@ -182,7 +165,6 @@ const mapStateToProps = (state) => {
     error: state.invoices.get.error,
   };
 };
-
 
 
 export default connect(

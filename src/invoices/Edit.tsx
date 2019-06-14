@@ -3,13 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import InvoiceForm from './InvoiceForm';
-import {
-  clearUpdateInvoiceError,
-  getInvoiceById,
-  resetGetInvoiceById,
-  resetUpdateInvoice,
-  updateInvoice,
-} from '../store/actions/invoices';
+import { getInvoiceById, resetGetInvoiceById, resetUpdateInvoice, updateInvoice } from '../store/actions/invoices';
 import { Invoice } from '../common/models/invoice';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { getContacts, resetGetContacts } from '../store/actions/contacts';
@@ -19,13 +13,12 @@ import { invoiceRoutes } from './routes';
 import { LinkPrevious } from 'grommet-icons';
 import { User } from '../common/models/user';
 import { Preloader } from '../components/Preloader';
-import { NOTIFICATION, NotificationContext } from '../notifications/NotificationContext';
+import { NotificationContext } from '../notifications/NotificationContext';
 import { RequestState } from '../store/reducers/http-request-reducer';
 
 type ConnectedEditInvoiceProps = {
   updateInvoice: (invoice: Invoice) => void;
   resetUpdateInvoice: () => void;
-  clearUpdateInvoiceError: () => void;
   getInvoiceById: (id: string) => void;
   resetGetInvoiceById: () => void;
   getContacts: () => void;
@@ -59,7 +52,7 @@ class ConnectedEditInvoice extends React.Component<ConnectedEditInvoiceProps> {
   };
 
   render() {
-    const { loggedInUser, updatingInvoice,clearUpdateInvoiceError } = this.props;
+    const { loggedInUser, updatingInvoice } = this.props;
 
     if (!this.props.invoice || !this.props.contacts) {
       return <Preloader message="Loading"/>;
@@ -67,18 +60,6 @@ class ConnectedEditInvoice extends React.Component<ConnectedEditInvoiceProps> {
 
     if (updatingInvoice.loading) {
       return <Preloader message="Updating invoice" withSound={true}/>;
-    }
-
-    if (updatingInvoice.error) {
-      this.context.notify(
-        {
-          title: 'Failed to update invoice',
-          message: updatingInvoice.error.message,
-          type: NOTIFICATION.ERROR,
-          confirmLabel: 'Ok',
-          onConfirm: clearUpdateInvoiceError
-        },
-      );
     }
 
     // Add logged in user to contacts
@@ -145,7 +126,6 @@ export default connect(
   {
     updateInvoice,
     resetUpdateInvoice,
-    clearUpdateInvoiceError,
     getContacts,
     resetGetContacts,
     getInvoiceById,

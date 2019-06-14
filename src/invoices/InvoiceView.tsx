@@ -14,18 +14,17 @@ import { Modal } from '@centrifuge/axis-modal';
 import FundingRequestForm from './FundingRequestForm';
 import { FundingRequest } from '../common/models/funding-request';
 import { dateToString } from '../common/formaters';
-import { clearCreateFundingError, createFunding, resetCreateFunding } from '../store/actions/funding';
+import { createFunding, resetCreateFunding } from '../store/actions/funding';
 import { InvoiceDetails } from './InvoiceDetails';
 import { RequestState } from '../store/reducers/http-request-reducer';
 import { Invoice } from '../common/models/invoice';
 import { Preloader } from '../components/Preloader';
-import { NOTIFICATION, NotificationContext } from '../notifications/NotificationContext';
+import { NotificationContext } from '../notifications/NotificationContext';
 
 type ConnectedInvoiceViewProps = {
   getInvoiceById: (id: string) => void;
   resetGetInvoiceById: () => void;
   resetCreateFunding: () => void;
-  clearCreateFundingError: () => void;
   createFunding: (fundingRequest: FundingRequest) => void;
   getContacts: () => void;
   resetGetContacts: () => void;
@@ -72,7 +71,7 @@ export class InvoiceView extends React.Component<ConnectedInvoiceViewProps> {
   }
 
   render() {
-    const { id, header, invoice, contacts, fundingAgreement, creatingFunding, clearCreateFundingError } = this.props;
+    const { id, header, invoice, contacts, fundingAgreement, creatingFunding } = this.props;
     const { requestFunding } = this.state;
     const fundingRequest: FundingRequest = new FundingRequest();
 
@@ -84,19 +83,6 @@ export class InvoiceView extends React.Component<ConnectedInvoiceViewProps> {
     if (creatingFunding && creatingFunding.loading) {
       return <Preloader message="Requesting funding agreement" withSound={true}/>;
     }
-
-    if (creatingFunding.error) {
-      this.context.notify(
-        {
-          title: 'Failed to request funding',
-          message: creatingFunding.error.message,
-          type: NOTIFICATION.ERROR,
-          confirmLabel: 'Ok',
-          onConfirm: clearCreateFundingError,
-        },
-      );
-    }
-
 
     // TODO make currency and due_date mandatory in invoice
     //@ts-ignore
@@ -207,7 +193,6 @@ export const ConnectedInvoiceView = connect(
     resetGetInvoiceById,
     createFunding,
     resetCreateFunding,
-    clearCreateFundingError,
   },
 )(withRouter(InvoiceView));
 

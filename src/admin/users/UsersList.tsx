@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { clearInviteError, getAllUsers, invite, resetGetAllUsers } from '../../store/actions/users';
+import { getAllUsers, invite, resetGetAllUsers } from '../../store/actions/users';
 import { RequestState } from '../../store/reducers/http-request-reducer';
 import { Box, Button, DataTable, Heading, Text } from 'grommet';
 import { RouteComponentProps } from 'react-router';
@@ -11,14 +11,12 @@ import { Modal } from '@centrifuge/axis-modal';
 import UserForm from './UserForm';
 import { formatDate } from '../../common/formaters';
 import { Preloader } from '../../components/Preloader';
-import { NOTIFICATION, NotificationContext } from '../../notifications/NotificationContext';
-import { clearCreateInvoiceError } from '../../store/actions/invoices';
+import { NotificationContext } from '../../notifications/NotificationContext';
 
 type UsersListProps = {
   users: User[] | null;
   getAllUsers: () => void;
   resetGetAllUsers: () => void;
-  clearInviteError: () => void;
   invite: (user: User) => void;
   invitingUser: RequestState<User>;
 };
@@ -118,8 +116,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
 
   render() {
 
-    const { users, invitingUser,clearInviteError } = this.props;
-
+    const { users, invitingUser } = this.props;
     if (!this.props.users) {
       return <Preloader message="Loading"/>;
     }
@@ -127,19 +124,6 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
     if (invitingUser && invitingUser.loading) {
       return <Preloader message="Creating user" withSound={true}/>;
     }
-
-    if(invitingUser.error) {
-      this.context.notify(
-        {
-          title: 'Failed to invite user',
-          message: invitingUser.error.message,
-          type: NOTIFICATION.ERROR,
-          confirmLabel: 'Ok',
-          onConfirm: clearCreateInvoiceError,
-        },
-      );
-    }
-
 
     return (
       <Box fill>
@@ -179,6 +163,5 @@ export default connect(
     getAllUsers,
     resetGetAllUsers,
     invite,
-    clearInviteError,
   },
 )(UsersList);

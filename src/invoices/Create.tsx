@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import InvoiceForm from './InvoiceForm';
-import { clearCreateInvoiceError, createInvoice, resetCreateInvoice } from '../store/actions/invoices';
+import { createInvoice, resetCreateInvoice } from '../store/actions/invoices';
 import { Invoice } from '../common/models/invoice';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { getContacts, resetGetContacts } from '../store/actions/contacts';
@@ -13,13 +13,12 @@ import { Box, Button, Heading } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { User } from '../common/models/user';
 import { Preloader } from '../components/Preloader';
-import { NOTIFICATION, NotificationContext } from '../notifications/NotificationContext';
+import { NotificationContext } from '../notifications/NotificationContext';
 import { RequestState } from '../store/reducers/http-request-reducer';
 
 type ConnectedCreateInvoiceProps = {
   createInvoice: (invoice: Invoice) => void;
   resetCreateInvoice: () => void;
-  clearCreateInvoiceError: () => void;
   getContacts: () => void;
   resetGetContacts: () => void;
   creatingInvoice: RequestState<InvoiceData>;
@@ -73,7 +72,7 @@ class ConnectedCreateInvoice extends React.Component<ConnectedCreateInvoiceProps
 
   render() {
 
-    const { loggedInUser, creatingInvoice, clearCreateInvoiceError } = this.props;
+    const { loggedInUser, creatingInvoice } = this.props;
 
     if (!this.props.contacts) {
       return <Preloader message="Loading"/>;
@@ -81,18 +80,6 @@ class ConnectedCreateInvoice extends React.Component<ConnectedCreateInvoiceProps
 
     if (creatingInvoice.loading) {
       return <Preloader message="Saving invoice" withSound={true}/>;
-    }
-
-    if (creatingInvoice.error) {
-      this.context.notify(
-        {
-          title: 'Failed to create invoice',
-          message: creatingInvoice.error.message,
-          type: NOTIFICATION.ERROR,
-          confirmLabel: 'Ok',
-          onConfirm: clearCreateInvoiceError,
-        },
-      );
     }
 
     // Add logged in user to contacts
@@ -160,7 +147,6 @@ export default connect(
     resetCreateInvoice,
     getContacts,
     resetGetContacts,
-    clearCreateInvoiceError,
   },
 )(withRouter(ConnectedCreateInvoice));
 
