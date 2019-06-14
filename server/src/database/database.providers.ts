@@ -15,17 +15,19 @@ import { dateToString } from '../../../src/common/formaters';
  * Initialize the database and the separate collections.
  */
 const initializeDatabase = async () => {
+
+  const inMemoryOnly = process.env.NODE_ENV === 'test';
+
   const invoicesRepository = new DatabaseRepository<InvoiceResponse>(
-    `${config.dbPath}/invoicesDb`,
+    { filename: `${config.dbPath}/invoicesDb`,inMemoryOnly },
   );
   const usersRepository = new DatabaseRepository<User>(
-    `${config.dbPath}/usersDb`,
+    { filename: `${config.dbPath}/usersDb`,inMemoryOnly },
   );
   const admin: User = {
     name: config.admin.name,
     password: await promisify(bcrypt.hash)(config.admin.password, 10),
     email: config.admin.email,
-    date_added: dateToString(new Date()),
     enabled: true,
     invited: false,
     account: config.admin.account,
@@ -41,11 +43,11 @@ const initializeDatabase = async () => {
   }
 
   const contactsRepository = new DatabaseRepository<Contact>(
-    `${config.dbPath}/contactsDb`,
+    { filename: `${config.dbPath}/contactsDb`,inMemoryOnly },
   );
 
   const purchaseOrdersRepository = new DatabaseRepository<PurchaseOrderResponse>(
-    `${config.dbPath}/purchaseOrdersDb`,
+    { filename: `${config.dbPath}/purchaseOrdersDb`,inMemoryOnly },
   );
 
   return {

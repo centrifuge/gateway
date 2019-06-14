@@ -13,7 +13,6 @@ describe('LocalStrategy', () => {
     name: 'my_username',
     _id: 'user_id',
     email: 'test@test.test',
-    date_added: dateToString(new Date()),
     account:"0x3333",
     enabled: true,
     invited: false,
