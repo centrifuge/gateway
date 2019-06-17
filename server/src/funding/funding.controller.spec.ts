@@ -110,12 +110,6 @@ describe('Funding controller', () => {
   // https://app.zenhub.com/workspaces/centrifuge-5ba350114b5806bc2be90978/issues/centrifuge/centrifuge-starter-kit/98
   let fundingModule: TestingModule;
 
-  class DatabaseServiceMock {
-    invoices = {
-      update: jest.fn((id, value) => value),
-    };
-  }
-
 
   beforeEach(async () => {
     fundingModule = await Test.createTestingModule({

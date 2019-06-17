@@ -14,22 +14,7 @@ describe('WebhooksController', () => {
   const documentId = '112233';
   const invoiceSpies: any = {};
   const poSpies: any = {};
-  const databaseServiceMock = {
-    invoices: {
-      insert: jest.fn(data => data),
-      update: jest.fn((id, value) => value),
-      get: jest.fn(data => data),
-    },
-    users: {
-      findOne: jest.fn((query) => {
-        if (query.account === user.account) return user;
-        return null;
-      }),
-    },
-    purchaseOrders: {
-      insert: jest.fn(data => data),
-    },
-  };
+
   const getResponse = {
     data: {},
     header: {
