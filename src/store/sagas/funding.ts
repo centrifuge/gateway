@@ -38,7 +38,7 @@ export function* signFunding(action) {
     });
 
   } catch (e) {
-    yield put({ type: createFundingAction.fail, payload: e });
+    yield put({ type: signFundingAction.fail, payload: e });
     yield put(alertError(
       'Failed to approve funding agreement',
       e.message,

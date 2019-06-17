@@ -42,7 +42,7 @@ export function* createInvoice(action) {
   } catch (e) {
     yield put({ type: createInvoiceAction.fail, payload: e });
     yield put(alertError(
-      'Failed to crete invoice',
+      'Failed to create invoice',
       e.message,
       { onConfirmAction: { type: createInvoiceAction.clearError } },
     ));

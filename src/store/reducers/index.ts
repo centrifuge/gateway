@@ -5,7 +5,7 @@ import invoices from './invoices';
 import user from './user';
 import contacts from './contacts';
 import funding from './funding';
-import notifications from './notfications';
+import notifications from './notifications';
 
 export default history =>
   combineReducers({
