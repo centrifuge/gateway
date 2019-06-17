@@ -30,6 +30,7 @@ describe('InvoicesController', () => {
     sender_company_name: 'cinderella',
     bill_to_company_name: 'step mother',
   };
+  let insertedInvoice: any = {};
 
 
   const databaseSpies: any = {};
@@ -58,8 +59,6 @@ describe('InvoicesController', () => {
   }
 
   const centrifugeClientMock = new CentrifugeClientMock();
-  let insertedInvoice: any = {};
-
   beforeEach(async () => {
     invoicesModule = await Test.createTestingModule({
       controllers: [InvoicesController],
