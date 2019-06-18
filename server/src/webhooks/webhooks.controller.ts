@@ -35,6 +35,8 @@ export class WebhooksController {
   @Post()
   async receiveMessage(@Body() notification: NotificationNotificationMessage) {
 
+    console.log("Webhook",notification);
+
     if (notification.event_type === eventTypes.DOCUMENT) {
       // Search for the user in the database
       const user = await this.databaseService.users.findOne({ account: notification.to_id });
@@ -53,6 +55,9 @@ export class WebhooksController {
         };
 
         if (invoice.data.attributes && invoice.data.attributes.funding_agreement) {
+
+          console.log('Custom Attributes',invoice.data.attributes)
+
           const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(invoice.header.document_id, user.account);
           invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
           // We need to delete the attributes prop because nedb does not allow for . in field names
