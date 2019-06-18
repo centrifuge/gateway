@@ -51,9 +51,6 @@ export class WebhooksController {
         };
 
         if (invoice.data.attributes && invoice.data.attributes.funding_agreement) {
-
-          console.log('Custom Attributes', invoice.data.attributes);
-
           const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(invoice.header.document_id, user.account);
           invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
           // We need to delete the attributes prop because nedb does not allow for . in field names
