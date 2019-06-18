@@ -2,7 +2,6 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { ROUTES } from '../../../src/common/constants';
 import { FunFundingListResponse, NotificationNotificationMessage } from '../../../clients/centrifuge-node';
 import { DatabaseService } from '../database/database.service';
-import config from '../../../src/common/config';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import { InvoiceResponse } from '../../../src/common/interfaces';
 
@@ -34,9 +33,6 @@ export class WebhooksController {
    */
   @Post()
   async receiveMessage(@Body() notification: NotificationNotificationMessage) {
-
-    console.log("Webhook",notification);
-
     if (notification.event_type === eventTypes.DOCUMENT) {
       // Search for the user in the database
       const user = await this.databaseService.users.findOne({ account: notification.to_id });
@@ -56,7 +52,7 @@ export class WebhooksController {
 
         if (invoice.data.attributes && invoice.data.attributes.funding_agreement) {
 
-          console.log('Custom Attributes',invoice.data.attributes)
+          console.log('Custom Attributes', invoice.data.attributes);
 
           const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(invoice.header.document_id, user.account);
           invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
