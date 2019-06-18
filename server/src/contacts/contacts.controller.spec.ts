@@ -46,7 +46,7 @@ describe('ContactsController', () => {
 
     const databaseService = contactsModule.get<DatabaseService>(DatabaseService);
 
-    // add some default contracts to the database
+    // add some default contacts to the database
     for(let i = 0; i < insertedContacts.length; i++) {
       await delay(0);
       await databaseService.contacts.insert(insertedContacts[i]);

@@ -159,8 +159,9 @@ describe('Users controller', () => {
         }
 
         const result = await usersController.register(invitedUser);
-        // remove fields that changed but the method and we do care to test
+        // password is tested in auth.service.spec.ts
         delete user.password;
+        // field mutation owned by nedb. Irrelevant for test
         delete user.updatedAt;
         expect(result).toMatchObject({
           ...user,
