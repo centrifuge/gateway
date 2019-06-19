@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { getInvoices, resetGetInvoices } from '../store/actions/invoices';
 import { Anchor, Box, Button, DataTable, Heading, Text } from 'grommet';
 import { invoiceRoutes } from './routes';
-import { Edit, View } from 'grommet-icons';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { formatCurrency, formatDate } from '../common/formaters';
 import { Preloader } from '../components/Preloader';

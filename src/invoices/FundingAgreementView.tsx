@@ -10,7 +10,6 @@ import { getContacts, resetGetContacts } from '../store/actions/contacts';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { LinkPrevious } from 'grommet-icons';
 import routes from '../routes';
-import { Modal } from '@centrifuge/axis-modal';
 import { signFunding } from '../store/actions/funding';
 import { InvoiceDetails } from './InvoiceDetails';
 import { Invoice } from '../common/models/invoice';
@@ -57,13 +56,13 @@ export class FundingAgreementView extends React.Component<ConnectedFundingAgreem
   }
 
   render() {
-    const { invoice, contacts, fundingAgreement, signingFunding,header, id } = this.props;
+    const { invoice, contacts, fundingAgreement, signingFunding } = this.props;
     if (!invoice || !contacts) {
-      return <Preloader message="Loading"/>
+      return <Preloader message="Loading"/>;
     }
 
     if (signingFunding && signingFunding.loading) {
-      return <Preloader message="Approving funding agreement" withSound={true}/>
+      return <Preloader message="Approving funding agreement" withSound={true}/>;
     }
 
     const canApproveFunding = !(fundingAgreement && fundingAgreement.signatures);
