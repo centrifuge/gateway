@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Button, Heading } from 'grommet';
-import { InvoiceData, LabelValuePair } from '../common/interfaces';
+import { LabelValuePair } from '../common/interfaces';
 import { connect } from 'react-redux';
 import { RequestState } from '../store/reducers/http-request-reducer';
 import { DocumentResponseHeader, FunFundingResponse, FunFundingResponseData } from '../../clients/centrifuge-node';
@@ -45,7 +45,7 @@ export class FundingAgreementView extends React.Component<ConnectedFundingAgreem
   signFundingAgreement = () => {
     const { id, fundingAgreement, header, signFunding } = this.props;
     signFunding({
-      identifier: header!.document_id,
+      document_id: header!.document_id,
       agreement_id: fundingAgreement!.funding!.agreement_id,
       invoice_id: id!,
     });
