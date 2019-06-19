@@ -28,14 +28,13 @@ export class InvoicesController {
   async create(@Req() request, @Body() invoice: Invoice): Promise<InvInvoiceResponse> {
     const collaborators = [invoice!.sender, invoice!.recipient].filter(item => item);
 
-    const payload = {
-      data: {
-        ...invoice,
-      },
-      write_access: collaborators,
-    };
     const createResult = await this.centrifugeService.invoices.create(
-      payload,
+      {
+        data: {
+          ...invoice,
+        },
+        write_access: collaborators,
+      },
       request.user.account,
     );
 
