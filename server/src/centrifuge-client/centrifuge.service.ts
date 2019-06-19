@@ -1,5 +1,5 @@
 import {
-  AccountsApi,
+  AccountServiceApi,
   DocumentsApi,
   FundingServiceApi,
   InvoiceServiceApi,
@@ -16,7 +16,7 @@ const delay = promisify(setTimeout);
 
 export class CentrifugeService {
   public documents: DocumentsApi;
-  public accounts: AccountsApi;
+  public accounts: AccountServiceApi;
   public invoices: InvoiceServiceApi;
   public purchaseOrders: PurchaseOrderServiceApi;
   public funding: FundingServiceApi;
@@ -27,7 +27,7 @@ export class CentrifugeService {
   constructor() {
 
     this.documents = new DocumentsApi({}, config.centrifugeUrl);
-    this.accounts = new AccountsApi({}, config.centrifugeUrl);
+    this.accounts = new AccountServiceApi({}, config.centrifugeUrl);
     this.invoices = new InvoiceServiceApi({}, config.centrifugeUrl);
     this.purchaseOrders = new PurchaseOrderServiceApi({}, config.centrifugeUrl);
     this.funding = new FundingServiceApi({}, config.centrifugeUrl);
