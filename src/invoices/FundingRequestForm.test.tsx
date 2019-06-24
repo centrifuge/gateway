@@ -1,6 +1,5 @@
 import React from 'react';
-import { mount,shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 import { BrowserRouter } from 'react-router-dom';
 import FundingRequestForm from './FundingRequestForm';
 import { FundingRequest } from '../common/models/funding-request';
@@ -32,32 +31,32 @@ describe('RequestFundingForm', () => {
   ];
 
   const onSubmit = jest.fn(() => {
-    console.log("callSubmit")
+    console.log('callSubmit');
   });
 
   const onDiscard = jest.fn(() => {
-    console.log("callDiscatd")
+    console.log('callDiscatd');
   });
 
 
-  beforeAll(()=> {
+  beforeAll(() => {
     onDiscard.mockClear();
     onSubmit.mockClear();
-  })
+  });
 
   it('Should render the form', () => {
     const fundingRequest = new FundingRequest();
-    fundingRequest.currency = "USD";
+    fundingRequest.currency = 'USD';
     fundingRequest.invoice_id = '2222';
     fundingRequest.document_id = '0xsss';
     fundingRequest.invoice_amount = 1000;
-    fundingRequest.repayment_due_date =  dateToString(new Date(today));
+    fundingRequest.repayment_due_date = dateToString(new Date(today));
     const fundingForm = mount(
       setProviders(
         <FundingRequestForm fundingRequest={fundingRequest} today={today} contacts={contacts} onDiscard={onDiscard}
                             onSubmit={onSubmit}/>,
       ),
-    )
+    );
     expect(serializeSnapshot(fundingForm)).toMatchSnapshot();
   });
 
