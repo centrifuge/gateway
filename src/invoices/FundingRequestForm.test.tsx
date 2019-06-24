@@ -5,15 +5,7 @@ import FundingRequestForm from './FundingRequestForm';
 import { FundingRequest } from '../common/models/funding-request';
 import { dateToString } from '../common/formaters';
 import { Formik } from 'formik';
-import { AxisTheme } from '@centrifuge/axis-theme';
 import { serializeSnapshot } from '../testing/serialize';
-
-
-const setProviders = (component) => {
-  return <div>
-    {component}
-  </div>;
-};
 
 
 describe('RequestFundingForm', () => {
@@ -52,10 +44,8 @@ describe('RequestFundingForm', () => {
     fundingRequest.invoice_amount = 1000;
     fundingRequest.repayment_due_date = dateToString(new Date(today));
     const fundingForm = mount(
-      setProviders(
-        <FundingRequestForm fundingRequest={fundingRequest} today={today} contacts={contacts} onDiscard={onDiscard}
-                            onSubmit={onSubmit}/>,
-      ),
+      <FundingRequestForm fundingRequest={fundingRequest} today={today} contacts={contacts} onDiscard={onDiscard}
+                          onSubmit={onSubmit}/>,
     );
     expect(serializeSnapshot(fundingForm)).toMatchSnapshot();
   });
