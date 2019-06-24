@@ -29,18 +29,47 @@ export const formatDate = (value: any) => {
   if (!(value instanceof Date)) {
     value = new Date(value);
   }
-  return new Intl.DateTimeFormat(locale, { month: '2-digit', year: '2-digit', day: '2-digit' }).format(value);
+  return new Intl.DateTimeFormat(locale, { month: '2-digit', year: 'numeric', day: '2-digit' }).format(value);
 };
 
 export const formatCurrency = (value, currency) => {
   return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: currency,
-    currencyDisplay: 'code',
   }).format(value);
 };
 
 
+export const getCurrencyParts = (currency) => {
+  let prefix = formatCurrency(1, currency).replace(/[0-9.,]/g, '');
+  // now care only about the prefix
+  // TODO we should should also handle the suffix case.
+  return {
+    ...getNumberParts(),
+    prefix,
+  };
+};
+
+export const getNumberParts = () => {
+  let thousandSeparator = formatNumber(1111).replace(/1/g, '');
+  let decimalSeparator = formatNumber(1.1).replace(/1/g, '');
+  return {
+    thousandSeparator,
+    decimalSeparator,
+    precision: 2, // this is the default right now.
+  };
+};
+
+export const getPercentParts = () => {
+
+  let suffix = formatPercent(1).replace(/[0-9.,]/g, '');
+  return {
+    ...getNumberParts(),
+    suffix,
+  };
+};
+
+
 export const formatPercent = value => {
-  return new Intl.NumberFormat(locale, { style: 'percent', minimumFractionDigits:2}).format(value);
+  return new Intl.NumberFormat(locale, { style: 'percent', minimumFractionDigits: 2 }).format(value);
 };
