@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { FundingRequest } from '../common/models/funding-request';
 import SearchSelect from '../components/form/SearchSelect';
-import { dateToString, extractDate, getCurrencyParts, getPercentParts } from '../common/formaters';
+import { dateToString, extractDate, getCurrencyFormat, getPercentFormat } from '../common/formaters';
 import { NumberInput } from '@centrifuge/axis-number-input';
 
 
@@ -49,8 +49,8 @@ export default class FundingRequestForm extends React.Component<FundingRequestFo
     const columnGap = 'medium';
     const sectionGap = 'large';
 
-    const currencyParts = getCurrencyParts(fundingRequest.currency);
-    const percentParts = getPercentParts();
+    const currencyParts = getCurrencyFormat(fundingRequest.currency);
+    const percentParts = getPercentFormat();
 
 
     const fundingRequestValidation = Yup.object().shape({

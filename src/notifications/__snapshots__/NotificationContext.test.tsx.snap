@@ -78,7 +78,7 @@ exports[`NotificationContext Should render a default popup 1`] = `
                   <p
                     class="StyledParagraph-tbetod-0 dIDtVY"
                   >
-                    Messge
+                    Messsge
                   </p>
                 </div>
                 <div
@@ -324,7 +324,7 @@ exports[`NotificationContext Should render a default popup 1`] = `
                                 <p
                                   className="StyledParagraph-tbetod-0 dIDtVY"
                                 >
-                                  Messge
+                                  Messsge
                                 </p>
                               </StyledParagraph>
                             </div>
@@ -442,7 +442,7 @@ exports[`NotificationContext Should render a error popup 1`] = `
                   <p
                     class="StyledParagraph-tbetod-0 dIDtVY"
                   >
-                    Messge
+                    Messsge
                   </p>
                 </div>
                 <div
@@ -695,7 +695,7 @@ exports[`NotificationContext Should render a error popup 1`] = `
                                 <p
                                   className="StyledParagraph-tbetod-0 dIDtVY"
                                 >
-                                  Messge
+                                  Messsge
                                 </p>
                               </StyledParagraph>
                             </div>
@@ -878,7 +878,7 @@ exports[`NotificationContext Should render a success popup 1`] = `
                   <p
                     class="StyledParagraph-tbetod-0 dIDtVY"
                   >
-                    Messge
+                    Messsge
                   </p>
                 </div>
                 <div
@@ -1131,7 +1131,7 @@ exports[`NotificationContext Should render a success popup 1`] = `
                                 <p
                                   className="StyledParagraph-tbetod-0 dIDtVY"
                                 >
-                                  Messge
+                                  Messsge
                                 </p>
                               </StyledParagraph>
                             </div>
@@ -1314,7 +1314,7 @@ exports[`NotificationContext Should render a warning popup 1`] = `
                   <p
                     class="StyledParagraph-tbetod-0 dIDtVY"
                   >
-                    Messge
+                    Messsge
                   </p>
                 </div>
                 <div
@@ -1567,7 +1567,7 @@ exports[`NotificationContext Should render a warning popup 1`] = `
                                 <p
                                   className="StyledParagraph-tbetod-0 dIDtVY"
                                 >
-                                  Messge
+                                  Messsge
                                 </p>
                               </StyledParagraph>
                             </div>
@@ -1750,7 +1750,7 @@ exports[`NotificationContext Should set the proper label for the confirm button 
                   <p
                     class="StyledParagraph-tbetod-0 dIDtVY"
                   >
-                    Messge
+                    Messsge
                   </p>
                 </div>
                 <div
@@ -1996,7 +1996,7 @@ exports[`NotificationContext Should set the proper label for the confirm button 
                                 <p
                                   className="StyledParagraph-tbetod-0 dIDtVY"
                                 >
-                                  Messge
+                                  Messsge
                                 </p>
                               </StyledParagraph>
                             </div>

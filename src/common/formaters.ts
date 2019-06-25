@@ -40,17 +40,17 @@ export const formatCurrency = (value, currency) => {
 };
 
 
-export const getCurrencyParts = (currency) => {
+export const getCurrencyFormat = (currency) => {
   let prefix = formatCurrency(1, currency).replace(/[0-9.,]/g, '');
   // now care only about the prefix
   // TODO we should should also handle the suffix case.
   return {
-    ...getNumberParts(),
+    ...getNumberFormat(),
     prefix,
   };
 };
 
-export const getNumberParts = () => {
+export const getNumberFormat = () => {
   let thousandSeparator = formatNumber(1111).replace(/1/g, '');
   let decimalSeparator = formatNumber(1.1).replace(/1/g, '');
   return {
@@ -60,11 +60,11 @@ export const getNumberParts = () => {
   };
 };
 
-export const getPercentParts = () => {
+export const getPercentFormat = () => {
 
   let suffix = formatPercent(1).replace(/[0-9.,]/g, '');
   return {
-    ...getNumberParts(),
+    ...getNumberFormat(),
     suffix,
   };
 };

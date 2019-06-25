@@ -1,8 +1,8 @@
-import { formatCurrency, formatDate, formatPercent, getCurrencyParts, getPercentParts } from './formaters';
+import { formatCurrency, formatDate, formatPercent, getCurrencyFormat, getPercentFormat } from './formaters';
 
 describe('Formatters', () => {
   it('Should return the correct currency parts', () => {
-    expect(getCurrencyParts('USD')).toEqual(
+    expect(getCurrencyFormat('USD')).toEqual(
       {
         thousandSeparator: ',',
         decimalSeparator: '.',
@@ -11,7 +11,7 @@ describe('Formatters', () => {
       },
     );
 
-    expect(getCurrencyParts('EUR')).toEqual(
+    expect(getCurrencyFormat('EUR')).toEqual(
       {
         thousandSeparator: ',',
         decimalSeparator: '.',
@@ -23,7 +23,7 @@ describe('Formatters', () => {
 
 
   it('Should return the correct percent parts', () => {
-    expect(getPercentParts()).toEqual(
+    expect(getPercentFormat()).toEqual(
       {
         thousandSeparator: ',',
         decimalSeparator: '.',

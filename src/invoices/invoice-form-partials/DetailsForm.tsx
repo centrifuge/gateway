@@ -3,7 +3,7 @@ import { connect, FormikContext } from 'formik';
 import { Invoice } from '../../common/models/invoice';
 import { Section } from '../../components/Section';
 import { Box, FormField, Select, TextInput } from 'grommet';
-import { dateToString, extractDate, getCurrencyParts, getPercentParts } from '../../common/formaters';
+import { dateToString, extractDate, getCurrencyFormat, getPercentFormat } from '../../common/formaters';
 import { NumberInput } from '@centrifuge/axis-number-input';
 
 interface DetailsFormProps {
@@ -31,8 +31,8 @@ export class DetailsForm extends React.Component<ConnectedDetailsFormProps> {
 
     values.tax_amount = (parseFloat(values.net_amount || '') * (parseFloat(values.tax_rate || ''))/100).toFixed(2);
     values.gross_amount = (parseFloat(values.net_amount || '') + parseFloat(values.tax_amount || '')).toFixed(2);
-    const currencyParts = getCurrencyParts(values.currency);
-    const percentParts = getPercentParts();
+    const currencyParts = getCurrencyFormat(values.currency);
+    const percentParts = getPercentFormat();
 
     return (
       <Section headingLevel="5" title="Invoice Details">

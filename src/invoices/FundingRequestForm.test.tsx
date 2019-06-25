@@ -23,11 +23,9 @@ describe('RequestFundingForm', () => {
   ];
 
   const onSubmit = jest.fn(() => {
-    console.log('callSubmit');
   });
 
   const onDiscard = jest.fn(() => {
-    console.log('callDiscatd');
   });
 
 

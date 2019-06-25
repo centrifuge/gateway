@@ -41,7 +41,7 @@ describe('NotificationContext', () => {
               notify(
                 {
                   title: 'Title',
-                  message:'Messge',
+                  message:'Messsge',
                 }
               );
             }}></button>;
@@ -62,7 +62,7 @@ describe('NotificationContext', () => {
                 notify(
                   {
                     title: 'Title',
-                    message:'Messge',
+                    message:'Messsge',
                     type: NOTIFICATION.WARNING,
                   },
                 );
@@ -85,7 +85,7 @@ describe('NotificationContext', () => {
               notify(
                 {
                   title: 'Title',
-                  message:'Messge',
+                  message:'Messsge',
                   type: NOTIFICATION.SUCCESS,
                 },
               );
@@ -107,7 +107,7 @@ describe('NotificationContext', () => {
               notify(
                 {
                   title: 'Title',
-                  message:'Messge',
+                  message:'Messsge',
                   type: NOTIFICATION.ERROR,
                 },
               );
@@ -131,7 +131,7 @@ describe('NotificationContext', () => {
                 notify(
                   {
                     title: 'Title',
-                    message:'Messge',
+                    message:'Messsge',
                     confirmLabel: "Crazy Label",
                   },
                 );
