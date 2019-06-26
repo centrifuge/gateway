@@ -18,9 +18,10 @@ export class TransfersController {
   /**
    * Creates a transfer detail from a TransactionObject returned from a transaction hash
    * @async
-   * @return {Promise<TransactionObject>} result
+   * @return <TransactionDetailResponse>} result
    */
-  async getTransaction(@Req() request) {
-    return await this.ethService.getTransactionByHash(request.hash)
+  async createFromTransactionHash(@Req() request) {
+    const transaction = await this.ethService.getTransactionByHash(request.hash)
+
   }
 }
