@@ -2,7 +2,7 @@ import React from 'react';
 import { connect, FormikContext } from 'formik';
 import { Invoice } from '../../common/models/invoice';
 import { Section } from '../../components/Section';
-import { Box, FormField, Select, TextInput } from 'grommet';
+import { Box, FormField, Select } from 'grommet';
 import { dateToString, extractDate, getCurrencyFormat, getPercentFormat } from '../../common/formaters';
 import { NumberInput } from '@centrifuge/axis-number-input';
 import { DateInput } from '@centrifuge/axis-date-input';
