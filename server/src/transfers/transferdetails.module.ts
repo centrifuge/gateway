@@ -1,9 +1,9 @@
-import {Module} from "@nestjs/common";
-import {EthController} from "../eth/eth.controller";
-import {EthService} from "../eth/eth.service";
+import { Module } from "@nestjs/common";
+import { EthService } from "../eth/eth.service";
+import { TransfersController } from "./transferdetails.controller";
 
 @Module({
-  controllers: [EthController],
+  controllers: [TransfersController],
   providers: [EthService],
 })
 export class TransferModule {}

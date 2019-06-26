@@ -1,8 +1,8 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import {Controller, Get, Post, Req} from '@nestjs/common';
 import { TransactionObject } from "web3/eth/types";
-import {EthService} from "../eth/eth.service";
-import {DatabaseService} from "../database/database.service";
-import {CentrifugeService} from "../centrifuge-client/centrifuge.service";
+import { EthService } from "../eth/eth.service";
+import { DatabaseService } from "../database/database.service";
+import { CentrifugeService } from "../centrifuge-client/centrifuge.service";
 
 @Controller()
 
@@ -14,9 +14,9 @@ export class TransfersController {
   ) {
   }
 
-  @Get()
+  @Post()
   /**
-   * Gets a transaction object from a hash
+   * Creates a transfer detail from a TransactionObject returned from a transaction hash
    * @async
    * @return {Promise<TransactionObject>} result
    */
