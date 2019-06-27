@@ -1,13 +1,13 @@
-// import {User} from "../../../src/common/models/user";
-// import {AuthService} from "../auth/auth.service";
-// import {Test, TestingModule} from "@nestjs/testing";
-// import {databaseServiceProvider} from "../database/database.providers";
-// import {DatabaseService} from "../database/database.service";
-// import {Invoice} from "../../../src/common/models/invoice";
-// import {FundingController} from "../funding/funding.controller";
-// import {SessionGuard} from "../auth/SessionGuard";
-// import {CentrifugeService} from "../centrifuge-client/centrifuge.service";
-//
+import {User} from "../../../src/common/models/user";
+import {AuthService} from "../auth/auth.service";
+import {Test, TestingModule} from "@nestjs/testing";
+import {databaseServiceProvider} from "../database/database.providers";
+import {DatabaseService} from "../database/database.service";
+import {Invoice} from "../../../src/common/models/invoice";
+import {FundingController} from "../funding/funding.controller";
+import {SessionGuard} from "../auth/SessionGuard";
+import {CentrifugeService} from "../centrifuge-client/centrifuge.service";
+
 // describe('Transfer controller', () => {
 //
 //   const invoice: Invoice = {
@@ -20,10 +20,10 @@
 //   };
 //
 //   let insertedInvoice: any = {};
-//   let fundingModule: TestingModule;
+//   let transferModule: TestingModule;
 //
 //   beforeEach(async () => {
-//     fundingModule = await Test.createTestingModule({
+//     transferModule = await Test.createTestingModule({
 //       controllers: [FundingController],
 //       providers: [
 //         SessionGuard,
@@ -36,8 +36,8 @@
 //         .compile();
 //
 //
-//     const databaseService = fundingModule.get<DatabaseService>(DatabaseService);
-//     const centrifugeService = fundingModule.get<CentrifugeService>(CentrifugeService)
+//     const databaseService = transferModule.get<DatabaseService>(DatabaseService);
+//     const centrifugeService = transferModule.get<CentrifugeService>(CentrifugeService)
 //
 //     insertedInvoice = await databaseService.invoices.insert({
 //       header: {
