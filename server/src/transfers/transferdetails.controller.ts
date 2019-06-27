@@ -82,7 +82,7 @@ export class TransferDetailsController {
     return await this.updateDbOnJobCompletion(transferDetailsResponse, req)
   }
 
-  async updateDbOnJobCompletion(transferDetailsResponse: UserapiTransferDetailResponse, req) {
+  async updateDbOnJobCompletion (transferDetailsResponse: UserapiTransferDetailResponse, req) {
     await this.centrifugeService.pullForJobComplete(transferDetailsResponse.header.job_id, req.user.account);
     const invoiceWithTransferDetails = await this.centrifugeService.invoices.get(req.document_id, req.user.account);
     // We need to delete the attributes prop
