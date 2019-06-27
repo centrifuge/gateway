@@ -89,14 +89,14 @@ export class TransferDetailsController {
     await this.centrifugeService.pullForJobComplete(transferDetailsResponse.header.job_id, req.user.account);
     const invoiceWithTransferDetails = await this.centrifugeService.invoices.get(req.document_id, req.user.account);
     // We need to delete the attributes prop
-    delete invoiceWithTransferDetails.attributes;
+    delete invoiceWithTransferDetails.attributes.transfer_details;
     // Update the document in the database
     await this.databaseService.invoices.update(
         { 'header.document_id': req.document_id, 'ownerId': req.user._id },
         {
           ...invoiceWithTransferDetails,
           ownerId: req.user._id,
-          transferDetail: transferDetailsResponse.data,
+          transferDetails: [transferDetailsResponse.data],
         },
     );
     return transferDetailsResponse;

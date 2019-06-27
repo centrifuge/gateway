@@ -22,7 +22,7 @@ export interface InvoiceResponse extends InvInvoiceResponse {
   createdAt?: Date,
   updatedAt?: Date
   fundingAgreement?: FundingAgreementResponse | null
-  transferDetail?: TransferdetailsData | null
+  transferDetails?: Array<TransferdetailsData> | null
 }
 
 export interface FundingAgreementResponse extends FunFundingResponseData {
