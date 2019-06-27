@@ -1,10 +1,10 @@
-import {Body, Controller, Get, Post, Req, Request, UseGuards} from '@nestjs/common';
+import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { EthService } from "../eth/eth.service";
 import { DatabaseService } from "../database/database.service";
 import { CentrifugeService } from "../centrifuge-client/centrifuge.service";
-import {UserapiCreateTransferDetailRequest, UserapiTransferDetailResponse} from "../../../clients/centrifuge-node";
-import {SessionGuard} from "../auth/SessionGuard";
-import {TransferDetailsRequest} from "../../../src/common/models/transfer-details";
+import { UserapiCreateTransferDetailRequest, UserapiTransferDetailResponse } from "../../../clients/centrifuge-node";
+import { SessionGuard } from "../auth/SessionGuard";
+import { TransferDetailsRequest } from "../../../src/common/models/transfer-details";
 
 @Controller()
 @UseGuards(SessionGuard)

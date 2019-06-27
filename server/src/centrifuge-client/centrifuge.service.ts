@@ -36,7 +36,6 @@ export class CentrifugeService {
     this.invoiceUnpaid = new NFTServiceApi({}, config.centrifugeUrl);
     this.job = new JobsApi({}, config.centrifugeUrl);
     this.transfer = new TransferDetailApi({}, config.centrifugeUrl);
-
   }
 
   pullForJobComplete(jobId: string, authorization: string): Promise<JobsStatusResponse> {
