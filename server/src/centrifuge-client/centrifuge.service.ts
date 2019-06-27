@@ -7,7 +7,8 @@ import {
   JobsStatusResponse,
   NFTApi,
   NFTServiceApi,
-  PurchaseOrderServiceApi, TransferDetailApi,
+  PurchaseOrderServiceApi,
+  TransferDetailApi,
 } from '../../../clients/centrifuge-node';
 import config from '../../../src/common/config';
 import { promisify } from 'util';

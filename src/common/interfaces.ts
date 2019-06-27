@@ -2,7 +2,7 @@ import {
   FunFundingResponseData,
   InvInvoiceData,
   InvInvoiceResponse,
-  PoPurchaseOrderResponse, TransferdetailsTransferDetailData, UserapiTransferDetailResponse,
+  PoPurchaseOrderResponse, TransferdetailsTransferDetailData,
 } from '../../clients/centrifuge-node';
 import { Invoice } from './models/invoice';
 
@@ -21,16 +21,12 @@ export interface InvoiceResponse extends InvInvoiceResponse {
   createdAt?: Date,
   updatedAt?: Date
   fundingAgreement?: FundingAgreementResponse | null
-  transferDetail?: TransferDetailResponse
-}
-
-export interface TransferDetailResponse extends TransferdetailsTransferDetailData {
+  transferDetail?: TransferdetailsTransferDetailData | null
 }
 
 export interface FundingAgreementResponse extends FunFundingResponseData {
   nftOwner?: string
 }
-
 
 export interface PurchaseOrderResponse
   extends PoPurchaseOrderResponse {
