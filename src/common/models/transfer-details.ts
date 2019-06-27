@@ -1,4 +1,4 @@
-export interface ITransferDetailRequest {
+export interface ITransferDetailsRequest {
   amount?: string;
   currency?: string;
   data?: string;
@@ -13,7 +13,7 @@ export interface ITransferDetailRequest {
 }
 
 
-export class TransferDetailRequest implements ITransferDetailRequest {
+export class TransferDetailsRequest implements ITransferDetailsRequest {
   public amount: string;
   public currency: string;
   public sender_id?: string;

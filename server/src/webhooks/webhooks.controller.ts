@@ -1,6 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ROUTES } from '../../../src/common/constants';
-import { FunFundingListResponse, NotificationNotificationMessage } from '../../../clients/centrifuge-node';
+import {
+  FunFundingListResponse,
+  NotificationNotificationMessage,
+  UserapiTransferDetailListResponse
+} from '../../../clients/centrifuge-node';
 import { DatabaseService } from '../database/database.service';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import { InvoiceResponse } from '../../../src/common/interfaces';
@@ -50,9 +54,15 @@ export class WebhooksController {
           ownerId: user._id,
         };
 
-        if (invoice.attributes && invoice.attributes.funding_agreement) {
-          const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(invoice.header.document_id, user.account);
-          invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
+        if (invoice.attributes) {
+          if (invoice.attributes.funding_agreement) {
+            const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(invoice.header.document_id, user.account);
+            invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
+          }
+          if (invoice.attributes.transfer_details) {
+            const transferList: UserapiTransferDetailListResponse = await this.centrifugeService.documents.getTransfer(invoice.header.document_id, user.account);
+            invoice.transferDetail = (transferList.data ? transferList.data.shift() : undefined);
+          }
           // We need to delete the attributes prop because nedb does not allow for . in field names
           delete invoice.attributes;
         }
