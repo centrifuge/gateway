@@ -29,6 +29,7 @@ export class TransferDetailsController {
    */
   async create(@Body() transferDetailsRequest: TransferDetailsRequest, @Request() req) {
     const details: UserapiCreateTransferDetailRequest = {
+      document_id: req.document_id,
       data: {
         sender_id: transferDetailsRequest.sender_id,
         recipient_id: transferDetailsRequest.recipient_id,
@@ -45,7 +46,7 @@ export class TransferDetailsController {
     const transferDetailsResponse: UserapiTransferDetailResponse = await this.centrifugeService.transfer.createTransferDetail(
         req.user.account,
         details,
-        req.document_id,
+        details.document_id
     )
 
     return await this.updateDbOnJobCompletion(transferDetailsResponse, req)
@@ -59,6 +60,7 @@ export class TransferDetailsController {
    */
   async update(@Body() updateRequest: TransferDetailsRequest, @Request() req) {
     const details: UserapiUpdateTransferDetailRequest = {
+      document_id: req.document_id,
       data: {
         transfer_id: updateRequest.transfer_id,
         sender_id: updateRequest.sender_id,
@@ -76,7 +78,7 @@ export class TransferDetailsController {
     const transferDetailsResponse: UserapiTransferDetailResponse = await this.centrifugeService.transfer.updateTransferDetail(
         req.user.account,
         details,
-        req.document_id,
+        details.document_id,
         details.transfer_id,
     )
 
