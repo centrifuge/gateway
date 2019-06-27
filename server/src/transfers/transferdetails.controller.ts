@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Put, Request, UseGuards } from '@nestjs/common';
 import { DatabaseService } from "../database/database.service";
 import { CentrifugeService } from "../centrifuge-client/centrifuge.service";
 import {
@@ -40,29 +40,17 @@ export class TransferDetailsController {
         status: transferDetailsRequest.status,
       }
     }
+
     const transferDetailsResponse: UserapiTransferDetailResponse = await this.centrifugeService.transfer.createTransferDetail(
         req.user.account,
         details,
         req.document_id,
     )
 
-    await this.centrifugeService.pullForJobComplete(transferDetailsResponse.header.job_id, req.user.account);
-    const invoiceWithTransferDetails = await this.centrifugeService.invoices.get(req.document_id, req.user.account);
-    // We need to delete the attributes prop
-    delete invoiceWithTransferDetails.attributes;
-    // Update the document in the database
-    await this.databaseService.invoices.update(
-        { 'header.document_id': req.document_id, 'ownerId': req.user._id },
-        {
-          ...invoiceWithTransferDetails,
-          ownerId: req.user._id,
-          transferDetail: transferDetailsResponse.data,
-        },
-    );
-    return transferDetailsResponse;
+    return await this.updateDbOnJobCompletion(transferDetailsResponse, req)
   }
 
-  @Post()
+  @Put()
   /**
    * Updates a transfer detail from an UpdateTransferDetailRequest
    * @async
@@ -83,6 +71,7 @@ export class TransferDetailsController {
         status: updateRequest.status,
       }
     }
+
     const transferDetailsResponse: UserapiTransferDetailResponse = await this.centrifugeService.transfer.updateTransferDetail(
         req.user.account,
         details,
@@ -90,6 +79,10 @@ export class TransferDetailsController {
         details.transfer_id,
     )
 
+    return await this.updateDbOnJobCompletion(transferDetailsResponse, req)
+  }
+
+  async updateDbOnJobCompletion(transferDetailsResponse: UserapiTransferDetailResponse, req) {
     await this.centrifugeService.pullForJobComplete(transferDetailsResponse.header.job_id, req.user.account);
     const invoiceWithTransferDetails = await this.centrifugeService.invoices.get(req.document_id, req.user.account);
     // We need to delete the attributes prop
@@ -105,4 +98,6 @@ export class TransferDetailsController {
     );
     return transferDetailsResponse;
   }
+
 }
+

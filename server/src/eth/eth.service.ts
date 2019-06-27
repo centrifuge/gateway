@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Transaction } from "web3/eth/types";
+import config from "../../../src/common/config";
 const Eth = require('ethjs');
 
 // TODO: set provider via config here
-const eth = new Eth(new Eth.HttpProvider('https://goerli.infura.io/v3/c2952fa55ecb476d95f190d01a5729d1'));
+const eth = new Eth(new Eth.HttpProvider(config.ethProvider));
 
 @Injectable()
 export class EthService {
