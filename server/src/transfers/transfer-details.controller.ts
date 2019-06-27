@@ -29,7 +29,7 @@ export class TransferDetailsController {
    */
   async create(@Body() transferDetailsRequest: TransferDetailsRequest, @Request() req) {
     const details: UserapiCreateTransferDetailRequest = {
-      document_id: req.document_id,
+      document_id: transferDetailsRequest.document_id,
       data: {
         sender_id: transferDetailsRequest.sender_id,
         recipient_id: transferDetailsRequest.recipient_id,
