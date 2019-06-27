@@ -3054,6 +3054,166 @@ export interface PoTaxItem {
     tax_base_amount?: string;
 }
 
+/**
+ * 
+ * @export
+ * @interface TransferdetailsTransferDetailData
+ */
+export interface TransferdetailsTransferDetailData {
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    amount?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    currency?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    data?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    recipient_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    scheduled_date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    sender_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    settlement_date?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    settlement_reference?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    status?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    transfer_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferdetailsTransferDetailData
+     */
+    transfer_type?: string;
+}
+
+/**
+ * 
+ * @export
+ * @interface UserapiCreateTransferDetailRequest
+ */
+export interface UserapiCreateTransferDetailRequest {
+    /**
+     * 
+     * @type {TransferdetailsTransferDetailData}
+     * @memberof UserapiCreateTransferDetailRequest
+     */
+    data?: TransferdetailsTransferDetailData;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserapiCreateTransferDetailRequest
+     */
+    document_id?: string;
+}
+
+/**
+ * 
+ * @export
+ * @interface UserapiTransferDetailListResponse
+ */
+export interface UserapiTransferDetailListResponse {
+    /**
+     * 
+     * @type {Array<TransferdetailsTransferDetailData>}
+     * @memberof UserapiTransferDetailListResponse
+     */
+    data?: Array<TransferdetailsTransferDetailData>;
+    /**
+     * 
+     * @type {CoreapiResponseHeader}
+     * @memberof UserapiTransferDetailListResponse
+     */
+    header?: CoreapiResponseHeader;
+}
+
+/**
+ * 
+ * @export
+ * @interface UserapiTransferDetailResponse
+ */
+export interface UserapiTransferDetailResponse {
+    /**
+     * 
+     * @type {TransferdetailsTransferDetailData}
+     * @memberof UserapiTransferDetailResponse
+     */
+    data?: TransferdetailsTransferDetailData;
+    /**
+     * 
+     * @type {CoreapiResponseHeader}
+     * @memberof UserapiTransferDetailResponse
+     */
+    header?: CoreapiResponseHeader;
+}
+
+/**
+ * 
+ * @export
+ * @interface UserapiUpdateTransferDetailRequest
+ */
+export interface UserapiUpdateTransferDetailRequest {
+    /**
+     * 
+     * @type {TransferdetailsTransferDetailData}
+     * @memberof UserapiUpdateTransferDetailRequest
+     */
+    data?: TransferdetailsTransferDetailData;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserapiUpdateTransferDetailRequest
+     */
+    document_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserapiUpdateTransferDetailRequest
+     */
+    transfer_id?: string;
+}
+
 
 /**
  * AccountServiceApi - fetch parameter creator
@@ -3838,6 +3998,88 @@ export const DocumentsApiFetchParamCreator = function (configuration?: Configura
             };
         },
         /**
+         * Returns a list of the latest versions of all transfer details on the document.
+         * @summary Returns a list of the latest versions of all transfer details on the document.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {string} document_id Document Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransfer(authorization: string, document_id: string, options: any = {}): FetchArgs {
+            // verify required parameter 'authorization' is not null or undefined
+            if (authorization === null || authorization === undefined) {
+                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling getTransfer.');
+            }
+            // verify required parameter 'document_id' is not null or undefined
+            if (document_id === null || document_id === undefined) {
+                throw new RequiredError('document_id','Required parameter document_id was null or undefined when calling getTransfer.');
+            }
+            const localVarPath = `/v1/documents/{document_id}/transfer_details`
+                .replace(`{${"document_id"}}`, encodeURIComponent(String(document_id)));
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (authorization !== undefined && authorization !== null) {
+                localVarHeaderParameter['authorization'] = String(authorization);
+            }
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the latest version of the transfer detail.
+         * @summary Returns the latest version of the transfer detail.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {string} document_id Document Identifier
+         * @param {string} transfer_id Transfer Detail Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransfer_1(authorization: string, document_id: string, transfer_id: string, options: any = {}): FetchArgs {
+            // verify required parameter 'authorization' is not null or undefined
+            if (authorization === null || authorization === undefined) {
+                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling getTransfer_1.');
+            }
+            // verify required parameter 'document_id' is not null or undefined
+            if (document_id === null || document_id === undefined) {
+                throw new RequiredError('document_id','Required parameter document_id was null or undefined when calling getTransfer_1.');
+            }
+            // verify required parameter 'transfer_id' is not null or undefined
+            if (transfer_id === null || transfer_id === undefined) {
+                throw new RequiredError('transfer_id','Required parameter transfer_id was null or undefined when calling getTransfer_1.');
+            }
+            const localVarPath = `/v1/documents/{document_id}/transfer_details/{transfer_id}`
+                .replace(`{${"document_id"}}`, encodeURIComponent(String(document_id)))
+                .replace(`{${"transfer_id"}}`, encodeURIComponent(String(transfer_id)));
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'GET' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (authorization !== undefined && authorization !== null) {
+                localVarHeaderParameter['authorization'] = String(authorization);
+            }
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Updates an existing document and anchors it.
          * @summary Updates an existing document and anchors it.
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
@@ -3998,6 +4240,47 @@ export const DocumentsApiFp = function(configuration?: Configuration) {
             };
         },
         /**
+         * Returns a list of the latest versions of all transfer details on the document.
+         * @summary Returns a list of the latest versions of all transfer details on the document.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {string} document_id Document Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransfer(authorization: string, document_id: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<UserapiTransferDetailListResponse> {
+            const localVarFetchArgs = DocumentsApiFetchParamCreator(configuration).getTransfer(authorization, document_id, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * Returns the latest version of the transfer detail.
+         * @summary Returns the latest version of the transfer detail.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {string} document_id Document Identifier
+         * @param {string} transfer_id Transfer Detail Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransfer_1(authorization: string, document_id: string, transfer_id: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<UserapiTransferDetailResponse> {
+            const localVarFetchArgs = DocumentsApiFetchParamCreator(configuration).getTransfer_1(authorization, document_id, transfer_id, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
          * Updates an existing document and anchors it.
          * @summary Updates an existing document and anchors it.
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
@@ -4085,6 +4368,29 @@ export const DocumentsApiFactory = function (configuration?: Configuration, fetc
          */
         getDocumentVersion(authorization: string, document_id: string, version_id: string, options?: any) {
             return DocumentsApiFp(configuration).getDocumentVersion(authorization, document_id, version_id, options)(fetch, basePath);
+        },
+        /**
+         * Returns a list of the latest versions of all transfer details on the document.
+         * @summary Returns a list of the latest versions of all transfer details on the document.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {string} document_id Document Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransfer(authorization: string, document_id: string, options?: any) {
+            return DocumentsApiFp(configuration).getTransfer(authorization, document_id, options)(fetch, basePath);
+        },
+        /**
+         * Returns the latest version of the transfer detail.
+         * @summary Returns the latest version of the transfer detail.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {string} document_id Document Identifier
+         * @param {string} transfer_id Transfer Detail Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransfer_1(authorization: string, document_id: string, transfer_id: string, options?: any) {
+            return DocumentsApiFp(configuration).getTransfer_1(authorization, document_id, transfer_id, options)(fetch, basePath);
         },
         /**
          * Updates an existing document and anchors it.
@@ -4175,6 +4481,33 @@ export class DocumentsApi extends BaseAPI {
      */
     public getDocumentVersion(authorization: string, document_id: string, version_id: string, options?: any) {
         return DocumentsApiFp(this.configuration).getDocumentVersion(authorization, document_id, version_id, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * Returns a list of the latest versions of all transfer details on the document.
+     * @summary Returns a list of the latest versions of all transfer details on the document.
+     * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+     * @param {string} document_id Document Identifier
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DocumentsApi
+     */
+    public getTransfer(authorization: string, document_id: string, options?: any) {
+        return DocumentsApiFp(this.configuration).getTransfer(authorization, document_id, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * Returns the latest version of the transfer detail.
+     * @summary Returns the latest version of the transfer detail.
+     * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+     * @param {string} document_id Document Identifier
+     * @param {string} transfer_id Transfer Detail Identifier
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DocumentsApi
+     */
+    public getTransfer_1(authorization: string, document_id: string, transfer_id: string, options?: any) {
+        return DocumentsApiFp(this.configuration).getTransfer_1(authorization, document_id, transfer_id, options)(this.fetch, this.basePath);
     }
 
     /**
@@ -6930,6 +7263,239 @@ export class PurchaseOrderServiceApi extends BaseAPI {
      */
     public update(document_id: string, body: PoPurchaseOrderUpdatePayload, authorization: string, options?: any) {
         return PurchaseOrderServiceApiFp(this.configuration).update(document_id, body, authorization, options)(this.fetch, this.basePath);
+    }
+
+}
+
+/**
+ * TransferDetailApi - fetch parameter creator
+ * @export
+ */
+export const TransferDetailApiFetchParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Creates a new transfer detail extension on a document and anchors it.
+         * @summary Creates a new transfer detail extension on a document and anchors it.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {UserapiCreateTransferDetailRequest} body Transfer Detail Create Request
+         * @param {string} document_id Document Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTransferDetail(authorization: string, body: UserapiCreateTransferDetailRequest, document_id: string, options: any = {}): FetchArgs {
+            // verify required parameter 'authorization' is not null or undefined
+            if (authorization === null || authorization === undefined) {
+                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling createTransferDetail.');
+            }
+            // verify required parameter 'body' is not null or undefined
+            if (body === null || body === undefined) {
+                throw new RequiredError('body','Required parameter body was null or undefined when calling createTransferDetail.');
+            }
+            // verify required parameter 'document_id' is not null or undefined
+            if (document_id === null || document_id === undefined) {
+                throw new RequiredError('document_id','Required parameter document_id was null or undefined when calling createTransferDetail.');
+            }
+            const localVarPath = `/v1/documents/{document_id}/transfer_details`
+                .replace(`{${"document_id"}}`, encodeURIComponent(String(document_id)));
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'POST' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (authorization !== undefined && authorization !== null) {
+                localVarHeaderParameter['authorization'] = String(authorization);
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+            const needsSerialization = (<any>"UserapiCreateTransferDetailRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates a new transfer detail extension on a document and anchors it.
+         * @summary Updates a new transfer detail extension on a document and anchors it.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {UserapiUpdateTransferDetailRequest} body Transfer Detail Update Request
+         * @param {string} document_id Document Identifier
+         * @param {string} transfer_id Transfer Detail Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTransferDetail(authorization: string, body: UserapiUpdateTransferDetailRequest, document_id: string, transfer_id: string, options: any = {}): FetchArgs {
+            // verify required parameter 'authorization' is not null or undefined
+            if (authorization === null || authorization === undefined) {
+                throw new RequiredError('authorization','Required parameter authorization was null or undefined when calling updateTransferDetail.');
+            }
+            // verify required parameter 'body' is not null or undefined
+            if (body === null || body === undefined) {
+                throw new RequiredError('body','Required parameter body was null or undefined when calling updateTransferDetail.');
+            }
+            // verify required parameter 'document_id' is not null or undefined
+            if (document_id === null || document_id === undefined) {
+                throw new RequiredError('document_id','Required parameter document_id was null or undefined when calling updateTransferDetail.');
+            }
+            // verify required parameter 'transfer_id' is not null or undefined
+            if (transfer_id === null || transfer_id === undefined) {
+                throw new RequiredError('transfer_id','Required parameter transfer_id was null or undefined when calling updateTransferDetail.');
+            }
+            const localVarPath = `/v1/documents/{document_id}/transfer_details/{transfer_id}`
+                .replace(`{${"document_id"}}`, encodeURIComponent(String(document_id)))
+                .replace(`{${"transfer_id"}}`, encodeURIComponent(String(transfer_id)));
+            const localVarUrlObj = url.parse(localVarPath, true);
+            const localVarRequestOptions = Object.assign({ method: 'PUT' }, options);
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (authorization !== undefined && authorization !== null) {
+                localVarHeaderParameter['authorization'] = String(authorization);
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            localVarUrlObj.query = Object.assign({}, localVarUrlObj.query, localVarQueryParameter, options.query);
+            // fix override query string Detail: https://stackoverflow.com/a/7517673/1077943
+            delete localVarUrlObj.search;
+            localVarRequestOptions.headers = Object.assign({}, localVarHeaderParameter, options.headers);
+            const needsSerialization = (<any>"UserapiUpdateTransferDetailRequest" !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.body =  needsSerialization ? JSON.stringify(body || {}) : (body || "");
+
+            return {
+                url: url.format(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * TransferDetailApi - functional programming interface
+ * @export
+ */
+export const TransferDetailApiFp = function(configuration?: Configuration) {
+    return {
+        /**
+         * Creates a new transfer detail extension on a document and anchors it.
+         * @summary Creates a new transfer detail extension on a document and anchors it.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {UserapiCreateTransferDetailRequest} body Transfer Detail Create Request
+         * @param {string} document_id Document Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTransferDetail(authorization: string, body: UserapiCreateTransferDetailRequest, document_id: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<UserapiTransferDetailResponse> {
+            const localVarFetchArgs = TransferDetailApiFetchParamCreator(configuration).createTransferDetail(authorization, body, document_id, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+        /**
+         * Updates a new transfer detail extension on a document and anchors it.
+         * @summary Updates a new transfer detail extension on a document and anchors it.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {UserapiUpdateTransferDetailRequest} body Transfer Detail Update Request
+         * @param {string} document_id Document Identifier
+         * @param {string} transfer_id Transfer Detail Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTransferDetail(authorization: string, body: UserapiUpdateTransferDetailRequest, document_id: string, transfer_id: string, options?: any): (fetch?: FetchAPI, basePath?: string) => Promise<UserapiTransferDetailResponse> {
+            const localVarFetchArgs = TransferDetailApiFetchParamCreator(configuration).updateTransferDetail(authorization, body, document_id, transfer_id, options);
+            return (fetch: FetchAPI = portableFetch, basePath: string = BASE_PATH) => {
+                return fetch(basePath + localVarFetchArgs.url, localVarFetchArgs.options).then((response) => {
+                    if (response.status >= 200 && response.status < 300) {
+                        return response.json();
+                    } else {
+                        throw response;
+                    }
+                });
+            };
+        },
+    }
+};
+
+/**
+ * TransferDetailApi - factory interface
+ * @export
+ */
+export const TransferDetailApiFactory = function (configuration?: Configuration, fetch?: FetchAPI, basePath?: string) {
+    return {
+        /**
+         * Creates a new transfer detail extension on a document and anchors it.
+         * @summary Creates a new transfer detail extension on a document and anchors it.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {UserapiCreateTransferDetailRequest} body Transfer Detail Create Request
+         * @param {string} document_id Document Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTransferDetail(authorization: string, body: UserapiCreateTransferDetailRequest, document_id: string, options?: any) {
+            return TransferDetailApiFp(configuration).createTransferDetail(authorization, body, document_id, options)(fetch, basePath);
+        },
+        /**
+         * Updates a new transfer detail extension on a document and anchors it.
+         * @summary Updates a new transfer detail extension on a document and anchors it.
+         * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+         * @param {UserapiUpdateTransferDetailRequest} body Transfer Detail Update Request
+         * @param {string} document_id Document Identifier
+         * @param {string} transfer_id Transfer Detail Identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTransferDetail(authorization: string, body: UserapiUpdateTransferDetailRequest, document_id: string, transfer_id: string, options?: any) {
+            return TransferDetailApiFp(configuration).updateTransferDetail(authorization, body, document_id, transfer_id, options)(fetch, basePath);
+        },
+    };
+};
+
+/**
+ * TransferDetailApi - object-oriented interface
+ * @export
+ * @class TransferDetailApi
+ * @extends {BaseAPI}
+ */
+export class TransferDetailApi extends BaseAPI {
+    /**
+     * Creates a new transfer detail extension on a document and anchors it.
+     * @summary Creates a new transfer detail extension on a document and anchors it.
+     * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+     * @param {UserapiCreateTransferDetailRequest} body Transfer Detail Create Request
+     * @param {string} document_id Document Identifier
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransferDetailApi
+     */
+    public createTransferDetail(authorization: string, body: UserapiCreateTransferDetailRequest, document_id: string, options?: any) {
+        return TransferDetailApiFp(this.configuration).createTransferDetail(authorization, body, document_id, options)(this.fetch, this.basePath);
+    }
+
+    /**
+     * Updates a new transfer detail extension on a document and anchors it.
+     * @summary Updates a new transfer detail extension on a document and anchors it.
+     * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
+     * @param {UserapiUpdateTransferDetailRequest} body Transfer Detail Update Request
+     * @param {string} document_id Document Identifier
+     * @param {string} transfer_id Transfer Detail Identifier
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransferDetailApi
+     */
+    public updateTransferDetail(authorization: string, body: UserapiUpdateTransferDetailRequest, document_id: string, transfer_id: string, options?: any) {
+        return TransferDetailApiFp(this.configuration).updateTransferDetail(authorization, body, document_id, transfer_id, options)(this.fetch, this.basePath);
     }
 
 }

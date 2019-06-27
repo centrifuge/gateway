@@ -7,7 +7,7 @@ import {
   JobsStatusResponse,
   NFTApi,
   NFTServiceApi,
-  PurchaseOrderServiceApi,
+  PurchaseOrderServiceApi, TransferDetailApi,
 } from '../../../clients/centrifuge-node';
 import config from '../../../src/common/config';
 import { promisify } from 'util';
@@ -23,6 +23,7 @@ export class CentrifugeService {
   public nft: NFTApi;
   public invoiceUnpaid: NFTServiceApi;
   public job: JobsApi;
+  public transfer: TransferDetailApi;
 
   constructor() {
 
@@ -34,6 +35,8 @@ export class CentrifugeService {
     this.nft = new NFTApi({}, config.centrifugeUrl);
     this.invoiceUnpaid = new NFTServiceApi({}, config.centrifugeUrl);
     this.job = new JobsApi({}, config.centrifugeUrl);
+    this.transfer = new TransferDetailApi({}, config.centrifugeUrl);
+
   }
 
   pullForJobComplete(jobId: string, authorization: string): Promise<JobsStatusResponse> {
