@@ -2,7 +2,8 @@ import {
   FunFundingResponseData,
   InvInvoiceData,
   InvInvoiceResponse,
-  PoPurchaseOrderResponse, TransferdetailsTransferDetailData,
+  PoPurchaseOrderResponse,
+  TransferdetailsTransferDetailData,
 } from '../../clients/centrifuge-node';
 import { Invoice } from './models/invoice';
 
