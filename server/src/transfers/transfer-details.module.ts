@@ -8,6 +8,7 @@ import { CentrifugeModule } from "../centrifuge-client/centrifuge.module";
 @Module({
   controllers: [TransferDetailsController],
   imports: [DatabaseModule, AuthModule, CentrifugeModule],
+  // TODO: EthService should be provided by an EthModule imported above
   providers: [EthService],
 })
 export class TransferModule {}

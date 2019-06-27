@@ -8,8 +8,9 @@ import {
 } from "../../../clients/centrifuge-node";
 import { SessionGuard } from "../auth/SessionGuard";
 import { TransferDetailsRequest } from "../../../src/common/models/transfer-details";
+import {ROUTES} from "../../../src/common/constants";
 
-@Controller()
+@Controller(ROUTES.TRANSFER_DETAILS)
 @UseGuards(SessionGuard)
 export class TransferDetailsController {
   constructor(
