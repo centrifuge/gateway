@@ -1,8 +1,11 @@
 import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { EthService } from "../eth/eth.service";
 import { DatabaseService } from "../database/database.service";
 import { CentrifugeService } from "../centrifuge-client/centrifuge.service";
-import { UserapiCreateTransferDetailRequest, UserapiTransferDetailResponse } from "../../../clients/centrifuge-node";
+import {
+  UserapiCreateTransferDetailRequest,
+  UserapiTransferDetailResponse,
+  UserapiUpdateTransferDetailRequest
+} from "../../../clients/centrifuge-node";
 import { SessionGuard } from "../auth/SessionGuard";
 import { TransferDetailsRequest } from "../../../src/common/models/transfer-details";
 
@@ -12,20 +15,20 @@ export class TransferDetailsController {
   constructor(
       private readonly databaseService: DatabaseService,
       readonly centrifugeService: CentrifugeService,
-      readonly ethService: EthService,
+      // commented out for now until we enable eth services
+      // readonly ethService: EthService,
   ) {
   }
 
   @Post()
   /**
-   * Creates a transfer detail from a TransactionObject returned from a transaction hash
+   * Creates a transfer detail from a TransferDetailRequest
    * @async
    * @return <TransactionDetailResponse>} result
    */
-  async createFromTransactionHash(@Body() transferDetailsRequest: TransferDetailsRequest, @Request() req) {
+  async create(@Body() transferDetailsRequest: TransferDetailsRequest, @Request() req) {
     const details: UserapiCreateTransferDetailRequest = {
       data: {
-        transfer_id: transferDetailsRequest.transfer_id,
         sender_id: transferDetailsRequest.sender_id,
         recipient_id: transferDetailsRequest.recipient_id,
         amount: transferDetailsRequest.amount,
@@ -41,6 +44,50 @@ export class TransferDetailsController {
         req.user.account,
         details,
         req.document_id,
+    )
+
+    await this.centrifugeService.pullForJobComplete(transferDetailsResponse.header.job_id, req.user.account);
+    const invoiceWithTransferDetails = await this.centrifugeService.invoices.get(req.document_id, req.user.account);
+    // We need to delete the attributes prop
+    delete invoiceWithTransferDetails.attributes;
+    // Update the document in the database
+    await this.databaseService.invoices.update(
+        { 'header.document_id': req.document_id, 'ownerId': req.user._id },
+        {
+          ...invoiceWithTransferDetails,
+          ownerId: req.user._id,
+          transferDetail: transferDetailsResponse.data,
+        },
+    );
+    return transferDetailsResponse;
+  }
+
+  @Post()
+  /**
+   * Updates a transfer detail from an UpdateTransferDetailRequest
+   * @async
+   * @return <TransactionDetailResponse>} result
+   */
+  async update(@Body() updateRequest: TransferDetailsRequest, @Request() req) {
+    const details: UserapiUpdateTransferDetailRequest = {
+      data: {
+        transfer_id: updateRequest.transfer_id,
+        sender_id: updateRequest.sender_id,
+        recipient_id: updateRequest.recipient_id,
+        amount: updateRequest.amount,
+        currency: updateRequest.currency,
+        scheduled_date: updateRequest.scheduled_date,
+        settlement_date: updateRequest.settlement_date,
+        settlement_reference: updateRequest.settlement_reference,
+        transfer_type: updateRequest.transfer_type,
+        status: updateRequest.status,
+      }
+    }
+    const transferDetailsResponse: UserapiTransferDetailResponse = await this.centrifugeService.transfer.updateTransferDetail(
+        req.user.account,
+        details,
+        req.document_id,
+        details.transfer_id,
     )
 
     await this.centrifugeService.pullForJobComplete(transferDetailsResponse.header.job_id, req.user.account);

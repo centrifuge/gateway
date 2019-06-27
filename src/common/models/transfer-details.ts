@@ -1,19 +1,6 @@
-export interface ITransferDetailsRequest {
-  amount?: string;
-  currency?: string;
-  data?: string;
-  recipient_id?: string;
-  scheduled_date?: string;
-  sender_id?: string;
-  settlement_date?: string;
-  settlement_reference?: string;
-  status?: string;
-  transfer_id?: string;
-  transfer_type?: string;
-}
+import {TransferdetailsTransferDetailData} from "../../../clients/centrifuge-node";
 
-
-export class TransferDetailsRequest implements ITransferDetailsRequest {
+export class TransferDetailsRequest implements TransferdetailsTransferDetailData {
   public amount: string;
   public currency: string;
   public sender_id?: string;
