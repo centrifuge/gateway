@@ -24,7 +24,7 @@ export class TransferDetailsController {
   /**
    * Creates a transfer detail from a TransferDetailRequest
    * @async
-   * @return <TransactionDetailResponse>} result
+   * @return <UserapiTransferDetailResponse>} result
    */
   async create(@Body() transferDetailsRequest: TransferDetailsRequest, @Request() req) {
     const details: UserapiCreateTransferDetailRequest = {
@@ -66,7 +66,7 @@ export class TransferDetailsController {
   /**
    * Updates a transfer detail from an UpdateTransferDetailRequest
    * @async
-   * @return <TransactionDetailResponse>} result
+   * @return <UserapiTransferDetailResponse>} result
    */
   async update(@Body() updateRequest: TransferDetailsRequest, @Request() req) {
     const details: UserapiUpdateTransferDetailRequest = {
