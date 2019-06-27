@@ -60,7 +60,7 @@ export class WebhooksController {
             invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
           }
           if (invoice.attributes.transfer_details) {
-            const transferList: UserapiTransferDetailListResponse = await this.centrifugeService.documents.getTransfer(invoice.header.document_id, user.account);
+            const transferList: UserapiTransferDetailListResponse = await this.centrifugeService.transfer.listTransferDetails(invoice.header.document_id, user.account);
             invoice.transferDetail = (transferList.data ? transferList.data.shift() : undefined);
           }
           // We need to delete the attributes prop because nedb does not allow for . in field names

@@ -3,7 +3,7 @@ import {
   InvInvoiceData,
   InvInvoiceResponse,
   PoPurchaseOrderResponse,
-  TransferdetailsTransferDetailData,
+  TransferdetailsData,
 } from '../../clients/centrifuge-node';
 import { Invoice } from './models/invoice';
 
@@ -22,7 +22,7 @@ export interface InvoiceResponse extends InvInvoiceResponse {
   createdAt?: Date,
   updatedAt?: Date
   fundingAgreement?: FundingAgreementResponse | null
-  transferDetail?: TransferdetailsTransferDetailData | null
+  transferDetail?: TransferdetailsData | null
 }
 
 export interface FundingAgreementResponse extends FunFundingResponseData {

@@ -1,6 +1,6 @@
-import {TransferdetailsTransferDetailData} from "../../../clients/centrifuge-node";
+import { TransferdetailsData } from "../../../clients/centrifuge-node";
 
-export class TransferDetailsRequest implements TransferdetailsTransferDetailData {
+export class TransferDetailsRequest implements TransferdetailsData {
   public amount: string;
   public currency: string;
   public sender_id?: string;
