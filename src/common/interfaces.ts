@@ -3,7 +3,7 @@ import {
   InvInvoiceData,
   InvInvoiceResponse,
   PoPurchaseOrderResponse,
-  TransferdetailsData,
+  TransferdetailsData, UserapiTransferDetailResponse,
 } from '../../clients/centrifuge-node';
 import { Invoice } from './models/invoice';
 

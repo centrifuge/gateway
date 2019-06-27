@@ -61,7 +61,7 @@ export class WebhooksController {
           }
           if (invoice.attributes.transfer_details) {
             const transferList: UserapiTransferDetailListResponse = await this.centrifugeService.transfer.listTransferDetails(invoice.header.document_id, user.account);
-            invoice.transferDetails = (transferList.data ? transferList.data : undefined);
+            invoice.transferDetails = (transferList ? transferList.data : undefined);
           }
           // We need to delete the attributes prop because nedb does not allow for . in field names
           delete invoice.attributes;

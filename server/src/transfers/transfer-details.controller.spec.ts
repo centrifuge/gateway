@@ -37,7 +37,7 @@ import {TransferDetailsController} from "./transfer-details.controller";
 //
 //
 //     const databaseService = transferModule.get<DatabaseService>(DatabaseService);
-//     // const centrifugeService = transferModule.get<CentrifugeService>(centrifugeServiceProvider)
+//     const centrifugeService = transferModule.get<CentrifugeService>(centrifugeServiceProvider)
 //
 //     insertedInvoice = await databaseService.invoices.insert({
 //       header: {
