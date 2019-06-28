@@ -1,11 +1,16 @@
-import {Test, TestingModule} from "@nestjs/testing";
-import {databaseServiceProvider} from "../database/database.providers";
-import {DatabaseService} from "../database/database.service";
-import {Invoice} from "../../../src/common/models/invoice";
-import {SessionGuard} from "../auth/SessionGuard";
-import {CentrifugeService, MockCentrifugeService} from "../centrifuge-client/centrifuge.service";
-import {TransferDetailsController} from "./transfer-details.controller";
-import {FundingController} from "../funding/funding.controller";
+import {
+  Test,
+  TestingModule
+} from "@nestjs/testing";
+import { databaseServiceProvider } from "../database/database.providers";
+import { DatabaseService } from "../database/database.service";
+import { Invoice } from "../../../src/common/models/invoice";
+import { SessionGuard } from "../auth/SessionGuard";
+import {
+  CentrifugeService,
+  MockCentrifugeService
+} from "../centrifuge-client/centrifuge.service";
+import { TransferDetailsController } from "./transfer-details.controller";
 
 describe('Transfer controller', () => {
 
@@ -38,9 +43,7 @@ describe('Transfer controller', () => {
     })
     .compile();
 
-
     const databaseService = transferModule.get<DatabaseService>(DatabaseService);
-    // const centrifugeService = transferModule.get<CentrifugeService>(MockCentrifugeService);
 
     insertedInvoice = await databaseService.invoices.insert({
       header: {
