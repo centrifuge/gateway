@@ -79,7 +79,7 @@ export class TransferDetailsController {
         req.user.account,
         details,
         updateRequest.document_id,
-        details.transfer_id,
+        updateRequest.transfer_id,
     )
 
     return await this.updateDbOnJobCompletion(transferDetailsResponse, req)
@@ -88,14 +88,15 @@ export class TransferDetailsController {
   async updateDbOnJobCompletion (transferDetailsResponse: UserapiTransferDetailResponse, req) {
     await this.centrifugeService.pullForJobComplete(transferDetailsResponse.header.job_id, req.user.account);
     const invoiceWithTransferDetails = await this.centrifugeService.invoices.get(req.document_id, req.user.account);
-    const transferDetails = await this.centrifugeService.transfer.listTransferDetails(req.user.account, req.document_id)
+    const transferList = await this.centrifugeService.transfer.listTransferDetails(req.user.account, req.document_id)
     // Update the document in the database
     await this.databaseService.invoices.update(
         { 'header.document_id': transferDetailsResponse.header.document_id, 'ownerId': req.user._id },
         {
-          ...invoiceWithTransferDetails,
-          ownerId: req.user._id,
-          transferDetails: transferDetails.data
+          $set: {
+            header: invoiceWithTransferDetails.header,
+            transferDetail: transferList.data,
+          },
         },
     );
     return transferDetailsResponse;

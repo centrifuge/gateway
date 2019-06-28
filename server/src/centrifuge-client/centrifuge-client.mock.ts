@@ -79,6 +79,17 @@ export class MockCentrifugeService {
         resolve(result);
       });
     }),
+    listTransferDetails: jest.fn((document_id, payload) => {
+      return new Promise((resolve, reject) => {
+        const result = {
+          header: {
+            job_id: 'some_job_id',
+          },
+          ...payload,
+        };
+        resolve(result);
+      });
+    }),
   }
   pullForJobComplete = () => true;
 }
