@@ -96,7 +96,7 @@ export class TransferDetailsController {
         {
           ...invoiceWithTransferDetails,
           ownerId: req.user._id,
-          transferDetails : { $push: { transferDetails: transferDetailsResponse.data } },
+          transferDetails: { $push: { transferDetails: transferDetailsResponse.data } },
         })
     return transferDetailsResponse;
   }
