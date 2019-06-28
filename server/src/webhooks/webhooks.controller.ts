@@ -37,61 +37,56 @@ export class WebhooksController {
    */
   @Post()
   async receiveMessage(@Body() notification: NotificationNotificationMessage) {
-    if (notification.event_type === eventTypes.DOCUMENT) {
-      // Search for the user in the database
-      const user = await this.databaseService.users.findOne({ account: notification.to_id });
-      if (!user) {
-        return 'User is not present in database';
-      }
-      if (notification.document_type === documentTypes.invoice) {
-        const result = await this.centrifugeService.invoices.get(
-          notification.document_id,
-          user.account,
-        );
+    try {
+      if (notification.event_type === eventTypes.DOCUMENT) {
+        // Search for the user in the database
+        const user = await this.databaseService.users.findOne({account: notification.to_id});
+        if (!user) {
+          return 'User is not present in database';
+        }
+        if (notification.document_type === documentTypes.invoice) {
+          const result = await this.centrifugeService.invoices.get(
+              notification.document_id,
+              user.account,
+          );
 
-        const invoice: InvoiceResponse = {
-          ...result,
-          ownerId: user._id,
-        };
+          const invoice: InvoiceResponse = {
+            ...result,
+            ownerId: user._id,
+          };
 
-        if (invoice.attributes) {
-          if (invoice.attributes.funding_agreement) {
-            try {
+          if (invoice.attributes) {
+            if (invoice.attributes.funding_agreement) {
               const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(invoice.header.document_id, user.account);
               invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
-            } catch(err) {
-              throw err
             }
-          }
-          if (invoice.attributes.transfer_details) {
-            try {
+            if (invoice.attributes.transfer_details) {
               const transferList: UserapiTransferDetailListResponse = await this.centrifugeService.transfer.listTransferDetails(user.account, invoice.header.document_id);
               invoice.transferDetails = (transferList ? transferList.data : undefined);
-            } catch(err) {
-              throw err
             }
+
+            // We need to delete the attributes prop because nedb does not allow for . in field names
+            delete invoice.attributes;
           }
 
-          // We need to delete the attributes prop because nedb does not allow for . in field names
-          delete invoice.attributes;
+          await this.databaseService.invoices.update(
+              {'header.document_id': notification.document_id, 'ownerId': user._id},
+              invoice,
+              {upsert: true},
+          );
+
+        } else if (notification.document_type === documentTypes.purchaseOrder) {
+          const result = await this.centrifugeService.purchaseOrders.get(
+              notification.document_id,
+              user.account,
+          );
+          await this.databaseService.purchaseOrders.insert(result);
+          // TODO this should be similar to invoices. We do not care for now.
         }
-
-        await this.databaseService.invoices.update(
-          { 'header.document_id': notification.document_id, 'ownerId': user._id },
-          invoice,
-          { upsert: true },
-        );
-
-      } else if (notification.document_type === documentTypes.purchaseOrder) {
-        const result = await this.centrifugeService.purchaseOrders.get(
-          notification.document_id,
-          user.account,
-        );
-        await this.databaseService.purchaseOrders.insert(result);
-        // TODO this should be similar to invoices. We do not care for now.
       }
+    } catch (e) {
+      throw new Error('Webhook Error')
     }
-
     return 'OK';
   }
 }
