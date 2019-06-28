@@ -56,13 +56,22 @@ export class WebhooksController {
 
         if (invoice.attributes) {
           if (invoice.attributes.funding_agreement) {
-            const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(invoice.header.document_id, user.account);
-            invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
+            try {
+              const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(invoice.header.document_id, user.account);
+              invoice.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
+            } catch(err) {
+              throw err
+            }
           }
           if (invoice.attributes.transfer_details) {
-            const transferList: UserapiTransferDetailListResponse = await this.centrifugeService.transfer.listTransferDetails(invoice.header.document_id, user.account);
-            invoice.transferDetails = (transferList ? transferList.data : undefined);
+            try {
+              const transferList: UserapiTransferDetailListResponse = await this.centrifugeService.transfer.listTransferDetails(user.account, invoice.header.document_id);
+              invoice.transferDetails = (transferList ? transferList.data : undefined);
+            } catch(err) {
+              throw err
+            }
           }
+
           // We need to delete the attributes prop because nedb does not allow for . in field names
           delete invoice.attributes;
         }
