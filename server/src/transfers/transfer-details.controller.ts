@@ -95,7 +95,7 @@ export class TransferDetailsController {
         {
           $set: {
             header: invoiceWithTransferDetails.header,
-            transferDetail: transferList.data,
+            transferDetails: transferList.data,
           },
         },
     );
