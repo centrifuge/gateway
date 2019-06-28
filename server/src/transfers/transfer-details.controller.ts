@@ -46,7 +46,7 @@ export class TransferDetailsController {
     const transferDetailsResponse: UserapiTransferDetailResponse = await this.centrifugeService.transfer.createTransferDetail(
         req.user.account,
         details,
-        details.document_id
+        transferDetailsRequest.document_id
     )
 
     return await this.updateDbOnJobCompletion(transferDetailsResponse, req)
@@ -78,7 +78,7 @@ export class TransferDetailsController {
     const transferDetailsResponse: UserapiTransferDetailResponse = await this.centrifugeService.transfer.updateTransferDetail(
         req.user.account,
         details,
-        details.document_id,
+        updateRequest.document_id,
         details.transfer_id,
     )
 
