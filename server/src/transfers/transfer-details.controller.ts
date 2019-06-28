@@ -60,7 +60,7 @@ export class TransferDetailsController {
    */
   async update(@Body() updateRequest: TransferDetailsRequest, @Request() req) {
     const details: UserapiUpdateTransferDetailRequest = {
-      document_id: req.document_id,
+      document_id: updateRequest.document_id,
       data: {
         transfer_id: updateRequest.transfer_id,
         sender_id: updateRequest.sender_id,
