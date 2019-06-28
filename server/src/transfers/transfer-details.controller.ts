@@ -94,10 +94,14 @@ export class TransferDetailsController {
     await this.databaseService.invoices.update(
         { 'header.document_id': transferDetailsResponse.header.document_id, 'ownerId': req.user._id },
         {
-          ...invoiceWithTransferDetails,
-          ownerId: req.user._id,
-          $push: { transferDetails: [transferDetailsResponse.data]  },
-        })
+          $set: {
+            header: invoiceWithTransferDetails.header,
+          },
+          $push: {
+            transferDetail: transferDetailsResponse.data,
+          },
+        },
+    );
     return transferDetailsResponse;
   }
 }

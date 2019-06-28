@@ -80,6 +80,6 @@ export class DatabaseRepository<T> {
 
 interface Modifier<T> {
   $set?: Partial<T>;
-  $push?: Partial<T>;
+  $push?: any;
   $pop?: Partial<T>
 };
