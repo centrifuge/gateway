@@ -47,7 +47,6 @@ describe('FundingAgreementView', () => {
       },
     ];
     const bodyShallow = renderer.create(
-      // TODO Test fails when using Axis Theme. Investigate!!!
       <AxisTheme>
         <BrowserRouter>
           <DynamicParamFundingAgreementView

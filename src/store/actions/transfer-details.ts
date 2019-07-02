@@ -11,8 +11,6 @@ function action(type, payload = {}) {
   return { type, ...payload };
 }
 
-// TODO add Type for TransferDetails on payload
-
 export const createTransferDetails = (payload: TransferDetailsRequest) =>
   action(createTransferDetailsAction.start, { payload });
 export const resetCreateTransferDetails = () =>

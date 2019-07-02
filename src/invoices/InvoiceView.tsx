@@ -153,7 +153,6 @@ export class InvoiceView extends React.Component<ConnectedInvoiceViewProps> {
       status: 'opened',
     } : {};
 
-    // TODO make currency and due_date mandatory in invoice
     //@ts-ignore
     fundingRequest.invoice_id = _id;
     //@ts-ignore

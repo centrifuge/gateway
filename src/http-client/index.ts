@@ -39,7 +39,6 @@ export const httpClient = {
     create: async (fundingRequest: FundingRequest) => instance.post(ROUTES.FUNDING.base, fundingRequest),
     sign: async (fundingRequest: FundingRequest) => instance.post(ROUTES.FUNDING.sign, fundingRequest),
   },
-  // TODO add transfer details Type
   transferDetails: {
     create: async (transferDetails: TransferDetailsRequest) => instance.post(ROUTES.TRANSFER_DETAILS, transferDetails),
     update: async (transferDetails: TransferDetailsRequest) => instance.put(`${ROUTES.TRANSFER_DETAILS}`, transferDetails),
