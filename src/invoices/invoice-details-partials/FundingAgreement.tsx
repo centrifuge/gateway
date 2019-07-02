@@ -8,6 +8,7 @@ import { FundingAgreementResponse } from '../../common/interfaces';
 
 interface FundingAgreementProps {
   fundingAgreement: FundingAgreementResponse;
+  fundingStatus: string,
   columnGap: string;
 };
 
@@ -16,7 +17,8 @@ export class FundingAgreement extends React.Component<FundingAgreementProps> {
 
   render() {
     const {
-      fundingAgreement: { funding, signatures, nftOwner },
+      fundingAgreement: { funding, nftOwner },
+      fundingStatus,
       columnGap,
     } = this.props;
     return (
@@ -46,7 +48,7 @@ export class FundingAgreement extends React.Component<FundingAgreementProps> {
             <Box basis={'1/4'}>
               <DisplayField
                 label="Funding status"
-                value={signatures ? 'Accepted' : 'Pending'}
+                value={fundingStatus}
               />
             </Box>
           </Box>
