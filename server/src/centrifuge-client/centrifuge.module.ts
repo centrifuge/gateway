@@ -11,9 +11,9 @@ function checkNodeEnvironment(){
     }
     case 'functional': {
       config.centrifugeUrl = 'http://127.0.0.1:8084'
-      return CentrifugeService
+      return new CentrifugeService()
     }
-    return CentrifugeService
+    return new CentrifugeService()
   }
 }
 
