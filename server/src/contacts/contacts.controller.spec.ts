@@ -5,7 +5,7 @@ import { Contact } from '../../../src/common/models/contact';
 import { SessionGuard } from '../auth/SessionGuard';
 import { databaseServiceProvider } from '../database/database.providers';
 import { DatabaseService } from '../database/database.service';
-import {centrifugeServiceProvider} from "../centrifuge-client/centrifuge.module";
+import { centrifugeServiceProvider } from "../centrifuge-client/centrifuge.module";
 const delay = require('util').promisify(setTimeout);
 
 describe('ContactsController', () => {

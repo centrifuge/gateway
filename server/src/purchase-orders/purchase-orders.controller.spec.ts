@@ -64,7 +64,6 @@ describe('PurchaseOrdersController', () => {
   describe('create', () => {
     it('should return the created purchase order', async () => {
       const purchaseOrdersController = purchaseOrdersModule.get<PurchaseOrdersController>(PurchaseOrdersController);
-
       const result = await purchaseOrdersController.create(
         { user: { _id: 'user_id' } },
         purchaseOrder,
