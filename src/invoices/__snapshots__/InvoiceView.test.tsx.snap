@@ -120,64 +120,49 @@ exports[`FundingAgreementView Should render the form with proper values for cont
         className="StyledBox-sc-13pk1d4-0 IRSNj"
       >
         <div
-          className="StyledBox-sc-13pk1d4-0 hroMnY"
+          className="StyledBox-sc-13pk1d4-0 IRSNj"
         >
           <div
-            className="StyledBox-sc-13pk1d4-0 ffeAql"
-          />
-          <div
-            aria-hidden={false}
-            className="Collapsible__AnimatedBox-sc-15kniua-0 dMYckW StyledBox-sc-13pk1d4-0 IRSNj"
-            open={true}
+            className="StyledBox-sc-13pk1d4-0 IRSNj"
           >
             <div
-              className="StyledBox-sc-13pk1d4-0 IRSNj"
+              className="sc-bdVaJa hxlonW FormField__FormFieldBox-m9hood-0 gmAPiv StyledBox-sc-13pk1d4-0 hehMJe"
             >
-              <div
-                className="sc-bdVaJa hxlonW FormField__FormFieldBox-m9hood-0 gmAPiv StyledBox-sc-13pk1d4-0 hehMJe"
+              <label
+                className="StyledText-sc-1sadyjn-0 gtjeKK"
               >
-                <label
-                  className="StyledText-sc-1sadyjn-0 gtjeKK"
-                >
-                  Invoice number
-                </label>
+                Invoice number
+              </label>
+              <div
+                className="StyledBox-sc-13pk1d4-0 exlMvl"
+              >
                 <div
-                  className="StyledBox-sc-13pk1d4-0 exlMvl"
+                  className="StyledBox-sc-13pk1d4-0 ffeAql"
+                  onBlur={[Function]}
+                  onFocus={[Function]}
                 >
-                  <div
-                    className="StyledBox-sc-13pk1d4-0 ffeAql"
-                    onBlur={[Function]}
-                    onFocus={[Function]}
-                  >
-                    <p
-                      className="StyledParagraph-tbetod-0 dBXmID"
-                    />
-                  </div>
+                  <p
+                    className="StyledParagraph-tbetod-0 dBXmID"
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div
-          className="StyledBox__StyledBoxGap-sc-13pk1d4-1 jlbBeA"
-        />
-        <div
-          className="StyledBox-sc-13pk1d4-0 fXeVhx"
-        />
-        <div
-          className="StyledBox__StyledBoxGap-sc-13pk1d4-1 jlbBeA"
+          className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
         />
         <div
           className="StyledBox-sc-13pk1d4-0 ffeAql"
         >
           <div
-            className="StyledBox-sc-13pk1d4-0 hPmqKA"
+            className="StyledBox-sc-13pk1d4-0 clLqce"
           >
             <div
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 gVzBCh"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -409,13 +394,13 @@ exports[`FundingAgreementView Should render the form with proper values for cont
             className="StyledBox__StyledBoxGap-sc-13pk1d4-1 hyyRSo"
           />
           <div
-            className="StyledBox-sc-13pk1d4-0 gJRPKi"
+            className="StyledBox-sc-13pk1d4-0 clLqce"
           >
             <div
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 gVzBCh"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -618,19 +603,19 @@ exports[`FundingAgreementView Should render the form with proper values for cont
           </div>
         </div>
         <div
-          className="StyledBox__StyledBoxGap-sc-13pk1d4-1 jlbBeA"
+          className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
         />
         <div
           className="StyledBox-sc-13pk1d4-0 IRSNj"
         >
           <div
-            className="StyledBox-sc-13pk1d4-0 hroMnY"
+            className="StyledBox-sc-13pk1d4-0 IRSNj"
           >
             <div
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 gVzBCh"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",
@@ -904,19 +889,19 @@ exports[`FundingAgreementView Should render the form with proper values for cont
           </div>
         </div>
         <div
-          className="StyledBox__StyledBoxGap-sc-13pk1d4-1 jlbBeA"
+          className="StyledBox__StyledBoxGap-sc-13pk1d4-1 irlfVP"
         />
         <div
           className="StyledBox-sc-13pk1d4-0 ffeAql"
         >
           <div
-            className="StyledBox-sc-13pk1d4-0 jywknh"
+            className="StyledBox-sc-13pk1d4-0 clLqce"
           >
             <div
               className="StyledBox-sc-13pk1d4-0 ffeAql"
             >
               <h5
-                className="StyledHeading-sc-1rdh4aw-0 gVzBCh"
+                className="StyledHeading-sc-1rdh4aw-0 jwWtQy"
                 style={
                   Object {
                     "minWidth": "100px",

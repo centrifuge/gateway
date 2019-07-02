@@ -53,7 +53,7 @@ export default class TransferDetailsForm extends React.Component<TransferDetails
         .required('This field is required'),
       amount: Yup.number()
         .required('This field is required')
-        .min(0.01, 'Amount can not be 0'),
+        .min(0.01, 'Amount cannot be 0'),
 
 
     });
