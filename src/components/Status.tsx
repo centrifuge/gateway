@@ -1,5 +1,4 @@
 import React from 'react';
-import { withTheme } from 'styled-components';
 import { Text } from 'grommet';
 import { STATUS } from '../common/status';
 
