@@ -6,9 +6,7 @@ import { databaseServiceProvider } from "../database/database.providers";
 import { DatabaseService } from "../database/database.service";
 import { Invoice } from "../../../src/common/models/invoice";
 import { SessionGuard } from "../auth/SessionGuard";
-import { CentrifugeService } from "../centrifuge-client/centrifuge.service";
 import { TransferDetailsController } from "./transfer-details.controller";
-import { MockCentrifugeService } from "../centrifuge-client/centrifuge-client.mock";
 import { centrifugeServiceProvider } from "../centrifuge-client/centrifuge.module";
 
 describe('Transfer controller', () => {
