@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CentrifugeService } from './centrifuge.service';
 import { MockCentrifugeService } from "./centrifuge-client.mock";
+import config from "../../../src/common/config";
 
 function checkNodeEnvironment(){
   switch(process.env.NODE_ENV) {
@@ -9,7 +10,8 @@ function checkNodeEnvironment(){
       return mockCentrifugeService
     }
     case 'functional': {
-      // return srv of local Centrifuge node
+      config.centrifugeUrl = 'http://127.0.0.1:8084'
+      return CentrifugeService
     }
     return CentrifugeService
   }
