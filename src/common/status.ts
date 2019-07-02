@@ -37,5 +37,5 @@ export const getInvoiceFundingStatus = (invoice: InvoiceResponse) => {
 
   return STATUS.NO_STATUS;
 
-
 };
+

@@ -24,7 +24,7 @@ export class TransferDetail extends React.Component<TransferDetailProps> {
 
     return (
       <>
-        {transfer && <Section headingLevel="5" background={'light-1'} title={title}>
+        {transfer && <Section headingLevel="5" title={title}>
           <Box gap={columnGap}>
             <Box direction="row" gap={columnGap} flex="grow">
               <Box basis={'1/2'}>

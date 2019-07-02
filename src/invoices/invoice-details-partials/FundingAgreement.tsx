@@ -4,6 +4,7 @@ import { DisplayField } from '../../components/DisplayField';
 import { Section } from '../../components/Section';
 import { extractDate, formatCurrency, formatPercent } from '../../common/formaters';
 import { FundingAgreementResponse } from '../../common/interfaces';
+import { Status } from '../../components/Status';
 
 
 interface FundingAgreementProps {
@@ -48,7 +49,7 @@ export class FundingAgreement extends React.Component<FundingAgreementProps> {
             <Box basis={'1/4'}>
               <DisplayField
                 label="Funding status"
-                value={fundingStatus}
+                value={<Status value={fundingStatus}/>}
               />
             </Box>
           </Box>

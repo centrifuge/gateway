@@ -9,6 +9,7 @@ import { formatCurrency, formatDate } from '../common/formaters';
 import { Preloader } from '../components/Preloader';
 import { InvInvoiceData } from '../../clients/centrifuge-node';
 import { getInvoiceFundingStatus } from '../common/status';
+import { Status } from '../components/Status';
 
 
 type ViewInvoicesProps = {
@@ -105,7 +106,7 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
                 property: 'fundingAgreement',
                 header: 'Funding status',
                 render: datum => {
-                  return getInvoiceFundingStatus(datum);
+                  return <Status value={getInvoiceFundingStatus(datum)}/>;
                 },
               },
 
