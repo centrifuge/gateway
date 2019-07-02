@@ -74,11 +74,6 @@ describe('FundingAgreementView', () => {
         payee: '0x11112',
         currency: 'USD',
       }
-
-      fundingAgreement: {
-
-      }
-      transferDetails
     };
     const contacts = [
       {
