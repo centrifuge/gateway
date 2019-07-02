@@ -6,8 +6,7 @@ import config from "../../../src/common/config";
 function checkNodeEnvironment(){
   switch(process.env.NODE_ENV) {
     case 'test': {
-      const mockCentrifugeService = new MockCentrifugeService()
-      return mockCentrifugeService
+      return new MockCentrifugeService()
     }
     case 'functional': {
       config.centrifugeUrl = 'http://127.0.0.1:8084'
