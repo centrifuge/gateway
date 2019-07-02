@@ -9,7 +9,6 @@ import { DatabaseService } from './database.service';
 
 // TODO refactor this in mutiple providers,services
 
-
 /**
  * Initialize the database and the separate collections.
  */
@@ -73,4 +72,3 @@ export const databaseServiceProvider = {
     return initializeDatabasePromise;
   },
 };
-

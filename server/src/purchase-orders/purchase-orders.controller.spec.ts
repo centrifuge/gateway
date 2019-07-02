@@ -5,11 +5,12 @@ import { databaseServiceProvider } from '../database/database.providers';
 import { PurchaseOrder } from '../../../src/common/models/purchase-order';
 import config from '../../../src/common/config';
 import { DatabaseService } from '../database/database.service';
-import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
-import {MockCentrifugeService} from "../centrifuge-client/centrifuge-client.mock";
+import { centrifugeServiceProvider } from "../centrifuge-client/centrifuge.module";
+import { CentrifugeService } from "../centrifuge-client/centrifuge.service";
 
 describe('PurchaseOrdersController', () => {
   let centrifugeId;
+  const poSpies: any = {};
 
   beforeAll(() => {
     centrifugeId = config.admin.account;
@@ -52,12 +53,6 @@ describe('PurchaseOrdersController', () => {
 
   const databaseServiceMock = new DatabaseServiceMock();
 
-  const mockCentrifugeService = new MockCentrifugeService()
-  const centrifugeServiceProvider = {
-    provide: CentrifugeService,
-    useValue: mockCentrifugeService
-  }
-
   beforeEach(async () => {
     purchaseOrdersModule = await Test.createTestingModule({
       controllers: [PurchaseOrdersController],
@@ -71,9 +66,13 @@ describe('PurchaseOrdersController', () => {
       .useValue(databaseServiceMock)
       .compile();
 
+    const centrifugeService = purchaseOrdersModule.get<CentrifugeService>(CentrifugeService);
+    poSpies.spyUpdate = jest.spyOn(centrifugeService.purchaseOrders, 'update');
+
     databaseServiceMock.purchaseOrders.insert.mockClear();
     databaseServiceMock.purchaseOrders.find.mockClear();
   });
+
 
   describe('create', () => {
     it('should return the created purchase order', async () => {
@@ -124,7 +123,7 @@ describe('PurchaseOrdersController', () => {
         _id: 'id_to_update',
         ownerId: 'user_id',
       });
-      expect(mockCentrifugeService.purchaseOrders.update).toHaveBeenCalledWith(
+      expect(poSpies.spyUpdate).toHaveBeenCalledWith(
         'find_one_document_id',
         {
           data: {

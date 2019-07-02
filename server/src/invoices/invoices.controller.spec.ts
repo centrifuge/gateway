@@ -7,10 +7,11 @@ import { DatabaseService } from '../database/database.service';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import config from '../../../src/common/config';
 import { Invoice } from '../../../src/common/models/invoice';
-import {MockCentrifugeService} from "../centrifuge-client/centrifuge-client.mock";
+import { centrifugeServiceProvider } from "../centrifuge-client/centrifuge.module";
 
 describe('InvoicesController', () => {
   let centrifugeId;
+  let invoiceSpies: any = {};
 
   beforeAll(() => {
     centrifugeId = config.admin.account;
@@ -33,11 +34,6 @@ describe('InvoicesController', () => {
   };
   let insertedInvoice: any = {};
   const databaseSpies: any = {};
-  const mockCentrifugeService = new MockCentrifugeService()
-  const centrifugeServiceProvider = {
-    provide: CentrifugeService,
-    useValue: mockCentrifugeService
-  }
 
   beforeEach(async () => {
     invoicesModule = await Test.createTestingModule({
@@ -50,7 +46,6 @@ describe('InvoicesController', () => {
     })
       .compile();
 
-
     const databaseService = invoicesModule.get<DatabaseService>(DatabaseService);
     insertedInvoice = await databaseService.invoices.insert({
       header: {
@@ -59,6 +54,7 @@ describe('InvoicesController', () => {
       data: { ...invoice },
       ownerId: 'user_id',
     });
+    const centrifugeService = invoicesModule.get<CentrifugeService>(CentrifugeService);
 
     databaseSpies.spyInsert = jest.spyOn(databaseService.invoices, 'insert');
     databaseSpies.spyUpdate = jest.spyOn(databaseService.invoices, 'update');
@@ -67,6 +63,7 @@ describe('InvoicesController', () => {
     databaseSpies.spyGetCursor = jest.spyOn(databaseService.invoices, 'getCursor');
     databaseSpies.spyUpdateById = jest.spyOn(databaseService.invoices, 'updateById');
 
+    invoiceSpies.spyUpdate = jest.spyOn(centrifugeService.invoices, 'update');
   });
 
   describe('create', () => {
@@ -133,7 +130,7 @@ describe('InvoicesController', () => {
         _id: insertedInvoice._id,
         ownerId: 'user_id',
       });
-      expect(mockCentrifugeService.invoices.update).toHaveBeenCalledWith(
+      expect(invoiceSpies.spyUpdate).toHaveBeenCalledWith(
         '0x39393939',
         {
           data: { ...updatedInvoice },
