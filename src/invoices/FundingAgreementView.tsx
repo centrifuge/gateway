@@ -4,7 +4,7 @@ import { Box, Button, Heading } from 'grommet';
 import { InvoiceResponse, LabelValuePair } from '../common/interfaces';
 import { connect } from 'react-redux';
 import { RequestState } from '../store/reducers/http-request-reducer';
-import { FunFundingResponse } from '../../clients/centrifuge-node';
+import { CoreapiTransferNFTResponse, FunFundingResponse } from '../../clients/centrifuge-node';
 import { getInvoiceById, resetGetInvoiceById } from '../store/actions/invoices';
 import { getContacts, resetGetContacts } from '../store/actions/contacts';
 import { RouteComponentProps, withRouter } from 'react-router';
@@ -33,7 +33,7 @@ type ConnectedFundingAgreementViewProps = {
   contacts?: LabelValuePair[];
   signingFunding: RequestState<FunFundingResponse>;
   creatingTransferDetails: RequestState<TransferDetailsRequest>;
-  settlingFunding : RequestState<any>;
+  settlingFunding : RequestState<CoreapiTransferNFTResponse>;
 } & RouteComponentProps<{ id?: string }>;
 
 export class FundingAgreementView extends React.Component<ConnectedFundingAgreementViewProps> {
