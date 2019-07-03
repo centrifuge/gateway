@@ -54,9 +54,9 @@ export class InvoiceDetails extends React.Component<ConnectedInvoiceDetailsProps
           {fundingAgreement &&
           <FundingAgreement fundingStatus={fundingStatus} fundingAgreement={fundingAgreement} columnGap={columnGap}/>}
           {fundingTransfer &&
-          <TransferDetail transfer={fundingTransfer} title={'Funding transfer'} columnGap={columnGap}/>}
+          <TransferDetail transfer={fundingTransfer} title={'Funding Transfer'} columnGap={columnGap}/>}
           {repaymentTransfer &&
-          <TransferDetail transfer={repaymentTransfer} title={'Repayment transfer'} columnGap={columnGap}/>}
+          <TransferDetail transfer={repaymentTransfer} title={'Repayment Transfer'} columnGap={columnGap}/>}
 
           {/*Sender and Recipient */}
           <Box direction="row" gap={columnGap}>
