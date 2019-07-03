@@ -8,6 +8,7 @@ exports[`Header Should render an empty header 1`] = `
       "minHeight": "90px",
       "position": "sticky",
       "top": 0,
+      "zIndex": 1,
     }
   }
 >
@@ -49,6 +50,7 @@ exports[`Header Should render the Header 1`] = `
       "minHeight": "90px",
       "position": "sticky",
       "top": 0,
+      "zIndex": 1,
     }
   }
 >
