@@ -41,7 +41,7 @@ export const httpClient = {
     settle: async (fundingRequest: FundingRequest) => instance.post(ROUTES.FUNDING.settle, fundingRequest),
   },
   transferDetails: {
-    create: async (transferDetails: TransferDetailsRequest) => instance.post(ROUTES.TRANSFER_DETAILS.base, transferDetails),
-    update: async (transferDetails: TransferDetailsRequest) => instance.put(`${ROUTES.TRANSFER_DETAILS.base}`, transferDetails),
+    create: async (transferDetails: TransferDetailsRequest) => instance.post(ROUTES.TRANSFER_DETAILS, transferDetails),
+    update: async (transferDetails: TransferDetailsRequest) => instance.put(`${ROUTES.TRANSFER_DETAILS}`, transferDetails),
   }
 };
