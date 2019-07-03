@@ -5,7 +5,7 @@ import { SessionGuard } from '../auth/SessionGuard';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import { DatabaseService } from '../database/database.service';
 import { Invoice } from '../../../src/common/models/invoice';
-import {MockCentrifugeService} from "../centrifuge-client/centrifuge-client.mock";
+import { MockCentrifugeService } from '../centrifuge-client/centrifuge-client.mock';
 
 
 describe('Funding controller', () => {
@@ -21,11 +21,11 @@ describe('Funding controller', () => {
   };
   let insertedInvoice: any = {};
 
-  const mockCentrifugeService = new MockCentrifugeService()
+  const mockCentrifugeService = new MockCentrifugeService();
   const centrifugeServiceProvider = {
     provide: CentrifugeService,
-    useValue: mockCentrifugeService
-  }
+    useValue: mockCentrifugeService,
+  };
 
   // TODO Mocking/Reimplementing all nedb moethods is error prone
   // Considering that nedb is local we can run it in the test with a different config
@@ -67,7 +67,7 @@ describe('Funding controller', () => {
         funder: 'funder',
         agreement_id: 'agreement_id',
         amount: 0,
-        invoice_amount:0,
+        invoice_amount: 0,
         days: 0,
         apr: 5,
         fee: 0,
@@ -138,6 +138,35 @@ describe('Funding controller', () => {
           },
           signatures: ['signature_data_1'],
         },
+      });
+    });
+  });
+
+
+  describe('settle', () => {
+    it('should return nft transfer details', async () => {
+
+      const payload = {
+        document_id: '0x39393939',
+        agreement_id: 'agreement_id',
+      };
+
+      const fundingController = fundingModule.get<FundingController>(
+        FundingController,
+      );
+
+      const result = await fundingController.settle(
+        payload,
+        { user: { _id: 'user_id' } },
+      );
+      expect(result).toEqual({
+        header: {
+          job_id: 'some_job_id',
+
+        },
+        registry_address: '0xADDRESS',
+        to: '0x2222',
+        token_id: '0xNFT',
       });
     });
   });

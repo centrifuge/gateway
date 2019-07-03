@@ -20,7 +20,7 @@ import { RequestState } from '../store/reducers/http-request-reducer';
 import { Preloader } from '../components/Preloader';
 import { createTransferDetails, updateTransferDetails } from '../store/actions/transfer-details';
 import TransferDetailsForm from './TransferDetailsForm';
-import { getInvoiceFundingStatus, STATUS } from '../common/status';
+import { getInvoiceFundingStatus, FUNDING_STATUS } from '../common/status';
 import { TransferDetailsRequest } from '../common/models/transfer-details';
 import { SecondaryHeader } from '../components/SecondaryHeader';
 
@@ -174,8 +174,8 @@ export class InvoiceView extends React.Component<ConnectedInvoiceViewProps> {
       && data.date_due;
 
 
-    const canSettleFunding = fundingStatus === STATUS.SENDING_FUNDING;
-    const canRecordPayment = fundingStatus === STATUS.FUNDED;
+    const canSettleFunding = fundingStatus === FUNDING_STATUS.SENDING_FUNDING;
+    const canRecordPayment = fundingStatus === FUNDING_STATUS.FUNDED;
 
 
     return (
