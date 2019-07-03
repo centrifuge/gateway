@@ -13,7 +13,7 @@ import {
 import { SessionGuard } from '../auth/SessionGuard';
 import { ROUTES } from '../../../src/common/constants';
 import { DatabaseService } from '../database/database.service';
-import {Schema} from "../../../src/common/models/schema";
+import { Schema } from "../../../src/common/models/schema";
 
 @Controller(ROUTES.SCHEMAS)
 @UseGuards(SessionGuard)
@@ -26,13 +26,12 @@ export class SchemasController {
   /**
    * Creates a new schema in the DB
    * @async
-   * @param {Request} request - the http request
    * @param {Schema} schema - the body of the request
    * @return {Promise<Schema>} result
    */
-  async create(@Req() request, @Body() schema: Schema) {
+  async create(@Body() schema: Schema) {
     try {
-      Schema.validate(schema);
+      Schema.validateRegistryAddress(schema);
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
@@ -41,7 +40,6 @@ export class SchemasController {
         schema.name,
         schema.attributes,
         schema.registries,
-        request.user._id,
     );
     return await this.databaseService.schemas.insert(newSchema);
   }
@@ -50,11 +48,23 @@ export class SchemasController {
   /**
    * Get the list of all schemas for the authenticated user
    * @async
-   * @param {Request} request - The http request
    * @return {Promise<Schema[]>} result
    */
-  async get(@Req() request) {
+  async get() {
     return this.databaseService.schemas.find({})
+  }
+
+  @Get(':id')
+  /**
+   * Gets a specific schema from the DB
+   * @param params - the request parameters
+   * @async
+   * @return {Promise<Schema>} result
+   */
+  async getById(@Param() params) {
+    return this.databaseService.schemas.findOne({
+      _id: params.id
+    })
   }
 
   @Put(':id')
@@ -63,15 +73,12 @@ export class SchemasController {
    * @async
    * @param {any} params - the request parameters
    * @param {Schema} updateSchemaObject - the update object for the schema
-   * @param {Request} request - the http request
    * @return {Promise<Schema>} result
    */
   async updateById(
       @Param() params,
       @Body() updateSchemaObject: Schema,
-      @Req() request,
   ) {
-    // validate that the update does not update name or attributes of the schema
     return this.databaseService.schemas.update(
         { _id: params.id },
         { ...updateSchemaObject },
