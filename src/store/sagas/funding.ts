@@ -3,7 +3,6 @@ import { httpClient } from '../../http-client';
 import { createFundingAction, settleFundingAction, signFundingAction } from '../actions/funding';
 import { getInvoiceById } from '../actions/invoices';
 import { alertError } from '../actions/notifications';
-import { updateTransferDetails } from './transfer-details';
 
 
 export function* createFunding(action) {
@@ -53,7 +52,7 @@ export function* signFunding(action) {
 export function* settleFunding(action) {
   try {
     const { payload } = action;
-    const settleTransferDetail = yield call(httpClient.transferDetails.update, payload);
+    yield call(httpClient.transferDetails.update, payload);
     const response = yield call(httpClient.funding.settle, payload);
 
     yield put(getInvoiceById(payload.invoice_id));
@@ -72,8 +71,6 @@ export function* settleFunding(action) {
 
   }
 }
-
-
 
 
 export default {
