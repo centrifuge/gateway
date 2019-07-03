@@ -8,6 +8,9 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { formatCurrency, formatDate } from '../common/formaters';
 import { Preloader } from '../components/Preloader';
 import { InvInvoiceData } from '../../clients/centrifuge-node';
+import { getInvoiceFundingStatus } from '../common/status';
+import { Status } from '../components/Status';
+import { SecondaryHeader } from '../components/SecondaryHeader';
 
 
 type ViewInvoicesProps = {
@@ -39,8 +42,7 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
 
     return (
       <Box fill>
-
-        <Box justify="between" direction="row" align="center">
+        <SecondaryHeader>
           <Heading level="3">Invoices</Heading>
           <Link to={invoiceRoutes.new}>
             <Button
@@ -48,29 +50,31 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
               label="Create Invoice"
             />
           </Link>
-        </Box>
+        </SecondaryHeader>
 
-        <Box>
+        <Box pad={{horizontal:'medium'}}>
           <DataTable
-            sortable={true}
+            sortable={false}
             data={this.props.invoices}
             primaryKey={'_id'}
             columns={[
               {
                 property: 'number',
                 header: 'Invoice number',
+                render: datum => datum.data.number,
               },
 
               {
                 property: 'bill_to_company_name',
                 header: 'Customer',
+                render: datum => datum.data.bill_to_company_name,
               },
               {
                 property: 'net_amount',
                 header: 'Net amount',
                 align: 'end',
                 render: datum => {
-                  return formatCurrency(datum.net_amount, datum.currency);
+                  return formatCurrency(datum.data.net_amount, datum.data.currency);
                 },
               },
 
@@ -78,7 +82,7 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
                 property: 'date_created',
                 header: 'Date created',
                 render: datum => {
-                  return formatDate(datum.date_created);
+                  return formatDate(datum.data.date_created);
                 },
               },
 
@@ -86,7 +90,7 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
                 property: 'date_due',
                 header: 'Date due',
                 render: datum => {
-                  return formatDate(datum.date_due);
+                  return formatDate(datum.data.date_due);
                 },
               },
 
@@ -102,9 +106,7 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
                 property: 'fundingAgreement',
                 header: 'Funding status',
                 render: datum => {
-                  if (!datum.fundingAgreement) return '';
-                  return datum.fundingAgreement.signatures ? <Text color={'status-ok'}>Approved</Text> :
-                    <Text>Pending</Text>;
+                  return <Status value={getInvoiceFundingStatus(datum)}/>;
                 },
               },
 
@@ -142,15 +144,7 @@ class InvoiceList extends React.Component<ViewInvoicesProps & RouteComponentProp
 
 const mapStateToProps = (state) => {
   return {
-    invoices:
-      state.invoices.get.data &&
-      (state.invoices.get.data.map(response => ({
-        ...response.data,
-        _id: response._id,
-        fundingAgreement: response.fundingAgreement,
-        createdAt: response.createdAt,
-
-      })) as InvInvoiceData[]),
+    invoices: state.invoices.get.data || [],
     loading: state.invoices.get.loading,
     error: state.invoices.get.error,
   };

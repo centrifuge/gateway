@@ -19,6 +19,7 @@ interface HeaderProps {
   push: (route: string) => void
 }
 
+//TODO move this to componentns and make more generic
 const Header: FunctionComponent<HeaderProps> = (props) => {
 
   const { selectedRoute, menuItems, push, user } = props;
@@ -31,13 +32,17 @@ const Header: FunctionComponent<HeaderProps> = (props) => {
     align="center"
     height="xsmall"
     fill="horizontal"
-    border={{side:'bottom',color:'light-4'}}
+    // TODO move this to axis theme
+    style={{ position: 'sticky', top: 0, minHeight: '90px',zIndex:1 }}
+    background='white'
+    border={{ side: 'bottom', color: 'light-4' }}
   >
     <Box
       direction="row"
       fill="vertical"
       align="center"
       justify="between"
+      pad={{ horizontal: 'medium' }}
       gap={sectionGap}
       width='xlarge'
     >

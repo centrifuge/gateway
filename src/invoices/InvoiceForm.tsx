@@ -37,7 +37,7 @@ export default class InvoiceForm extends React.Component<InvoiceFormProps> {
     const { submitted } = this.state;
     const { invoice } = this.props;
     const columnGap = 'medium';
-    const sectionGap = 'medium';
+    const sectionGap = 'none';
 
 
     const invoiceValidation = Yup.object().shape({
@@ -64,7 +64,7 @@ export default class InvoiceForm extends React.Component<InvoiceFormProps> {
     });
 
     return (
-      <Box pad={{ bottom: 'large' }}>
+      <Box pad={{ bottom: 'xlarge' }}>
         <Formik
           validationSchema={invoiceValidation}
           initialValues={invoice}
@@ -95,20 +95,19 @@ export default class InvoiceForm extends React.Component<InvoiceFormProps> {
                 {/* Body */}
                 <Box direction="column" gap={sectionGap}>
                   {/* Invoice number section */}
-                  <Box direction="row">
-                    <Box basis={'1/4'}>
-                      <FormField
-                        label="Invoice number"
-                        error={errors!.number}
-                      >
-                        <TextInput
-                          name="number"
-                          value={values!.number}
-                          onChange={handleChange}
-                        />
-                      </FormField>
-                    </Box>
-                  </Box>
+                  <Section>
+                    <FormField
+                      label="Invoice number"
+                      error={errors!.number}
+                    >
+                      <TextInput
+                        name="number"
+                        value={values!.number}
+                        onChange={handleChange}
+                      />
+                    </FormField>
+                  </Section>
+
 
                   {/*Sender and Recipient */}
                   <Box direction="row" gap={columnGap}>
