@@ -12,17 +12,13 @@ function checkNodeEnvironment() {
       config.centrifugeUrl = 'http://127.0.0.1:8084';
       return new CentrifugeService();
     }
-    default: {
-      return new CentrifugeService();
-    }
-
-
   }
+  return new CentrifugeService();
 }
 
 export const centrifugeServiceProvider = {
   provide: CentrifugeService,
-  useFactory: checkNodeEnvironment,
+  useValue: checkNodeEnvironment(),
 };
 
 @Module({
