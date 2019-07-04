@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpException } from '@nestjs/common';
-import { Schema } from '../../../src/common/models/schema';
+import { Schema, AttrTypes } from '../../../src/common/models/schema';
 import { SessionGuard } from '../auth/SessionGuard';
 import { databaseServiceProvider } from '../database/database.providers';
 import { DatabaseService } from '../database/database.service';
@@ -14,7 +14,7 @@ describe('SchemasController', () => {
       [
         {
           label: 'wingspans',
-          type: 'string',
+          type: AttrTypes.STRING,
         }
       ]
       ,
@@ -82,7 +82,7 @@ describe('SchemasController', () => {
             }
           ]} as Schema);
       } catch (err) {
-        expect(err.message).toEqual('Registry address 0x111 must be a valid hex string');
+        expect(err.message).toEqual('0x111 is not a valid registry address');
         expect(err.status).toEqual(400);
         expect(err instanceof HttpException).toEqual(true);
       }
@@ -118,15 +118,16 @@ describe('SchemasController', () => {
       );
 
       const updateSchemaObject = {
-        name: 'testupdate',
+        _id: result._id,
+        name: 'bestAnimals',
         registries: [
           {
-            address: '0x5Ta4280217e78a0EaEA612c1502FC2e92A7FE6O9',
+            address:'0x87c574FB2DF0EaA2dAf5fc4a8A16dd3Ce39011B1',
           }
         ]
       } as Schema;
 
-      await schemasController.updateById(
+      const x = await schemasController.update(
           { id: result._id },
           updateSchemaObject,
       );
@@ -137,10 +138,30 @@ describe('SchemasController', () => {
             _id: result._id,
           },
           { ...updateSchemaObject },
+          {
+            returnUpdatedDocs: true,
+            upsert: false,
+          }
       );
 
       const updated = await schemasController.getById({id: result._id});
       expect(updated!.registries[0].address).toEqual(updateSchemaObject.registries[0].address)
+
+      const updateSchemaObject2 = {
+        _id: result._id,
+        name: 'wrongupdate',
+      } as Schema;
+
+      try {
+        await schemasController.update(
+            { id: result._id },
+            updateSchemaObject2,
+        )
+      } catch (err) {
+        expect(err.message).toEqual('Updating a schema name or attributes is not allowed');
+        expect(err.status).toEqual(400);
+        expect(err instanceof HttpException).toEqual(true);
+      }
     });
   });
 });

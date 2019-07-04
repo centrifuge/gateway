@@ -30,17 +30,17 @@ export class SchemasController {
    * @return {Promise<Schema>} result
    */
   async create(@Body() schema: Schema) {
+    let newSchema: Schema;
     try {
-      Schema.validateRegistryAddress(schema);
+      newSchema = new Schema(
+          schema.name,
+          schema.attributes,
+          schema.registries,
+      );
     } catch (err) {
       throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
     }
 
-    const newSchema = new Schema(
-        schema.name,
-        schema.attributes,
-        schema.registries,
-    );
     return await this.databaseService.schemas.insert(newSchema);
   }
 
@@ -51,7 +51,7 @@ export class SchemasController {
    * @return {Promise<Schema[]>} result
    */
   async get() {
-    return this.databaseService.schemas.find({})
+    return await this.databaseService.schemas.find({})
   }
 
   @Get(':id')
@@ -62,7 +62,7 @@ export class SchemasController {
    * @return {Promise<Schema>} result
    */
   async getById(@Param() params) {
-    return this.databaseService.schemas.findOne({
+    return await this.databaseService.schemas.findOne({
       _id: params.id
     })
   }
@@ -75,13 +75,29 @@ export class SchemasController {
    * @param {Schema} updateSchemaObject - the update object for the schema
    * @return {Promise<Schema>} result
    */
-  async updateById(
-      @Param() params,
-      @Body() updateSchemaObject: Schema,
-  ) {
-    return this.databaseService.schemas.update(
-        { _id: params.id },
-        { ...updateSchemaObject },
+  async update(@Param() params, @Body() update: Schema) {
+
+    const oldSchema = await this.databaseService.schemas.findOne({_id: params.id})
+    let updateSchemaObj: Schema;
+
+    if (update.name && oldSchema.name != update.name || update.attributes && oldSchema.attributes != update.attributes) {
+      throw new HttpException('Updating a schema name or attributes is not allowed', HttpStatus.BAD_REQUEST);
+    }
+
+    try {
+      updateSchemaObj = new Schema(
+          update.name,
+          update.attributes,
+          update.registries,
+          oldSchema._id
+      );
+    } catch (err) {
+      throw new HttpException(err.message, HttpStatus.BAD_REQUEST);
+  }
+
+    return await this.databaseService.schemas.updateById(
+        params.id,
+        updateSchemaObj,
     );
   }
 }

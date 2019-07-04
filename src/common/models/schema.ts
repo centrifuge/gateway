@@ -1,16 +1,20 @@
+import { isValidAddress } from "ethereumjs-util";
+
 export class Schema {
  constructor(
    readonly name: string,
    readonly attributes: Attribute[],
    public registries: Registry[],
    readonly _id?: string,
- ){}
+ ){
+   Schema.validateRegistryAddress(this)
+ }
 
   public static validateRegistryAddress(schema: Schema) {
    schema.registries.forEach(registry => {
-     let hex = registry.address.substr(0,2);
-     if (hex != "0x" || registry.address.length != 42) {
-       throw new Error(`Registry address ${registry.address } must be a valid hex string`);
+     let valid = isValidAddress(registry.address)
+     if (!valid) {
+       throw new Error(`${registry.address } is not a valid registry address`);
      }
    })
   }
@@ -18,8 +22,7 @@ export class Schema {
 
 export interface Attribute {
   label: string,
-  type: number | string,
-  value?: string
+  type: AttrTypes.STRING | AttrTypes.DATE | AttrTypes.NUMBER,
 }
 
 export interface Registry {
@@ -28,3 +31,8 @@ export interface Registry {
   proofs: Array<string>
 }
 
+export enum AttrTypes {
+  NUMBER = 'number',
+  STRING = 'string',
+  DATE = 'Date',
+}
