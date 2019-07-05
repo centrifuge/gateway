@@ -9,16 +9,12 @@ import { schemasRoutes } from "./routes";
 
 interface SchemasProps {
   schemas?: Schema[] | null;
-  // refresh: () => void;
   create: (schema: Schema) => void;
-  // updateSchema: (schema: Schema) => void;
 }
 
 interface SchemasState {
-  // submitted: boolean;
   newSchema?: Schema;
   createSchema: boolean;
-  // schemas: Schema[];
 }
 
 const emptySchemaInput = {
@@ -31,9 +27,7 @@ const emptySchemaInput = {
 
 export class SchemasList extends React.Component<SchemasProps, SchemasState> {
   state = {
-    // submitted: false,
     createSchema: false,
-    // schemas: props.schemas ? [...props.schemas] : [],
   };
 
   componentDidMount() {

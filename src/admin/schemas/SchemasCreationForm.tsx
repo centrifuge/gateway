@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik } from 'formik';
-import {Box, TextArea, Button } from 'grommet';
+import { Box, TextArea, Button } from 'grommet';
 import * as Yup from 'yup';
 import { Schema } from "../../common/models/schema";
 
