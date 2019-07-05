@@ -7,6 +7,18 @@ export class Schema {
    public registries: Registry[],
    readonly _id?: string,
  ){
+   if (!this.attributes ) {
+     throw new Error('Attributes must be set in schema')
+   }
+
+   if ( !this.registries ) {
+     throw new Error('Registries must be set in schema')
+   }
+
+   if ( !this.name ) {
+     throw new Error('Schema name must be set')
+   }
+
    Schema.validateRegistryAddress(this)
  }
 
