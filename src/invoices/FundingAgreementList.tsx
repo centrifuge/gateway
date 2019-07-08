@@ -88,7 +88,7 @@ class FundingAgreementList extends React.Component<ViewInvoicesProps & RouteComp
               },
               {
                 property: 'amount',
-                header: 'Funding amount',
+                header: 'Early payment amount',
                 align: 'end',
                 render: datum => {
                   return formatCurrency(datum.fundingAgreement.funding.amount, datum.fundingAgreement.funding.currency);

@@ -246,7 +246,7 @@ export class InvoiceView extends React.Component<ConnectedInvoiceViewProps> {
               {
                 canSettleFunding && <Button
                   primary
-                  label="Confirm as funded"
+                  label="Confirm funding transfer"
                   onClick={this.confirmFunding}
                 />
               }

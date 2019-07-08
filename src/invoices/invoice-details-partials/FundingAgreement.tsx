@@ -73,7 +73,7 @@ export class FundingAgreement extends React.Component<FundingAgreementProps> {
 
             <Box basis={'1/4'}>
               <DisplayField
-                label={`Finance amount`}
+                label={`Early payment amount`}
                 value={formatCurrency(funding!.amount, funding!.currency)}
               />
             </Box>
