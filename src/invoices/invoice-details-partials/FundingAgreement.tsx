@@ -5,7 +5,6 @@ import { Section } from '../../components/Section';
 import { formatCurrency, formatDate, formatPercent } from '../../common/formaters';
 import { FundingAgreementResponse, LabelValuePair } from '../../common/interfaces';
 import { Status } from '../../components/Status';
-import { DocumentNFT } from '../../../clients/centrifuge-node';
 import { getAddressLink, getNFTLink } from '../../common/etherscan';
 
 
@@ -44,7 +43,7 @@ export class FundingAgreement extends React.Component<FundingAgreementProps> {
               <DisplayField
                 label="NFT ID"
                 value={funding!.nft_address}
-                linkTo={getNFTLink(funding!.nft_address,nftRegistry)}
+                linkTo={getNFTLink(funding!.nft_address, nftRegistry)}
               />
             </Box>
 
@@ -98,7 +97,7 @@ export class FundingAgreement extends React.Component<FundingAgreementProps> {
             <Box basis={'1/4'}>
               <DisplayField
                 label="Funder"
-                value={funderContact ? funderContact.label  : funding!.funder_id}
+                value={funderContact ? funderContact.label : funding!.funder_id}
               />
             </Box>
 

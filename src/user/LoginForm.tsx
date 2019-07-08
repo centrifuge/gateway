@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, FormField, Text, TextInput, Paragraph } from 'grommet';
+import { Box, Button, FormField, Text, TextInput } from 'grommet';
 import { Link } from 'react-router-dom';
 
 import { User } from '../common/models/user';
@@ -19,7 +19,7 @@ class LoginForm extends React.Component<LoginProps> {
 
   render() {
     const user = new User();
-    const {error} = this.props;
+    const { error } = this.props;
 
     return (
       <Box align="center" justify="center">
@@ -82,8 +82,8 @@ class LoginForm extends React.Component<LoginProps> {
                       />
                     </FormField>
 
-                    { error &&  <Text color={'status-error'}>
-                     Failed to login! Wrong username or password!
+                    {error && <Text color={'status-error'}>
+                      Failed to login! Wrong username or password!
                     </Text>
                     }
 
