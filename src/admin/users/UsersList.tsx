@@ -1,23 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getAllUsers, invite, resetGetAllUsers } from '../../store/actions/users';
+import { getAllUsers, invite, resetGetAllUsers, updateUser } from '../../store/actions/users';
 import { RequestState } from '../../store/reducers/http-request-reducer';
-import { Box, Button, DataTable, Heading, Text } from 'grommet';
+import { Anchor, Box, Button, DataTable, Heading, Text } from 'grommet';
 import { RouteComponentProps } from 'react-router';
 import { User } from '../../common/models/user';
-import { PERMISSIONS } from '../../common/constants';
 import { Modal } from '@centrifuge/axis-modal';
 import UserForm from './UserForm';
 import { formatDate } from '../../common/formaters';
 import { Preloader } from '../../components/Preloader';
 import { SecondaryHeader } from '../../components/SecondaryHeader';
+import { DisplayField } from '../../components/DisplayField';
 
 type UsersListProps = {
   users: User[] | null;
   getAllUsers: () => void;
   resetGetAllUsers: () => void;
-  invite: (user: User) => void;
+  invite: typeof invite;
+  updateUser: typeof updateUser;
   invitingUser: RequestState<User>;
+  updatingUser: RequestState<User>;
 };
 
 class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
@@ -25,6 +27,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
 
   state = {
     userFormOpened: false,
+    selectedUser: null,
   };
 
   componentDidMount() {
@@ -44,76 +47,98 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
   };
 
   inviteUser = (user) => {
-    this.props.invite(user);
-    this.closeUserForm();
+
   };
 
-  renderPermission = (permission) => {
-    if (permission === PERMISSIONS.CAN_MANAGE_USERS) {
-      return (<Text>Admin</Text>);
+  onUserFormSubmit = (user) => {
+    if(user._id) {
+      this.props.updateUser(user);
+    } else {
+      this.props.invite(user);
     }
-    if (permission === PERMISSIONS.CAN_FUND_INVOICES) {
-      return (<Text>Funder</Text>);
-    }
-    if (permission === PERMISSIONS.CAN_CREATE_INVOICES) {
-      return (<Text>Supplier</Text>);
-    }
-  };
+    this.closeUserForm();
+  }
+
 
 
   renderUsers = (data) => {
 
     return (
-        <DataTable
-          data={data}
-          primaryKey={'_id'}
-          columns={[
-            {
-              property: 'name',
-              header: 'Name',
-              render: data =>
-                data.name ? <Text>{data.name}</Text> : null,
+      <DataTable
+        data={data}
+        primaryKey={'_id'}
+        columns={[
+          {
+            property: 'name',
+            header: 'Name',
+            render: data =>
+              data.name ? <Text>{data.name}</Text> : null,
+          },
+          {
+            property: 'email',
+            header: 'Email',
+            render: data =>
+              data.email ? <Text>{data.email}</Text> : null,
+          },
+          {
+            property: 'account',
+            header: 'Centrifuge ID',
+            render: data =>
+              data.account ? <DisplayField width={'160px'} noBorder value={data.account}/> : null,
+          },
+          {
+            property: 'createdAt',
+            header: 'Date added',
+            render: data =>
+              data.createdAt ? <Text>{formatDate(data.createdAt)}</Text> : null,
+          },
+          {
+            property: 'enabled',
+            header: 'Status',
+            render: data =>
+              data.enabled ? <Text color="status-ok">Active</Text> : <Text color="status-warning">Created</Text>,
+          },
+          {
+            property: 'permissions',
+            header: 'User rights',
+            render: data => {
+              return data.permissions.join(', ');
             },
-            {
-              property: 'email',
-              header: 'Email',
-              render: data =>
-                data.email ? <Text>{data.email}</Text> : null,
+          },
+          {
+            property: 'schemas',
+            header: 'Document schemas',
+            render: data => {
+              return data.schemas && Array.isArray(data.schemas)? data.schemas.join(', ') : '';
             },
-            {
-              property: 'account',
-              header: 'Centrifuge ID',
-              render: data =>
-                data.account ? <Text>{data.account}</Text> : null,
-            },
-            {
-              property: 'date_added',
-              header: 'Date added',
-              render: data =>
-                data.createdAt ? <Text>{formatDate(data.createdAt)}</Text> : null,
-            },
-            {
-              property: 'enabled',
-              header: 'Status',
-              render: data =>
-                data.enabled ? <Text color="status-ok">Active</Text> : <Text color="status-warning">Created</Text>,
-            },
-            {
-              property: 'permissions',
-              header: 'User rights',
-              render: data => {
-                return data.permissions.length > 0 ? this.renderPermission(data.permissions[0]) : null;
-              },
-            },
-          ]}
-        />
+          },
+          {
+            property: 'actions',
+            header: 'Actions',
+            render: data => (
+              <Box direction="row" gap="small">
+
+                <Anchor
+                  label={'Edit'}
+                  onClick={() =>
+                    this.setState({
+                      selectedUser: data,
+                      userFormOpened:true,
+                    })
+                  }
+                />
+              </Box>
+            ),
+          },
+        ]}
+      />
     );
   };
 
 
   render() {
 
-    const { users, invitingUser } = this.props;
+    const { users, invitingUser,updatingUser } = this.props;
     if (!this.props.users) {
       return <Preloader message="Loading"/>;
     }
@@ -122,16 +147,22 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
       return <Preloader message="Creating user" withSound={true}/>;
     }
 
+    if (updatingUser && updatingUser.loading) {
+      return <Preloader message="Updating user" withSound={true}/>;
+    }
+
+    const user = this.state.selectedUser || new User();
+
     return (
       <Box fill>
         <Modal
           opened={this.state.userFormOpened}
           headingProps={{ level: 3 }}
           width={'medium'}
-          title={'Create user'}
+          title={ user._id ? 'Edit user' : 'Create user'}
           onClose={this.closeUserForm}
         >
-          <UserForm user={new User()} onSubmit={this.inviteUser} onDiscard={this.closeUserForm}/>
+          <UserForm user={user} onSubmit={this.onUserFormSubmit} onDiscard={this.closeUserForm}/>
         </Modal>
         <SecondaryHeader>
           <Heading level="3">User Management</Heading>
@@ -139,8 +170,8 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
             <Button primary label="Create User" onClick={this.openUserForm}/>
           </Box>
         </SecondaryHeader>
-        <Box pad={{horizontal:"medium"}}>
-        {this.renderUsers(users)}
+        <Box pad={{ horizontal: 'medium' }}>
+          {this.renderUsers(users)}
         </Box>
       </Box>
     );
@@ -149,8 +180,9 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.user.list.data || null,
+    users: state.user.list.data || [],
     invitingUser: state.user.invite,
+    updatingUser: state.user.update,
   };
 };
 
@@ -160,5 +192,6 @@ export default connect(
     getAllUsers,
     resetGetAllUsers,
     invite,
+    updateUser,
   },
 )(UsersList);

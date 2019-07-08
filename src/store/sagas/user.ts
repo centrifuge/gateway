@@ -1,6 +1,12 @@
 import { call, fork, put, take, takeEvery } from 'redux-saga/effects';
 import { httpClient } from '../../http-client';
-import { getAllUsersAction, userInviteAction, userLoginAction, userRegisterAction } from '../actions/users';
+import {
+  getAllUsersAction,
+  updateUserAction,
+  userInviteAction,
+  userLoginAction,
+  userRegisterAction,
+} from '../actions/users';
 import { User } from '../../common/models/user';
 import routes from '../../routes';
 import { push } from 'connected-react-router';
@@ -59,6 +65,28 @@ export function* inviteUser(action) {
   }
 }
 
+export function* updateUser(action) {
+  try {
+    const user = action.user;
+    const response = yield call(httpClient.user.update, user);
+    yield put({
+      type: updateUserAction.success,
+      payload: response.data,
+    });
+    // reload the users
+    yield put({
+      type: getAllUsersAction.start,
+    });
+  } catch (e) {
+    yield put({ type: updateUserAction.fail, payload: e });
+    yield put(alertError(
+      'Failed to update user',
+      e.message,
+      { onConfirmAction: { type: updateUserAction.clearError } },
+    ));
+  }
+}
+
 export function* getAllUsers() {
   try {
     const response = yield call(httpClient.user.list);
@@ -76,4 +104,5 @@ export default {
   watchLoginPage: () => takeEvery(userLoginAction.start, watchLoginPage),
   watchUserInvite: () => takeEvery(userInviteAction.start, inviteUser),
   watchUserRegister: () => takeEvery(userRegisterAction.start, registerUser),
+  watchUserUpdate: () => takeEvery(updateUserAction.start, updateUser),
 };

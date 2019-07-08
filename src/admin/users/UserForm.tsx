@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, Button, FormField, RadioButtonGroup, TextInput } from 'grommet';
+import { Box, Button, FormField, Text, TextInput } from 'grommet';
 import { User } from '../../common/models/user';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { PERMISSIONS } from '../../common/constants';
+import MutipleSelect from '../../components/form/MutipleSelect';
 
 type InviteProps = {
   user: User,
@@ -34,7 +35,22 @@ export default class UserForm extends React.Component<InviteProps> {
     });
 
     const { user } = this.props;
+
     const { submitted } = this.state;
+
+    const permissionOptions = [
+      PERMISSIONS.CAN_FUND_INVOICES,
+      PERMISSIONS.CAN_CREATE_INVOICES,
+      PERMISSIONS.CAN_MANAGE_USERS,
+      PERMISSIONS.CAN_MANAGE_SCHEMAS,
+      PERMISSIONS.CAN_MANAGE_DOCUMENTS,
+    ];
+
+
+    const schemaOptions = [
+      'schama-1',
+      'schama-2',
+    ];
 
     return (
       <Box width={'medium'} margin={{ vertical: 'medium' }}>
@@ -90,24 +106,41 @@ export default class UserForm extends React.Component<InviteProps> {
                       label="Permissions"
                       error={errors!.permissions}
                     >
-                      <RadioButtonGroup
-                        pad={{ vertical: 'medium' }}
-                        direction="row"
-                        name="radio"
-                        options={[
-                          { label: 'Funder', value: PERMISSIONS.CAN_FUND_INVOICES },
-                          { label: 'Supplier', value: PERMISSIONS.CAN_CREATE_INVOICES },
-                          { label: 'Admin', value: PERMISSIONS.CAN_MANAGE_USERS },
-                        ]}
-                        value={values.permissions[0]}
-                        onChange={(ev) => {
-                          setFieldValue('permissions', [ev.target.value]);
+                      <MutipleSelect
+                        selected={values.permissions}
+                        options={permissionOptions}
+                        onChange={(selection) => {
+                          setFieldValue('permissions', selection);
                         }}
                       />
+
                     </FormField>
-
-
                   </Box>
+
+                  {
+                    values.permissions.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS) && <>
+                      {schemaOptions && schemaOptions.length > 0 ?
+                        <Box margin={{ bottom: 'medium' }}>
+                          <FormField
+                            label="Document schemas"
+                            error={errors!.permissions}
+                          >
+                            <MutipleSelect
+                              selected={values.schemas}
+                              options={schemaOptions}
+                              onChange={(selection) => {
+                                setFieldValue('schemas', selection);
+                              }}
+                            />
+
+                          </FormField>
+                        </Box>
+                        :
+                        <Text color={'status-warning'}>No schemas in the database. Please add schemas!</Text>
+                      }
+                    </>
+                  }
+
 
                   <Box direction="row" justify={'end'} gap={'medium'}>
                     <Button
@@ -117,7 +150,7 @@ export default class UserForm extends React.Component<InviteProps> {
                     <Button
                       type="submit"
                       primary
-                      label="Create"
+                      label={user._id ? 'Update' : 'Create'}
                     />
                   </Box>
                 </Box>
