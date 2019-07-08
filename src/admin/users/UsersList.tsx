@@ -66,7 +66,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
     return (
         <DataTable
           data={data}
-          sortable={true}
+          primaryKey={'_id'}
           columns={[
             {
               property: 'name',

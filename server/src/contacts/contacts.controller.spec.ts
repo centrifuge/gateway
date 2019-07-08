@@ -114,13 +114,12 @@ describe('ContactsController', () => {
       const result = await contactsController.get({
         user: { _id: 'some_user_id', name: 'Test User', account: '0x333' },
       });
-      expect(result.length).toEqual(insertedContacts.length + 1);
+      expect(result.length).toEqual(insertedContacts.length );
       // should get the inserted contracts from the beforeEach hook in reverse
 
       expect(result.reverse()).toMatchObject(
         [
-          ...insertedContacts,
-          { name: 'Test User', address: '0x333' },
+          ...insertedContacts
         ],
       );
 

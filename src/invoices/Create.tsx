@@ -16,6 +16,7 @@ import { Preloader } from '../components/Preloader';
 import { RequestState } from '../store/reducers/http-request-reducer';
 import { InvInvoiceData } from '../../clients/centrifuge-node';
 import { SecondaryHeader } from '../components/SecondaryHeader';
+import { mapContactsToLabelKeyPair } from '../store/derived-data';
 
 type ConnectedCreateInvoiceProps = {
   createInvoice: (invoice: Invoice) => void;
@@ -125,12 +126,7 @@ const mapStateToProps = (state) => {
   return {
     loggedInUser: state.user.auth.loggedInUser,
     creatingInvoice: state.invoices.create,
-    contacts: state.contacts.get.data
-      ? (state.contacts.get.data.map(contact => ({
-        label: contact.name,
-        value: contact.address,
-      })) as LabelValuePair[])
-      : undefined,
+    contacts: mapContactsToLabelKeyPair(state),
   };
 };
 
