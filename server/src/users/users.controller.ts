@@ -15,7 +15,7 @@ import {
 import * as bcrypt from 'bcrypt';
 import { promisify } from 'util';
 import { PERMISSIONS, ROUTES } from '../../../src/common/constants';
-import { IUser, User } from '../../../src/common/models/user';
+import { User } from '../../../src/common/models/user';
 import { DatabaseService } from '../database/database.service';
 import config from '../../../src/common/config';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
@@ -105,7 +105,7 @@ export class UsersController {
       password: undefined,
       enabled: false,
       invited: true,
-      schemas:[],
+      schemas: [],
       permissions: user.permissions,
     });
   }
@@ -113,6 +113,18 @@ export class UsersController {
   @Put(ROUTES.USERS.base)
   @UseGuards(UserAuthGuard)
   async update(@Body() user): Promise<User> {
+
+    const existingEamil: User = await this.databaseService.users.findOne({
+      email: user.email,
+      $not: {
+        _id: user._id,
+      },
+    });
+
+    if (existingEamil) {
+      throw new HttpException('Email taken!', HttpStatus.FORBIDDEN);
+    }
+
     return await this.databaseService.users.updateById(user._id,
       {
         $set: {

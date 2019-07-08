@@ -11,15 +11,21 @@ import { formatDate } from '../../common/formaters';
 import { Preloader } from '../../components/Preloader';
 import { SecondaryHeader } from '../../components/SecondaryHeader';
 import { DisplayField } from '../../components/DisplayField';
+import { getSchemasList, resetGetSchemasList } from '../../store/actions/schemas';
+import { Schema } from '../../common/models/schema';
+import schemas from '../../store/sagas/schemas';
 
 type UsersListProps = {
   users: User[] | null;
-  getAllUsers: () => void;
-  resetGetAllUsers: () => void;
+  getAllUsers: typeof getAllUsers;
+  resetGetAllUsers: typeof resetGetAllUsers;
+  getSchemasList: typeof getSchemasList;
+  resetGetSchemasList: typeof resetGetSchemasList;
   invite: typeof invite;
   updateUser: typeof updateUser;
   invitingUser: RequestState<User>;
   updatingUser: RequestState<User>;
+  schemas: RequestState<Schema[]>;
 };
 
 class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
@@ -32,10 +38,12 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
 
   componentDidMount() {
     this.props.getAllUsers();
+    this.props.getSchemasList();
   }
 
   componentWillUnmount() {
     this.props.resetGetAllUsers();
+    this.props.resetGetSchemasList();
   }
 
   closeUserForm = () => {
@@ -51,14 +59,13 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
   };
 
   onUserFormSubmit = (user) => {
-    if(user._id) {
+    if (user._id) {
       this.props.updateUser(user);
     } else {
       this.props.invite(user);
     }
     this.closeUserForm();
-  }
-
+  };
 
 
   renderUsers = (data) => {
@@ -109,7 +116,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
             property: 'schemas',
             header: 'Document schemas',
             render: data => {
-              return data.schemas && Array.isArray(data.schemas)? data.schemas.join(', ') : '';
+              return data.schemas && Array.isArray(data.schemas) ? data.schemas.join(', ') : '';
             },
           },
           {
@@ -123,7 +130,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
                   onClick={() =>
                     this.setState({
                       selectedUser: data,
-                      userFormOpened:true,
+                      userFormOpened: true,
                     })
                   }
                 />
@@ -138,8 +145,8 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
 
   render() {
 
-    const { users, invitingUser,updatingUser } = this.props;
-    if (!this.props.users) {
+    const { users, invitingUser, updatingUser, schemas } = this.props;
+    if (!this.props.users || !this.props.schemas) {
       return <Preloader message="Loading"/>;
     }
 
@@ -159,10 +166,10 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
           opened={this.state.userFormOpened}
           headingProps={{ level: 3 }}
           width={'medium'}
-          title={ user._id ? 'Edit user' : 'Create user'}
+          title={user._id ? 'Edit user' : 'Create user'}
           onClose={this.closeUserForm}
         >
-          <UserForm user={user} onSubmit={this.onUserFormSubmit} onDiscard={this.closeUserForm}/>
+          <UserForm schemas={schemas.data || []} user={user} onSubmit={this.onUserFormSubmit} onDiscard={this.closeUserForm}/>
         </Modal>
         <SecondaryHeader>
           <Heading level="3">User Management</Heading>
@@ -183,6 +190,7 @@ const mapStateToProps = (state) => {
     users: state.user.list.data || [],
     invitingUser: state.user.invite,
     updatingUser: state.user.update,
+    schemas: state.schemas.getList,
   };
 };
 
@@ -193,5 +201,7 @@ export default connect(
     resetGetAllUsers,
     invite,
     updateUser,
+    getSchemasList,
+    resetGetSchemasList,
   },
 )(UsersList);

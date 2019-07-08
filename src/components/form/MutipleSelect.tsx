@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Anchor, Box, Button, Select, SelectProps, Text } from 'grommet';
+import { Box, Select, SelectProps, Text } from 'grommet';
 import { Omit } from 'grommet/utils';
 import { Close } from 'grommet-icons';
 
@@ -88,8 +88,9 @@ export default class MutipleSelect extends Component<MutipleSelectProps,
       >
         {
           this.state.selected.map(
-            (item: any) => (
+            (item: any, index) => (
               <Box
+                key={index}
                 //TODO fix the hardcoded values when moving to axis
                 margin={{ vertical: '5px', 'right': 'xsmall' }}
                 pad={{ vertical: 'xsmall', horizontal: 'xsmall' }}
@@ -115,8 +116,7 @@ export default class MutipleSelect extends Component<MutipleSelectProps,
                   }}>
                   <Close size={'small'}
                   />
-                </Box >
-
+                </Box>
 
 
               </Box>
@@ -153,7 +153,7 @@ export default class MutipleSelect extends Component<MutipleSelectProps,
         value={this.state.selected}
         valueLabel={this.renderSelectedItems()}
         onChange={(ev) => {
-          console.log('EV',ev)
+          console.log('EV', ev);
           this.onChange(ev.value);
         }}
         {...rest}

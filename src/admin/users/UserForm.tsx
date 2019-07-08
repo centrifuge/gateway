@@ -5,9 +5,12 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { PERMISSIONS } from '../../common/constants';
 import MutipleSelect from '../../components/form/MutipleSelect';
+import { Schema } from '../../common/models/schema';
+import schemas from '../../store/sagas/schemas';
 
 type InviteProps = {
   user: User,
+  schemas: Schema[],
   onSubmit: (user) => void;
   onDiscard: () => void;
 }
@@ -34,7 +37,7 @@ export default class UserForm extends React.Component<InviteProps> {
         .required('This field is required'),
     });
 
-    const { user } = this.props;
+    const { user, schemas } = this.props;
 
     const { submitted } = this.state;
 
@@ -47,10 +50,7 @@ export default class UserForm extends React.Component<InviteProps> {
     ];
 
 
-    const schemaOptions = [
-      'schama-1',
-      'schama-2',
-    ];
+    const schemaOptions = schemas.map(i => i.name);
 
     return (
       <Box width={'medium'} margin={{ vertical: 'medium' }}>

@@ -78,12 +78,14 @@ export function* updateUser(action) {
       type: getAllUsersAction.start,
     });
   } catch (e) {
-    yield put({ type: updateUserAction.fail, payload: e });
+
     yield put(alertError(
       'Failed to update user',
       e.message,
       { onConfirmAction: { type: updateUserAction.clearError } },
     ));
+    yield put({ type: updateUserAction.fail, payload: e });
+
   }
 }
 
