@@ -5,17 +5,42 @@ import { Schema } from "../../common/models/schema";
 import SchemasCreationForm from "./SchemasCreationForm";
 import { SecondaryHeader } from "../../components/SecondaryHeader";
 import { formatDate } from "../../common/formaters";
-import { schemasRoutes } from "./routes";
+// import { schemasRoutes } from "./routes";
+import { connect } from "react-redux";
+import {
+  createSchema,
+  getSchema,
+  getSchemasList,
+  resetCreateSchema,
+  resetGetSchema,
+  resetGetSchemasList,
+  resetUpdateSchema,
+  updateSchema
+} from "../../store/actions/schemas";
+import { RequestState } from "../../store/reducers/http-request-reducer";
+import { Preloader } from "../../components/Preloader";
 
-interface SchemasProps {
-  schemas?: Schema[] | null;
-  create: (schema: Schema) => void;
-}
+const mapStateToProps = (state: {
+  schemas: { getList: RequestState<Schema[]> };
+}) => {
+  return {
+    schemas: state.schemas.getList.data,
+    loading: state.schemas.getList.loading,
+  };
+};
 
-interface SchemasState {
-  newSchema?: Schema;
-  createSchema: boolean;
-}
+type SchemasProps = {
+  schemas?: Schema[];
+  getSchemasList: () => void;
+  resetGetSchemasList: () => void;
+  resetCreateSchema: () => void;
+  createSchema: (schema: Schema) => void;
+  getSchema: () => void;
+  resetGetSchema: () => void;
+  updateSchema: (schema: Schema) => void;
+  resetUpdateSchema: () => void;
+  loading: boolean;
+};
 
 const emptySchemaInput = {
   json: {
@@ -25,12 +50,19 @@ const emptySchemaInput = {
   }
 }
 
-export class SchemasList extends React.Component<SchemasProps, SchemasState> {
+class SchemasList extends React.Component<SchemasProps> {
   state = {
     createSchema: false,
   };
 
   componentDidMount() {
+    this.props.getSchemasList();
+  }
+
+  componentWillUnmount() {
+    this.props.resetCreateSchema();
+    // this.props.resetGetSchema();
+    // this.props.resetUpdateSchema();
   }
 
   createSchema = (input) => {
@@ -42,7 +74,7 @@ export class SchemasList extends React.Component<SchemasProps, SchemasState> {
         schemaJSON.attributes,
         schemaJSON.registries
     )
-    this.props.create(schema);
+    this.props.createSchema(schema);
     this.closeCreateSchema();
   };
 
@@ -114,6 +146,10 @@ export class SchemasList extends React.Component<SchemasProps, SchemasState> {
 
   render() {
 
+    if (this.props.loading) {
+      return <Preloader message="Loading"/>;
+    }
+
     const { createSchema } = this.state;
     const { schemas } = this.props;
 
@@ -145,5 +181,18 @@ export class SchemasList extends React.Component<SchemasProps, SchemasState> {
         </Box>
     )
   }
-
 }
+
+export default connect(
+    mapStateToProps,
+    {
+      getSchemasList,
+      resetGetSchemasList,
+      getSchema,
+      resetGetSchema,
+      createSchema,
+      resetCreateSchema,
+      updateSchema,
+      resetUpdateSchema,
+    },
+)(SchemasList);

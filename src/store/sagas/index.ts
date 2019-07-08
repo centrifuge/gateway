@@ -26,8 +26,8 @@ export default function* () {
     fork(transferDetails.watchCreateTransferDetails),
     fork(transferDetails.watchUpdateTransferDetails),
     fork(schemas.watchCreateSchema),
-    fork(schemas.watchGetSchemaPage),
-    fork(schemas.watchGetSchemasListPage),
+    fork(schemas.watchGetSchema),
+    fork(schemas.watchGetSchemasList),
     fork(schemas.watchUpdateSchema),
     fork(notifications.watchCloseAlert),
   ]);

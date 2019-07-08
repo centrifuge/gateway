@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import { Box, TextArea, Button } from 'grommet';
 import * as Yup from 'yup';
 import { Schema } from "../../common/models/schema";
+import {Preloader} from "../../components/Preloader";
 
 interface SchemasCreationProps {
   onDiscard: () => void;
@@ -10,12 +11,12 @@ interface SchemasCreationProps {
   schema: any
 }
 
-interface SchemasCreationState {
+interface SchemasState {
   submitted: boolean;
   newSchema?: Schema;
 }
 
-export default class SchemasCreationForm extends React.Component<SchemasCreationProps, SchemasCreationState> {
+export default class SchemasCreationForm extends React.Component<SchemasCreationProps, SchemasState> {
     state = { submitted: false };
 
     onSubmit = async (input: Object) => {

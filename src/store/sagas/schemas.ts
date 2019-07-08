@@ -62,8 +62,8 @@ export function* updateSchema(action) {
 }
 
 export default {
-  watchGetSchemasListPage: () => takeEvery(getSchemasListAction.start, getSchemasList),
-  watchGetSchemaPage: () => takeEvery(getSchemaAction.start, getSchema),
+  watchGetSchemasList: () => takeEvery(getSchemasListAction.start, getSchemasList),
+  watchGetSchema: () => takeEvery(getSchemaAction.start, getSchema),
   watchCreateSchema: () => takeEvery(createSchemaAction.start, createSchema),
   watchUpdateSchema: () => takeEvery(updateSchemaAction.start, updateSchema),
 }

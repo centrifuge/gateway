@@ -18,7 +18,7 @@ import { NotificationProvider } from './notifications/NotificationContext';
 import FundingAgreementList from './invoices/FundingAgreementList';
 import { ConnectedInvoiceView } from './invoices/InvoiceView';
 import { ConnectedNotifications } from './notifications/Notifications';
-import ViewSchemas from "./admin/schemas/View";
+import SchemasList from "./admin/schemas/SchemasList";
 
 interface AppPros {
   selectedRoute: string;
@@ -48,7 +48,7 @@ class App extends Component<AppPros> {
         routeItems.push(
             {
               path: routes.schemas.index,
-              component: ViewSchemas,
+              component: SchemasList,
             },
         );
       }

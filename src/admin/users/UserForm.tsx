@@ -59,7 +59,6 @@ export default class UserForm extends React.Component<InviteProps> {
              }) => (
               <form
                 onSubmit={event => {
-                  console.log(event)
                   this.setState({ submitted: true });
                   handleSubmit(event);
                 }}
