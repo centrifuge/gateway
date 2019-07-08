@@ -53,7 +53,7 @@ class ConnectedEditInvoice extends React.Component<ConnectedEditInvoiceProps> {
   };
 
   render() {
-    const { loggedInUser, updatingInvoice,contacts,invoice } = this.props;
+    const { updatingInvoice, contacts, invoice } = this.props;
 
     if (!this.props.invoice || !this.props.contacts) {
       return <Preloader message="Loading"/>;
@@ -85,7 +85,7 @@ class ConnectedEditInvoice extends React.Component<ConnectedEditInvoiceProps> {
               onClick={this.onCancel}
               label="Discard"
             />
-            { !invoice!.fundingAgreement && <Button
+            {!invoice!.fundingAgreement && <Button
               type="submit"
               primary
               label="Update"

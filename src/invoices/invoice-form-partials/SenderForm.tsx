@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, FormField, TextInput } from 'grommet';
 import { connect, FormikContext } from 'formik';
 import { LabelValuePair } from '../../common/interfaces';
-import SearchSelect from '../../components/form/SearchSelect';
 import { Invoice } from '../../common/models/invoice';
 import { Section } from '../../components/Section';
 
@@ -23,17 +22,16 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
     const {
       errors,
       values,
-      setFieldValue,
       handleChange,
     } = this.props.formik;
 
     const {
-      contacts,
       columnGap,
     } = this.props;
 
     return (
-      <Section headingLevel="5" title="Sender" basis={'1/2'} pad={{horizontal:'medium',vertical:"medium",right:'none'}}>
+      <Section headingLevel="5" title="Sender" basis={'1/2'}
+               pad={{ horizontal: 'medium', vertical: 'medium', right: 'none' }}>
         <Box direction="row" gap={columnGap}>
           <Box gap={columnGap} basis={'1/2'}>
             <FormField
@@ -46,19 +44,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
                 value={values!.sender_company_name}
                 onChange={handleChange}
               />
-              {/*<SearchSelect
-                onChange={(item) => {
-                  setFieldValue('sender', item.value);
-                  setFieldValue('sender_company_name', item.label);
-                }}
-                options={contacts}
-                selected={
-                  contacts.find(
-                    contact =>
-                      contact.value === values!.sender,
-                  )
-                }
-              />*/}
+
             </FormField>
 
           </Box>

@@ -23,7 +23,6 @@ import TransferDetailsForm from './TransferDetailsForm';
 import { getInvoiceFundingStatus, FUNDING_STATUS, TRANSFER_DETAILS_STATUS } from '../common/status';
 import { TransferDetailsRequest } from '../common/models/transfer-details';
 import { SecondaryHeader } from '../components/SecondaryHeader';
-import contacts from '../store/sagas/contacts';
 
 
 type ConnectedInvoiceViewProps = {
