@@ -40,7 +40,13 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
               label="Name"
               error={errors!.sender}
             >
-              <SearchSelect
+              <TextInput
+                disabled={true}
+                name="sender_company_name"
+                value={values!.sender_company_name}
+                onChange={handleChange}
+              />
+              {/*<SearchSelect
                 onChange={(item) => {
                   setFieldValue('sender', item.value);
                   setFieldValue('sender_company_name', item.label);
@@ -52,7 +58,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
                       contact.value === values!.sender,
                   )
                 }
-              />
+              />*/}
             </FormField>
 
           </Box>

@@ -23,6 +23,7 @@ import TransferDetailsForm from './TransferDetailsForm';
 import { getInvoiceFundingStatus, FUNDING_STATUS, TRANSFER_DETAILS_STATUS } from '../common/status';
 import { TransferDetailsRequest } from '../common/models/transfer-details';
 import { SecondaryHeader } from '../components/SecondaryHeader';
+import contacts from '../store/sagas/contacts';
 
 
 type ConnectedInvoiceViewProps = {
@@ -272,7 +273,11 @@ const mapStateToProps = (state) => {
     updatingTransferDetails: state.transferDetails.update,
     creatingFunding: state.funding.create,
     contacts: state.contacts.get.data
-      ? (state.contacts.get.data.map(contact => ({
+      ? (state.contacts.get.data
+        .filter(contact => {
+         return contact.address.toLowerCase() !== state.user.auth.loggedInUser.account.toLowerCase()
+        })
+        .map(contact => ({
         label: contact.name,
         value: contact.address,
       })) as LabelValuePair[])
