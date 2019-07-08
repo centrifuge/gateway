@@ -58,7 +58,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
           </Box>
           <Box gap={columnGap} basis={'1/2'}>
             <FormField
-              label="Street"
+              label="Street 1"
               error={errors!.sender_street1}
             >
               <TextInput
@@ -69,7 +69,7 @@ export class SenderForm extends React.Component<ConnectedSenderFormProps> {
               />
             </FormField>
             <FormField
-              label="Street"
+              label="Street 2"
               error={errors!.sender_street2}
             >
               <TextInput

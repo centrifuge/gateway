@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpException,
-  HttpStatus,
-  Param,
-  Post,
-  Put,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { SessionGuard } from '../auth/SessionGuard';
 import { Contact } from '../../../src/common/models/contact';
 import { ROUTES } from '../../../src/common/constants';
@@ -20,7 +9,8 @@ import { DatabaseService } from '../database/database.service';
 export class ContactsController {
   constructor(
     private readonly databaseService: DatabaseService,
-  ) {}
+  ) {
+  }
 
   @Post()
   /**
@@ -53,9 +43,15 @@ export class ContactsController {
    * @return {Promise<Contact[]>} result
    */
   async get(@Req() request) {
-    return this.databaseService.contacts.getCursor({
+    const contacts = await this.databaseService.contacts.getCursor({
       ownerId: request.user._id,
     }).sort({ updatedAt: -1 }).exec();
+
+    // add login user to contacts
+    return [
+      { name: request.user.name, address: request.user.account.toLowerCase() },
+      ...contacts,
+    ];
   }
 
   @Put(':id')

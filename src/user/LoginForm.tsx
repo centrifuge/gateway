@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, FormField, Text, TextInput } from 'grommet';
+import { Box, Button, FormField, Text, TextInput, Paragraph } from 'grommet';
 import { Link } from 'react-router-dom';
 
 import { User } from '../common/models/user';
@@ -8,6 +8,7 @@ import { Formik } from 'formik';
 
 interface LoginProps {
   onSubmit: (values: any) => void;
+  error?: Error;
 }
 
 class LoginForm extends React.Component<LoginProps> {
@@ -18,6 +19,8 @@ class LoginForm extends React.Component<LoginProps> {
 
   render() {
     const user = new User();
+    const {error} = this.props;
+
     return (
       <Box align="center" justify="center">
         <Box
@@ -78,6 +81,12 @@ class LoginForm extends React.Component<LoginProps> {
                         onChange={handleChange}
                       />
                     </FormField>
+
+                    { error &&  <Text color={'status-error'}>
+                     Failed to login! Wrong username or password!
+                    </Text>
+                    }
+
                     <Text>
                       Not registered yet?{' '}
                       <Link to={routes.register}>Register</Link>

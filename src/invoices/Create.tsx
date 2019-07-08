@@ -73,7 +73,7 @@ class ConnectedCreateInvoice extends React.Component<ConnectedCreateInvoiceProps
 
   render() {
 
-    const { loggedInUser, creatingInvoice } = this.props;
+    const { creatingInvoice, contacts } = this.props;
 
     if (!this.props.contacts) {
       return <Preloader message="Loading"/>;
@@ -83,11 +83,6 @@ class ConnectedCreateInvoice extends React.Component<ConnectedCreateInvoiceProps
       return <Preloader message="Saving invoice" withSound={true}/>;
     }
 
-    // Add logged in user to contacts
-    const contacts: LabelValuePair[] = [
-      { label: loggedInUser.name, value: loggedInUser.account },
-      ...this.props.contacts,
-    ];
 
     // Create default data for invoice. The sender should be the logged in user
 
@@ -98,7 +93,7 @@ class ConnectedCreateInvoice extends React.Component<ConnectedCreateInvoiceProps
         onSubmit={this.createInvoice}
         contacts={contacts}
       >
-       <SecondaryHeader>
+        <SecondaryHeader>
           <Box direction="row" gap="small" align="center">
             <Link to={invoiceRoutes.index} size="large">
               <LinkPrevious/>

@@ -1433,11 +1433,11 @@ exports[`InvoiceForm Should render form with sender and recipient selected 1`] =
                                                                 className="StyledBox-sc-13pk1d4-0 clLqce"
                                                               >
                                                                 <WithTheme(FormField)
-                                                                  label="Street"
+                                                                  label="Street 1"
                                                                 >
                                                                   <WithTheme(FormField)
                                                                     focus={false}
-                                                                    label="Street"
+                                                                    label="Street 1"
                                                                     onBlur={[Function]}
                                                                     onFocus={[Function]}
                                                                   >
@@ -1500,7 +1500,7 @@ exports[`InvoiceForm Should render form with sender and recipient selected 1`] =
                                                                                 <label
                                                                                   className="StyledText-sc-1sadyjn-0 bKLvLm"
                                                                                 >
-                                                                                  Street
+                                                                                  Street 1
                                                                                 </label>
                                                                               </StyledText>
                                                                               <WithTheme(Box)
@@ -1726,11 +1726,11 @@ exports[`InvoiceForm Should render form with sender and recipient selected 1`] =
                                                                   />
                                                                 </StyledBox__StyledBoxGap>
                                                                 <WithTheme(FormField)
-                                                                  label="Street"
+                                                                  label="Street 2"
                                                                 >
                                                                   <WithTheme(FormField)
                                                                     focus={false}
-                                                                    label="Street"
+                                                                    label="Street 2"
                                                                     onBlur={[Function]}
                                                                     onFocus={[Function]}
                                                                   >
@@ -1793,7 +1793,7 @@ exports[`InvoiceForm Should render form with sender and recipient selected 1`] =
                                                                                 <label
                                                                                   className="StyledText-sc-1sadyjn-0 bKLvLm"
                                                                                 >
-                                                                                  Street
+                                                                                  Street 2
                                                                                 </label>
                                                                               </StyledText>
                                                                               <WithTheme(Box)
