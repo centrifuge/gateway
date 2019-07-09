@@ -35,6 +35,18 @@ export default class UserForm extends React.Component<InviteProps> {
         .required('This field is required'),
       permissions: Yup.array()
         .required('This field is required'),
+      schemas: Yup.array()
+        .test({
+          name:'test_schemas',
+          test:(function(this ,value) {
+            if(this.parent.permissions.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS)) {
+              return (value && value.length)
+            }
+            return true;
+          }),
+          message:'This field is required'
+
+        })
     });
 
     const { user, schemas } = this.props;
@@ -72,6 +84,7 @@ export default class UserForm extends React.Component<InviteProps> {
                handleChange,
                handleSubmit,
                setFieldValue,
+               dirty,
              }) => (
               <form
                 onSubmit={event => {
@@ -111,6 +124,9 @@ export default class UserForm extends React.Component<InviteProps> {
                         options={permissionOptions}
                         onChange={(selection) => {
                           setFieldValue('permissions', selection);
+                          if(!selection.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS)) {
+                            setFieldValue('schemas', []);
+                          }
                         }}
                       />
 
@@ -123,7 +139,7 @@ export default class UserForm extends React.Component<InviteProps> {
                         <Box margin={{ bottom: 'medium' }}>
                           <FormField
                             label="Document schemas"
-                            error={errors!.permissions}
+                            error={errors!.schemas}
                           >
                             <MutipleSelect
                               selected={values.schemas}
@@ -141,13 +157,13 @@ export default class UserForm extends React.Component<InviteProps> {
                     </>
                   }
 
-
                   <Box direction="row" justify={'end'} gap={'medium'}>
                     <Button
                       label="Discard"
                       onClick={this.props.onDiscard}
                     />
                     <Button
+                      disabled={!dirty}
                       type="submit"
                       primary
                       label={user._id ? 'Update' : 'Create'}

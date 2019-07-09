@@ -33,7 +33,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
 
   state = {
     userFormOpened: false,
-    selectedUser: null,
+    selectedUser: new User(),
   };
 
   componentDidMount() {
@@ -50,13 +50,14 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
     this.setState({ userFormOpened: false });
   };
 
-  openUserForm = () => {
-    this.setState({ userFormOpened: true });
+  openUserForm = (user: User) => {
+
+    this.setState({
+      selectedUser: user,
+      userFormOpened: true,
+    });
   };
 
-  inviteUser = (user) => {
-
-  };
 
   onUserFormSubmit = (user) => {
     if (user._id) {
@@ -128,10 +129,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
                 <Anchor
                   label={'Edit'}
                   onClick={() =>
-                    this.setState({
-                      selectedUser: data,
-                      userFormOpened: true,
-                    })
+                    this.openUserForm(data)
                   }
                 />
               </Box>
@@ -158,7 +156,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
       return <Preloader message="Updating user" withSound={true}/>;
     }
 
-    const user = this.state.selectedUser || new User();
+    const user = this.state.selectedUser;
 
     return (
       <Box fill>
@@ -169,12 +167,18 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
           title={user._id ? 'Edit user' : 'Create user'}
           onClose={this.closeUserForm}
         >
-          <UserForm schemas={schemas.data || []} user={user} onSubmit={this.onUserFormSubmit} onDiscard={this.closeUserForm}/>
+          <UserForm schemas={schemas.data || []} user={user} onSubmit={this.onUserFormSubmit}
+                    onDiscard={this.closeUserForm}/>
         </Modal>
         <SecondaryHeader>
           <Heading level="3">User Management</Heading>
           <Box>
-            <Button primary label="Create User" onClick={this.openUserForm}/>
+            <Button
+              primary
+              label="Create User"
+              onClick={ () =>
+                this.openUserForm(new User())
+              }/>
           </Box>
         </SecondaryHeader>
         <Box pad={{ horizontal: 'medium' }}>

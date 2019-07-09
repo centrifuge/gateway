@@ -27,7 +27,6 @@ export default class MutipleSelect extends Component<MutipleSelectProps,
   }
 
   onChange = selected => {
-    console.log('OnChange', selected);
     this.setState(
       {
         selected: selected,
@@ -117,8 +116,6 @@ export default class MutipleSelect extends Component<MutipleSelectProps,
                   <Close size={'small'}
                   />
                 </Box>
-
-
               </Box>
             ),
           )
@@ -131,14 +128,13 @@ export default class MutipleSelect extends Component<MutipleSelectProps,
 
   render() {
 
-    const features: Partial<SelectProps> = {};
     const { search, ...rest } = this.props;
 
     if (search) {
       rest.onSearch = this.onSearch;
     }
 
-    // delete props that we do not want to passdown
+    // delete props that we do not want to pass down
     delete rest.onChange;
     delete rest.multiple;
     delete rest.selected;
@@ -153,7 +149,6 @@ export default class MutipleSelect extends Component<MutipleSelectProps,
         value={this.state.selected}
         valueLabel={this.renderSelectedItems()}
         onChange={(ev) => {
-          console.log('EV', ev);
           this.onChange(ev.value);
         }}
         {...rest}
