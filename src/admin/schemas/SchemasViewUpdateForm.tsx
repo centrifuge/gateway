@@ -2,25 +2,25 @@ import React from 'react';
 import { Formik } from 'formik';
 import {Box, TextArea, Button, FormField} from 'grommet';
 import * as Yup from 'yup';
-import { Schema } from "../../common/models/schema";
 
-interface SchemasCreationProps {
+interface SchemasProps {
+  selectedSchema: any;
   onDiscard: () => void;
   onSubmit: (schema) => void;
-  schema: any
 }
 
 interface SchemasState {
   submitted: boolean;
-  newSchema?: Schema;
 }
 
-export default class SchemasCreationForm extends React.Component<SchemasCreationProps, SchemasState> {
-    state = { submitted: false };
+export default class SchemasViewUpdateForm extends React.Component<SchemasProps, SchemasState> {
+  state = {
+    submitted: false
+  };
 
-    onSubmit = async (input: Object) => {
-      this.props.onSubmit(input);
-    };
+  onSubmit = async (input: Object) => {
+    this.props.onSubmit(input);
+  };
 
   render() {
 
@@ -31,45 +31,13 @@ export default class SchemasCreationForm extends React.Component<SchemasCreation
             name:'test-json',
             test:(function(this ,value) {
               try {
-                JSON.parse(value)
+                JSON.parse(value);
               } catch (e) {
                 return false;
               }
               return true;
             }),
             message:'Schema is not a valid JSON object'
-          })
-          .test({
-            name:'test-name',
-            test:(function(this ,value) {
-              let test
-              try {
-                test = JSON.parse(value);
-              } catch (e) {
-                return false
-              }
-              if (!test.name) {
-                return false
-              }
-              return true;
-            }),
-            message:'Schema name is required'
-          })
-          .test({
-            name:'test-attributes',
-            test:(function(this ,value) {
-              let test
-              try {
-                test = JSON.parse(value);
-              } catch (e) {
-                return false
-              }
-              if(!test.attributes) {
-                return false
-              }
-              return true;
-            }),
-            message:'Schema attributes are required'
           })
           .test({
             name:'test-registries',
@@ -90,18 +58,19 @@ export default class SchemasCreationForm extends React.Component<SchemasCreation
     });
 
     const { submitted } = this.state;
-    const { schema } = this.props;
-
+    const { selectedSchema } = this.props;
 
     return (
+        <Box width={'large'} height={'large'}>
         <Formik
-            initialValues={schema}
+            enableReinitialize={true}
+            initialValues={selectedSchema}
             validateOnBlur={submitted}
             validateOnChange={submitted}
             validationSchema={jsonValidation}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={async (values, {setSubmitting}) => {
               if (!values) return;
-              this.onSubmit(values);
+              await this.onSubmit(values);
               setSubmitting(true);
             }}
         >
@@ -109,43 +78,47 @@ export default class SchemasCreationForm extends React.Component<SchemasCreation
             ({
                values,
                errors,
+               setValues,
                handleChange,
                handleSubmit,
-            }) => (
+             }) => (
                 <form
                     onSubmit={event => {
-                      this.setState({ submitted: true });
+                      this.setState({submitted: true});
                       handleSubmit(event);
-                    }}
-                >
+                    }}>
                   <Box width={'large'} height={'large'}>
-                    <Box height={'large'} margin={{ vertical: 'medium' }}>
+                    <Box height={'large'} margin={{vertical: 'medium'}}>
 
                       <FormField
-                        component={TextArea}
-                        pad={true}
-                        label="Please note that the schema must be a valid JSON object"
-                        error={errors!.json}
+                          component={TextArea}
+                          pad={true}
+                          label="Please note that only edits to the registries will be saved.
+                          Any changes to the name or attributes of a schema will be discarded."
+                          error={errors!.json}
                       >
                         <Box height={'large'} width={'large'} margin={{top: 'medium'}}>
                         <TextArea
-                          id={"json"}
-                          resize={false}
-                          fill={true}
-                          onChange={handleChange}
+                            spellCheck={false}
+                            fill={true}
+                            id={"json"}
+                            resize={false}
+                            defaultValue={values.json}
+                            onChange={handleChange}
                         />
                         </Box>
                       </FormField>
+
                     </Box>
                     <Box direction="row" justify={'end'} gap={'medium'}>
                       <Button
-                          label="Discard"
+                          label="Discard Changes"
                           onClick={this.props.onDiscard}
                       />
                       <Button
                           type="submit"
                           primary
-                          label="Create"
+                          label="Update"
                       />
                     </Box>
                   </Box>
@@ -153,7 +126,7 @@ export default class SchemasCreationForm extends React.Component<SchemasCreation
             )
           }
         </Formik>
+        </Box>
     )
   }
 }
-
