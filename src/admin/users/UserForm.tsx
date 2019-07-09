@@ -26,7 +26,7 @@ export default class UserForm extends React.Component<InviteProps> {
 
   render() {
 
-    const newUserValidation = Yup.object().shape({
+    const userValidation = Yup.object().shape({
       name: Yup.string()
         .max(40, 'Please enter no more than 40 characters')
         .required('This field is required'),
@@ -36,16 +36,23 @@ export default class UserForm extends React.Component<InviteProps> {
       permissions: Yup.array()
         .required('This field is required'),
       schemas: Yup.array()
+        .transform(function(this, value, originalValye){
+          throw new Error('sdsdsd')
+        })
         .test({
           name:'test_schemas',
           test:(function(this ,value) {
             if(this.parent.permissions.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS)) {
               return (value && value.length)
             }
-            return true;
+            this.createError({ path: this.path, message: "BLAB BLAL" })
+            return "Some Message";
           }),
-          message:'This field is required'
+          message: (values) => {
 
+            console.log(values)
+            return 'This field is required ${path} ${param}'
+          }
         })
     });
 
@@ -70,7 +77,7 @@ export default class UserForm extends React.Component<InviteProps> {
           initialValues={user}
           validateOnBlur={submitted}
           validateOnChange={submitted}
-          validationSchema={newUserValidation}
+          validationSchema={userValidation}
           onSubmit={(values, { setSubmitting }) => {
             if (!values) return;
             this.onSubmit(values);

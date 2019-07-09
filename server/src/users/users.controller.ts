@@ -114,14 +114,14 @@ export class UsersController {
   @UseGuards(UserAuthGuard)
   async update(@Body() user): Promise<User> {
 
-    const existingEamil: User = await this.databaseService.users.findOne({
+    const otherUserWithEmail: User = await this.databaseService.users.findOne({
       email: user.email,
       $not: {
         _id: user._id,
       },
     });
 
-    if (existingEamil) {
+    if (otherUserWithEmail) {
       throw new HttpException('Email taken!', HttpStatus.FORBIDDEN);
     }
 

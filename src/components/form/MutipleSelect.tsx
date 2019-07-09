@@ -20,6 +20,7 @@ export default class MutipleSelect extends Component<MutipleSelectProps,
   MutipleSelectState> {
   constructor(props) {
     super(props);
+
     this.state = {
       options: props.options,
       selected: props.selected || [],

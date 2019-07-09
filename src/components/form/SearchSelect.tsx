@@ -17,7 +17,8 @@ interface SearchSelectProps extends Omit<SelectProps,"selected">{
   selected?: SearchSelectItem | SearchSelectItem[];
 }
 
-
+//TODO refactor this to support also array of string and not only SearchSelectItems
+// @see MutipleSelect
 export default class SearchSelect<SearchSelectItem> extends Component<
   SearchSelectProps,
   SearchSelectState> {
