@@ -11,16 +11,16 @@ import schemas from '../../store/sagas/schemas';
 type InviteProps = {
   user: User,
   schemas: Schema[],
-  onSubmit: (user) => void;
-  onDiscard: () => void;
+  onSubmit?: (user) => void;
+  onDiscard?: () => void;
 }
 
 export default class UserForm extends React.Component<InviteProps> {
 
   state = { submitted: false };
 
-  onSubmit = async (user: User) => {
-    this.props.onSubmit(user);
+  onSubmit = (user: User) => {
+    this.props.onSubmit && this.props.onSubmit(user);
   };
 
 
@@ -36,23 +36,15 @@ export default class UserForm extends React.Component<InviteProps> {
       permissions: Yup.array()
         .required('This field is required'),
       schemas: Yup.array()
-        .transform(function(this, value, originalValye){
-          throw new Error('sdsdsd')
-        })
         .test({
           name:'test_schemas',
           test:(function(this ,value) {
             if(this.parent.permissions.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS)) {
               return (value && value.length)
             }
-            this.createError({ path: this.path, message: "BLAB BLAL" })
-            return "Some Message";
+            return true;
           }),
-          message: (values) => {
-
-            console.log(values)
-            return 'This field is required ${path} ${param}'
-          }
+          message:'This field is required'
         })
     });
 
