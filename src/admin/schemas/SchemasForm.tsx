@@ -1,19 +1,25 @@
 import React from 'react';
 import { Formik } from 'formik';
-import {Box, TextArea, Button, FormField} from 'grommet';
+import { Box, TextArea, Button, FormField } from 'grommet';
 import * as Yup from 'yup';
 
 interface SchemasProps {
   selectedSchema: any;
   onDiscard: () => void;
   onSubmit: (schema) => void;
+  isEditing: boolean;
 }
 
 interface SchemasState {
   submitted: boolean;
 }
 
-export default class SchemasViewUpdateForm extends React.Component<SchemasProps, SchemasState> {
+const editingLabel = "Please note that only edits to the registries will be saved. Any changes to the name or attributes of a schema will be discarded.";
+const creatingLabel = "Please note that the schema must be a valid JSON object.";
+const updateLabel = "Update";
+const createLabel = "Create";
+
+export default class SchemasForm extends React.Component<SchemasProps, SchemasState> {
   state = {
     submitted: false
   };
@@ -28,49 +34,36 @@ export default class SchemasViewUpdateForm extends React.Component<SchemasProps,
       json: Yup.string()
           .required('Schema is required')
           .test({
-            name:'test-json',
-            test:(function(this ,value) {
+            name: 'test-json',
+            test: (function (this, value) {
+              let test;
               try {
-                JSON.parse(value);
+                test = JSON.parse(value)
               } catch (e) {
-                return false;
-              }
-              return true;
-            }),
-            message:'Schema is not a valid JSON object'
-          })
-          .test({
-            name:'test-registries',
-            test:(function(this ,value) {
-              let test
-              try {
-                test = JSON.parse(value);
-              } catch (e) {
-                return false
+                return this.createError({path: this.path, message: 'Schema is not a valid JSON object'})
               }
               if (!test.registries) {
-                return false
+                return this.createError({ path: this.path, message: 'At least one registry for this schema  is required'})
               }
-              return true;
-            }),
-            message:'At least one registry for this schema  is required'
-          }),
+              return true
+            })
+          })
     });
 
     const { submitted } = this.state;
     const { selectedSchema } = this.props;
 
     return (
-        <Box width={'large'} height={'large'}>
+        <Box fill={'vertical'} >
         <Formik
             enableReinitialize={true}
-            initialValues={selectedSchema}
+            initialValues={ selectedSchema }
             validateOnBlur={submitted}
             validateOnChange={submitted}
             validationSchema={jsonValidation}
             onSubmit={async (values, {setSubmitting}) => {
               if (!values) return;
-              await this.onSubmit(values);
+              await this.onSubmit(values.json);
               setSubmitting(true);
             }}
         >
@@ -87,18 +80,17 @@ export default class SchemasViewUpdateForm extends React.Component<SchemasProps,
                       this.setState({submitted: true});
                       handleSubmit(event);
                     }}>
-                  <Box width={'large'} height={'large'}>
-                    <Box height={'large'} margin={{vertical: 'medium'}}>
-
+                  <Box fill={'vertical'}>
+                    <Box margin={{vertical: 'medium'}}>
                       <FormField
                           component={TextArea}
                           pad={true}
-                          label="Please note that only edits to the registries will be saved.
-                          Any changes to the name or attributes of a schema will be discarded."
+                          label={ this.props.isEditing ? editingLabel : creatingLabel }
                           error={errors!.json}
                       >
-                        <Box height={'large'} width={'large'} margin={{top: 'medium'}}>
+                        <Box margin={{top: 'medium'}}>
                         <TextArea
+                            rows={25}
                             spellCheck={false}
                             fill={true}
                             id={"json"}
@@ -112,13 +104,13 @@ export default class SchemasViewUpdateForm extends React.Component<SchemasProps,
                     </Box>
                     <Box direction="row" justify={'end'} gap={'medium'}>
                       <Button
-                          label="Discard Changes"
+                          label="Discard"
                           onClick={this.props.onDiscard}
                       />
                       <Button
                           type="submit"
                           primary
-                          label="Update"
+                          label={ this.props.isEditing ? updateLabel : createLabel }
                       />
                     </Box>
                   </Box>
