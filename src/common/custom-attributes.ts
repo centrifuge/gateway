@@ -64,6 +64,7 @@ export const isArrayLikeDocumentAttribute = (obj) => {
 
 
 // Converts and array like Document Attribute to an array making it iterable
+// ignores not isArrayLikeDocumentAttribute objects
 // it is recursive on all the items in the array
 export const toIterableDocumentAttribute = (documentAttribute: DocumentAttribute) => {
   if (!isArrayLikeDocumentAttribute(documentAttribute) ) return documentAttribute;
