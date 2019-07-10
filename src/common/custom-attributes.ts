@@ -14,7 +14,6 @@ export const flatten = (data): any => {
         }
       }
     } else {
-      console.log('else', key, cur);
       for (let k in cur) {
         parse(cur[k], key ? key + '.' + k : k);
       }
@@ -29,8 +28,8 @@ export const flatten = (data): any => {
 // Warning: Raw custom attributes have only objects. No arrays just array like objects that are not iterable
 export const unflattenRaw = function(data): any {
   if (Object(data) !== data || Array.isArray(data)) return data;
-  let regex = /\.?([^.\[\]]+)|\[(\d+)\]/g;
-  let result = {};
+  const regex = /\.?([^.\[\]]+)|\[(\d+)\]/g;
+  const result = {};
   for (let k in data) {
     let cur = result;
     let key = '';
