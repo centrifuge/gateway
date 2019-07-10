@@ -67,18 +67,33 @@ class SchemasList extends React.Component<RouteComponentProps & SchemasProps> {
 
   componentWillUnmount() {
     this.props.resetCreateSchema();
+    this.props.resetUpdateSchema();
+    this.props.resetGetSchema();
+    this.props.resetGetSchemasList();
   }
 
-  createSchema = (input) => {
+  handleSubmit = (input) => {
     const schemaString = input.replace(/\r?\n|\r|\t/g, '');
+    let schema: Schema
     const schemaJSON = JSON.parse(schemaString);
-    let schema = new Schema(
-        schemaJSON.name,
-        schemaJSON.attributes,
-        schemaJSON.registries
-    );
-    this.props.createSchema(schema);
-    this.closeCreateSchema();
+    if (this.state.isEditing) {
+      schema = new Schema(
+          schemaJSON.name,
+          schemaJSON.attributes,
+          schemaJSON.registries,
+          schemaJSON._id
+      );
+      this.props.updateSchema(schema);
+      this.closeViewSchema();
+    } else {
+      schema = new Schema(
+          schemaJSON.name,
+          schemaJSON.attributes,
+          schemaJSON.registries,
+      );
+      this.props.createSchema(schema);
+      this.closeCreateSchema();
+    }
   };
 
   closeCreateSchema = () => {
@@ -87,19 +102,6 @@ class SchemasList extends React.Component<RouteComponentProps & SchemasProps> {
 
   closeViewSchema = () => {
     this.setState({ viewSchema: false });
-  };
-
-  updateSchema = (input) => {
-    const schemaString = input.replace(/\r?\n|\r|\t/g, '');
-    const schemaJSON = JSON.parse(schemaString);
-    let schema = new Schema(
-        schemaJSON.name,
-        schemaJSON.attributes,
-        schemaJSON.registries,
-        schemaJSON._id
-    );
-    this.props.updateSchema(schema);
-    this.closeViewSchema();
   };
 
   onAddNewClick = () => {
@@ -154,10 +156,7 @@ class SchemasList extends React.Component<RouteComponentProps & SchemasProps> {
                     <Box direction="row" gap="small">
                       <Anchor
                           label={'View/Update'}
-                          onClick={async () => {
-                            await this.onViewSchemaClick(data)
-                          }
-                          }
+                          onClick={ async () => { await this.onViewSchemaClick(data)} }
                       />
                     </Box>
                 ),
@@ -187,16 +186,16 @@ class SchemasList extends React.Component<RouteComponentProps & SchemasProps> {
             />
           </SecondaryHeader>
           <Modal
-              opened={ isEditing ? viewSchema :  createSchema}
+              opened={ isEditing ? viewSchema :  createSchema }
               headingProps={{ level: 3 }}
               title={ isEditing ? updateTitle : createTitle }
-              onClose={ isEditing ?  this.closeViewSchema : this.closeCreateSchema}
+              onClose={ isEditing ?  this.closeViewSchema : this.closeCreateSchema }
           >
             <SchemasForm
                 isEditing={isEditing}
                 selectedSchema={ isEditing ? selectedSchema : emptySchemaInput }
-                onSubmit={ isEditing ? this.updateSchema : this.createSchema}
-                onDiscard={ isEditing ? this.closeViewSchema : this.closeCreateSchema}
+                onSubmit={this.handleSubmit}
+                onDiscard={ isEditing ? this.closeViewSchema : this.closeCreateSchema }
             />
           </Modal>
          <Box pad={{horizontal:"medium"}}>
