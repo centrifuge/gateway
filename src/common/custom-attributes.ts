@@ -84,7 +84,7 @@ export const toIterableDocumentAttribute = (documentAttribute: DocumentAttribute
   return iterable;
 };
 
-// Converts and Iterable Document Attribute to an array like object.
+// Converts an Iterable Document Attribute to an array like object.
 export const toUniterableDocumentAttribute = (documentAttribute: DocumentAttribute) => {
   if (!Array.isArray(documentAttribute)) return documentAttribute;
   let notIterable = {};
