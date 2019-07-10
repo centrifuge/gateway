@@ -45,6 +45,12 @@ export default class SchemasForm extends React.Component<SchemasProps, SchemasSt
               if (!test.registries) {
                 return this.createError({ path: this.path, message: 'At least one registry for this schema  is required'})
               }
+              if (!test.name) {
+                return this.createError({ path: this.path, message: 'Schema name is required'})
+              }
+              if (!test.attributes) {
+                return this.createError({ path: this.path, message: 'At least one attribute for this schema  is required'})
+              }
               return true
             })
           })
