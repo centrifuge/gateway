@@ -1,71 +1,97 @@
 import { DocumentAttribute } from '../../clients/centrifuge-node';
 
-export const flatten = (data) => {
-  var result = {};
-
-  function recurse(cur, prop) {
-    if (Object(cur) !== cur) {
-      result[prop] = cur;
-    } else if (Array.isArray(cur)) {
-      for (var i = 0, l = cur.length; i < l; i++)
-        recurse(cur[i], prop + '[' + i + ']');
-      if (l == 0) result[prop] = [];
-    } else {
-      var isEmpty = true;
-      for (var p in cur) {
-        isEmpty = false;
-        recurse(cur[p], prop ? prop + '.' + p : p);
+// Reverse function for unflatten and unflattenRaw
+export const flatten = (data): any => {
+  let result = {};
+  const parse = (cur, key = '') => {
+    if (isDocumentAttribute(cur)) {
+      result[key] = {};
+      for (let k in cur) {
+        if (Number.isInteger(parseInt(k))) {
+          parse(cur[k], key + '[' + k + ']');
+        } else {
+          result[key][k] = cur[k];
+        }
       }
-      if (isEmpty && prop) result[prop] = {};
+    } else {
+      console.log('else', key, cur);
+      for (let k in cur) {
+        parse(cur[k], key ? key + '.' + k : k);
+      }
     }
-  }
+  };
 
-  recurse(data, '');
+  parse(data);
   return result;
 };
 
-export const unflatten = function(data) {
+// It will parse and unflatten the custom attributes with no data manipulation
+// Warning: Raw custom attributes have only objects. No arrays just array like objects that are not iterable
+export const unflattenRaw = function(data): any {
   if (Object(data) !== data || Array.isArray(data)) return data;
   let regex = /\.?([^.\[\]]+)|\[(\d+)\]/g;
   let result = {};
-  for (let p in data) {
+  for (let k in data) {
     let cur = result;
-    let prop = '';
+    let key = '';
     let m;
-    console.log('PROP', p);
-    while (m = regex.exec(p)) {
-      console.log('regexp', m[2], m[1]);
-      console.log(prop, cur);
-      cur = cur[prop] || (cur[prop] = (m[2] ? [] : {}));
-      prop = m[2] || m[1];
+    while (m = regex.exec(k)) {
+      cur = cur[key] || (cur[key] = (m[2] ? [] : {}));
+      key = m[2] || m[1];
     }
-    cur[prop] = data[p];
+    cur[key] = { ...data[k] };
   }
-
-  let normalised = {}
-  for (let p in result['']) {
-    normalised[p] = toIterable(result[''][p]);
-  }
-  return normalised;
+  return result[''];
 };
 
-// Nested references are kept and mutating the content will mutate the orinal object
-export const toIterable = (attr: DocumentAttribute) => {
-  const keys =  Object.keys(attr);
-  const values =  Object.values(attr);
-  const iterable = values.slice(0, -3);
-  for(let i = iterable.length; i <= values.length; i ++) {
-    iterable[keys[i]] = values[i];
+// It will parse and unflatten the custom attributes and it will convert array like objects to arrays
+export const unflatten = function(data): any {
+  const result = unflattenRaw(data);
+  let withIterables = {};
+  for (let k in result) {
+    withIterables[k] = toIterableDocumentAttribute({ ...result[k] });
+  }
+  return withIterables;
+};
+
+// Checks if object is an DocumentAttribute. Works for both Iterable and nonIterable DocumentAttributes
+export const isDocumentAttribute = (obj) => {
+  return (obj.hasOwnProperty('key') && obj.hasOwnProperty('type') && obj.hasOwnProperty('value'));
+};
+
+export const isArrayLikeDocumentAttribute = (obj) => {
+  return isDocumentAttribute(obj) && obj.hasOwnProperty('0');
+}
+
+
+// Converts and array like Document Attribute to an array making it iterable
+// it is recursive on all the items in the array
+export const toIterableDocumentAttribute = (documentAttribute: DocumentAttribute) => {
+  if (!isArrayLikeDocumentAttribute(documentAttribute) ) return documentAttribute;
+  const keys = Object.keys(documentAttribute);
+  keys.sort();
+  const iterable = [];
+  for (let key of keys) {
+    if(Number.isInteger(parseInt(key))) {
+      iterable[key] = {};
+      for (let p in documentAttribute[key]) {
+        iterable[key][p] = toIterableDocumentAttribute(documentAttribute[key][p]);
+      }
+    } else {
+      iterable[key] = documentAttribute[key];
+    }
   }
   return iterable;
 };
 
-export const shouldBeItarable = (attr: DocumentAttribute) => {
-  return (Object.keys(attr).length > 3)
-}
+// Converts and Iterable Document Attribute to an array like object.
+export const toUniterableDocumentAttribute = (documentAttribute: DocumentAttribute) => {
+  if (!Array.isArray(documentAttribute)) return documentAttribute;
+  let notIterable = {};
+  for (let key in documentAttribute) {
+    notIterable[key] = documentAttribute[key];
+  }
 
-export const toUniterable = (attr: DocumentAttribute[]): DocumentAttribute => {
+  return notIterable;
 
-  for(let i)
-
-}
+};
