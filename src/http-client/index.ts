@@ -50,5 +50,11 @@ export const httpClient = {
     read: async () => instance.get(ROUTES.SCHEMAS),
     readById: async (id): Promise<Schema> => instance.get(`${ROUTES.SCHEMAS}/${id}`),
     update: async (schema: Schema) => instance.put(`${ROUTES.SCHEMAS}/${schema._id}`, schema),
+  },
+  documents : {
+    create: async (schema: Schema) => instance.post(ROUTES.SCHEMAS, schema),
+    read: async () => instance.get(ROUTES.SCHEMAS),
+    readById: async (id): Promise<Schema> => instance.get(`${ROUTES.SCHEMAS}/${id}`),
+    update: async (schema: Schema) => instance.put(`${ROUTES.SCHEMAS}/${schema._id}`, schema),
   }
 };

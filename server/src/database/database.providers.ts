@@ -7,6 +7,7 @@ import { Schema } from '../../../src/common/models/schema';
 import config from '../../../src/common/config';
 import { InvoiceResponse, PurchaseOrderResponse } from '../../../src/common/interfaces';
 import { DatabaseService } from './database.service';
+import { GenericDocument } from "../../../src/common/models/document";
 
 // TODO refactor this in mutiple providers,services
 
@@ -50,12 +51,17 @@ const initializeDatabase = async (inMemoryOnly:boolean) => {
       { filename: `${config.dbPath}/schemasDb`, inMemoryOnly },
   );
 
+  const documentsRepository = new DatabaseRepository<GenericDocument>(
+      { filename: `${config.dbPath}/documentsDb`, inMemoryOnly },
+  );
+
   return {
     invoices: invoicesRepository,
     users: usersRepository,
     contacts: contactsRepository,
     purchaseOrders: purchaseOrdersRepository,
     schemas: schemasRepository,
+    documents: documentsRepository,
   };
 };
 
