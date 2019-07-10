@@ -13,7 +13,6 @@ import { SecondaryHeader } from '../../components/SecondaryHeader';
 import { DisplayField } from '../../components/DisplayField';
 import { getSchemasList, resetGetSchemasList } from '../../store/actions/schemas';
 import { Schema } from '../../common/models/schema';
-import schemas from '../../store/sagas/schemas';
 
 type UsersListProps = {
   users: User[] | null;

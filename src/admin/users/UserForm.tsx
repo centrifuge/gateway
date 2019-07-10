@@ -6,7 +6,6 @@ import { Formik } from 'formik';
 import { PERMISSIONS } from '../../common/constants';
 import MutipleSelect from '../../components/form/MutipleSelect';
 import { Schema } from '../../common/models/schema';
-import schemas from '../../store/sagas/schemas';
 
 type InviteProps = {
   user: User,
