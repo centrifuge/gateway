@@ -64,7 +64,7 @@ export default class UserForm extends React.Component<InviteProps> {
     const schemaOptions = schemas.map(i => i.name);
 
     return (
-      <Box width={'medium'} margin={{ vertical: 'medium' }}>
+      <Box  margin={{ vertical: 'medium' }}>
         <Formik
           initialValues={user}
           validateOnBlur={submitted}

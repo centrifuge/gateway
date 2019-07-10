@@ -51,30 +51,24 @@ export default class MutipleSelect extends Component<MutipleSelectProps,
 
 
   getItemValue = (value) => {
-    const { valueKey } = this.props;
-    if (valueKey) {
-      if (typeof valueKey === 'function') {
-        return valueKey(value);
-      } else {
-        return value[valueKey];
-      }
-    } else {
-      return value;
-    }
+    return this.getItemPropByKey(value,'valueKey');
+  };
 
+  getItemLabel = (value) => {
+    return this.getItemPropByKey(value,'labelKey');
   };
 
 
-  getItemLabel = (value) => {
-    const { labelKey } = this.props;
-    if (labelKey) {
-      if (typeof labelKey === 'function') {
-        return labelKey(value);
-      } else {
-        return value[labelKey];
-      }
+  getItemPropByKey = (value, key) => {
+    const prop  = this.props[key];
+    if (!prop) {
+        return value
     } else {
-      return value;
+      if (typeof prop === 'function') {
+        return prop(value);
+      } else {
+        return value[prop];
+      }
     }
   };
 
