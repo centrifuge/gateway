@@ -8,6 +8,7 @@ export class Schema {
    readonly _id?: string,
  ){
    Schema.validateRegistryAddress(this)
+   Schema.validateReferenceIdField(this)
  }
 
   public static validateRegistryAddress(schema: Schema) {
@@ -18,11 +19,20 @@ export class Schema {
      }
    })
   }
+
+  public static validateReferenceIdField(schema: Schema) {
+   if (schema.attributes.length > 0) {
+     const refID = schema.attributes.filter(attr => attr.label === 'reference_id');
+     if (refID.length === 0) {
+       throw new Error(`Attributes do not contain a reference ID`);
+     }
+   }
+  }
 }
 
 export interface Attribute {
   label: string,
-  type: AttrTypes.STRING | AttrTypes.DATE | AttrTypes.NUMBER,
+  type: AttrTypes.STRING | AttrTypes.TIMESTAMP | AttrTypes.INTEGER | AttrTypes.BYTES | AttrTypes.DECIMAL
 }
 
 export interface Registry {
@@ -32,7 +42,9 @@ export interface Registry {
 }
 
 export enum AttrTypes {
-  NUMBER = 'number',
+  INTEGER = 'integer',
+  DECIMAL = 'decimal',
+  BYTES = 'bytes',
   STRING = 'string',
-  DATE = 'Date',
+  TIMESTAMP = 'timestamp',
 }

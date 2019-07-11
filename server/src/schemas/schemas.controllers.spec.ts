@@ -16,6 +16,10 @@ describe('SchemasController', () => {
         {
           label: 'wingspans',
           type: AttrTypes.STRING,
+        },
+        {
+          label: 'reference_id',
+          type: AttrTypes.STRING,
         }
       ]
       ,
@@ -95,6 +99,33 @@ describe('SchemasController', () => {
         expect(err instanceof HttpException).toEqual(true);
       }
     });
+
+    it('should throw error when there is no reference id attribute', async function() {
+      expect.assertions(3);
+      const schemasController = schemaModule.get<SchemasController>(
+          SchemasController,
+      );
+
+      try {
+        await schemasController.create({
+          name: 'bestAnimals',
+          attributes: [
+            {
+              label: 'catlike_qualities',
+              type: AttrTypes.STRING,
+            }
+          ],
+          registries: [
+            {
+              address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
+            }
+          ]} as Schema);
+      } catch (err) {
+        expect(err.message).toEqual('Attributes do not contain a reference ID');
+        expect(err.status).toEqual(400);
+        expect(err instanceof HttpException).toEqual(true);
+      }
+    });
   });
 
   describe('get', () => {
@@ -148,7 +179,7 @@ describe('SchemasController', () => {
           },
           {
             '_id': result._id,
-            'attributes': [{"label": "wingspans", "type": "string"}],
+            'attributes': [{"label": "wingspans", "type": "string"}, {"label": "reference_id", "type":"string"}],
             "name": "bestAnimals",
             "registries": [{
               "address": "0x87c574FB2DF0EaA2dAf5fc4a8A16dd3Ce39011B1",
