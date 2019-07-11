@@ -166,5 +166,43 @@ export class MockCentrifugeService {
       identity_id: 'generated_identity_id',
     })),
   };
+  documents = {
+    get: jest.fn(document_id => {
+      return {
+        // header: {
+        //   document_id,
+        //   nfts: [
+        //     {
+        //       token_id: 'token_id',
+        //       owner: 'owner',
+        //     },
+        //   ],
+        // },
+        // data: {
+        //   currency: 'USD',
+        // },
+        //
+        // attributes: {
+        //   'funding[0].test': true,
+        // },
+      };
+    }),
+    createDocument: jest.fn( (authid, data) => {
+      return {
+        header: {
+          job_id: 'some_job_id',
+        },
+        ...data,
+      };
+    }),
+    update: jest.fn((documentId, data) => {
+      return {
+        // header: {
+        //   job_id: 'some_job_id',
+        // },
+        // ...data,
+      };
+    }),
+  };
   pullForJobComplete = () => true;
 }
