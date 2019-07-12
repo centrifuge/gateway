@@ -14,10 +14,12 @@ describe('SchemasController', () => {
       'bestAnimals',
       [
         {
+          name: 'animal.wingspan',
           label: 'wingspans',
           type: AttrTypes.STRING,
         },
         {
+          name: 'animal.reference_id',
           label: 'reference_id',
           type: AttrTypes.STRING,
         }
@@ -28,7 +30,7 @@ describe('SchemasController', () => {
           label: 'BEST_ANIMALS_NFT',
           address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
           proofs: [
-            'attributes.wingspans',
+            'attributes.animals.wingspans',
             'header.document_id'
           ]
         }
@@ -84,6 +86,7 @@ describe('SchemasController', () => {
           name: 'bestAnimals',
           attributes: [
             {
+              name: 'document.qualities',
               label: 'catlike_qualities',
               type: AttrTypes.STRING,
             }
@@ -111,6 +114,7 @@ describe('SchemasController', () => {
           name: 'bestAnimals',
           attributes: [
             {
+              name: 'document.qualities',
               label: 'catlike_qualities',
               type: AttrTypes.STRING,
             }
@@ -179,7 +183,7 @@ describe('SchemasController', () => {
           },
           {
             '_id': result._id,
-            'attributes': [{"label": "wingspans", "type": "string"}, {"label": "reference_id", "type":"string"}],
+            'attributes': [{"label": "wingspans", "type": "string", "name": "animal.wingspan"}, {"name": "animal.reference_id", "label": "reference_id", "type":"string"}],
             "name": "bestAnimals",
             "registries": [{
               "address": "0x87c574FB2DF0EaA2dAf5fc4a8A16dd3Ce39011B1",

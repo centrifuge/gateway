@@ -31,6 +31,7 @@ export class Schema {
 }
 
 export interface Attribute {
+  name: string,
   label: string,
   type: AttrTypes.STRING | AttrTypes.TIMESTAMP | AttrTypes.INTEGER | AttrTypes.BYTES | AttrTypes.DECIMAL
 }
