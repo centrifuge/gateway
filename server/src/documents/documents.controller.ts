@@ -53,7 +53,7 @@ export class DocumentsController {
 
   @Get(':id')
   /**
-   * Get a specific genericDoc by id
+   * Get a specific FlexDoc by id
    * @async
    * @param params - the request parameters
    * @param request - the http request
