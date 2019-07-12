@@ -14,6 +14,11 @@ describe('SchemasController', () => {
       'bestAnimals',
       [
         {
+          name: 'reference_id',
+          label: 'ReferenceId',
+          type: AttrTypes.STRING,
+        },
+        {
           name: 'animal.wingspan',
           label: 'wingspans',
           type: AttrTypes.STRING,
@@ -183,7 +188,7 @@ describe('SchemasController', () => {
           },
           {
             '_id': result._id,
-            'attributes': [{"label": "wingspans", "type": "string", "name": "animal.wingspan"}, {"name": "animal.reference_id", "label": "reference_id", "type":"string"}],
+            'attributes': [{"label": "ReferenceId", "name": "reference_id", "type": "string"}, {"label": "wingspans", "type": "string", "name": "animal.wingspan"}, {"name": "animal.reference_id", "label": "reference_id", "type":"string"}],
             "name": "bestAnimals",
             "registries": [{
               "address": "0x87c574FB2DF0EaA2dAf5fc4a8A16dd3Ce39011B1",

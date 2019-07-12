@@ -21,8 +21,11 @@ export class Schema {
   }
 
   public static validateReferenceIdField(schema: Schema) {
-   if (schema.attributes.length > 0) {
-     const refID = schema.attributes.filter(attr => attr.label === 'reference_id');
+   if (!schema.attributes || !schema.registries || !schema.name) {
+     throw new Error(`Schema must define attributes, registries, and schema name`);
+   }
+   if (schema.attributes && schema.attributes.length > 0) {
+     const refID = schema.attributes.filter(attr => attr.name === 'reference_id');
      if (refID.length === 0) {
        throw new Error(`Attributes do not contain a reference ID`);
      }
