@@ -22,7 +22,20 @@ describe('DocumentsController', () => {
     schema_id: 'iUSDF2ax31e',
   };
 
+  const documentToInsert: FlexDocument = {
+    read_access: ['0x111'],
+    write_access: ['0x222'],
+    attributes: {
+      'animal_type': 'iguana',
+      'number_of_legs': 4,
+      'diet': 'insects',
+      'this is a random field': 'random'
+    },
+    schema_id: 'iUSDF2ax31e',
+  };
+
   const databaseSpies: any = {};
+  let insertedDocument: any = {};
 
   beforeEach(async () => {
     documentsModule = await Test.createTestingModule({
@@ -35,6 +48,13 @@ describe('DocumentsController', () => {
     }).compile();
 
     const databaseService = documentsModule.get<DatabaseService>(DatabaseService);
+    insertedDocument = await databaseService.documents.insert({
+      header: {
+        document_id: '0x39393939',
+      },
+      ...documentToInsert,
+      ownerId: 'user_id',
+    });
 
     databaseSpies.spyInsert = jest.spyOn(databaseService.documents, 'insert');
     databaseSpies.spyUpdate = jest.spyOn(databaseService.documents, 'update');
@@ -115,54 +135,48 @@ describe('DocumentsController', () => {
       };
 
       const updateResult = await documentsController.updateById(
-          { id: insertedInvoice._id },
+          { id: insertedDocument._id },
           { user: { _id: 'user_id', account: '0x4441122' } },
-          { ...updatedInvoice },
+          { ...updatedDocument },
       );
 
       expect(databaseSpies.spyFindOne).toHaveBeenCalledWith({
-        _id: insertedInvoice._id,
+        _id: insertedDocument._id,
         ownerId: 'user_id',
       });
-      expect(invoiceSpies.spyUpdate).toHaveBeenCalledWith(
+      expect(databaseSpies.spyUpdate).toHaveBeenCalledWith(
           '0x39393939',
-          {
-            data: { ...updatedInvoice },
-            write_access: [updatedInvoice.sender, updatedInvoice.recipient],
-          },
+          updatedDocument,
           '0x4441122',
       );
 
       expect(updateResult).toMatchObject({
-        data: {
-          ...updatedInvoice,
-        },
-        write_access: [updatedInvoice.sender, updatedInvoice.recipient],
+        updatedDocument,
       });
     });
   });
 
   describe('get by id', function() {
     it('should return the invoice by id', async function() {
-      const invoiceController = invoicesModule.get<InvoicesController>(
-          InvoicesController,
+      const documentsController = documentsModule.get<DocumentsController>(
+          DocumentsController,
       );
 
-      const result = await invoiceController.getById(
-          { id: insertedInvoice._id },
+      const result = await documentsController.getById(
+          { id: insertedDocument._id },
           { user: { _id: 'user_id' } },
       );
       expect(databaseSpies.spyFindOne).toHaveBeenCalledWith({
-        _id: insertedInvoice._id,
+        _id: insertedDocument._id,
         ownerId: 'user_id',
       });
 
       expect(result).toMatchObject({
-        data: invoice,
+        data: document,
         header: {
           document_id: '0x39393939',
         },
       });
     });
   });
-})
+});
