@@ -8,7 +8,7 @@ import {
 import { DatabaseService } from '../database/database.service';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import { InvoiceResponse } from '../../../src/common/interfaces';
-import {GenericDocumentResponse} from "../../../src/common/models/document";
+import { FlexDocResponse } from "../../../src/common/models/document";
 
 export const documentTypes = {
   invoice:
@@ -91,7 +91,7 @@ export class WebhooksController {
               notification.document_id,
               user.account,
           );
-          const document: GenericDocumentResponse = {
+          const document: FlexDocResponse = {
             ...result,
             ownerId: user._id,
           };
