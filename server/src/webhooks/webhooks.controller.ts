@@ -8,12 +8,15 @@ import {
 import { DatabaseService } from '../database/database.service';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import { InvoiceResponse } from '../../../src/common/interfaces';
+import {GenericDocumentResponse} from "../../../src/common/models/document";
 
 export const documentTypes = {
   invoice:
     'http://github.com/centrifuge/centrifuge-protobufs/invoice/#invoice.InvoiceData',
   purchaseOrder:
     'http://github.com/centrifuge/centrifuge-protobufs/purchaseorder/#purchaseorder.PurchaseOrderData',
+  genericDocument:
+    'http://github.com/centrifuge/centrifuge-protobufs/generic/#generic.Generic',
 };
 
 export const eventTypes = {
@@ -36,6 +39,7 @@ export class WebhooksController {
    * @param notification NotificationNotificationMessage - received notification
    */
   @Post()
+  // TODO: refactor/rethink to remove code duplication in functionality
   async receiveMessage(@Body() notification: NotificationNotificationMessage) {
     console.log('Receive Webhook', notification);
     try {
@@ -74,14 +78,42 @@ export class WebhooksController {
             invoice,
             { upsert: true },
           );
-
+          // TODO this should be similar to invoices. We do not care for now.
         } else if (notification.document_type === documentTypes.purchaseOrder) {
           const result = await this.centrifugeService.purchaseOrders.get(
             notification.document_id,
             user.account,
           );
           await this.databaseService.purchaseOrders.insert(result);
-          // TODO this should be similar to invoices. We do not care for now.
+          // FlexDocs
+        } else if (notification.document_type === documentTypes.genericDocument) {
+          const result = await this.centrifugeService.documents.getDocument(
+              notification.document_id,
+              user.account,
+          );
+          const document: GenericDocumentResponse = {
+            ...result,
+            ownerId: user._id,
+          };
+          if (document.attributes) {
+            if (document.attributes.funding_agreement) {
+              const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(document.header.document_id, user.account);
+              document.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
+            }
+            if (document.attributes.transfer_details) {
+              const transferList: UserapiTransferDetailListResponse = await this.centrifugeService.transfer.listTransferDetails(user.account, document.header.document_id);
+              document.transferDetails = (transferList ? transferList.data : undefined);
+            }
+
+            // We need to delete the attributes prop because nedb does not allow for . in field names
+            delete document.attributes;
+          }
+
+          await this.databaseService.documents.update(
+              { 'header.document_id': notification.document_id, 'ownerId': user._id },
+              document,
+              { upsert: true },
+          );
         }
       }
     } catch (e) {

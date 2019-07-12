@@ -3,7 +3,7 @@ import { InvoiceResponse, PurchaseOrderResponse } from '../../../src/common/inte
 import { User } from '../../../src/common/models/user';
 import { Contact } from '../../../src/common/models/contact';
 import { Schema } from "../../../src/common/models/schema";
-import { GenericDocument } from "../../../src/common/models/document";
+import { GenericDocumentResponse } from "../../../src/common/models/document";
 
 export class DatabaseService {
   constructor(
@@ -12,6 +12,6 @@ export class DatabaseService {
     public contacts: DatabaseRepository<Contact>,
     public purchaseOrders: DatabaseRepository<PurchaseOrderResponse>,
     public schemas: DatabaseRepository<Schema>,
-    public documents: DatabaseRepository<GenericDocument>
+    public documents: DatabaseRepository<GenericDocumentResponse>
   ){}
 }

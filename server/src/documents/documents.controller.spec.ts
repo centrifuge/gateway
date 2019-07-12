@@ -1,15 +1,15 @@
-import {Test, TestingModule} from "@nestjs/testing";
-import {GenericDocument} from "../../../src/common/models/document";
-import {SessionGuard} from "../auth/SessionGuard";
-import {databaseServiceProvider} from "../database/database.providers";
-import {DatabaseService} from "../database/database.service";
-import {DocumentsController} from "./documents.controller";
-import {centrifugeServiceProvider} from "../centrifuge-client/centrifuge.module";
-import {CoreapiCreateDocumentRequest} from "../../../clients/centrifuge-node";
+import { Test, TestingModule } from "@nestjs/testing";
+import { FlexDocument } from "../../../src/common/models/document";
+import { SessionGuard } from "../auth/SessionGuard";
+import { databaseServiceProvider } from "../database/database.providers";
+import { DatabaseService } from "../database/database.service";
+import { DocumentsController } from "./documents.controller";
+import { centrifugeServiceProvider } from "../centrifuge-client/centrifuge.module";
+import { CoreapiCreateDocumentRequest } from "../../../clients/centrifuge-node";
 
 describe('DocumentsController', () => {
   let documentsModule: TestingModule;
-  const documentToCreate: GenericDocument = {
+  const documentToCreate: FlexDocument = {
     read_access: ['0x111'],
     write_access: ['0x222'],
     attributes: {
