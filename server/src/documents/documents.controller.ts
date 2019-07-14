@@ -1,13 +1,15 @@
-import {Body, Controller, Get, HttpException, HttpStatus, Param, Post, Put, Req} from "@nestjs/common";
+import {Body, Controller, Get, Param, Post, Put, Req, UseGuards} from "@nestjs/common";
 import { DatabaseService } from "../database/database.service";
 import { CentrifugeService } from "../centrifuge-client/centrifuge.service";
 import {
   CoreapiCreateDocumentRequest,
-  FunFundingListResponse, UserapiTransferDetailListResponse,
 } from "../../../clients/centrifuge-node";
 import { FlexDocResponse, FlexDocument } from "../../../src/common/models/document";
+import { ROUTES } from "../../../src/common/constants";
+import { SessionGuard } from "../auth/SessionGuard";
 
-@Controller()
+@Controller(ROUTES.DOCUMENTS)
+@UseGuards(SessionGuard)
 export class DocumentsController {
   constructor(
       private readonly databaseService: DatabaseService,
@@ -66,21 +68,6 @@ export class DocumentsController {
       ownerId: request.user._id,
     });
 
-    // We the call because the document is not updated on transfer and the header info is out of sync
-    if (document.fundingAgreement) {
-      const tokenId = document.fundingAgreement.funding.nft_address;
-      // Search for the registry address
-      const nft = document.header.nfts.find(item => {
-        return item.token_id === tokenId;
-      });
-      if (nft) {
-        const ownerResponse = await this.centrifugeService.nft.ownerOfNft(request.user.account, nft.token_id, nft.registry, request.user.account);
-        document.fundingAgreement.nftOwner = ownerResponse.owner;
-        document.fundingAgreement.nftRegistry = nft.registry;
-      } else {
-        throw new HttpException('Nft from funding agreement not found on document', HttpStatus.CONFLICT);
-      }
-    }
     return document;
   }
 
@@ -113,26 +100,6 @@ export class DocumentsController {
     );
 
     await this.centrifugeService.pullForJobComplete(updateResult.header.job_id, request.user.account);
-
-    if (updateResult.attributes) {
-      if (updateResult.attributes.funding_agreement) {
-        const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(
-            updateResult.header.document_id,
-            request.user.account,
-        );
-        updateResult.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
-      }
-      if (updateResult.attributes.transfer_details) {
-        const transferList: UserapiTransferDetailListResponse = await this.centrifugeService.transfer.listTransferDetails(
-            request.user.account,
-            updateResult.header.document_id,
-        );
-        updateResult.transferDetails = (transferList ? transferList.data : undefined);
-      }
-
-      // We need to delete the attributes prop because nedb does not allow for . in field names
-      delete updateResult.attributes;
-    }
 
     return await this.databaseService.documents.updateById(params.id, {
       ...updateResult,

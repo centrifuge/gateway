@@ -6,8 +6,6 @@ import { DatabaseService } from "../database/database.service";
 import { DocumentsController } from "./documents.controller";
 import { centrifugeServiceProvider } from "../centrifuge-client/centrifuge.module";
 import { CoreapiCreateDocumentRequest } from "../../../clients/centrifuge-node";
-import {InvoicesController} from "../invoices/invoices.controller";
-import {Invoice} from "../../../src/common/models/invoice";
 
 describe('DocumentsController', () => {
   let documentsModule: TestingModule;
@@ -56,6 +54,7 @@ describe('DocumentsController', () => {
       ownerId: 'user_id',
     });
 
+    databaseSpies.spyFindOne = jest.spyOn(databaseService.documents, 'findOne');
     databaseSpies.spyInsert = jest.spyOn(databaseService.documents, 'insert');
     databaseSpies.spyUpdate = jest.spyOn(databaseService.documents, 'update');
     databaseSpies.spyGetAll = jest.spyOn(databaseService.documents , 'getCursor');
@@ -118,8 +117,7 @@ describe('DocumentsController', () => {
       const result = await documentsController.getList({
         user: { _id: 'user_id' },
       });
-
-      expect(result.length).toEqual(2);
+      expect(result.length).toEqual(3);
       expect(databaseSpies.spyGetAll).toHaveBeenCalledTimes(1);
     });
   });
@@ -145,13 +143,16 @@ describe('DocumentsController', () => {
         ownerId: 'user_id',
       });
       expect(databaseSpies.spyUpdate).toHaveBeenCalledWith(
-          '0x39393939',
-          updatedDocument,
-          '0x4441122',
+        {"_id": insertedDocument._id},
+        {"ownerId": "user_id",
+          ...documentToCreate,
+        header: {
+          "job_id": "some_job_id"},
+        },
+        {"returnUpdatedDocs": true, "upsert": false}
       );
-
-      expect(updateResult).toMatchObject({
-        updatedDocument,
+      expect(updateResult!.attributes).toMatchObject({
+        ...updatedDocument.attributes,
       });
     });
   });
@@ -171,12 +172,7 @@ describe('DocumentsController', () => {
         ownerId: 'user_id',
       });
 
-      expect(result).toMatchObject({
-        data: document,
-        header: {
-          document_id: '0x39393939',
-        },
-      });
+      expect(result!.attributes).toMatchObject(insertedDocument.attributes)
     });
   });
 });

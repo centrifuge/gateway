@@ -15,6 +15,4 @@ export interface FlexDocResponse extends CoreapiDocumentResponse {
   _id?: string;
   createdAt?: Date,
   updatedAt?: Date
-  fundingAgreement?: FundingAgreementResponse | null
-  transferDetails?: Array<TransferdetailsData> | null
 }

@@ -95,20 +95,6 @@ export class WebhooksController {
             ...result,
             ownerId: user._id,
           };
-          if (document.attributes) {
-            if (document.attributes.funding_agreement) {
-              const fundingList: FunFundingListResponse = await this.centrifugeService.funding.getList(document.header.document_id, user.account);
-              document.fundingAgreement = (fundingList.data ? fundingList.data.shift() : undefined);
-            }
-            if (document.attributes.transfer_details) {
-              const transferList: UserapiTransferDetailListResponse = await this.centrifugeService.transfer.listTransferDetails(user.account, document.header.document_id);
-              document.transferDetails = (transferList ? transferList.data : undefined);
-            }
-
-            // We need to delete the attributes prop because nedb does not allow for . in field names
-            delete document.attributes;
-          }
-
           await this.databaseService.documents.update(
               { 'header.document_id': notification.document_id, 'ownerId': user._id },
               document,

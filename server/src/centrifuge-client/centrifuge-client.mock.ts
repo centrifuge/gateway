@@ -169,22 +169,17 @@ export class MockCentrifugeService {
   documents = {
     get: jest.fn(document_id => {
       return {
-        // header: {
-        //   document_id,
-        //   nfts: [
-        //     {
-        //       token_id: 'token_id',
-        //       owner: 'owner',
-        //     },
-        //   ],
-        // },
-        // data: {
-        //   currency: 'USD',
-        // },
-        //
-        // attributes: {
-        //   'funding[0].test': true,
-        // },
+        header: { document_id: '0x39393939' },
+        read_access: [ '0x111' ],
+        write_access: [ '0x222' ],
+        attributes:
+          { animal_type: 'iguana',
+            number_of_legs: 4,
+            diet: 'insects',
+            'this is a random field': 'random'
+          },
+        schema_id: 'iUSDF2ax31e',
+        ownerId: 'user_id',
       };
     }),
     createDocument: jest.fn( (authid, data) => {
@@ -195,12 +190,12 @@ export class MockCentrifugeService {
         ...data,
       };
     }),
-    update: jest.fn((documentId, data) => {
+    updateDocument: jest.fn((authid, docid, data) => {
       return {
-        // header: {
-        //   job_id: 'some_job_id',
-        // },
-        // ...data,
+        header: {
+          job_id: 'some_job_id',
+        },
+        ...data,
       };
     }),
   };
