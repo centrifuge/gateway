@@ -8,6 +8,7 @@ import { FunRequest, InvInvoiceResponse } from '../../clients/centrifuge-node';
 import { FundingRequest } from '../common/models/funding-request';
 import { TransferDetailsRequest } from '../common/models/transfer-details';
 import { Schema } from "../common/models/schema";
+import {FlexDocument} from "../common/models/document";
 
 const instance = axios.create();
 
@@ -53,9 +54,9 @@ export const httpClient = {
     update: async (schema: Schema) => instance.put(`${ROUTES.SCHEMAS}/${schema._id}`, schema),
   },
   documents : {
-    create: async (schema: Schema) => instance.post(ROUTES.SCHEMAS, schema),
-    read: async () => instance.get(ROUTES.SCHEMAS),
-    readById: async (id): Promise<Schema> => instance.get(`${ROUTES.SCHEMAS}/${id}`),
-    update: async (schema: Schema) => instance.put(`${ROUTES.SCHEMAS}/${schema._id}`, schema),
+    create: async (document: FlexDocument) => instance.post(ROUTES.DOCUMENTS, document),
+    read: async () => instance.get(ROUTES.DOCUMENTS),
+    readById: async (id): Promise<FlexDocument> => instance.get(`${ROUTES.DOCUMENTS}/${id}`),
+    update: async (document: FlexDocument) => instance.put(`${ROUTES.DOCUMENTS}/${document._id}`, document),
   }
 };
