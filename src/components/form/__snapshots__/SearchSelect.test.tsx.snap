@@ -9,6 +9,7 @@ exports[`Search Select when single item select should match snapshot 1`] = `
       "top": "bottom",
     }
   }
+  labelKey="label"
   messages={
     Object {
       "multiple": "multiple",
@@ -921,5 +922,6 @@ exports[`Search Select when single item select should match snapshot 1`] = `
       },
     }
   }
+  valueKey="value"
 />
 `;
