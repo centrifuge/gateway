@@ -79,7 +79,6 @@ export class CreateDocument extends React.Component<Props, State> {
       return <Preloader message="Saving document" withSound={true}/>;
     }
 
-
     return (
       <DocumentForm
         document={defaultDocument}

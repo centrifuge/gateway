@@ -47,7 +47,6 @@ export class ViewDocument extends React.Component<Props> {
     }
   }
 
-
   componentWillUnmount() {
     this.props.resetGetContacts();
     this.props.resetGetSchemasList();
@@ -61,13 +60,9 @@ export class ViewDocument extends React.Component<Props> {
       schemas
     } = this.props;
 
-
     if (!document || !contacts || !schemas || !document.attributes) {
       return <Preloader message="Loading"/>;
     }
-
-    console.log('Document',document,schemas)
-    console.log('Schemas',schemas)
 
     return (
       <>

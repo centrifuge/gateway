@@ -76,8 +76,6 @@ export class ListDocuments extends React.Component<Props & RouteComponentProps> 
                   return formatDate(datum.createdAt);
                 },
               },
-
-
               {
                 property: '_id',
                 header: 'Actions',
@@ -118,7 +116,6 @@ const mapStateToProps = (state) => {
     error: state.documents.get.error,
   };
 };
-
 
 export default connect(
   mapStateToProps,

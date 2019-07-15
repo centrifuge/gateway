@@ -41,12 +41,14 @@ export class DocumentForm extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     const { document, schemas } = props;
+    // Search if the document has a schema set
     const selectedSchema = schemas.find(s => {
-      return document.attributes && document.attributes._schema && s.name === document.attributes._schema.value;
+      return (
+        document.attributes &&
+        document.attributes._schema &&
+        s.name === document.attributes._schema.value
+      );
     });
-
-
-    console.log(selectedSchema)
 
     this.state = {
       submitted: false,
@@ -59,6 +61,7 @@ export class DocumentForm extends React.Component<Props, State> {
     const { selectedSchema } = this.state;
     return this.props.onSubmit && this.props.onSubmit(
       {
+        // add schema as tech field
         '_schema': {
           type: 'string',
           value: selectedSchema.name,
@@ -102,7 +105,6 @@ export class DocumentForm extends React.Component<Props, State> {
           });
           break;
       }
-
     }
 
     return Yup.object().shape(validationSchema);
@@ -119,12 +121,8 @@ export class DocumentForm extends React.Component<Props, State> {
     const sectionGap = 'none';
     const validationSchema = selectedSchema ? this.generateValidationSchema(selectedSchema.attributes) : {};
 
-    console.log('selected schema', selectedSchema);
-
     return (
       <Box pad={{ bottom: 'xlarge' }}>
-
-
         <Formik
           validationSchema={validationSchema}
           initialValues={document!.attributes || {}}
@@ -151,7 +149,7 @@ export class DocumentForm extends React.Component<Props, State> {
                 }}
               >
                 <Box gap={sectionGap}>
-                  {/* Header */}
+
                   {this.props.children}
 
                   <Box gap={columnGap} pad={'medium'}>
@@ -170,7 +168,6 @@ export class DocumentForm extends React.Component<Props, State> {
                       </FormField>
                     </Box>
                     }
-
                     {
                       selectedSchema && <Box gap={columnGap}>
                         {
@@ -179,7 +176,6 @@ export class DocumentForm extends React.Component<Props, State> {
                       </Box>
                     }
                   </Box>
-
                 </Box>
               </form>
             )
@@ -247,17 +243,12 @@ export class DocumentForm extends React.Component<Props, State> {
                   setFieldValue(`${key}.value`, dateToString(date));
                 }}
               />;
-
           }
-
         })()}
-
-
       </FormField>;
     })];
 
     return fields;
-
   };
 }
 

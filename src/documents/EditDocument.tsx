@@ -70,7 +70,6 @@ export class EditDocument extends React.Component<Props> {
       return <Preloader message="Updating document" withSound={true}/>;
     }
 
-
     return (
       <DocumentForm
         onSubmit={this.updateDocument}
