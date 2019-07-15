@@ -7,7 +7,6 @@ import {FundingAgreementResponse} from "../interfaces";
 
 export interface FlexDocument extends CoreapiCreateDocumentRequest {
   _id?: string;
-  schema_id?: string;
 }
 
 export interface FlexDocResponse extends CoreapiDocumentResponse {

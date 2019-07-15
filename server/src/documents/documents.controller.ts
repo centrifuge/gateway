@@ -7,6 +7,7 @@ import {
 import { FlexDocResponse, FlexDocument } from "../../../src/common/models/document";
 import { ROUTES } from "../../../src/common/constants";
 import { SessionGuard } from "../auth/SessionGuard";
+import {unflatten} from "../../../src/common/custom-attributes";
 
 @Controller(ROUTES.DOCUMENTS)
 @UseGuards(SessionGuard)
@@ -32,6 +33,9 @@ export class DocumentsController {
         request.user.account,
         document,
     );
+
+    const createAttributes = unflatten(createResult.attributes)
+    createResult.attributes = createAttributes
 
     await this.centrifugeService.pullForJobComplete(createResult.header.job_id, request.user.account);
     return await this.databaseService.documents.insert({
@@ -101,9 +105,15 @@ export class DocumentsController {
 
     await this.centrifugeService.pullForJobComplete(updateResult.header.job_id, request.user.account);
 
+    const unflattenAttr = unflatten(updateResult.attributes)
+
     return await this.databaseService.documents.updateById(params.id, {
-      ...updateResult,
-      ownerId: request.user._id,
+      $set: {
+        header: updateResult.header,
+        data: updateResult.data,
+        attributes: unflattenAttr,
+        schema: unflattenAttr.schema,
+      }
     });
   }
 }

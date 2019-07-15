@@ -9,6 +9,7 @@ import { DatabaseService } from '../database/database.service';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import { InvoiceResponse } from '../../../src/common/interfaces';
 import { FlexDocResponse } from "../../../src/common/models/document";
+import {unflatten} from "../../../src/common/custom-attributes";
 
 export const documentTypes = {
   invoice:
@@ -95,6 +96,9 @@ export class WebhooksController {
             ...result,
             ownerId: user._id,
           };
+          const unflattenedAttributes = unflatten(document.attributes)
+          document.attributes = unflattenedAttributes
+
           await this.databaseService.documents.update(
               { 'header.document_id': notification.document_id, 'ownerId': user._id },
               document,

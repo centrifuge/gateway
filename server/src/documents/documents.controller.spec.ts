@@ -12,24 +12,39 @@ describe('DocumentsController', () => {
   const documentToCreate: FlexDocument = {
     read_access: ['0x111'],
     write_access: ['0x222'],
-    attributes: {
-      'animal_type': 'iguana',
-      'number_of_legs': 4,
-      'diet': 'insects',
-    },
-    schema_id: 'iUSDF2ax31e',
+    'attributes': {
+      'animal_type': {
+        'type': 'string',
+        'value': 'iguana',
+      },
+      'diet': {
+        'type': 'string',
+        'value': 'insects',
+      },
+      'schema': {
+        'type': 'string',
+        'value': 'zoology'
+      }
+    }
   };
 
   const documentToInsert: FlexDocument = {
     read_access: ['0x111'],
     write_access: ['0x222'],
-    attributes: {
-      'animal_type': 'iguana',
-      'number_of_legs': 4,
-      'diet': 'insects',
-      'this is a random field': 'random'
+    'attributes': {
+    'animal_type': {
+      'type': 'string',
+      'value': 'iguana',
     },
-    schema_id: 'iUSDF2ax31e',
+     'diet': {
+      'type': 'string',
+      'value': 'insects',
+    },
+      'schema': {
+      'type': 'string',
+      'value': 'zoology'
+      }
+    },
   };
 
   const databaseSpies: any = {};
@@ -103,9 +118,7 @@ describe('DocumentsController', () => {
       );
 
       payload.attributes = {
-        'animal_type': 'snake',
-        'number_of_legs': 0,
-        'diet': 'insects',
+
       };
 
       await documentsController.create(
@@ -143,13 +156,20 @@ describe('DocumentsController', () => {
         ownerId: 'user_id',
       });
       expect(databaseSpies.spyUpdate).toHaveBeenCalledWith(
-        {"_id": insertedDocument._id},
-        {"ownerId": "user_id",
-          ...documentToCreate,
-        header: {
-          "job_id": "some_job_id"},
-        },
-        {"returnUpdatedDocs": true, "upsert": false}
+          {_id: insertedDocument._id},
+          {"$set":
+                {"attributes":
+                      {"animal_type":
+                            {"type": "string", "value": "iguana"},
+                        "diet": {"type": "string", "value": "insects"},
+                        "schema": {"type": "string", "value": "zoology"}
+                        },
+                  "data": undefined,
+                  "header": {"job_id": "some_job_id"},
+                  "schema": {"type": "string", "value": "zoology"}
+                }
+          },
+          {"returnUpdatedDocs": true, "upsert": false}
       );
       expect(updateResult!.attributes).toMatchObject({
         ...updatedDocument.attributes,
