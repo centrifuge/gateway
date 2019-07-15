@@ -7,7 +7,6 @@ import { getContacts, resetGetContacts } from '../store/actions/contacts';
 import { LabelValuePair } from '../common/interfaces';
 import { Box, Button, Heading } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
-import { User } from '../common/models/user';
 import { Preloader } from '../components/Preloader';
 import { RequestState } from '../store/reducers/http-request-reducer';
 import { CoreapiDocumentResponse, InvInvoiceData } from '../../clients/centrifuge-node';
@@ -28,7 +27,6 @@ type Props = {
   creatingDocument: RequestState<InvInvoiceData>;
   contacts?: LabelValuePair[];
   schemas?: Schema[];
-  loggedInUser: User;
 } & RouteComponentProps;
 
 
@@ -40,7 +38,6 @@ export class CreateDocument extends React.Component<Props, State> {
 
   constructor(props) {
     super(props);
-    const { loggedInUser } = props;
     this.state = {
       defaultDocument: {},
     };
@@ -120,7 +117,6 @@ export class CreateDocument extends React.Component<Props, State> {
 
 const mapStateToProps = (state) => {
   return {
-    loggedInUser: state.user.auth.loggedInUser,
     creatingDocument: state.documents.create,
     contacts: mapContactsToLabelKeyPair(state),
     schemas: getUserSchemas(state),

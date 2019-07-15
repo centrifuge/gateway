@@ -6,4 +6,3 @@ export const documentRoutes = {
   view: `${documentsIndex}/:id`,
   edit: `${documentsIndex}/:id/edit`,
 };
-

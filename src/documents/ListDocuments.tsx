@@ -35,7 +35,7 @@ export class ListDocuments extends React.Component<Props & RouteComponentProps> 
 
     const {loading, documents,loggedInUser, history} = this.props;
 
-    if (this.props.loading) {
+    if (loading) {
       return <Preloader message="Loading"/>;
     }
 

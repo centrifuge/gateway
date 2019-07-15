@@ -14,7 +14,7 @@ import { Preloader } from '../components/Preloader';
 import { RequestState } from '../store/reducers/http-request-reducer';
 import { CoreapiDocumentResponse } from '../../clients/centrifuge-node';
 import { SecondaryHeader } from '../components/SecondaryHeader';
-import { getUserSchemas, mapContactsToLabelKeyPair } from '../store/derived-data';
+import { mapContactsToLabelKeyPair } from '../store/derived-data';
 import { getDocumentById, resetGetDocumentById, resetUpdateDocument, updateDocument } from '../store/actions/documents';
 import { getSchemasList, resetGetSchemasList } from '../store/actions/schemas';
 import { Schema } from '../common/models/schema';
@@ -60,7 +60,7 @@ export class EditDocument extends React.Component<Props> {
   };
 
   render() {
-    const { updatingDocument, contacts, document,schemas } = this.props;
+    const { updatingDocument, contacts, document, schemas } = this.props;
 
     if (!document || !contacts || !schemas) {
       return <Preloader message="Loading"/>;

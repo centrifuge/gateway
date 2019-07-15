@@ -46,6 +46,8 @@ export class DocumentForm extends React.Component<Props, State> {
     });
 
 
+    console.log(selectedSchema)
+
     this.state = {
       submitted: false,
       selectedSchema,

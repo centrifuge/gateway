@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { Select, SelectProps } from 'grommet';
-import { Omit } from 'grommet/utils';
 
 // TODO add this to Axis
-
-
 interface SearchSelectState {
   options: any[];
 }

@@ -9,7 +9,6 @@ import { RouteComponentProps, withRouter } from 'react-router';
 import { LinkPrevious } from 'grommet-icons';
 import routes from '../routes';
 import { documentRoutes } from './routes';
-import { Modal } from '@centrifuge/axis-modal';
 import { Preloader } from '../components/Preloader';
 import { SecondaryHeader } from '../components/SecondaryHeader';
 import { mapContactsToLabelKeyPair } from '../store/derived-data';

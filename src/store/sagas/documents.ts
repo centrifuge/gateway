@@ -16,28 +16,28 @@ const documents = {
     createdAt: '2019-07-09T10:54:59.900Z',
     attributes: {
 
-      ['_schema']: {
+      '_schema': {
         key:
           '0x9ed63b1df0c1b6dc14b777a767ccb0562b7a0adf6f51bf0d90476f6833005f9a',
         type: 'string',
         value: 'my_doc',
       },
 
-      ['reference_id']: {
+      'reference_id': {
         key:
           '0x9ed63b1df0c1b6dc14b777a767ccb0562b7a0adf6f51bf0d90476f6833005f9a',
         type: 'string',
         value: 'reference nr1',
       },
 
-      ['customer']: {
+      'customer': {
         key:
           '0x9ed63b1df0c1b6dc14b777a767ccb0562b7a0adf6f51bf0d90476f6833005f9a',
         type: 'string',
         value: 'some customer',
       },
 
-      ['amount']: {
+      'amount': {
         key:
           '0x9ed63b1df0c1b6dc14b777a767ccb0562b7a0adf6f51bf0d90476f6833005f9a',
         type: 'decimal',
@@ -50,28 +50,28 @@ const documents = {
     createdAt: '2019-07-09T10:54:59.900Z',
     attributes: {
 
-      ['_schema']: {
+      '_schema': {
         key:
           '0x9ed63b1df0c1b6dc14b777a767ccb0562b7a0adf6f51bf0d90476f6833005f9a',
         type: 'string',
         value: 'good_schema',
       },
 
-      ['reference_id']: {
+      'reference_id': {
         key:
           '0x9ed63b1df0c1b6dc14b777a767ccb0562b7a0adf6f51bf0d90476f6833005f9a',
         type: 'string',
         value: 'reference nr2',
       },
 
-      ['customer']: {
+      'customer': {
         key:
           '0x9ed63b1df0c1b6dc14b777a767ccb0562b7a0adf6f51bf0d90476f6833005f9a',
         type: 'string',
         value: 'some customer2',
       },
 
-      ['amount']: {
+      'amount': {
         key:
           '0x9ed63b1df0c1b6dc14b777a767ccb0562b7a0adf6f51bf0d90476f6833005f9a',
         type: 'integer',
@@ -114,7 +114,7 @@ export function* getDocumentById(action) {
 
 export function* createDocument(action) {
   try {
-    const { document } = action;
+    //const { document } = action;
     // TODO add servers call
     const response = {
       data: {},
