@@ -1,15 +1,13 @@
 import {
   CoreapiCreateDocumentRequest,
   CoreapiDocumentResponse,
-  TransferdetailsData
 } from "../../../clients/centrifuge-node";
-import {FundingAgreementResponse} from "../interfaces";
 
-export interface FlexDocument extends CoreapiCreateDocumentRequest {
+export interface Document extends CoreapiCreateDocumentRequest {
   _id?: string;
 }
 
-export interface FlexDocResponse extends CoreapiDocumentResponse {
+export interface DocResponse extends CoreapiDocumentResponse {
   ownerId?: string;
   _id?: string;
   createdAt?: Date,

@@ -4,7 +4,7 @@ import { CentrifugeService } from "../centrifuge-client/centrifuge.service";
 import {
   CoreapiCreateDocumentRequest,
 } from "../../../clients/centrifuge-node";
-import { FlexDocResponse, FlexDocument } from "../../../src/common/models/document";
+import { DocResponse, Document } from "../../../src/common/models/document";
 import { ROUTES } from "../../../src/common/constants";
 import { SessionGuard } from "../auth/SessionGuard";
 import {unflatten} from "../../../src/common/custom-attributes";
@@ -23,10 +23,10 @@ export class DocumentsController {
    * Create a generic document and save in the centrifuge node and the local database
    * @async
    * @param request - the http request
-   * @param {FlexDoc} document - the body of the request
-   * @return {Promise<FlexDocResponse>} result
+   * @param {Doc} document - the body of the request
+   * @return {Promise<DocResponse>} result
    */
-  async create(@Req() request, @Body() document: CoreapiCreateDocumentRequest): Promise<FlexDocResponse> {
+  async create(@Req() request, @Body() document: CoreapiCreateDocumentRequest): Promise<DocResponse> {
     // TODO: collaborators?
     document.scheme = CoreapiCreateDocumentRequest.SchemeEnum.Generic;
     const createResult = await this.centrifugeService.documents.createDocument(
@@ -48,9 +48,9 @@ export class DocumentsController {
   /**
    * Get the list of all documents
    * @async
-   * @return {Promise<FlexDocument[]>} result
+   * @return {Promise<Document[]>} result
    */
-  async getList(@Req() request): Promise<FlexDocResponse[]> {
+  async getList(@Req() request): Promise<DocResponse[]> {
     const documents = this.databaseService.documents.getCursor({
       ownerId: request.user._id,
     }).sort({updatedAt: -1}).exec();
@@ -59,13 +59,13 @@ export class DocumentsController {
 
   @Get(':id')
   /**
-   * Get a specific FlexDoc by id
+   * Get a specific Doc by id
    * @async
    * @param params - the request parameters
    * @param request - the http request
-   * @return {Promise<FlexDocResponse|null>} result
+   * @return {Promise<DocResponse|null>} result
    */
-  async getById(@Param() params, @Req() request): Promise<FlexDocResponse | null> {
+  async getById(@Param() params, @Req() request): Promise<DocResponse | null> {
 
     const document = await this.databaseService.documents.findOne({
       _id: params.id,
@@ -76,26 +76,26 @@ export class DocumentsController {
   }
 
   /**
-   * Updates a flexdoc and saves in the centrifuge node and local database
+   * Updates a doc and saves in the centrifuge node and local database
    * @async
    * @param {Param} params - the query params
    * @param {Param} request - the http request
-   * @param {FlexDocument} updateFlexDocRequest - the updated flexdoc
-   * @return {Promise<FlexDocument>} result
+   * @param {Document} updateDocRequest - the updated doc
+   * @return {Promise<Document>} result
    */
   @Put(':id')
   async updateById(
       @Param() params,
       @Req() request,
-      @Body() updateDocumentRequest: FlexDocument,
+      @Body() updateDocumentRequest: Document,
   ) {
 
     // TODO: collaborators?
-    const document: FlexDocResponse = await this.databaseService.documents.findOne(
+    const document: DocResponse = await this.databaseService.documents.findOne(
         {_id: params.id, ownerId: request.user._id},
     );
 
-    const updateResult: FlexDocResponse = await this.centrifugeService.documents.updateDocument(
+    const updateResult: DocResponse = await this.centrifugeService.documents.updateDocument(
         request.user.account,
         document.header.document_id,
         {

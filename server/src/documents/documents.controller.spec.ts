@@ -1,5 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { FlexDocument } from "../../../src/common/models/document";
+import { Document } from "../../../src/common/models/document";
 import { SessionGuard } from "../auth/SessionGuard";
 import { databaseServiceProvider } from "../database/database.providers";
 import { DatabaseService } from "../database/database.service";
@@ -9,7 +9,7 @@ import { CoreapiCreateDocumentRequest } from "../../../clients/centrifuge-node";
 
 describe('DocumentsController', () => {
   let documentsModule: TestingModule;
-  const documentToCreate: FlexDocument = {
+  const documentToCreate: Document = {
     read_access: ['0x111'],
     write_access: ['0x222'],
     'attributes': {
@@ -28,7 +28,7 @@ describe('DocumentsController', () => {
     }
   };
 
-  const documentToInsert: FlexDocument = {
+  const documentToInsert: Document = {
     read_access: ['0x111'],
     write_access: ['0x222'],
     'attributes': {
@@ -141,7 +141,7 @@ describe('DocumentsController', () => {
           DocumentsController,
       );
 
-      const updatedDocument: FlexDocument = {
+      const updatedDocument: Document = {
         ...documentToCreate,
       };
 
