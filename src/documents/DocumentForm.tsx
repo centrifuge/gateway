@@ -59,26 +59,27 @@ export class DocumentForm extends React.Component<Props, State> {
 
   onSubmit = (values) => {
     const { selectedSchema } = this.state;
-    return this.props.onSubmit && this.props.onSubmit(
-      {
-        // add schema as tech field
-        '_schema': {
-          type: 'string',
-          value: selectedSchema.name,
-        },
-        ...values,
-      },
-    );
+    return this.props.onSubmit && this.props.onSubmit({
+     attributes: {
+       // add schema as tech field
+       '_schema': {
+         type: 'string',
+         value: selectedSchema.name,
+       },
+       ...values,
+     },
+    });
   };
 
 
   generateValidationSchema = (attributes: Attribute[]) => {
     let validationSchema = {};
     for (let attr of attributes) {
+      const path = `${attr.name}`;
       switch (attr.type) {
         case 'decimal':
         case 'integer':
-          validationSchema[attr.name] = Yup.object().shape({
+          validationSchema[path] = Yup.object().shape({
             value: Yup.number()
               .moreThan(0, 'must be greater than 0')
               .required('This field is required')
@@ -86,21 +87,21 @@ export class DocumentForm extends React.Component<Props, State> {
           });
           break;
         case 'timestamp':
-          validationSchema[attr.name] = Yup.object().shape({
+          validationSchema[path] = Yup.object().shape({
             value: Yup.date()
               .required('This field is required')
               .typeError('This field is required'),
           });
           break;
         case 'bytes':
-          validationSchema[attr.name] = Yup.object().shape({
+          validationSchema[path] = Yup.object().shape({
             value: Yup.string()
               .matches(/^0x/, 'bytes must start with 0x')
               .required('This field is required'),
           });
           break;
         default:
-          validationSchema[attr.name] = Yup.object().shape({
+          validationSchema[path] = Yup.object().shape({
             value: Yup.string().required('This field is required'),
           });
           break;
@@ -125,7 +126,7 @@ export class DocumentForm extends React.Component<Props, State> {
       <Box pad={{ bottom: 'xlarge' }}>
         <Formik
           validationSchema={validationSchema}
-          initialValues={document!.attributes || {}}
+          initialValues={document || {}}
           validateOnBlur={submitted}
           validateOnChange={submitted}
           onSubmit={(values, { setSubmitting }) => {
@@ -190,8 +191,8 @@ export class DocumentForm extends React.Component<Props, State> {
     const { selectedSchema } = this.state;
 
     const fields = [selectedSchema.attributes.map(attr => {
-      const key = attr.name;
-      if (!values[key]) values[key] = { type: attr.type, value: '' };
+      const key = `attributes.${attr.name}`;
+      if (!values.attributes[attr.name]) values.attributes[attr.name] = { type: attr.type, value: '' };
       return <FormField
         key={key}
         label={attr!.label}
@@ -202,21 +203,21 @@ export class DocumentForm extends React.Component<Props, State> {
             case 'string':
               return <TextInput
                 disabled={disabled}
-                value={values[key] && values[key].value}
+                value={values!.attributes[attr.name]!.value}
                 name={`${key}.value`}
                 onChange={handleChange}
               />;
             case 'bytes':
               return <TextInput
                 disabled={disabled}
-                value={values[key] && values[key].value}
+                value={values!.attributes[attr.name]!.value}
                 name={`${key}.value`}
                 onChange={handleChange}
               />;
             case 'integer':
               return <NumberInput
                 disabled={disabled}
-                value={values[key] && values[key].value}
+                value={values!.attributes[attr.name]!.value}
                 name={`${key}.value`}
                 precision={0}
                 onChange={(masked, value) => {
@@ -226,7 +227,7 @@ export class DocumentForm extends React.Component<Props, State> {
             case 'decimal':
               return <NumberInput
                 disabled={disabled}
-                value={values[key] && values[key].value}
+                value={values!.attributes[attr.name]!.value}
                 name={`${key}.value`}
                 precision={2}
                 onChange={(masked, value) => {
@@ -237,7 +238,7 @@ export class DocumentForm extends React.Component<Props, State> {
             case 'timestamp':
               return <DateInput
                 disabled={disabled}
-                value={extractDate(values[key] && values[key].value)}
+                value={extractDate(values!.attributes[attr.name]!.value)}
                 name={`${key}.value`}
                 onChange={date => {
                   setFieldValue(`${key}.value`, dateToString(date));

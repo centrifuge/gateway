@@ -39,7 +39,9 @@ export class CreateDocument extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      defaultDocument: {},
+      defaultDocument: {
+        attributes: {}
+      },
     };
   }
 
