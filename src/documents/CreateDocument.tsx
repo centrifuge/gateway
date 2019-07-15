@@ -1,13 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import DocumentForm from './DocumentForm';
-import { createInvoice, resetCreateInvoice } from '../store/actions/invoices';
-import { Invoice } from '../common/models/invoice';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { getContacts, resetGetContacts } from '../store/actions/contacts';
-import { InvoiceResponse, LabelValuePair } from '../common/interfaces';
+import { LabelValuePair } from '../common/interfaces';
 import { Box, Button, Heading } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { User } from '../common/models/user';
@@ -17,10 +14,13 @@ import { CoreapiDocumentResponse, InvInvoiceData } from '../../clients/centrifug
 import { SecondaryHeader } from '../components/SecondaryHeader';
 import { getUserSchemas, mapContactsToLabelKeyPair } from '../store/derived-data';
 import { documentRoutes } from './routes';
-import { Attribute, Registry,Schema } from '../common/models/schema';
+import { Schema } from '../common/models/schema';
 import { getSchemasList, resetGetSchemasList } from '../store/actions/schemas';
+import { createDocument, resetCreateDocument } from '../store/actions/documents';
 
 type Props = {
+  createDocument: typeof createDocument;
+  resetCreateDocument: typeof resetCreateDocument;
   getContacts: typeof getContacts;
   resetGetContacts: typeof resetGetContacts;
   getSchemasList: typeof getSchemasList;
@@ -42,9 +42,7 @@ export class CreateDocument extends React.Component<Props, State> {
     super(props);
     const { loggedInUser } = props;
     this.state = {
-      defaultDocument: {
-
-      },
+      defaultDocument: {},
     };
   }
 
@@ -60,8 +58,8 @@ export class CreateDocument extends React.Component<Props, State> {
     this.props.resetGetContacts();
   }
 
-  createInvoice = (document: CoreapiDocumentResponse) => {
-    //this.props.createInvoice(invoice);
+  createDocument = (document: CoreapiDocumentResponse) => {
+    this.props.createDocument(document);
     this.setState({
       defaultDocument: document,
     });
@@ -73,7 +71,7 @@ export class CreateDocument extends React.Component<Props, State> {
 
   render() {
 
-    const { creatingDocument, contacts,schemas } = this.props;
+    const { creatingDocument, contacts, schemas } = this.props;
     const { defaultDocument } = this.state;
 
     if (!this.props.contacts || !schemas!.length) {
@@ -89,7 +87,7 @@ export class CreateDocument extends React.Component<Props, State> {
       <DocumentForm
         document={defaultDocument}
         schemas={schemas}
-        onSubmit={this.createInvoice}
+        onSubmit={this.createDocument}
         contacts={contacts}
       >
         <SecondaryHeader>
@@ -132,8 +130,8 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   {
-    createInvoice,
-    resetCreateInvoice,
+    createDocument,
+    resetCreateDocument,
     getContacts,
     resetGetContacts,
     getSchemasList,
