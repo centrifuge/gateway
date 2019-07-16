@@ -1,6 +1,5 @@
 import React from 'react';
 import { Box, FormField, TextInput } from 'grommet';
-import { LabelValuePair } from '../common/interfaces';
 import { Formik } from 'formik';
 
 import * as Yup from 'yup';
@@ -10,10 +9,12 @@ import SearchSelect from '../components/form/SearchSelect';
 import { NumberInput } from '@centrifuge/axis-number-input';
 import { DateInput } from '@centrifuge/axis-date-input';
 import { dateToString, extractDate } from '../common/formaters';
+import { get } from 'lodash';
+import { Contact } from '../common/models/contact';
 
 type Props = {
   onSubmit?: (document: CoreapiDocumentResponse) => void;
-  contacts: LabelValuePair[];
+  contacts: Contact[];
   schemas: Schema[],
   mode?: 'edit' | 'view' | 'create',
   editMode?: boolean,
@@ -60,26 +61,27 @@ export class DocumentForm extends React.Component<Props, State> {
   onSubmit = (values) => {
     const { selectedSchema } = this.state;
     return this.props.onSubmit && this.props.onSubmit({
-     attributes: {
-       // add schema as tech field
-       '_schema': {
-         type: 'string',
-         value: selectedSchema.name,
-       },
-       ...values,
-     },
+      attributes: {
+        // add schema as tech field
+        '_schema': {
+          type: 'string',
+          value: selectedSchema.name,
+        },
+        ...values,
+      },
     });
   };
 
 
-  generateValidationSchema = (attributes: Attribute[]) => {
-    let validationSchema = {};
-    for (let attr of attributes) {
+  generateValidationSchema = (fields: Attribute[]) => {
+    // Attributes validation
+    let attributes = {};
+    for (let attr of fields) {
       const path = `${attr.name}`;
       switch (attr.type) {
         case 'decimal':
         case 'integer':
-          validationSchema[path] = Yup.object().shape({
+          attributes[path] = Yup.object().shape({
             value: Yup.number()
               .moreThan(0, 'must be greater than 0')
               .required('This field is required')
@@ -87,28 +89,31 @@ export class DocumentForm extends React.Component<Props, State> {
           });
           break;
         case 'timestamp':
-          validationSchema[path] = Yup.object().shape({
+          attributes[path] = Yup.object().shape({
             value: Yup.date()
               .required('This field is required')
               .typeError('This field is required'),
           });
           break;
         case 'bytes':
-          validationSchema[path] = Yup.object().shape({
+          attributes[path] = Yup.object().shape({
             value: Yup.string()
               .matches(/^0x/, 'bytes must start with 0x')
               .required('This field is required'),
           });
           break;
         default:
-          validationSchema[path] = Yup.object().shape({
+          attributes[path] = Yup.object().shape({
             value: Yup.string().required('This field is required'),
           });
           break;
       }
     }
 
-    return Yup.object().shape(validationSchema);
+    return Yup.object().shape(
+      {
+        attributes: Yup.object().shape(attributes),
+      });
   };
 
 
@@ -190,58 +195,60 @@ export class DocumentForm extends React.Component<Props, State> {
 
     const { selectedSchema } = this.state;
 
+
     const fields = [selectedSchema.attributes.map(attr => {
-      const key = `attributes.${attr.name}`;
+      const key = `attributes.${attr.name}.value`;
+      console.log(get(errors, key));
       if (!values.attributes[attr.name]) values.attributes[attr.name] = { type: attr.type, value: '' };
       return <FormField
         key={key}
         label={attr!.label}
-        error={errors[key] && errors[key].value}
+        error={get(errors, key)}
       >
         {(() => {
           switch (attr.type) {
             case 'string':
               return <TextInput
                 disabled={disabled}
-                value={values!.attributes[attr.name]!.value}
-                name={`${key}.value`}
+                value={get(values, key)}
+                name={`${key}`}
                 onChange={handleChange}
               />;
             case 'bytes':
               return <TextInput
                 disabled={disabled}
-                value={values!.attributes[attr.name]!.value}
-                name={`${key}.value`}
+                value={get(values, key)}
+                name={`${key}`}
                 onChange={handleChange}
               />;
             case 'integer':
               return <NumberInput
                 disabled={disabled}
-                value={values!.attributes[attr.name]!.value}
-                name={`${key}.value`}
+                value={get(values, key)}
+                name={`${key}`}
                 precision={0}
                 onChange={(masked, value) => {
-                  setFieldValue(`${key}.value`, value);
+                  setFieldValue(`${key}`, value);
                 }}
               />;
             case 'decimal':
               return <NumberInput
                 disabled={disabled}
-                value={values!.attributes[attr.name]!.value}
-                name={`${key}.value`}
+                value={get(values, key)}
+                name={`${key}`}
                 precision={2}
                 onChange={(masked, value) => {
-                  setFieldValue(`${key}.value`, value);
+                  setFieldValue(`${key}`, value);
                 }}
               />;
 
             case 'timestamp':
               return <DateInput
                 disabled={disabled}
-                value={extractDate(values!.attributes[attr.name]!.value)}
-                name={`${key}.value`}
+                value={extractDate(get(values, key))}
+                name={`${key}`}
                 onChange={date => {
-                  setFieldValue(`${key}.value`, dateToString(date));
+                  setFieldValue(`${key}`, dateToString(date));
                 }}
               />;
           }
