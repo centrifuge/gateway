@@ -164,7 +164,7 @@ export class DocumentForm extends React.Component<Props, State> {
       <Box pad={{ bottom: 'xlarge' }}>
         <Formik
           validationSchema={validationSchema}
-          initialValues={document || {}}
+          initialValues={documet}
           validateOnBlur={submitted}
           validateOnChange={submitted}
           onSubmit={(values, { setSubmitting }) => {
@@ -252,7 +252,7 @@ export class DocumentForm extends React.Component<Props, State> {
 
     const fields = [selectedSchema.attributes.map(attr => {
       const key = `attributes.${attr.name}.value`;
-      console.log(get(errors, key));
+
       if (!values.attributes[attr.name]) values.attributes[attr.name] = { type: attr.type, value: '' };
       return <FormField
         key={key}
