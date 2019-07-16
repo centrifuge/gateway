@@ -11,6 +11,7 @@ import { DateInput } from '@centrifuge/axis-date-input';
 import { dateToString, extractDate } from '../common/formaters';
 import { get } from 'lodash';
 import { Contact } from '../common/models/contact';
+import MutipleSelect from '../components/form/MutipleSelect';
 
 type Props = {
   onSubmit?: (document: CoreapiDocumentResponse) => void;
@@ -35,7 +36,12 @@ export class DocumentForm extends React.Component<Props, State> {
     },
     schemas: [],
     mode: 'create',
-    document: {},
+    document: {
+      attributes: {},
+      header: {
+        read_access: [],
+      },
+    },
     contacts: [],
   };
 
@@ -60,16 +66,19 @@ export class DocumentForm extends React.Component<Props, State> {
 
   onSubmit = (values) => {
     const { selectedSchema } = this.state;
-    return this.props.onSubmit && this.props.onSubmit({
+    const payload = {
+      ...values,
       attributes: {
+        ...values.attributes,
         // add schema as tech field
         '_schema': {
-          type: 'string',
-          value: selectedSchema.name,
-        },
-        ...values,
+            type: 'string',
+            value: selectedSchema.name,
+          },
       },
-    });
+    };
+
+    this.props.onSubmit && this.props.onSubmit(payload);
   };
 
 
@@ -120,12 +129,36 @@ export class DocumentForm extends React.Component<Props, State> {
   render() {
 
     const { submitted, selectedSchema } = this.state;
-    const { document, mode, schemas } = this.props;
+    const { document, mode, schemas, contacts } = this.props;
     const isViewMode = mode === 'view';
     const isEditMode = mode === 'edit';
     const columnGap = 'medium';
     const sectionGap = 'none';
     const validationSchema = selectedSchema ? this.generateValidationSchema(selectedSchema.attributes) : {};
+
+
+    // Make sure document has the right form in order not to break the form
+    // This should never be the case
+    if(!document.attributes) {
+      document.attributes = {};
+    }
+    if(!document.header) {
+      document.header = {};
+    }
+    if(!document.header.read_access || !Array.isArray(document.header.read_access)) {
+      document.header.read_access = [];
+    }
+
+    // Handle cent ids that are not in contacts
+    document.header.read_access.forEach(centId => {
+      if(!contacts.find(c => c.address === centId)) {
+        contacts.push({
+          name:centId,
+          address:centId,
+        })
+      }
+    })
+
 
     return (
       <Box pad={{ bottom: 'xlarge' }}>
@@ -158,6 +191,7 @@ export class DocumentForm extends React.Component<Props, State> {
 
                   {this.props.children}
 
+
                   <Box gap={columnGap} pad={'medium'}>
                     {(!isEditMode && !isViewMode) && <Box gap={columnGap}>
                       <FormField
@@ -172,10 +206,30 @@ export class DocumentForm extends React.Component<Props, State> {
                           }}
                         />
                       </FormField>
+
+
                     </Box>
                     }
                     {
                       selectedSchema && <Box gap={columnGap}>
+                        <FormField
+                          label="Read Access"
+                        >
+                          <MutipleSelect
+                            disabled={isViewMode}
+                            labelKey={'name'}
+                            valueKey={'address'}
+                            options={contacts}
+                            selected={
+                              get(values, 'header.read_access').map(v => {
+                                return contacts.find(c => c.address === v);
+                              })
+                            }
+                            onChange={(selection) => {
+                              setFieldValue('header.read_access', selection.map(i => i.address));
+                            }}
+                          />
+                        </FormField>
                         {
                           this.generateFormField(values, errors, handleChange, setFieldValue, isViewMode)
                         }

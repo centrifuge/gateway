@@ -16,6 +16,7 @@ import DocumentForm from './DocumentForm';
 import { getDocumentById, resetGetDocumentById } from '../store/actions/documents';
 import { getSchemasList, resetGetSchemasList } from '../store/actions/schemas';
 import { Schema } from '../common/models/schema';
+import { Contact } from '../common/models/contact';
 
 
 type Props = {
@@ -26,7 +27,7 @@ type Props = {
   getSchemasList: typeof getSchemasList
   resetGetSchemasList: typeof resetGetSchemasList
   document: CoreapiDocumentResponse & { _id: string };
-  contacts?: LabelValuePair[];
+  contacts: Contact[];
   schemas: Schema[];
 
 } & RouteComponentProps<{ id?: string }>;
@@ -106,7 +107,7 @@ const mapStateToProps = (state) => {
   return {
     document: state.documents.getById.data,
     creatingFunding: state.funding.create,
-    contacts: mapContactsToLabelKeyPair(state),
+    contacts: state.contacts.get.data,
     schemas: state.schemas.getList.data,
   };
 };

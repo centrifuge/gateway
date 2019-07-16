@@ -18,6 +18,7 @@ import { mapContactsToLabelKeyPair } from '../store/derived-data';
 import { getDocumentById, resetGetDocumentById, resetUpdateDocument, updateDocument } from '../store/actions/documents';
 import { getSchemasList, resetGetSchemasList } from '../store/actions/schemas';
 import { Schema } from '../common/models/schema';
+import { Contact } from '../common/models/contact';
 
 type Props = {
   updateDocument: typeof updateDocument;
@@ -30,7 +31,7 @@ type Props = {
   resetGetContacts: typeof getContacts;
   document?: CoreapiDocumentResponse;
   schemas: Schema[];
-  contacts?: LabelValuePair[];
+  contacts?: Contact[];
   loggedInUser: User;
   updatingDocument: RequestState<CoreapiDocumentResponse>;
 } & RouteComponentProps<{ id?: string }>;
@@ -110,7 +111,7 @@ const mapStateToProps = (state) => {
     loggedInUser: state.user.auth.loggedInUser,
     document: state.documents.getById.data,
     updatingDocument: state.documents.update,
-    contacts: mapContactsToLabelKeyPair(state),
+    contacts: state.contacts.get.data,
     schemas: state.schemas.getList.data,
   };
 };

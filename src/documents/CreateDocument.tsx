@@ -16,6 +16,7 @@ import { documentRoutes } from './routes';
 import { Schema } from '../common/models/schema';
 import { getSchemasList, resetGetSchemasList } from '../store/actions/schemas';
 import { createDocument, resetCreateDocument } from '../store/actions/documents';
+import { Contact } from '../common/models/contact';
 
 type Props = {
   createDocument: typeof createDocument;
@@ -25,7 +26,7 @@ type Props = {
   getSchemasList: typeof getSchemasList;
   resetGetSchemasList: typeof resetGetSchemasList;
   creatingDocument: RequestState<InvInvoiceData>;
-  contacts?: LabelValuePair[];
+  contacts: Contact[];
   schemas?: Schema[];
 } & RouteComponentProps;
 
@@ -73,7 +74,7 @@ export class CreateDocument extends React.Component<Props, State> {
     const { creatingDocument, contacts, schemas } = this.props;
     const { defaultDocument } = this.state;
 
-    if (!this.props.contacts || !schemas!.length) {
+    if (!contacts || !schemas!.length) {
       return <Preloader message="Loading"/>;
     }
 
@@ -119,7 +120,7 @@ export class CreateDocument extends React.Component<Props, State> {
 const mapStateToProps = (state) => {
   return {
     creatingDocument: state.documents.create,
-    contacts: mapContactsToLabelKeyPair(state),
+    contacts: state.contacts.get.data,
     schemas: getUserSchemas(state),
   };
 };
