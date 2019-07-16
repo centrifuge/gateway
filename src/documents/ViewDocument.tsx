@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Button, Heading } from 'grommet';
-import { LabelValuePair } from '../common/interfaces';
 import { connect } from 'react-redux';
 import { CoreapiDocumentResponse } from '../../clients/centrifuge-node';
 import { getContacts, resetGetContacts } from '../store/actions/contacts';
@@ -11,7 +10,6 @@ import routes from '../routes';
 import { documentRoutes } from './routes';
 import { Preloader } from '../components/Preloader';
 import { SecondaryHeader } from '../components/SecondaryHeader';
-import { mapContactsToLabelKeyPair } from '../store/derived-data';
 import DocumentForm from './DocumentForm';
 import { getDocumentById, resetGetDocumentById } from '../store/actions/documents';
 import { getSchemasList, resetGetSchemasList } from '../store/actions/schemas';
@@ -52,7 +50,7 @@ export class ViewDocument extends React.Component<Props> {
     const {
       document,
       contacts,
-      schemas
+      schemas,
     } = this.props;
 
     if (!document || !contacts || !schemas || !document.attributes) {
@@ -75,7 +73,7 @@ export class ViewDocument extends React.Component<Props> {
             <Box direction="row" gap="medium">
               <Button
                 onClick={() => {
-                   this.props.history.push(
+                  this.props.history.push(
                     documentRoutes.edit.replace(':id', document!._id),
                   );
                 }}
@@ -100,7 +98,6 @@ export class ViewDocument extends React.Component<Props> {
 const mapStateToProps = (state) => {
   return {
     document: state.documents.getById.data,
-    creatingFunding: state.funding.create,
     contacts: state.contacts.get.data,
     schemas: state.schemas.getList.data,
   };
