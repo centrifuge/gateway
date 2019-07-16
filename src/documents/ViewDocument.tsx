@@ -32,13 +32,7 @@ type Props = {
 } & RouteComponentProps<{ id?: string }>;
 
 export class ViewDocument extends React.Component<Props> {
-
-  displayName = 'InvoiceView';
-  state = {
-    requestFunding: false,
-    addTransferDetails: false,
-  };
-
+  
   componentDidMount() {
     if (this.props.match.params.id) {
       this.props.getContacts();

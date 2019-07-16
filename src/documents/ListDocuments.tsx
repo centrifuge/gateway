@@ -89,14 +89,14 @@ export class ListDocuments extends React.Component<Props & RouteComponentProps> 
                         )
                       }
                     />
-                    {!datum.fundingAgreement && <Anchor
+                    <Anchor
                       label={'Edit'}
                       onClick={() =>
                         history.push(
                           documentRoutes.edit.replace(':id', datum._id),
                         )
                       }
-                    />}
+                    />
                   </Box>
                 ),
               },

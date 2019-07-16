@@ -59,7 +59,7 @@ export class DocumentForm extends React.Component<Props, State> {
 
   onSubmit = (values) => {
     const { selectedSchema } = this.state;
-    return this.props.onSubmit && this.props.onSubmit(
+    this.props.onSubmit && this.props.onSubmit(
       {
         // add schema as tech field
         '_schema': {
