@@ -164,7 +164,7 @@ export class DocumentForm extends React.Component<Props, State> {
       <Box pad={{ bottom: 'xlarge' }}>
         <Formik
           validationSchema={validationSchema}
-          initialValues={documet}
+          initialValues={document}
           validateOnBlur={submitted}
           validateOnChange={submitted}
           onSubmit={(values, { setSubmitting }) => {
