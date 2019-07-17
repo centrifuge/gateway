@@ -266,10 +266,7 @@ export class DocumentForm extends React.Component<Props, State> {
                 disabled={disabled}
                 value={get(values, key)}
                 name={`${key}`}
-                onChange={(ev) => {
-                  console.log(ev.target.value)
-                  setFieldValue(key,ev.target.value);
-                }}
+                onChange={handleChange}
               />;
             case 'bytes':
               return <TextInput
