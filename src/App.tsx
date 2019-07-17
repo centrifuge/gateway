@@ -161,7 +161,7 @@ class App extends Component<AppPros> {
       <div className="App">
         <AxisTheme full={true}>
           <NotificationProvider>
-            <Box align="center">≈
+            <Box align="center">
               <ConnectedNotifications/>
               <Header
                 user={loggedInUser}
