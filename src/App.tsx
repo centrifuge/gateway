@@ -151,8 +151,6 @@ class App extends Component<AppPros> {
 
       }
 
-
-
       menuItems.push({ label: 'Log out', route: routes.user.logout, external: true, secondary: true });
 
     }
