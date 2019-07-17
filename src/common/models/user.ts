@@ -1,5 +1,5 @@
 import { PERMISSIONS } from '../constants';
-import { Document } from './document';
+import { Document, DOCUMENT_ACCESS } from './document';
 
 export interface IUser {
   name: string;
@@ -25,26 +25,25 @@ export class User implements IUser {
   invited: boolean;
 }
 
-
 export const canWriteToDoc = (user: User, doc: Document): boolean => {
-  return !!(
-    doc.header &&
-    doc.header.write_access &&
-    doc.header.write_access.find(
-      ac => ac.toLowerCase() === user.account.toLowerCase(),
-    )
-  );
+  return accountHasDocAccess(user.account, doc, DOCUMENT_ACCESS.WRITE);
 };
 
 export const canReadDoc = (user: User, doc: Document): boolean => {
+  return accountHasDocAccess(user.account, doc, DOCUMENT_ACCESS.READ);
+};
+
+export const accountHasDocAccess = (account: string, doc: Document, access: DOCUMENT_ACCESS): boolean => {
   return !!(
     doc.header &&
-    doc.header.read_access &&
-    doc.header.read_access.find(
-      ac => ac.toLowerCase() === user.account.toLowerCase(),
+    doc.header[access] &&
+    Array.isArray(doc.header[access]) &&
+    doc.header[access]!.find(
+      ac => ac.toLowerCase() === account.toLowerCase(),
     )
   );
 };
+
 
 export const canCreateDocuments = (user: User): boolean => {
   return (
