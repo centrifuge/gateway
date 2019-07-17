@@ -129,10 +129,6 @@ class App extends Component<AppPros> {
               path: routes.documents.new,
               component: CreateDocument,
             },
-            {
-              path: routes.documents.edit,
-              component: EditDocument,
-            },
           );
 
         }
@@ -145,6 +141,10 @@ class App extends Component<AppPros> {
           {
             path: routes.documents.view,
             component: ViewDocument,
+          },
+          {
+            path: routes.documents.edit,
+            component: EditDocument,
           },
         );
 
