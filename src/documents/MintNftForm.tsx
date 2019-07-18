@@ -4,7 +4,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Registry } from '../common/models/schema';
 import SearchSelect from '../components/form/SearchSelect';
-import { PERMISSIONS } from '../common/constants';
 import { isValidAddress } from 'ethereumjs-util';
 
 type Props = {
@@ -34,7 +33,6 @@ export default class MintNftForm extends React.Component<Props> {
     this.props.onDiscard();
   };
 
-
   render() {
 
     const { submitted } = this.state;
@@ -50,21 +48,20 @@ export default class MintNftForm extends React.Component<Props> {
           name: 'test_schemas',
           test: (function(this, value) {
             if (this.parent.transfer) {
-              if(!value)
-                return this.createError({path: this.path, message: 'This is field is required'})
+              if (!value)
+                return this.createError({ path: this.path, message: 'This is field is required' });
               else {
-                if(!isValidAddress(value))
-                  return this.createError({path: this.path, message: 'Not a valid account address'})
+                if (!isValidAddress(value))
+                  return this.createError({ path: this.path, message: 'Not a valid account address' });
               }
 
 
             }
             return true;
-          })
+          }),
         }),
 
     });
-
 
     const initialValues = {
       registry: undefined,
@@ -93,8 +90,6 @@ export default class MintNftForm extends React.Component<Props> {
                setFieldValue,
                handleSubmit,
              }) => {
-
-
               return (
                 <form
                   onSubmit={event => {
@@ -119,33 +114,28 @@ export default class MintNftForm extends React.Component<Props> {
                           }}
                         />
                       </FormField>
+
                       <CheckBox
                         label={'Transfer to someone else?'}
                         name='transfer'
                         checked={values.transfer}
                         onChange={handleChange}
                       />
-                      {values.transfer && <FormField
-                        label="Owner"
-                        error={errors.owner}
-                      >
-                        <TextInput
-                          name="owner"
-                          value={values!.owner}
-                          onChange={handleChange}
-                        />
-                      </FormField>}
 
-
-
+                      {
+                        values.transfer && <FormField
+                          label="Owner"
+                          error={errors.owner}
+                        >
+                          <TextInput
+                            name="owner"
+                            value={values!.owner}
+                            onChange={handleChange}
+                          />
+                        </FormField>
+                      }
                     </Box>
-
-                    <Box gap={columnGap}>
-
-                    </Box>
-
                   </Box>
-
 
                   <Box direction="row" justify={'end'} gap="medium" margin={{ top: 'medium' }}>
                     <Button
