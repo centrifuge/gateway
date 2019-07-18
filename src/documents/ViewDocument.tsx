@@ -73,7 +73,7 @@ export class ViewDocument extends React.Component<Props> {
       );
     });
 
-    if(!selectedSchema) return <p>Unsuported schema</p>
+    if(!selectedSchema) return <p>Unsupported schema</p>
 
     return (
       <>

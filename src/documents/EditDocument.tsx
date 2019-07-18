@@ -105,10 +105,10 @@ export class EditDocument extends React.Component<Props> {
       );
     });
 
-    if (!selectedSchema) return <p>Unsuported schema</p>;
+    if (!selectedSchema) return <p>Unsupported schema</p>;
 
     const mintActions = [
-      <Button key="mint_nft" onClick={this.openMintModal} icon={<Money/>} plain label={'Mint nft'}/>,
+      <Button key="mint_nft" onClick={this.openMintModal} icon={<Money/>} plain label={'Mint NFT'}/>,
     ]
     ;
     return (
@@ -117,7 +117,7 @@ export class EditDocument extends React.Component<Props> {
           width={'large'}
           opened={mintNft}
           headingProps={{ level: 3 }}
-          title={`Mint nft`}
+          title={`Mint NFT`}
           onClose={this.closeMintModal}
         >
           <MintNftForm
