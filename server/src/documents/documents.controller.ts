@@ -94,7 +94,7 @@ export class DocumentsController {
       { _id: params.id },
     );
 
-    if (!documentFromDb) throw new HttpException(`Can not find document #${params.id} in the database`, HttpStatus.FORBIDDEN);
+    if (!documentFromDb) throw new HttpException(`Can not find document #${params.id} in the database`, HttpStatus.CONFLICT);
 
     const updateResult: Document = await this.centrifugeService.documents.updateDocument(
       request.user.account,
@@ -119,7 +119,7 @@ export class DocumentsController {
   }
 
   /**
-   * Mints and nft for a doc and saves and updates local database
+   * Mints an NFT for a doc and saves and updates local database
    * @async
    * @param {Param} params - the query params
    * @param {Param} request - the http request
@@ -137,7 +137,7 @@ export class DocumentsController {
       { _id: params.id },
     );
 
-    if (!documentFromDb) throw new HttpException(`Can not find document #${params.id} in the database`, HttpStatus.FORBIDDEN);
+    if (!documentFromDb) throw new HttpException(`Can not find document #${params.id} in the database`, HttpStatus.CONFLICT);
 
     const payload: UserapiMintNFTRequest = {
       document_id: documentFromDb.header.document_id,
@@ -158,9 +158,7 @@ export class DocumentsController {
 
     return await this.databaseService.documents.updateById(params.id, {
       $set: {
-        header: updateResult.header,
-        data: updateResult.data,
-        attributes: unflattenAttr,
+        header: updateResult.header
       },
     });
   }
