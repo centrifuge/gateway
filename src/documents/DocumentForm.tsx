@@ -325,7 +325,7 @@ export class DocumentForm extends React.Component<Props, State> {
         ]}
       />
 
-      {!document!.header!.nfts && <Paragraph color={'dark-2'}>There are no nfts minted on this document yet.</Paragraph>}
+      {!document!.header!.nfts && <Paragraph color={'dark-2'}>There are no NFTs minted on this document yet.</Paragraph>}
 
     </Section>);
   };
