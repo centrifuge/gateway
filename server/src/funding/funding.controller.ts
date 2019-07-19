@@ -120,10 +120,10 @@ export class FundingController {
     // Mint an UnpaidInvoiceNFT.
     // TODO use the new invoice unpaid methods
     // This will fail if the document already has a nft minted
-    // const nftResult = await this.centrifugeService.invoiceUnpaid.mintInvoiceUnpaidNFT(fundingRequest.document_id, nftPayload, req.user.account);
+     const nftResult = await this.centrifugeService.invoices.invoiceUnpaidNft(req.user.account, nftPayload);
 
     // Pull to see when minting is complete. We need the token ID for the funding API
-    // await this.centrifugeService.pullForJobComplete(nftResult.header.job_id, req.user.account);
+     await this.centrifugeService.pullForJobComplete(nftResult.header.job_id, req.user.account);
     // Get the new invoice data in order to get the NFT ID
     const invoiceWithNft = await this.centrifugeService.invoices.getInvoice(req.user.account, fundingRequest.document_id);
     const tokenId = invoiceWithNft.header.nfts[0].token_id;
