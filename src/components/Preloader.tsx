@@ -11,8 +11,6 @@ export class Preloader extends Component<PreloaderProps> {
 
   render() {
 
-    const autoplay = process.env.NODE_ENV !== 'development';
-
     const { message } = this.props;
     return <>
       <Spinner message={message} width={'100%'} height={'calc(100vh - 90px)'}/>
