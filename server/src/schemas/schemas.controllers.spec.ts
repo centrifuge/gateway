@@ -178,7 +178,9 @@ describe('SchemasController', () => {
           ],
         } as Schema);
       } catch (err) {
-        expect(err.message).toEqual(`Nested attributes are not supported! Rename document.qualities and to not use . or [ ]`);
+        expect(err.message).toEqual(
+          `Error on attribute 'document.qualities': Nested attributes are not supported! Do not use . or [ ] in name`
+        );
         expect(err.status).toEqual(400);
         expect(err instanceof HttpException).toEqual(true);
       }
