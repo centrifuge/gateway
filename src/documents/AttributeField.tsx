@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React  from 'react';
 import { NumberInput } from '@centrifuge/axis-number-input';
 import { DateInput } from '@centrifuge/axis-date-input';
 import { Attribute, AttrTypes } from '../common/models/schema';
 import { Box, FormField, Select, TextInput } from 'grommet';
 import { dateToString, extractDate } from '../common/formaters';
 import { get } from 'lodash';
-import { connect, FormikContext, FormikProps } from 'formik';
+import { connect, FormikContext } from 'formik';
 import { Document } from '../common/models/document';
 
 type Props = OuterProps & {

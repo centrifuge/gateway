@@ -8,8 +8,6 @@ import * as Yup from 'yup';
 import { Document } from '../common/models/document';
 import { AttrTypes, Schema } from '../common/models/schema';
 import SearchSelect from '../components/form/SearchSelect';
-import { NumberInput } from '@centrifuge/axis-number-input';
-import { DateInput } from '@centrifuge/axis-date-input';
 import { get } from 'lodash';
 import { Contact } from '../common/models/contact';
 import MutipleSelect from '../components/form/MutipleSelect';
