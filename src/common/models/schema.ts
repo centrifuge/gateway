@@ -132,8 +132,8 @@ export class Schema {
       if (prevSchema.name !== nextSchema.name)
         throw new Error(DiffErrors.NAME_CHANGE_FORBIDEN);
 
-      // When editing a schema previous attributes should not be removed of have their
-      // perspective.
+      // When editing a schema previous attributes should not be removed
+      // and it is not allowed to change values for the name and type props
       const diffedAttributes = differenceWith(prevSchema.attributes, nextSchema.attributes, (a: Attribute, b: Attribute) => {
           return a.type === b.type && a.name === b.name;
       });
