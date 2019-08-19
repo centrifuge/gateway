@@ -42,8 +42,6 @@ export default class SchemasForm extends React.Component<SchemasProps, SchemasSt
         .test({
           name: 'test-json',
           test: (function(this, value) {
-            console.log(selectedSchema)
-
             let test;
             try {
               test = JSON.parse(value);
