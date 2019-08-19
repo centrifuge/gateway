@@ -1,5 +1,5 @@
 import { isValidAddress } from 'ethereumjs-util';
-import { differenceWith, isEqual, isString, uniqBy, groupBy } from 'lodash';
+import { differenceWith, isString, groupBy } from 'lodash';
 
 export interface Attribute {
   name: string,
