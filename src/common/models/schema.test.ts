@@ -353,7 +353,7 @@ describe('Schema validations', () => {
         Schema.validateDiff({
           name: 'prev',
         }, {
-          name: { 'next' },
+          name:  'next',
         });
       }).toThrow(DiffErrors.NAME_CHANGE_FORBIDEN);
     });
