@@ -142,7 +142,7 @@ class SchemasList extends React.Component<Props, State> {
     this.setState({ selectedSchema: null, openedSchemaForm: false });
   };
 
-  onAddNewClick = () => {
+  createSchema = () => {
     this.setState({
       selectedSchema: null,
       formMode: FormModes.CREATE,
@@ -234,7 +234,7 @@ class SchemasList extends React.Component<Props, State> {
       return <Preloader message="Loading"/>;
     }
 
-    const { selectedSchema, formMode, openedSchemaForm } = this.state;
+    const { selectedSchema, formMode, openedSchemaForm, showArchive } = this.state;
     const { schemas } = this.props;
 
     return (
@@ -244,13 +244,13 @@ class SchemasList extends React.Component<Props, State> {
           <Box direction={'row'} gap={'medium'}>
             <CheckBox
               label={'Show Archived'}
-              checked={this.state.showArchive}
+              checked={showArchive}
               onChange={(event) => this.setState({ showArchive: event.target.checked })}
 
             />
             <Button
               primary
-              onClick={this.onAddNewClick}
+              onClick={this.createSchema}
               label="Create Schema"
             />
           </Box>
@@ -273,7 +273,7 @@ class SchemasList extends React.Component<Props, State> {
         <Box pad={{ horizontal: 'medium' }}>
           {this.renderSchemas(
             schemas.filter(
-              schema => this.state.showArchive === !!schema.archived,
+              schema => showArchive === !!schema.archived,
             )
           )}
         </Box>
