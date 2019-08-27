@@ -18,7 +18,6 @@ export const mapContactsToLabelKeyPair = (state, withLoggedinUser = false) => {
     mapped;
 };
 
-
 export const getUserSchemas = (state) => {
   const schemas = state.schemas.getList.data;
   const userSchemas = state.user.auth.loggedInUser.schemas;

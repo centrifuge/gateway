@@ -160,7 +160,7 @@ class UsersList extends React.Component<UsersListProps & RouteComponentProps> {
   render() {
 
     const { users, invitingUser, updatingUser, schemas } = this.props;
-    if (!this.props.users || !this.props.schemas || !schemas.data) {
+    if (!users || !schemas || !schemas.data) {
       return <Preloader message="Loading"/>;
     }
 
