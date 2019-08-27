@@ -1,4 +1,6 @@
 import { LabelValuePair } from '../common/interfaces';
+import { Schema } from '../common/models/schema';
+import { mapSchemaNames } from '../common/schema-utils';
 
 export const mapContactsToLabelKeyPair = (state, withLoggedinUser = false) => {
   if (!state.contacts.get.data) return undefined;
@@ -21,8 +23,7 @@ export const mapContactsToLabelKeyPair = (state, withLoggedinUser = false) => {
 export const getUserSchemas = (state) => {
   const schemas = state.schemas.getList.data;
   const userSchemas = state.user.auth.loggedInUser.schemas;
-  if(!schemas) return [];
-
-  return schemas.filter(schema => userSchemas.includes(schema.name) && !schema.archived);
-
+  if(!schemas || !userSchemas) return [];
+  return mapSchemaNames(userSchemas,schemas)
 }
+
