@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Anchor, Box, Button, DataTable, Heading } from 'grommet';
 import { documentRoutes } from './routes';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { formatDate } from '../common/formaters';
 import { Document } from '../common/models/document';
 import { SecondaryHeader } from '../components/SecondaryHeader';
 import { getDocuments, resetGetDocuments } from '../store/actions/documents';
@@ -41,16 +40,16 @@ export class ListDocuments extends React.Component<Props & RouteComponentProps> 
     }
 
 
-    const sortableDocuments = documents.map((doc:any) => {
-      return  {
+    const sortableDocuments = documents.map((doc: any) => {
+      return {
         ...doc,
         // Datable does suport suported for nested props ex data.myValue
         // We need make the props accessible top level and we use a special
         // prefix in order to avoid overriding some prop
         $_reference_id: doc.attributes.reference_id && doc.attributes.reference_id.value,
         $_schema: doc.attributes._schema && doc.attributes._schema.value,
-      }
-    })
+      };
+    });
 
     return (
       <Box>
@@ -73,7 +72,7 @@ export class ListDocuments extends React.Component<Props & RouteComponentProps> 
               {
                 property: '$_reference_id',
                 header: 'Reference number',
-                sortable:true,
+                sortable: true,
               },
 
               {
@@ -84,12 +83,12 @@ export class ListDocuments extends React.Component<Props & RouteComponentProps> 
               {
                 property: 'createdAt',
                 header: 'Date created',
-                sortable:true,
+                sortable: true,
               },
               {
                 property: '_id',
                 header: 'Actions',
-                sortable:false,
+                sortable: false,
                 render: datum => (
                   <Box direction="row" gap="small">
                     <Anchor
