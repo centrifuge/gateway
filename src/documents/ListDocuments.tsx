@@ -40,6 +40,18 @@ export class ListDocuments extends React.Component<Props & RouteComponentProps> 
       return <Preloader message="Loading"/>;
     }
 
+
+    const sortableDocuments = documents.map((doc:any) => {
+      return  {
+        ...doc,
+        // Datable does suport suported for nested props ex data.myValue
+        // We need make the props accessible top level and we use a special
+        // prefix in order to avoid overriding some prop
+        $_reference_id: doc.attributes.reference_id && doc.attributes.reference_id.value,
+        $_schema: doc.attributes._schema && doc.attributes._schema.value,
+      }
+    })
+
     return (
       <Box>
         <SecondaryHeader>
@@ -54,32 +66,30 @@ export class ListDocuments extends React.Component<Props & RouteComponentProps> 
 
         <Box pad={{ horizontal: 'medium' }}>
           <DataTable
-            sortable={false}
-            data={documents}
+            sortable={true}
+            data={sortableDocuments}
             primaryKey={'_id'}
             columns={[
               {
-                property: 'attributes.reference_id',
+                property: '$_reference_id',
                 header: 'Reference number',
-                render: datum => datum.attributes.reference_id && datum.attributes.reference_id.value,
+                sortable:true,
               },
 
               {
-                property: 'schema',
+                property: '$_schema',
                 header: 'Schema',
-                render: datum => datum.attributes._schema && datum.attributes._schema.value,
               },
 
               {
-                property: 'date_created',
+                property: 'createdAt',
                 header: 'Date created',
-                render: datum => {
-                  return formatDate(datum.createdAt);
-                },
+                sortable:true,
               },
               {
                 property: '_id',
                 header: 'Actions',
+                sortable:false,
                 render: datum => (
                   <Box direction="row" gap="small">
                     <Anchor
