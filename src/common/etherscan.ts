@@ -1,4 +1,3 @@
-import config from './config';
 import { BN } from 'ethereumjs-util';
 
 const rootLink = `https://[[network]]etherscan.io/`;
