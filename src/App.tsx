@@ -176,6 +176,7 @@ class App extends Component<AppPros> {
                   </Anchor>
                 }
                 selectedRoute={selectedRoute}
+                menuLabel={loggedInUser ? loggedInUser.email : ''}
                 menuItems={menuItems.reverse()}
                 onRouteClick={(item) => {
                   if (item.external) {
