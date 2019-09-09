@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { documentTypes, EventTypes, WebhooksController } from './webhooks.controller';
+import { DocumentTypes, EventTypes, WebhooksController } from './webhooks.controller';
 import { databaseServiceProvider } from '../database/database.providers';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import { DatabaseService } from '../database/database.service';
@@ -51,7 +51,7 @@ describe('WebhooksController', () => {
 
       const result = await webhooksController.receiveMessage({
         event_type: EventTypes.DOCUMENT,
-        document_type: documentTypes.invoice,
+        document_type: DocumentTypes.invoice,
         document_id: documentId,
         to_id: user.account,
       });
@@ -82,7 +82,7 @@ describe('WebhooksController', () => {
       try {
         const result = await webhooksController.receiveMessage({
           event_type: EventTypes.DOCUMENT,
-          document_type: documentTypes.invoice,
+          document_type: DocumentTypes.invoice,
           document_id: documentId,
           to_id: '0x4444',
         });
@@ -100,7 +100,7 @@ describe('WebhooksController', () => {
 
       const result = await webhooksController.receiveMessage({
         event_type: EventTypes.DOCUMENT,
-        document_type: documentTypes.purchaseOrder,
+        document_type: DocumentTypes.purchaseOrder,
         document_id: documentId,
         to_id: user.account,
       });
