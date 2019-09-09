@@ -53,8 +53,6 @@ export default class UserForm extends React.Component<InviteProps> {
     const { submitted } = this.state;
 
     const permissionOptions = [
-      PERMISSIONS.CAN_FUND_INVOICES,
-      PERMISSIONS.CAN_CREATE_INVOICES,
       PERMISSIONS.CAN_MANAGE_USERS,
       PERMISSIONS.CAN_MANAGE_SCHEMAS,
       PERMISSIONS.CAN_MANAGE_DOCUMENTS,
