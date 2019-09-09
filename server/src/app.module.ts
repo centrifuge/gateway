@@ -4,7 +4,6 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ContactsModule } from './contacts/contacts.module';
 import { WebhooksModule } from './webhooks/webhooks.module';
-import { PurchaseOrdersModule } from './purchase-orders/purchase-orders.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_FILTER } from '@nestjs/core';
@@ -28,7 +27,6 @@ import { DocumentsModule } from "./documents/documents.module";
     ContactsModule,
     FundingModule,
     InvoicesModule,
-    PurchaseOrdersModule,
     UsersModule,
     WebhooksModule,
     TransferModule,
