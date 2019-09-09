@@ -27,7 +27,7 @@ export function* loginUser(user: User) {
 export function* watchLoginPage(action) {
   yield fork(loginUser, action.user);
   yield take(userLoginAction.success);
-  yield put(push(routes.invoices.index));
+  yield put(push(routes.index));
 }
 
 export function* registerUser(action) {
