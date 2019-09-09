@@ -170,7 +170,7 @@ describe('Users controller', () => {
         const updated = await usersController.update({
           ...enabledUser,
           name: 'changed name',
-          permissions: [PERMISSIONS.CAN_CREATE_INVOICES],
+          permissions: [PERMISSIONS.CAN_MANAGE_DOCUMENTS],
         });
 
         expect(updated.name).toEqual('changed name');
@@ -182,7 +182,7 @@ describe('Users controller', () => {
             ...enabledUser,
             name: 'changed name 2',
             email: 'test1',
-            permissions: [PERMISSIONS.CAN_CREATE_INVOICES],
+            permissions: [PERMISSIONS.CAN_MANAGE_DOCUMENTS],
           }),
         ).rejects.toThrow('Email taken!');
       });
@@ -291,7 +291,7 @@ describe('Users controller', () => {
           usersController.invite({
             name: 'any_username',
             email: 'test',
-            permissions: [PERMISSIONS.CAN_CREATE_INVOICES],
+            permissions: [PERMISSIONS.CAN_MANAGE_DOCUMENTS],
           }),
         ).rejects.toThrow('Invite functionality not enabled!');
       });
