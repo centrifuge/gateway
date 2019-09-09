@@ -5,7 +5,6 @@ import {
   UserapiInvoiceResponse,
   UserapiPurchaseOrderResponse,
 } from '../../clients/centrifuge-node';
-import { Invoice } from './models/invoice';
 
 //TODO break all interfaces up and move to models
 //TODO Refactor this. The name is bad. Is it very interface specic ? Do we need an interface for this?
@@ -16,7 +15,7 @@ export interface LabelValuePair {
 
 
 export interface InvoiceResponse extends UserapiInvoiceResponse {
-  data?: Invoice | InvoiceData;
+  data?: any | InvoiceData;
   ownerId?: string;
   _id?: string;
   createdAt?: Date,

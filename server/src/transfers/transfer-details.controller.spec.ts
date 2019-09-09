@@ -4,14 +4,13 @@ import {
 } from "@nestjs/testing";
 import { databaseServiceProvider } from "../database/database.providers";
 import { DatabaseService } from "../database/database.service";
-import { Invoice } from "../../../src/common/models/invoice";
 import { SessionGuard } from "../auth/SessionGuard";
 import { TransferDetailsController } from "./transfer-details.controller";
 import { centrifugeServiceProvider } from "../centrifuge-client/centrifuge.module";
 
 describe('Transfer controller', () => {
 
-  const invoice: Invoice = {
+  const invoice: any = {
     sender: '0x111',
     recipient: '0x999',
     currency: 'EUR',

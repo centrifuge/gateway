@@ -8,15 +8,12 @@ import { User } from './common/models/user';
 import { push, RouterAction } from 'connected-react-router';
 import { PERMISSIONS } from './common/constants';
 import routes from './routes';
-import InvoiceList from './invoices/InvoiceList';
+
 import UsersList from './admin/users/UsersList';
-import CreateInvoice from './invoices/Create';
-import { ConnectedFundingAgreementView } from './invoices/FundingAgreementView';
-import EditInvoice from './invoices/Edit';
+
+
 import Contacts from './contacts/View';
 import { NotificationProvider } from './notifications/NotificationContext';
-import FundingAgreementList from './invoices/FundingAgreementList';
-import { ConnectedInvoiceView } from './invoices/InvoiceView';
 import { ConnectedNotifications } from './notifications/Notifications';
 import SchemasList from './admin/schemas/SchemasList';
 import ListDocuments from './documents/ListDocuments';
@@ -83,46 +80,6 @@ class App extends Component<AppPros> {
         );
       }
 
-      if (loggedInUser.permissions.includes(PERMISSIONS.CAN_CREATE_INVOICES)) {
-        menuItems.push(...[
-          { label: 'Invoices', route: routes.invoices.index },
-        ]);
-
-        routeItems.push(
-          {
-            path: routes.invoices.index,
-            component: InvoiceList,
-          },
-          {
-            path: routes.invoices.new,
-            component: CreateInvoice,
-          },
-          {
-            path: routes.invoices.view,
-            component: ConnectedInvoiceView,
-          },
-          {
-            path: routes.invoices.edit,
-            component: EditInvoice,
-          },
-        );
-      }
-
-      if (loggedInUser.permissions.includes(PERMISSIONS.CAN_FUND_INVOICES)) {
-        menuItems.push(...[
-          { label: 'Funding Agreements', route: routes.funding.index },
-        ]);
-        routeItems.push(
-          {
-            path: routes.funding.index,
-            component: FundingAgreementList,
-          },
-          {
-            path: routes.funding.view,
-            component: ConnectedFundingAgreementView,
-          },
-        );
-      }
 
 
       if (loggedInUser.permissions.includes(PERMISSIONS.CAN_VIEW_DOCUMENTS) || loggedInUser.permissions.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS)) {

@@ -3,13 +3,12 @@ import { databaseServiceProvider } from '../database/database.providers';
 import { Test, TestingModule } from '@nestjs/testing';
 import { SessionGuard } from '../auth/SessionGuard';
 import { DatabaseService } from '../database/database.service';
-import { Invoice } from '../../../src/common/models/invoice';
 import { centrifugeServiceProvider } from "../centrifuge-client/centrifuge.module";
 
 
 describe('Funding controller', () => {
 
-  const invoice: Invoice = {
+  const invoice: any = {
     sender: '0x111',
     recipient: '0x112',
     currency: 'USD',

@@ -34,14 +34,6 @@ class ConnectedLoginPage extends React.Component<ConnectedLoginPageProps> {
         auth.loggedInUser.permissions.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS)) {
         return <Redirect to={routes.documents.index}/>;
       }
-
-      if (auth.loggedInUser.permissions.includes(PERMISSIONS.CAN_CREATE_INVOICES)) {
-        return <Redirect to={routes.invoices.index}/>;
-      }
-
-      if (auth.loggedInUser.permissions.includes(PERMISSIONS.CAN_FUND_INVOICES)) {
-        return <Redirect to={routes.funding.index}/>;
-      }
     }
 
     return (
