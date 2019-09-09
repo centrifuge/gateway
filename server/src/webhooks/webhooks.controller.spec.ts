@@ -51,7 +51,7 @@ describe('WebhooksController', () => {
 
       const result = await webhooksController.receiveMessage({
         event_type: EventTypes.DOCUMENT,
-        document_type: DocumentTypes.invoice,
+        document_type: DocumentTypes.INVOICE,
         document_id: documentId,
         to_id: user.account,
       });
@@ -82,7 +82,7 @@ describe('WebhooksController', () => {
       try {
         const result = await webhooksController.receiveMessage({
           event_type: EventTypes.DOCUMENT,
-          document_type: DocumentTypes.invoice,
+          document_type: DocumentTypes.INVOICE,
           document_id: documentId,
           to_id: '0x4444',
         });
@@ -92,27 +92,7 @@ describe('WebhooksController', () => {
     });
   });
 
-  describe('when it receives success purchase order creation', function() {
-    it('should fetch it from the node and persist it in the database', async function() {
-      const webhooksController = webhooksModule.get<WebhooksController>(
-        WebhooksController,
-      );
 
-      const result = await webhooksController.receiveMessage({
-        event_type: EventTypes.DOCUMENT,
-        document_type: DocumentTypes.purchaseOrder,
-        document_id: documentId,
-        to_id: user.account,
-      });
-
-      expect(result).toEqual('OK');
-      expect(centrifugeSpies.spyPOGet).toHaveBeenCalledWith(
-        user.account,
-        documentId,
-      );
-      expect(poSpies.spyInsert).toHaveBeenCalled();
-    });
-  });
 
   describe('when it receives invalid message', function() {
     it('should do nothing', async function() {
