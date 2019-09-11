@@ -77,6 +77,9 @@ export class ViewDocument extends React.Component<Props, State> {
           id,
         },
       },
+      history: {
+        push
+      },
       loggedInUser,
     } = this.props;
 
@@ -121,7 +124,7 @@ export class ViewDocument extends React.Component<Props, State> {
             <Box direction="row" gap="medium">
               {canWriteToDoc(loggedInUser, document) && <Button
                 onClick={() => {
-                  this.props.history.push(
+                  push(
                     documentRoutes.edit.replace(':id', id),
                   );
                 }}

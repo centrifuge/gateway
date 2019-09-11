@@ -5,7 +5,6 @@ import Routing, { RouteItem } from './Routing';
 import { MenuItem, NavBar } from '@centrifuge/axis-nav-bar';
 import { connect } from 'react-redux';
 import { User } from './common/models/user';
-import { push, RouterAction } from 'connected-react-router';
 import { PERMISSIONS } from './common/constants';
 import routes from './routes';
 
@@ -23,11 +22,10 @@ import EditDocument from './documents/EditDocument';
 import { getAddressLink } from './common/etherscan';
 import { DisplayField } from '@centrifuge/axis-display-field';
 import logo from './logo.png';
+import { RouteComponentProps, withRouter } from 'react-router';
 
-interface AppPros {
-  selectedRoute: string;
+interface AppPros extends RouteComponentProps {
   loggedInUser: User | null;
-  push: (route) => RouterAction
 }
 
 
@@ -35,9 +33,13 @@ class App extends Component<AppPros> {
   render() {
 
     const {
-      selectedRoute,
       loggedInUser,
-      push,
+      location:{
+        pathname
+      },
+      history: {
+        push,
+      },
     } = this.props;
 
     let menuItems: MenuItem[] = [];
@@ -79,7 +81,6 @@ class App extends Component<AppPros> {
           },
         );
       }
-
 
 
       if (loggedInUser.permissions.includes(PERMISSIONS.CAN_VIEW_DOCUMENTS) || loggedInUser.permissions.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS)) {
@@ -132,7 +133,7 @@ class App extends Component<AppPros> {
                     <Image src={logo}/>
                   </Anchor>
                 }
-                selectedRoute={selectedRoute}
+                selectedRoute={pathname}
                 menuLabel={loggedInUser ? loggedInUser.email : ''}
                 menuItems={menuItems.reverse()}
                 onRouteClick={(item) => {
@@ -178,12 +179,10 @@ class App extends Component<AppPros> {
 
 const mapStateToProps = (state) => {
   return {
-    selectedRoute: state.router.location.pathname,
     loggedInUser: state.user.auth.loggedInUser,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { push },
-)(App);
+)(withRouter(App));

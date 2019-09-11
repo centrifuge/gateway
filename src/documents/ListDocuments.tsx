@@ -63,7 +63,13 @@ export class ListDocuments extends React.Component<Props, State> {
 
   render() {
 
-    const { loggedInUser, history } = this.props;
+    const {
+      loggedInUser,
+      history: {
+        push,
+      },
+    } = this.props;
+
     const { loading, documents } = this.state;
 
     if (loading) {
@@ -126,7 +132,7 @@ export class ListDocuments extends React.Component<Props, State> {
                     <Anchor
                       label={'View'}
                       onClick={() =>
-                        history.push(
+                        push(
                           documentRoutes.view.replace(':id', datum._id),
                         )
                       }
@@ -134,7 +140,7 @@ export class ListDocuments extends React.Component<Props, State> {
                     {canWriteToDoc(loggedInUser, datum) && <Anchor
                       label={'Edit'}
                       onClick={() =>
-                        history.push(
+                        push(
                           documentRoutes.edit.replace(':id', datum._id),
                         )
                       }

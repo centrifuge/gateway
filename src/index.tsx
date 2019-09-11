@@ -3,19 +3,20 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'connected-react-router';
-
-import configureStore, { history } from './store';
+import { Route, Router } from 'react-router';
+import { createBrowserHistory } from 'history';
+import configureStore from './store';
 
 import 'normalize.css';
 import config from './common/config';
 
+const customHistory = createBrowserHistory();
 const runApplication = (store) => {
   ReactDOM.render(
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <App/>
-      </ConnectedRouter>
+      <Router history={customHistory}>
+        <Route component={App}/>
+      </Router>
     </Provider>,
     document.getElementById('root'),
   );
@@ -41,7 +42,7 @@ if (process.env.NODE_ENV === 'development') {
     .then(res => res.json())
     .then(response => {
 
-      window['__ETH_NETWORK__'] =  config.ethNetwork;
+      window['__ETH_NETWORK__'] = config.ethNetwork;
       runApplication(configureStore({
         user: {
           auth: {

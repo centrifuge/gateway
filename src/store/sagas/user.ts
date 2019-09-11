@@ -8,8 +8,6 @@ import {
   userRegisterAction,
 } from '../actions/users';
 import { User } from '../../common/models/user';
-import routes from '../../routes';
-import { push } from 'connected-react-router';
 import { alertError } from '../actions/notifications';
 
 export function* loginUser(user: User) {
@@ -27,7 +25,7 @@ export function* loginUser(user: User) {
 export function* watchLoginPage(action) {
   yield fork(loginUser, action.user);
   yield take(userLoginAction.success);
-  yield put(push(routes.index));
+  //yield put(push(routes.index));
 }
 
 export function* registerUser(action) {
