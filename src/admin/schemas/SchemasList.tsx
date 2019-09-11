@@ -4,48 +4,25 @@ import { Modal } from '@centrifuge/axis-modal';
 import { Schema } from '../../common/models/schema';
 import { SecondaryHeader } from '../../components/SecondaryHeader';
 import { formatDate } from '../../common/formaters';
-import { connect } from 'react-redux';
-import {
-  archiveSchema,
-  createSchema,
-  getSchema,
-  getSchemasList,
-  resetCreateSchema,
-  resetGetSchema,
-  resetGetSchemasList,
-  resetUpdateSchema,
-  updateSchema,
-} from '../../store/actions/schemas';
-import { RequestState } from '../../store/reducers/http-request-reducer';
 import { Preloader } from '../../components/Preloader';
 import { RouteComponentProps, withRouter } from 'react-router';
 import SchemasForm from './SchemasForm';
+import { httpClient } from '../../http-client';
 
-
-const mapStateToProps = (state: {
-  schemas: {
-    getList: RequestState<Schema[]>
-  };
-}) => {
-  return {
-    schemas: state.schemas.getList.data,
-    loading: state.schemas.getList.loading,
-  };
-};
 
 interface Props extends RouteComponentProps {
-  schemas?: Schema[];
-  getSchemasList: typeof getSchemasList;
-  resetGetSchemasList: typeof resetGetSchemasList;
-  resetCreateSchema: typeof resetCreateSchema;
-  createSchema: typeof createSchema;
-  getSchema: typeof getSchema;
-  resetGetSchema: typeof resetGetSchema;
-  updateSchema: typeof updateSchema;
-  archiveSchema: typeof archiveSchema;
-  resetUpdateSchema: typeof resetUpdateSchema;
-  loading: boolean;
+
 };
+
+interface State {
+  schemas: Schema[];
+  loading: boolean;
+  selectedSchema: Schema | null;
+  showArchive: boolean;
+  formMode: FormModes;
+  openedSchemaForm: boolean;
+  error: any,
+}
 
 /**
  * Holds the Schema form modes
@@ -94,48 +71,74 @@ const formModePropMapping = {
 };
 
 
-interface State {
-  selectedSchema: Schema | null;
-  showArchive: boolean;
-  formMode: FormModes;
-  openedSchemaForm: boolean;
-}
-
-
 class SchemasList extends React.Component<Props, State> {
   state = {
+    loading: true,
+    schemas: [],
     selectedSchema: null,
     formMode: FormModes.CREATE,
     openedSchemaForm: false,
     showArchive: false,
-  };
+    error: null,
+  } as State;
 
   componentDidMount() {
-    this.props.getSchemasList();
+    this.loadData();
   }
 
-  componentWillUnmount() {
-    this.props.resetCreateSchema();
-    this.props.resetUpdateSchema();
-    this.props.resetGetSchema();
-    this.props.resetGetSchemasList();
-  }
+  handleHttpClientError = (error) => {
+    this.setState({
+      loading: false,
+      error,
+    });
+  };
 
-  handleSubmit = (schema: Schema) => {
-    const { selectedSchema } = this.state;
-    if (selectedSchema && (selectedSchema as Schema)._id) {
-      this.props.updateSchema(schema);
-    } else {
-      this.props.createSchema(schema);
+
+  loadData = async () => {
+    this.setState({
+      loading: true,
+    });
+    try {
+
+      const schemas = (await httpClient.schemas.list()).data;
+
+      this.setState({
+        loading: false,
+        schemas,
+      });
+
+    } catch (e) {
+      this.handleHttpClientError(e);
     }
+  };
 
+  handleSubmit = async (schema: Schema) => {
+    const { selectedSchema } = this.state;
     this.closeSchemaModal();
+    try {
+      if (selectedSchema && (selectedSchema as Schema)._id) {
+        await httpClient.schemas.update(schema);
+      } else {
+        await httpClient.schemas.create(schema);
+      }
+      this.loadData();
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
 
   };
 
-  archiveSchema = (schema: Schema) => {
+  archiveSchema = async (schema: Schema) => {
     if (!schema._id) throw new Error('Can not archive a schema that does not have _id set');
-    this.props.archiveSchema(schema._id);
+    this.setState({
+      loading: true,
+    });
+    try {
+      await httpClient.schemas.archive(schema._id);
+      this.loadData();
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
   };
 
   closeSchemaModal = () => {
@@ -151,7 +154,6 @@ class SchemasList extends React.Component<Props, State> {
   };
 
   viewSchema = (data) => {
-    this.props.getSchema(data._id);
     this.setState({
       selectedSchema: data,
       formMode: FormModes.VIEW,
@@ -160,7 +162,6 @@ class SchemasList extends React.Component<Props, State> {
   };
 
   editSchema = (data) => {
-    this.props.getSchema(data._id);
     this.setState({
       selectedSchema: data,
       formMode: FormModes.EDIT,
@@ -235,13 +236,19 @@ class SchemasList extends React.Component<Props, State> {
   };
 
   render() {
+    const {
+      loading,
+      schemas,
+      selectedSchema,
+      formMode,
+      openedSchemaForm,
+      showArchive,
+    } = this.state;
 
-    if (this.props.loading || !this.props.schemas) {
+    if (loading) {
       return <Preloader message="Loading"/>;
     }
 
-    const { selectedSchema, formMode, openedSchemaForm, showArchive } = this.state;
-    const { schemas } = this.props;
 
     return (
       <Box fill>
@@ -288,17 +295,4 @@ class SchemasList extends React.Component<Props, State> {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  {
-    getSchemasList,
-    resetGetSchemasList,
-    getSchema,
-    resetGetSchema,
-    createSchema,
-    resetCreateSchema,
-    updateSchema,
-    archiveSchema,
-    resetUpdateSchema,
-  },
-)(withRouter(SchemasList));
+export default withRouter(SchemasList);

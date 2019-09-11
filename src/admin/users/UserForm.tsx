@@ -97,7 +97,7 @@ export default class UserForm extends React.Component<InviteProps> {
                   >
                     <TextInput
                       name="name"
-                      value={values.name || ''}
+                      value={values!.name}
                       onChange={handleChange}
                     />
                   </FormField>

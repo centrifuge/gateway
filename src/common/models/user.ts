@@ -14,9 +14,9 @@ export interface IUser {
 }
 
 export class User implements IUser {
-  name: string;
+  name: string = '';
   password?: string = '';
-  email: string;
+  email: string = '';
   _id?: string;
   account: string = '';
   permissions: PERMISSIONS[] = [];
