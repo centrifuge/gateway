@@ -1,9 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Button, Heading } from 'grommet';
+import { Box, Button, Heading, Paragraph } from 'grommet';
 import { connect } from 'react-redux';
 import { Document } from '../common/models/document';
-import { getContacts, resetGetContacts } from '../store/actions/contacts';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { LinkPrevious } from 'grommet-icons';
 import routes from '../routes';
@@ -11,42 +10,65 @@ import { documentRoutes } from './routes';
 import { Preloader } from '../components/Preloader';
 import { SecondaryHeader } from '../components/SecondaryHeader';
 import DocumentForm from './DocumentForm';
-import { getDocumentById, resetGetDocumentById } from '../store/actions/documents';
-import { getSchemasList, resetGetSchemasList } from '../store/actions/schemas';
 import { Schema } from '../common/models/schema';
 import { Contact } from '../common/models/contact';
 import { canWriteToDoc, User } from '../common/models/user';
+import { httpClient } from '../http-client';
 
 
 type Props = {
-  getDocumentById: typeof getDocumentById
-  resetGetDocumentById: typeof resetGetDocumentById;
-  getContacts: typeof getContacts;
-  resetGetContacts: typeof resetGetContacts;
-  getSchemasList: typeof getSchemasList
-  resetGetSchemasList: typeof resetGetSchemasList
-  document: Document;
   loggedInUser: User;
-  contacts: Contact[];
-  schemas: Schema[];
-
 } & RouteComponentProps<{ id: string }>;
 
-export class ViewDocument extends React.Component<Props> {
+type State = {
+  loading: boolean;
+  document?: Document;
+  contacts: Contact[];
+  schemas: Schema[];
+  error: any,
+}
+
+export class ViewDocument extends React.Component<Props, State> {
+
+  state = {
+    loading: true,
+    contacts: [],
+    schemas: [],
+    error: null,
+  } as State;
 
   componentDidMount() {
-    if (this.props.match.params.id) {
-      this.props.getContacts();
-      this.props.getSchemasList();
-      this.props.getDocumentById(this.props.match.params.id);
-    }
+    this.loadData(this.props.match.params.id);
   }
 
-  componentWillUnmount() {
-    this.props.resetGetContacts();
-    this.props.resetGetSchemasList();
-    this.props.resetGetDocumentById();
-  }
+
+  handleHttpClientError = (error) => {
+    this.setState({
+      loading: false,
+      error,
+    });
+  };
+
+
+  loadData = async (id: string) => {
+    this.setState({
+      loading: true,
+    });
+    try {
+      const contacts = (await httpClient.contacts.list()).data;
+      const schemas = (await httpClient.schemas.list()).data;
+      const document = (await httpClient.documents.getById(id)).data;
+      this.setState({
+        loading: false,
+        contacts,
+        schemas,
+        document,
+      });
+
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
+  };
 
   render() {
     const {
@@ -55,14 +77,22 @@ export class ViewDocument extends React.Component<Props> {
           id,
         },
       },
-      document,
-      contacts,
       loggedInUser,
-      schemas,
     } = this.props;
 
-    if (!document || !contacts || !schemas || !document.attributes) {
+    const {
+      loading,
+      document,
+      contacts,
+      schemas,
+    } = this.state;
+
+    if (loading) {
       return <Preloader message="Loading"/>;
+    }
+
+    if (!document) {
+      return <Paragraph color="status-error"> Failed to load document </Paragraph>;
     }
 
     const selectedSchema: Schema | undefined = schemas.find(s => {
@@ -73,7 +103,7 @@ export class ViewDocument extends React.Component<Props> {
       );
     });
 
-    if(!selectedSchema) return <p>Unsupported schema</p>
+    if (!selectedSchema) return <p>Unsupported schema</p>;
 
     return (
       <>
@@ -117,23 +147,11 @@ export class ViewDocument extends React.Component<Props> {
 const mapStateToProps = (state) => {
   return {
     loggedInUser: state.user.auth.loggedInUser,
-    document: state.documents.getById.data,
-    contacts: state.contacts.get.data,
-    schemas: state.schemas.getList.data,
   };
 };
 
 export default connect(
   mapStateToProps,
-  {
-    getContacts,
-    resetGetContacts,
-    getDocumentById,
-    resetGetDocumentById,
-    getSchemasList,
-    resetGetSchemasList,
-
-  },
 )(withRouter(ViewDocument));
 
 

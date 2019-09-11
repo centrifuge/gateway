@@ -1,79 +1,107 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-
-import {
-  createContact,
-  getContacts,
-  resetCreateContact,
-  resetGetContacts,
-  resetUpdateContact,
-  updateContact,
-} from '../store/actions/contacts';
 import { Contact } from '../common/models/contact';
 import ContactList from './ContactList';
 import { Preloader } from '../components/Preloader';
 import { User } from '../common/models/user';
+import { httpClient } from '../http-client';
 
-const mapStateToProps = (state) => {
-  return {
-    loggedInUser: state.user.auth.loggedInUser,
-    contacts: state.contacts.get.data,
-    loading: state.contacts.get.loading,
-  };
-};
 
-type ViewContactsProps = {
-  getContacts: () => void;
-  resetCreateContact: () => void;
-  createContact: (contact: Contact) => void;
-  resetGetContacts: () => void;
-  updateContact: (contact: Contact) => void;
-  resetUpdateContact: () => void;
-  contacts?: Contact[];
+type Props = {
   loggedInUser: User;
-  loading: boolean;
 };
 
-class ViewContacts extends React.Component<ViewContactsProps> {
-  componentDidMount() {
-    this.props.getContacts();
+interface State {
+  loading: boolean,
+  error: any,
+  contacts: Contact[]
+}
+
+class ViewContacts extends React.Component<Props, State> {
+
+  state = {
+    loading: true,
+    error: null,
+    contacts: [],
+  };
+
+  async componentDidMount() {
+    await this.loadContacts();
   }
 
-  componentWillUnmount() {
-    this.props.resetCreateContact();
-    this.props.resetGetContacts();
-    this.props.resetUpdateContact();
-  }
+  handleHttpClientError = (error) => {
+    this.setState({
+      loading: false,
+      error,
+      contacts: [],
+    });
+  };
+
+  createContact = async (contact: Contact) => {
+    this.setState({ loading: true });
+    try {
+      await httpClient.contacts.create(contact);
+      await this.loadContacts();
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
+  };
+
+  updateContact = async (contact: Contact) => {
+    this.setState({ loading: true });
+    try {
+      await httpClient.contacts.update(contact);
+      await this.loadContacts();
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
+  };
+
+  loadContacts = async () => {
+    this.setState({ loading: true });
+    try {
+      const contacts = (await httpClient.contacts.list()).data;
+      this.setState({
+        loading: false,
+        contacts
+      });
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
+  };
 
   render() {
 
-    const { loading, loggedInUser, contacts } = this.props;
+    const { loggedInUser } = this.props;
+    const { loading, contacts, error } = this.state;
 
     if (loading) {
       return <Preloader message="Loading"/>;
+    }
+
+    if (error) {
+      console.log('error', error);
     }
 
     return (
       <ContactList
         loggedInUser={loggedInUser}
         contacts={contacts as Contact[]}
-        refresh={this.props.getContacts}
-        createContact={this.props.createContact}
-        updateContact={this.props.updateContact}
+        createContact={this.createContact}
+        updateContact={this.updateContact}
       />
     );
   }
 }
 
+
+const mapStateToProps = (state) => {
+  return {
+    loggedInUser: state.user.auth.loggedInUser,
+  };
+};
+
 export default connect(
-  mapStateToProps,
-  {
-    getContacts,
-    resetGetContacts,
-    createContact,
-    resetCreateContact,
-    updateContact,
-    resetUpdateContact,
-  },
+  mapStateToProps
 )(ViewContacts);

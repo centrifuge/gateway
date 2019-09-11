@@ -3,66 +3,88 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import DocumentForm from './DocumentForm';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { getContacts, resetGetContacts } from '../store/actions/contacts';
 import { Box, Button, Heading } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { Preloader } from '../components/Preloader';
-import { RequestState } from '../store/reducers/http-request-reducer';
 import { SecondaryHeader } from '../components/SecondaryHeader';
-import { getUserSchemas } from '../store/derived-data';
 import { documentRoutes } from './routes';
 import { Schema } from '../common/models/schema';
-import { getSchemasList, resetGetSchemasList } from '../store/actions/schemas';
-import { createDocument, resetCreateDocument } from '../store/actions/documents';
 import { Contact } from '../common/models/contact';
 import { Document } from '../common/models/document';
+import { httpClient } from '../http-client';
+import { User } from '../common/models/user';
+import { mapSchemaNames } from '../common/schema-utils';
 
 type Props = {
-  createDocument: typeof createDocument;
-  resetCreateDocument: typeof resetCreateDocument;
-  getContacts: typeof getContacts;
-  resetGetContacts: typeof resetGetContacts;
-  getSchemasList: typeof getSchemasList;
-  resetGetSchemasList: typeof resetGetSchemasList;
-  creatingDocument: RequestState<Document>;
-  contacts: Contact[];
-  schemas?: Schema[];
+  loggedInUser: User;
 } & RouteComponentProps;
 
 
 type State = {
-  defaultDocument: Document
+  defaultDocument: Document,
+  loading: boolean,
+  savingDocument: boolean,
+  error: any,
+  contacts: Contact[];
+  schemas: Schema[];
 }
 
 export class CreateDocument extends React.Component<Props, State> {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      defaultDocument: {
-        attributes: {},
-      },
-    };
+  state = {
+    defaultDocument: {
+      attributes: {},
+    },
+    loading: true,
+    savingDocument: false,
+    error: null,
+    contacts: [],
+    schemas: [],
+  };
+
+  async componentDidMount() {
+    await this.loadData();
   }
 
-  componentDidMount() {
-    if (!this.props.contacts) {
-      this.props.getContacts();
-      // Get Only active schemas
-      this.props.getSchemasList({ archived: { $exists: false, $ne: true } });
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.resetGetSchemasList();
-    this.props.resetGetContacts();
-  }
-
-  createDocument = (document: Document) => {
-    this.props.createDocument(document);
+  handleHttpClientError = (error) => {
     this.setState({
-      defaultDocument: document,
+      loading: false,
+      savingDocument: false,
+      error
     });
+  };
+
+  loadData = async () => {
+    this.setState({
+      loading: true,
+    });
+    try {
+      const contacts = (await httpClient.contacts.list()).data;
+      const schemas = (await httpClient.schemas.list({ archived: { $exists: false, $ne: true } })).data;
+      this.setState({
+        contacts,
+        schemas,
+        loading: false,
+      });
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
+  };
+
+
+  createDocument = async (document: Document) => {
+    this.setState({
+      savingDocument: true,
+
+    });
+    try {
+      const doc = (await httpClient.documents.create(document)).data;
+      this.props.history.push(documentRoutes.view.replace(':id', doc._id));
+
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
+
   };
 
   onCancel = () => {
@@ -70,22 +92,23 @@ export class CreateDocument extends React.Component<Props, State> {
   };
 
   render() {
+    const {loggedInUser} = this.props;
+    const { defaultDocument, contacts, schemas, loading, savingDocument } = this.state;
 
-    const { creatingDocument, contacts, schemas } = this.props;
-    const { defaultDocument } = this.state;
-
-    if (!contacts || !schemas) {
+    if (loading) {
       return <Preloader message="Loading"/>;
     }
 
-    if (creatingDocument.loading) {
-      return <Preloader message="Saving document" />;
+    if (savingDocument) {
+      return <Preloader message="Saving document"/>;
     }
+
+    const availableSchemas = mapSchemaNames(loggedInUser.schemas, schemas);
 
     return (
       <DocumentForm
         document={defaultDocument}
-        schemas={schemas}
+        schemas={availableSchemas}
         onSubmit={this.createDocument}
         contacts={contacts}
       >
@@ -119,22 +142,13 @@ export class CreateDocument extends React.Component<Props, State> {
 
 const mapStateToProps = (state) => {
   return {
-    creatingDocument: state.documents.create,
-    contacts: state.contacts.get.data,
-    schemas: getUserSchemas(state),
+    loggedInUser: state.user.auth.loggedInUser,
   };
 };
 
 export default connect(
-  mapStateToProps,
-  {
-    createDocument,
-    resetCreateDocument,
-    getContacts,
-    resetGetContacts,
-    getSchemasList,
-    resetGetSchemasList,
-  },
+  mapStateToProps
+  ,
 )(withRouter(CreateDocument));
 
 

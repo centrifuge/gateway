@@ -34,7 +34,7 @@ const StyledFormContainer = styled(Box)`
 type Props = {
   onSubmit?: (document: Document) => void;
   contacts: Contact[];
-  schemas: Schema[],
+  schemas?: Schema[],
   mode?: 'edit' | 'view' | 'create',
   editMode?: boolean,
   document: Document

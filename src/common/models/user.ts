@@ -25,16 +25,17 @@ export class User implements IUser {
   invited: boolean;
 }
 
-export const canWriteToDoc = (user: User, doc: Document): boolean => {
-  return accountHasDocAccess(user.account, doc, DOCUMENT_ACCESS.WRITE);
+export const canWriteToDoc = (user: User, doc?: Document): boolean => {
+  return accountHasDocAccess(user.account, DOCUMENT_ACCESS.WRITE, doc);
 };
 
-export const canReadDoc = (user: User, doc: Document): boolean => {
-  return accountHasDocAccess(user.account, doc, DOCUMENT_ACCESS.READ);
+export const canReadDoc = (user: User, doc?: Document): boolean => {
+  return accountHasDocAccess(user.account, DOCUMENT_ACCESS.READ, doc);
 };
 
-export const accountHasDocAccess = (account: string, doc: Document, access: DOCUMENT_ACCESS): boolean => {
+export const accountHasDocAccess = (account: string, access: DOCUMENT_ACCESS, doc?: Document): boolean => {
   return !!(
+    doc &&
     doc.header &&
     doc.header[access] &&
     Array.isArray(doc.header[access]) &&

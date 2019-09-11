@@ -15,7 +15,7 @@ import { httpClient } from '../../http-client';
 export function* getDocuments() {
   try {
     // TODO add servers call
-    const response = yield call(httpClient.documents.read);
+    const response = yield call(httpClient.documents.list);
     yield put({
       type: getDocumentsAction.success,
       payload: response.data,
@@ -28,7 +28,7 @@ export function* getDocuments() {
 export function* fetchDocumentById(action) {
   try {
     const { id } = action;
-    const response = yield call(httpClient.documents.readById, id);
+    const response = yield call(httpClient.documents.getById, id);
     yield put({
       type: getDocumentByIdAction.success,
       payload: response.data,

@@ -38,7 +38,7 @@ describe('getContacts', () => {
     const gen = getContacts();
 
     const invocationResponse = gen.next().value;
-    expect(invocationResponse).toEqual(call(httpClient.contacts.read));
+    expect(invocationResponse).toEqual(call(httpClient.contacts.get));
 
     const successResponse = gen.next({ data: contact }).value;
     expect(successResponse).toEqual(
@@ -53,7 +53,7 @@ describe('getContacts', () => {
     const gen = getContacts();
 
     const invocationResponse = gen.next().value;
-    expect(invocationResponse).toEqual(call(httpClient.contacts.read));
+    expect(invocationResponse).toEqual(call(httpClient.contacts.get));
 
     const error = new Error('Oh, no, something broke!');
     const errorResponse = gen.throw && gen.throw(error).value;

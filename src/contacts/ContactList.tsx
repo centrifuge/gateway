@@ -21,7 +21,6 @@ import { User } from '../common/models/user';
 interface ContactsProps {
   loggedInUser: User;
   contacts?: (Contact & { isEditing?: boolean })[];
-  refresh: () => void;
   createContact: (contact: Contact) => void;
   updateContact: (contact: Contact) => void;
 }
@@ -50,7 +49,7 @@ export default class ContactList extends React.Component<ContactsProps,
   renderRow(contact: Contact) {
     const {loggedInUser} = this.props;
     return (
-      <TableRow key={contact.address}>
+      <TableRow key={contact._id}>
         <TableCell>
           <Box direction="row" fill gap="xsmall">
             <Box fill>

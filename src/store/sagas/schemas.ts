@@ -12,7 +12,7 @@ import { alertError } from '../actions/notifications';
 export function* getSchema(action) {
   try {
     const { id } = action;
-    const response = yield call(httpClient.schemas.readById, id);
+    const response = yield call(httpClient.schemas.getById, id);
     yield put({
       type: getSchemaAction.success,
       payload: response.data,
@@ -24,7 +24,7 @@ export function* getSchema(action) {
 
 export function* getSchemasList(action) {
   try {
-    const response = yield call(httpClient.schemas.read, action.query);
+    const response = yield call(httpClient.schemas.list, action.query);
     yield put({
       type: getSchemasListAction.success,
       payload: response.data,

@@ -8,7 +8,7 @@ import {
 
 export function* getContacts() {
   try {
-    const response = yield call(httpClient.contacts.read);
+    const response = yield call(httpClient.contacts.list);
     yield put({
       type: getContactsAction.success,
       payload: response.data,

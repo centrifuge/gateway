@@ -6,35 +6,65 @@ import { documentRoutes } from './routes';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Document } from '../common/models/document';
 import { SecondaryHeader } from '../components/SecondaryHeader';
-import { getDocuments, resetGetDocuments } from '../store/actions/documents';
 import { canCreateDocuments, canWriteToDoc, User } from '../common/models/user';
 import { Preloader } from '../components/Preloader';
 import { formatDate } from '../common/formaters';
+import { httpClient } from '../http-client';
 
 
 type Props = {
-  getDocuments: typeof getDocuments;
-  resetGetDocuments: typeof resetGetDocuments;
+  loggedInUser: User;
+} & RouteComponentProps;
+
+type State = {
   documents: Document[];
   loading: boolean;
-  loggedInUser: User;
   error: any;
-};
+}
 
-export class ListDocuments extends React.Component<Props & RouteComponentProps> {
+export class ListDocuments extends React.Component<Props, State> {
+
+  state = {
+    documents: [],
+    loading: true,
+    error: null,
+  } as State;
 
   componentWillMount() {
-    this.props.getDocuments();
+    this.loadData();
   }
 
-  componentWillUnmount() {
-    this.props.resetGetDocuments();
-  }
+
+  loadData = async () => {
+    this.setState({
+      loading: true,
+    });
+    try {
+
+      const documents = (await httpClient.documents.list()).data;
+      this.setState({
+        loading: false,
+
+        documents,
+      });
+
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
+  };
+
+  handleHttpClientError = (error) => {
+    this.setState({
+      loading: false,
+      error,
+    });
+  };
 
 
   render() {
 
-    const { loading, documents, history, loggedInUser } = this.props;
+    const { loggedInUser, history } = this.props;
+    const { loading, documents } = this.state;
 
     if (loading) {
       return <Preloader message="Loading"/>;
@@ -85,7 +115,7 @@ export class ListDocuments extends React.Component<Props & RouteComponentProps> 
                 property: 'createdAt',
                 header: 'Date created',
                 sortable: true,
-                render: datum => formatDate(datum.createdAt)
+                render: datum => formatDate(datum.createdAt),
               },
               {
                 property: '_id',
@@ -123,16 +153,9 @@ export class ListDocuments extends React.Component<Props & RouteComponentProps> 
 const mapStateToProps = (state) => {
   return {
     loggedInUser: state.user.auth.loggedInUser,
-    documents: state.documents.get.data || [],
-    loading: state.documents.get.loading,
-    error: state.documents.get.error,
   };
 };
 
 export default connect(
   mapStateToProps,
-  {
-    getDocuments,
-    resetGetDocuments,
-  },
 )(withRouter(ListDocuments));

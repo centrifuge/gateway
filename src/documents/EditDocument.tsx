@@ -4,89 +4,133 @@ import { connect } from 'react-redux';
 
 import DocumentForm from './DocumentForm';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { getContacts, resetGetContacts } from '../store/actions/contacts';
 import { Box, Button, Heading, Paragraph } from 'grommet';
 import { documentRoutes } from './routes';
 import { LinkPrevious, Money } from 'grommet-icons';
 import { canWriteToDoc, User } from '../common/models/user';
 import { Preloader } from '../components/Preloader';
-import { RequestState } from '../store/reducers/http-request-reducer';
 import { Document } from '../common/models/document';
 import { SecondaryHeader } from '../components/SecondaryHeader';
-import {
-  getDocumentById,
-  mintNFTForDocument,
-  resetGetDocumentById,
-  resetUpdateDocument,
-  updateDocument,
-} from '../store/actions/documents';
-import { getSchemasList, resetGetSchemasList } from '../store/actions/schemas';
 import { Schema } from '../common/models/schema';
 import { Contact } from '../common/models/contact';
 import { Modal } from '@centrifuge/axis-modal';
 import MintNftForm, { MintNftFormData } from './MintNftForm';
+import { httpClient } from '../http-client';
 
 type Props = {
-  updateDocument: typeof updateDocument;
-  resetUpdateDocument: typeof resetUpdateDocument;
-  getDocumentById: typeof getDocumentById
-  resetGetDocumentById: typeof resetGetDocumentById
-  getSchemasList: typeof getSchemasList
-  resetGetSchemasList: typeof resetGetSchemasList
-  getContacts: typeof getContacts;
-  resetGetContacts: typeof getContacts;
-  mintNFTForDocument: typeof mintNFTForDocument;
+  loggedInUser: User;
+} & RouteComponentProps<{ id: string }>;
+
+
+type State = {
+  loading: boolean
+  mintingOpened: boolean;
   document?: Document;
   schemas: Schema[];
-  contacts?: Contact[];
-  loggedInUser: User;
-  updatingDocument: RequestState<Document>;
-  mintingNFT: RequestState<Document>;
-} & RouteComponentProps<{ id?: string }>;
+  contacts: Contact[];
+  updatingDocument: boolean;
+  mintingNFT: boolean;
+  error?: any;
+}
 
-export class EditDocument extends React.Component<Props> {
+
+export class EditDocument extends React.Component<Props, State> {
 
   state = {
-    mintNft: false,
-  };
+    loading: false,
+    mintingOpened: false,
+    schemas: [],
+    contacts: [],
+    updatingDocument: false,
+    mintingNFT: false,
+  } as State;
 
-  componentDidMount() {
-    if (this.props.match.params.id) {
-      this.props.getContacts();
-      this.props.getSchemasList();
-      this.props.getDocumentById(this.props.match.params.id);
-    }
+  async componentDidMount() {
+    await this.loadData(this.props.match.params.id);
   }
 
-  componentWillUnmount() {
-    this.props.resetGetContacts();
-    this.props.resetGetSchemasList();
-    this.props.resetGetDocumentById();
-    this.props.resetUpdateDocument();
-  }
-
-  updateDocument = (document: Document) => {
-    this.props.updateDocument(document);
-  };
-
-  mintNFT = (data: MintNftFormData) => {
-    this.closeMintModal();
-    const { document, mintNFTForDocument, loggedInUser } = this.props;
-
-    mintNFTForDocument(document!._id || '', {
-      deposit_address: data.transfer ? data.deposit_address : loggedInUser.account,
-      proof_fields: data.registry!.proofs,
-      registry_address: data.registry!.address
+  handleHttpClientError = (error) => {
+    this.setState({
+      loading: false,
+      mintingNFT: false,
+      updatingDocument: false,
+      error,
     });
   };
 
 
+  loadData = async (id: string) => {
+    this.setState({
+      loading: true,
+    });
+    try {
+      const contacts = (await httpClient.contacts.list()).data;
+      const schemas = (await httpClient.schemas.list()).data;
+      const document = (await httpClient.documents.getById(id)).data;
+      this.setState({
+        loading: false,
+        contacts,
+        schemas,
+        document,
+      });
+
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
+  };
+
+  updateDocument = async (newDoc: Document) => {
+    this.setState({
+      updatingDocument: true,
+    });
+    try {
+      const document = (await httpClient.documents.update(newDoc)).data;
+      this.setState({
+        updatingDocument: false,
+        document,
+      });
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
+
+  };
+
+  mintNFT = async (id: string | undefined, data: MintNftFormData) => {
+
+    const { loggedInUser } = this.props;
+
+    this.setState({
+      mintingOpened: false,
+      mintingNFT: true,
+    });
+
+    try {
+      const document = (await httpClient.documents.mint(
+        id,
+        {
+          deposit_address: data.transfer ? data.deposit_address : loggedInUser.account,
+          proof_fields: data.registry!.proofs,
+          registry_address: data.registry!.address,
+        },
+      )).data;
+
+      this.setState({
+        mintingNFT: false,
+        document,
+      });
+
+    } catch (e) {
+      this.handleHttpClientError(e);
+    }
+  };
+
+
   openMintModal = () => {
-    this.setState({ mintNft: true });
+    this.setState({ mintingOpened: true });
   };
 
   closeMintModal = () => {
-    this.setState({ mintNft: false });
+    this.setState({ mintingOpened: false });
   };
 
   onCancel = () => {
@@ -95,27 +139,35 @@ export class EditDocument extends React.Component<Props> {
 
   render() {
     const {
+      loggedInUser,
+    } = this.props;
+
+    const {
+      loading,
       updatingDocument,
       mintingNFT,
       contacts,
       document,
       schemas,
-      loggedInUser,
-    } = this.props;
+      mintingOpened,
+    } = this.state;
 
-    const { mintNft } = this.state;
 
-    if (!document || !contacts || !schemas) {
+    if (loading) {
       return <Preloader message="Loading"/>;
     }
 
-    if (updatingDocument.loading) {
-      return <Preloader message="Updating document" />;
+    if (updatingDocument) {
+      return <Preloader message="Updating document"/>;
     }
 
 
-    if (mintingNFT.loading) {
-      return <Preloader message="Minting NFT" />;
+    if (mintingNFT) {
+      return <Preloader message="Minting NFT"/>;
+    }
+
+    if (!document) {
+      return <Paragraph color="status-error"> Failed to load document </Paragraph>;
     }
 
     // TODO add route resolvers and remove this logic
@@ -133,21 +185,22 @@ export class EditDocument extends React.Component<Props> {
 
     if (!selectedSchema) return <p>Unsupported schema</p>;
 
-    const mintActions = [
+    // Add mint action if schema has any registries defined
+    const mintActions = selectedSchema.registries && selectedSchema.registries.length > 0 ? [
         <Button key="mint_nft" onClick={this.openMintModal} icon={<Money/>} plain label={'Mint NFT'}/>,
-      ]
+      ] : []
     ;
     return (
       <>
         <Modal
           width={'large'}
-          opened={mintNft}
+          opened={mintingOpened}
           headingProps={{ level: 3 }}
           title={`Mint NFT`}
           onClose={this.closeMintModal}
         >
           <MintNftForm
-            onSubmit={this.mintNFT}
+            onSubmit={(data) => this.mintNFT(document!._id, data)}
             onDiscard={this.closeMintModal}
             registries={selectedSchema.registries}
           />
@@ -194,25 +247,10 @@ export class EditDocument extends React.Component<Props> {
 const mapStateToProps = (state) => {
   return {
     loggedInUser: state.user.auth.loggedInUser,
-    mintingNFT: state.documents.mintNFT,
-    document: state.documents.getById.data,
-    updatingDocument: state.documents.update,
-    contacts: state.contacts.get.data,
-    schemas: state.schemas.getList.data,
+
   };
 };
 
 export default connect(
   mapStateToProps,
-  {
-    updateDocument,
-    resetUpdateDocument,
-    getContacts,
-    resetGetContacts,
-    getDocumentById,
-    resetGetDocumentById,
-    getSchemasList,
-    resetGetSchemasList,
-    mintNFTForDocument,
-  },
 )(withRouter(EditDocument));
