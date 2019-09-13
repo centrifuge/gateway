@@ -1,0 +1,108 @@
+import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
+import { Contact } from '../common/models/contact';
+import ContactList from './ContactList';
+import { Preloader } from '../components/Preloader';
+import { httpClient } from '../http-client';
+import { AppContext } from '../App';
+import { useMergeState } from '../hooks';
+
+
+type Props = {};
+
+interface State {
+  loading: boolean,
+  error: any,
+  contacts: Contact[]
+}
+
+const ViewContacts: FunctionComponent<Props> = (props: Props) => {
+
+  const [
+    {
+      loading,
+      contacts,
+      error,
+    },
+    setState] = useMergeState<State>({
+    loading: true,
+    error: null,
+    contacts: [],
+  });
+
+
+  const { user } = useContext(AppContext);
+
+
+  const handleHttpClientError = useCallback((error) => {
+    setState({
+      loading: false,
+      error,
+      contacts: [],
+    });
+  }, [setState]);
+
+  const createContact = async (contact: Contact) => {
+    setState({
+      loading: true,
+    });
+    try {
+      await httpClient.contacts.create(contact);
+      await loadContacts();
+    } catch (e) {
+      handleHttpClientError(e);
+    }
+  };
+
+  const updateContact = async (contact: Contact) => {
+    setState({
+      loading: true,
+    });
+    try {
+      await httpClient.contacts.update(contact);
+      await loadContacts();
+    } catch (e) {
+      handleHttpClientError(e);
+    }
+  };
+
+  const loadContacts = useCallback(async () => {
+    setState({
+      loading: true,
+    });
+    try {
+      const contacts = (await httpClient.contacts.list()).data;
+      setState({
+        loading: false,
+        contacts,
+      });
+    } catch (e) {
+      handleHttpClientError(e);
+    }
+  }, [handleHttpClientError, setState]);
+
+  useEffect(() => {
+    loadContacts();
+  }, [setState, loadContacts]);
+
+
+  if (loading) {
+    return <Preloader message="Loading"/>;
+  }
+
+  if (error) {
+    console.log('error', error);
+  }
+
+  return (
+    <ContactList
+      loggedInUser={user!}
+      contacts={contacts as Contact[]}
+      createContact={createContact}
+      updateContact={updateContact}
+    />
+  );
+
+};
+
+
+export default ViewContacts;

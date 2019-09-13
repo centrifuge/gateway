@@ -32,7 +32,7 @@ interface ContactsState {
 }
 
 
-//TODO break this down
+//TODO This should contain only the list and the actions/modals should be view contacts
 
 export default class ContactList extends React.Component<ContactsProps,
   ContactsState> {

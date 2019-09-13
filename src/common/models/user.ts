@@ -25,11 +25,13 @@ export class User implements IUser {
   invited: boolean;
 }
 
-export const canWriteToDoc = (user: User, doc?: Document): boolean => {
+export const canWriteToDoc = (user: User | null, doc?: Document): boolean => {
+  if(!user) return false;
   return accountHasDocAccess(user.account, DOCUMENT_ACCESS.WRITE, doc);
 };
 
-export const canReadDoc = (user: User, doc?: Document): boolean => {
+export const canReadDoc = (user: User | null, doc?: Document): boolean => {
+  if(!user) return false;
   return accountHasDocAccess(user.account, DOCUMENT_ACCESS.READ, doc);
 };
 

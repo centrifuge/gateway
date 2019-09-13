@@ -1,20 +1,18 @@
-import { AlertPayload, closeAlert } from '../store/actions/notifications';
 import { NotificationContext } from './NotificationContext';
-import { connect } from 'react-redux';
 import React from 'react';
 
 export type NotificationsProps = {
-  alert: AlertPayload,
-  closeAlert: typeof closeAlert,
+  alert: any,
+  closeAlert:  any,
 }
 
-
+// TODO delete this at some point
 export class Notifications extends React.Component<NotificationsProps> {
   render() {
 
     const { alert, closeAlert } = this.props;
     const { notify } = this.context;
-    setTimeout(()=> {
+    setTimeout(() => {
       if (alert) {
         const { title, type, message, options } = alert;
         notify({
@@ -27,7 +25,7 @@ export class Notifications extends React.Component<NotificationsProps> {
           },
         });
       }
-    },0)
+    }, 0);
 
 
     return (
@@ -39,18 +37,5 @@ export class Notifications extends React.Component<NotificationsProps> {
 
 Notifications.contextType = NotificationContext;
 
-const mapStateToProps = (state) => {
-  return {
-    alert: state.notifications.alert,
-  };
-};
 
-
-export const ConnectedNotifications = connect(
-  mapStateToProps,
-  {
-    closeAlert,
-  },
-)(Notifications);
-
-export default ConnectedNotifications;
+export default Notifications;

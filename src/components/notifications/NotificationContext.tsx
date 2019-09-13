@@ -10,7 +10,7 @@ export enum NOTIFICATION {
 }
 
 
-type NotificationApi = {
+export type NotificationApi = {
   notify: (options: NotificationOptions) => void;
   close: () => void;
 }

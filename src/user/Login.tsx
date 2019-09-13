@@ -1,54 +1,46 @@
-import React from 'react';
-
-import { connect } from 'react-redux';
+import React, { FunctionComponent, useContext, useState } from 'react';
 
 import LoginForm from './LoginForm';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import { User } from '../common/models/user';
-import { login } from '../store/actions/users';
 import routes from '../routes';
-import { LoginState } from '../store/reducers/user/auth';
 import { PERMISSIONS } from '../common/constants';
+import { AppContext } from '../App';
+import { httpClient } from '../http-client';
 
-type ConnectedLoginPageProps = {
-  login: (user: User) => void;
-  auth: LoginState;
-} & RouteComponentProps;
+type Props = {} & RouteComponentProps;
 
-class ConnectedLoginPage extends React.Component<ConnectedLoginPageProps> {
-  login = (user: User) => {
-    this.props.login(user);
+const ConnectedLoginPage: FunctionComponent<Props> = (props) => {
+
+  const [error, setError] = useState<Error>();
+  const { user, setUser } = useContext(AppContext);
+
+  const login = async (loginCandidate: User) => {
+    try {
+      const user = (await httpClient.user.login(loginCandidate)).data;
+      setUser(user);
+    } catch (e) {
+      setError(e);
+    }
   };
 
-  render() {
+  // TODO figure out how to do user based redirects
+  if (!!user) {
 
-    const { auth } = this.props;
-
-    if (!!auth.loggedInUser) {
-
-      if (auth.loggedInUser.permissions.includes(PERMISSIONS.CAN_MANAGE_USERS)) {
-        return <Redirect to={routes.user.index}/>;
-      }
-
-      if (auth.loggedInUser.permissions.includes(PERMISSIONS.CAN_VIEW_DOCUMENTS) ||
-        auth.loggedInUser.permissions.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS)) {
-        return <Redirect to={routes.documents.index}/>;
-      }
+    if (user.permissions.includes(PERMISSIONS.CAN_MANAGE_USERS)) {
+      return <Redirect to={routes.user.index}/>;
     }
 
-    return (
-      <LoginForm error={auth.error} onSubmit={this.login}/>
-    );
+    if (user.permissions.includes(PERMISSIONS.CAN_VIEW_DOCUMENTS) ||
+      user.permissions.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS)) {
+      return <Redirect to={routes.documents.index}/>;
+    }
   }
-}
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.user.auth,
-  };
+  return (
+    <LoginForm error={error} onSubmit={login}/>
+  );
 };
 
-export default connect(
-  mapStateToProps,
-  { login },
-)(withRouter(ConnectedLoginPage));
+
+export default withRouter(ConnectedLoginPage);

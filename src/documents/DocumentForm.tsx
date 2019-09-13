@@ -31,6 +31,8 @@ const StyledFormContainer = styled(Box)`
   }  
  `;
 
+
+// TODO use function components here
 type Props = {
   onSubmit?: (document: Document) => void;
   contacts: Contact[];

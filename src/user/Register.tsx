@@ -1,45 +1,41 @@
-import React from 'react';
-
-import { Text } from 'grommet';
-import { connect } from 'react-redux';
+import React, { FunctionComponent, useContext } from 'react';
 
 import RegisterForm from './RegisterForm';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import { User } from '../common/models/user';
-import { register } from '../store/actions/users';
-import { RequestState } from '../store/reducers/http-request-reducer';
-import routes from '../routes';
+import { AppContext } from '../App';
+import { httpClient } from '../http-client';
 
-type ConnectedRegisterPageProps = {
+type Props = {
   register: (user: User) => void;
   isRegistering: boolean;
   hasRegistered: boolean;
 } & RouteComponentProps;
 
-class ConnectedRegisterPage extends React.Component<
-  ConnectedRegisterPageProps
-> {
-  render() {
-    if (this.props.isRegistering) {
-      return <Text>Loading</Text>;
+const Register: FunctionComponent<Props> = (props: Props) => {
+
+  const { user, setUser } = useContext(AppContext);
+  const register = async (registerCandidate: User) => {
+    try {
+      await httpClient.user.register(registerCandidate);
+      const user = (await httpClient.user.login(registerCandidate)).data;
+      setUser(user);
+    } catch (e) {
+      console.log('Failed to register', e);
     }
-
-    if (this.props.hasRegistered) {
-      return <Redirect to={routes.index} />;
-    }
-
-    return <RegisterForm onSubmit={this.props.register} />;
-  }
-}
-
-const mapStateToProps = (state: { user: { register: RequestState<User> } }) => {
-  return {
-    isRegistering: state.user.register.loading,
-    hasRegistered: !!state.user.register.data,
   };
+
+  console.log('Render', user);
+  if (user) {
+    return <Redirect to={'/'}/>;
+  }
+  return <RegisterForm onSubmit={register}/>;
+
 };
 
-export default connect(
-  mapStateToProps,
-  { register },
-)(withRouter(ConnectedRegisterPage));
+
+export default withRouter(Register);
+
+
+// ttt@centrifuge.io
+// test@centrifuge.io

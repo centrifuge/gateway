@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import DocumentForm from './DocumentForm';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Box, Button, Heading } from 'grommet';
@@ -12,12 +11,12 @@ import { Schema } from '../common/models/schema';
 import { Contact } from '../common/models/contact';
 import { Document } from '../common/models/document';
 import { httpClient } from '../http-client';
-import { User } from '../common/models/user';
 import { mapSchemaNames } from '../common/schema-utils';
+import { NotificationContext } from '../components/notifications/NotificationContext';
+import { AppContext } from '../App';
+import { useMergeState } from '../hooks';
 
-type Props = {
-  loggedInUser: User;
-} & RouteComponentProps;
+type Props = {} & RouteComponentProps;
 
 
 type State = {
@@ -29,126 +28,133 @@ type State = {
   schemas: Schema[];
 }
 
-export class CreateDocument extends React.Component<Props, State> {
+export const CreateDocument: FunctionComponent<Props> = (props) => {
 
-  state = {
-    defaultDocument: {
-      attributes: {},
+  const [{ defaultDocument, contacts, schemas, loading, savingDocument }, setState] = useMergeState<State>(
+    {
+      defaultDocument: {
+        attributes: {},
+      },
+      loading: true,
+      savingDocument: false,
+      error: null,
+      contacts: [],
+      schemas: [],
     },
-    loading: true,
-    savingDocument: false,
-    error: null,
-    contacts: [],
-    schemas: [],
-  };
+  );
 
-  async componentDidMount() {
-    await this.loadData();
-  }
+  const {
+    history: {
+      push,
+    },
+  } = props;
 
-  handleHttpClientError = (error) => {
-    this.setState({
+
+  const notification = useContext(NotificationContext);
+  const { user } = useContext(AppContext);
+
+
+  const handleHttpClientError = useCallback((error) => {
+    setState({
       loading: false,
       savingDocument: false,
-      error
+      error,
     });
-  };
+  }, [setState]);
 
-  loadData = async () => {
-    this.setState({
+  const loadData = useCallback(async () => {
+    setState({
       loading: true,
     });
     try {
       const contacts = (await httpClient.contacts.list()).data;
       const schemas = (await httpClient.schemas.list({ archived: { $exists: false, $ne: true } })).data;
-      this.setState({
+      setState({
         contacts,
         schemas,
         loading: false,
       });
+
+      notification.notify({ title: 'Complete', message: 'DDDD' });
+
     } catch (e) {
-      this.handleHttpClientError(e);
+      handleHttpClientError(e);
     }
-  };
+  }, [setState, handleHttpClientError, notification]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
 
-  createDocument = async (document: Document) => {
-    this.setState({
+  const createDocument = async (document: Document) => {
+    setState({
       savingDocument: true,
-
     });
     try {
       const doc = (await httpClient.documents.create(document)).data;
-      this.props.history.push(documentRoutes.view.replace(':id', doc._id));
+      props.history.push(documentRoutes.view.replace(':id', doc._id));
 
-    } catch (e) {
-      this.handleHttpClientError(e);
+    } catch (error) {
+      setState({
+        loading: false,
+        savingDocument: false,
+        error,
+      });
     }
 
   };
 
-  onCancel = () => {
-    this.props.history.push(documentRoutes.index);
+  const onCancel = () => {
+    push(documentRoutes.index);
   };
 
-  render() {
-    const {loggedInUser} = this.props;
-    const { defaultDocument, contacts, schemas, loading, savingDocument } = this.state;
-
-    if (loading) {
-      return <Preloader message="Loading"/>;
-    }
-
-    if (savingDocument) {
-      return <Preloader message="Saving document"/>;
-    }
-
-    const availableSchemas = mapSchemaNames(loggedInUser.schemas, schemas);
-
-    return (
-      <DocumentForm
-        document={defaultDocument}
-        schemas={availableSchemas}
-        onSubmit={this.createDocument}
-        contacts={contacts}
-      >
-        <SecondaryHeader>
-          <Box direction="row" gap="small" align="center">
-            <Link to={documentRoutes.index} size="large">
-              <LinkPrevious/>
-            </Link>
-            <Heading level="3">
-              {'New Document'}
-            </Heading>
-          </Box>
-
-          <Box direction="row" gap="medium">
-            <Button
-              onClick={this.onCancel}
-              label="Discard"
-            />
-
-            <Button
-              type="submit"
-              primary
-              label="Save"
-            />
-          </Box>
-        </SecondaryHeader>
-      </DocumentForm>
-    );
+  if (loading) {
+    return <Preloader message="Loading"/>;
   }
-}
 
-const mapStateToProps = (state) => {
-  return {
-    loggedInUser: state.user.auth.loggedInUser,
-  };
+  if (savingDocument) {
+    return <Preloader message="Saving document"/>;
+  }
+
+  const availableSchemas = mapSchemaNames(user!.schemas, schemas);
+
+  return (
+    <DocumentForm
+      document={defaultDocument}
+      schemas={availableSchemas}
+      onSubmit={createDocument}
+      contacts={contacts}
+    >
+      <SecondaryHeader>
+        <Box direction="row" gap="small" align="center">
+          <Link to={documentRoutes.index} size="large">
+            <LinkPrevious/>
+          </Link>
+          <Heading level="3">
+            {'New Document'}
+          </Heading>
+        </Box>
+
+        <Box direction="row" gap="medium">
+          <Button
+            onClick={onCancel}
+            label="Discard"
+          />
+
+          <Button
+            type="submit"
+            primary
+            label="Save"
+          />
+        </Box>
+      </SecondaryHeader>
+    </DocumentForm>
+  );
+
 };
 
-export default connect(
-  mapStateToProps
-  ,
-)(withRouter(CreateDocument));
+
+export default withRouter(CreateDocument);
 
 
