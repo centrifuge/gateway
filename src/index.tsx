@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === 'development') {
       const defaultStore = {
         user: {
           auth: {
-            loggedInUser: null,
+            loggedInUser: response,
           },
         },
       };

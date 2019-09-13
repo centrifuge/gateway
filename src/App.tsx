@@ -128,6 +128,8 @@ const App: FunctionComponent<AppPros> = (props: AppPros) => {
 
     }
 
+    console.log('LoggedIn User',loggedInUser)
+
     menuItems.push({ label: 'Log out', route: routes.user.logout, external: true, secondary: true });
 
   }
@@ -146,7 +148,7 @@ const App: FunctionComponent<AppPros> = (props: AppPros) => {
                   </Anchor>
                 }
                 selectedRoute={pathname}
-                menuLabel={loggedInUser ? loggedInUser.email : ''}
+                menuLabel={user ? user.email : ''}
                 menuItems={menuItems.reverse()}
                 onRouteClick={(item) => {
                   if (item.external) {
@@ -156,16 +158,16 @@ const App: FunctionComponent<AppPros> = (props: AppPros) => {
                   }
                 }}
               >
-                {loggedInUser && <Box direction="row" gap={'medium'} align={'center'} justify="end">
+                {user && <Box direction="row" gap={'medium'} align={'center'} justify="end">
                   <Box direction="row" align="center" gap={'xsmall'}>
                     <Text>Centrifuge ID: </Text>
                     <Box width={'160px'}>
                       <DisplayField
                         link={{
-                          href: getAddressLink(loggedInUser.account),
+                          href: getAddressLink(user.account),
                           target: '_blank',
                         }}
-                        value={loggedInUser.account}
+                        value={user.account}
                       />
 
                     </Box>
