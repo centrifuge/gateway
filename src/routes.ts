@@ -1,7 +1,7 @@
 import contactsRoutes from './contacts/routes';
 import { schemasRoutes } from './admin/schemas/routes';
 import { documentRoutes } from './documents/routes';
-import userRoutes from './user/routes';
+import userRoutes from './auth/routes';
 
 export default {
   documents: documentRoutes,

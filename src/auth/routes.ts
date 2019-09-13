@@ -1,10 +1,10 @@
 import { ROUTES } from '../common/constants';
 
-const index = '/user';
+const index = '/users';
 
 export default {
   index,
-  register: `${index}/register`,
+  register: `/register`,
   invite: `${index}/invite`,
   logout: ROUTES.USERS.logout
 };
