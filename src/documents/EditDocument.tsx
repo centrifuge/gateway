@@ -21,7 +21,7 @@ import documentRoutes from './routes';
 import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
 import { AxiosError } from 'axios';
 
-type Props = {} & RouteComponentProps<{ id: string }>;
+type Props = RouteComponentProps<{ id: string }>;
 
 
 type State = {

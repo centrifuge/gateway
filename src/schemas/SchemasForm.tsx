@@ -4,7 +4,7 @@ import { Box, Button, FormField, Paragraph, TextArea } from 'grommet';
 import * as Yup from 'yup';
 import { Schema } from '../common/models/schema';
 
-interface Props {
+type Props = {
   selectedSchema: Schema;
   submitLabel: string;
   infoParagraph: string;
@@ -13,7 +13,7 @@ interface Props {
   onSubmit: (schema) => void;
 }
 
-interface State {
+type State = {
   submitted: boolean;
 }
 

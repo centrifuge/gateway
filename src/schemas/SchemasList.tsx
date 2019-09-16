@@ -1,22 +1,20 @@
-import React from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
 import { Anchor, Box, Button, CheckBox, DataTable, Heading, Text } from 'grommet';
 import { Modal } from '@centrifuge/axis-modal';
 import { Schema } from '../common/models/schema';
 import { SecondaryHeader } from '../components/SecondaryHeader';
 import { formatDate } from '../common/formaters';
 import { Preloader } from '../components/Preloader';
-import { RouteComponentProps, withRouter } from 'react-router';
 import SchemasForm from './SchemasForm';
 import { httpClient } from '../http-client';
+import { useMergeState } from '../hooks';
+import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
+import { PageError } from '../components/PageError';
+import { AxiosError } from 'axios';
 
-
-interface Props extends RouteComponentProps {
-
-};
-
-interface State {
+type State = {
   schemas: Schema[];
-  loading: boolean;
+  loadingMessage: string | null;
   selectedSchema: Schema | null;
   showArchive: boolean;
   formMode: FormModes;
@@ -71,105 +69,148 @@ const formModePropMapping = {
 };
 
 
-class SchemasList extends React.Component<Props, State> {
-  state = {
-    loading: true,
+const SchemasList: FunctionComponent = () => {
+
+  const [
+    {
+      loadingMessage,
+      selectedSchema,
+      schemas,
+      formMode,
+      openedSchemaForm,
+      showArchive,
+      error,
+    },
+    setState] = useMergeState<State>({
+    loadingMessage: 'Loading',
     schemas: [],
     selectedSchema: null,
     formMode: FormModes.CREATE,
     openedSchemaForm: false,
     showArchive: false,
     error: null,
-  } as State;
+  });
 
-  componentDidMount() {
-    this.loadData();
-  }
+  const notification = useContext(NotificationContext);
 
-  handleHttpClientError = (error) => {
-    this.setState({
-      loading: false,
+  const handleHttpClientError = useCallback((error) => {
+    setState({
+      loadingMessage: null,
       error,
     });
-  };
+  }, [setState]);
 
 
-  loadData = async () => {
-    this.setState({
-      loading: true,
+  const loadData = useCallback(async () => {
+    setState({
+      loadingMessage: 'Loading',
     });
     try {
 
       const schemas = (await httpClient.schemas.list()).data;
 
-      this.setState({
-        loading: false,
+      setState({
+        loadingMessage: null,
         schemas,
       });
 
     } catch (e) {
-      this.handleHttpClientError(e);
+      handleHttpClientError(e);
     }
-  };
+  }, [setState, handleHttpClientError]);
 
-  handleSubmit = async (schema: Schema) => {
-    const { selectedSchema } = this.state;
-    this.closeSchemaModal();
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  const handleSubmit = async (schema: Schema) => {
+
+    const context: any = {};
+    if (selectedSchema && (selectedSchema as Schema)._id) {
+      context.errorTitle = 'Failed to update schema';
+      context.loadingMessage = 'Updating schema';
+      context.method = 'update';
+    } else {
+      context.errorTitle = 'Failed to create schema';
+      context.loadingMessage = 'creating schema';
+      context.method = 'create';
+    }
+
+    setState({
+      loadingMessage: context.loadingMessage,
+      selectedSchema: null,
+      openedSchemaForm: false,
+    });
+
     try {
-      if (selectedSchema && (selectedSchema as Schema)._id) {
-        await httpClient.schemas.update(schema);
-      } else {
-        await httpClient.schemas.create(schema);
-      }
-      this.loadData();
+      await httpClient.schemas[context.method](schema);
+      await loadData();
     } catch (e) {
-      this.handleHttpClientError(e);
+      setState({
+        loadingMessage: null,
+      });
+
+      notification.alert({
+        type: NOTIFICATION.ERROR,
+        title: context.errorTitle,
+        message: (e as AxiosError)!.response!.data.message,
+      });
     }
 
   };
 
-  archiveSchema = async (schema: Schema) => {
+  const archiveSchema = async (schema: Schema) => {
     if (!schema._id) throw new Error('Can not archive a schema that does not have _id set');
-    this.setState({
-      loading: true,
+    setState({
+      loadingMessage: 'Archiving schema',
+      selectedSchema: null,
     });
     try {
       await httpClient.schemas.archive(schema._id);
-      this.loadData();
+      loadData();
     } catch (e) {
-      this.handleHttpClientError(e);
+      setState({
+        loadingMessage: null,
+      });
+
+      notification.alert({
+        type: NOTIFICATION.ERROR,
+        title: 'Failed to archive schema',
+        message: (e as AxiosError)!.response!.data.message,
+      });
     }
   };
 
-  closeSchemaModal = () => {
-    this.setState({ selectedSchema: null, openedSchemaForm: false });
+  const closeSchemaModal = () => {
+    setState({ selectedSchema: null, openedSchemaForm: false });
   };
 
-  createSchema = () => {
-    this.setState({
+  const createSchema = () => {
+    setState({
       selectedSchema: null,
       formMode: FormModes.CREATE,
       openedSchemaForm: true,
     });
   };
 
-  viewSchema = (data) => {
-    this.setState({
+  const viewSchema = (data) => {
+    setState({
       selectedSchema: data,
       formMode: FormModes.VIEW,
       openedSchemaForm: true,
     });
   };
 
-  editSchema = (data) => {
-    this.setState({
+  const editSchema = (data) => {
+    setState({
       selectedSchema: data,
       formMode: FormModes.EDIT,
       openedSchemaForm: true,
     });
   };
 
-  renderSchemas = (data) => {
+  const renderSchemas = (data) => {
 
     return (
       <DataTable
@@ -205,7 +246,7 @@ class SchemasList extends React.Component<Props, State> {
                 <Anchor
                   label={'View'}
                   onClick={() => {
-                    this.viewSchema(data);
+                    viewSchema(data);
                   }}
                 />];
 
@@ -215,13 +256,13 @@ class SchemasList extends React.Component<Props, State> {
                   <Anchor
                     label={'Edit'}
                     onClick={() => {
-                      this.editSchema(data);
+                      editSchema(data);
                     }}
                   />,
                   <Anchor
                     label={'Archive'}
                     onClick={() => {
-                      this.archiveSchema(data);
+                      archiveSchema(data);
                     }}
                   />];
               }
@@ -235,64 +276,58 @@ class SchemasList extends React.Component<Props, State> {
     );
   };
 
-  render() {
-    const {
-      loading,
-      schemas,
-      selectedSchema,
-      formMode,
-      openedSchemaForm,
-      showArchive,
-    } = this.state;
 
-    if (loading) {
-      return <Preloader message="Loading"/>;
-    }
-
-
-    return (
-      <Box fill>
-        <SecondaryHeader>
-          <Heading level="3">Schemas</Heading>
-          <Box direction={'row'} gap={'medium'}>
-            <CheckBox
-              label={'Show Archived'}
-              checked={showArchive}
-              onChange={(event) => this.setState({ showArchive: event.target.checked })}
-
-            />
-            <Button
-              primary
-              onClick={this.createSchema}
-              label="Create Schema"
-            />
-          </Box>
-
-        </SecondaryHeader>
-        <Modal
-          opened={openedSchemaForm}
-          width={'xlarge'}
-          headingProps={{ level: 3 }}
-          {...formModePropMapping[formMode].modal}
-          onClose={this.closeSchemaModal}
-        >
-          <SchemasForm
-            {...formModePropMapping[formMode].schemaForm}
-            selectedSchema={selectedSchema || Schema.getDefaultValues()}
-            onSubmit={this.handleSubmit}
-            onDiscard={this.closeSchemaModal}
-          />
-        </Modal>
-        <Box pad={{ horizontal: 'medium' }}>
-          {this.renderSchemas(
-            schemas.filter(
-              schema => showArchive === !!schema.archived,
-            ),
-          )}
-        </Box>
-      </Box>
-    );
+  if (loadingMessage) {
+    return <Preloader message={loadingMessage}/>;
   }
-}
 
-export default withRouter(SchemasList);
+  if (error)
+    return <PageError error={error}/>;
+
+
+  return (
+    <Box fill>
+      <SecondaryHeader>
+        <Heading level="3">Schemas</Heading>
+        <Box direction={'row'} gap={'medium'}>
+          <CheckBox
+            label={'Show Archived'}
+            checked={showArchive}
+            onChange={(event) => setState({ showArchive: event.target.checked })}
+
+          />
+          <Button
+            primary
+            onClick={createSchema}
+            label="Create Schema"
+          />
+        </Box>
+
+      </SecondaryHeader>
+      <Modal
+        opened={openedSchemaForm}
+        width={'xlarge'}
+        headingProps={{ level: 3 }}
+        {...formModePropMapping[formMode].modal}
+        onClose={closeSchemaModal}
+      >
+        <SchemasForm
+          {...formModePropMapping[formMode].schemaForm}
+          selectedSchema={selectedSchema || Schema.getDefaultValues()}
+          onSubmit={handleSubmit}
+          onDiscard={closeSchemaModal}
+        />
+      </Modal>
+      <Box pad={{ horizontal: 'medium' }}>
+        {renderSchemas(
+          schemas.filter(
+            schema => showArchive === !!schema.archived,
+          ),
+        )}
+      </Box>
+    </Box>
+  );
+
+};
+
+export default SchemasList;

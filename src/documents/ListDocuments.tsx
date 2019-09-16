@@ -14,9 +14,7 @@ import { useMergeState } from '../hooks';
 import { PageError } from '../components/PageError';
 
 
-type Props = {
-  loggedInUser: User;
-} & RouteComponentProps;
+type Props = RouteComponentProps;
 
 type State = {
   documents: Document[];

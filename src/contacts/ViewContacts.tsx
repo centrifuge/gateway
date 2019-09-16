@@ -6,16 +6,13 @@ import { httpClient } from '../http-client';
 import { AppContext } from '../App';
 import { useMergeState } from '../hooks';
 
-
-type Props = {};
-
-interface State {
+type State  = {
   loading: boolean,
   error: any,
   contacts: Contact[]
 }
 
-const ViewContacts: FunctionComponent<Props> = (props: Props) => {
+const ViewContacts: FunctionComponent = () => {
 
   const [
     {

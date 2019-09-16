@@ -18,7 +18,7 @@ import { useMergeState } from '../hooks';
 import { PageError } from '../components/PageError';
 import { AxiosError } from 'axios';
 
-type Props = {} & RouteComponentProps;
+type Props = RouteComponentProps;
 
 
 type State = {

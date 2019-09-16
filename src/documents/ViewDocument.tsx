@@ -18,8 +18,7 @@ import DocumentForm from './DocumentForm';
 import { Preloader } from '../components/Preloader';
 
 
-type Props = {
-} & RouteComponentProps<{ id: string }>;
+type Props = RouteComponentProps<{ id: string }>
 
 type State = {
   loadingMessage: string | null;
