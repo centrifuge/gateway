@@ -20,7 +20,6 @@ exports[`NotificationContext Should render a default popup 1`] = `
   onClose={[Function]}
   opened={true}
   title="Title"
-  width="medium"
 >
   <Portal
     containerInfo={
@@ -44,7 +43,7 @@ exports[`NotificationContext Should render a default popup 1`] = `
                 tabindex="-1"
               />
               <div
-                class="StyledBox-sc-13pk1d4-0 jZQdx"
+                class="StyledBox-sc-13pk1d4-0 eecGMu"
               >
                 <div
                   class="StyledBox-sc-13pk1d4-0 lkzpGw"
@@ -73,7 +72,7 @@ exports[`NotificationContext Should render a default popup 1`] = `
                   </button>
                 </div>
                 <div
-                  class="StyledBox-sc-13pk1d4-0 ipWbUu"
+                  class="StyledBox-sc-13pk1d4-0 IRSNj"
                 >
                   <p
                     class="StyledParagraph-tbetod-0 dIDtVY"
@@ -140,7 +139,6 @@ exports[`NotificationContext Should render a default popup 1`] = `
                 pad="medium"
                 responsive={true}
                 round="small"
-                width="medium"
               >
                 <Box
                   background="white"
@@ -149,7 +147,6 @@ exports[`NotificationContext Should render a default popup 1`] = `
                   pad="medium"
                   responsive={true}
                   round="small"
-                  width="medium"
                 >
                   <StyledBox
                     background="white"
@@ -158,10 +155,9 @@ exports[`NotificationContext Should render a default popup 1`] = `
                     pad="medium"
                     responsive={true}
                     round="small"
-                    widthProp="medium"
                   >
                     <div
-                      className="StyledBox-sc-13pk1d4-0 jZQdx"
+                      className="StyledBox-sc-13pk1d4-0 eecGMu"
                     >
                       <WithTheme(Box)
                         alignContent="center"
@@ -298,24 +294,21 @@ exports[`NotificationContext Should render a default popup 1`] = `
                         margin="none"
                         pad="none"
                         responsive={true}
-                        width="medium"
                       >
                         <Box
                           direction="column"
                           margin="none"
                           pad="none"
                           responsive={true}
-                          width="medium"
                         >
                           <StyledBox
                             directionProp="column"
                             margin="none"
                             pad="none"
                             responsive={true}
-                            widthProp="medium"
                           >
                             <div
-                              className="StyledBox-sc-13pk1d4-0 ipWbUu"
+                              className="StyledBox-sc-13pk1d4-0 IRSNj"
                             >
                               <StyledParagraph>
                                 <p
@@ -381,7 +374,6 @@ exports[`NotificationContext Should render a error popup 1`] = `
   onClose={[Function]}
   opened={true}
   title="Title"
-  width="medium"
 >
   <Portal
     containerInfo={
@@ -405,7 +397,7 @@ exports[`NotificationContext Should render a error popup 1`] = `
                 tabindex="-1"
               />
               <div
-                class="StyledBox-sc-13pk1d4-0 jZQdx"
+                class="StyledBox-sc-13pk1d4-0 eecGMu"
               >
                 <div
                   class="StyledBox-sc-13pk1d4-0 lkzpGw"
@@ -434,7 +426,7 @@ exports[`NotificationContext Should render a error popup 1`] = `
                   </button>
                 </div>
                 <div
-                  class="StyledBox-sc-13pk1d4-0 ipWbUu"
+                  class="StyledBox-sc-13pk1d4-0 IRSNj"
                 >
                   <p
                     class="StyledParagraph-tbetod-0 dIDtVY"
@@ -508,7 +500,6 @@ exports[`NotificationContext Should render a error popup 1`] = `
                 pad="medium"
                 responsive={true}
                 round="small"
-                width="medium"
               >
                 <Box
                   background="white"
@@ -517,7 +508,6 @@ exports[`NotificationContext Should render a error popup 1`] = `
                   pad="medium"
                   responsive={true}
                   round="small"
-                  width="medium"
                 >
                   <StyledBox
                     background="white"
@@ -526,10 +516,9 @@ exports[`NotificationContext Should render a error popup 1`] = `
                     pad="medium"
                     responsive={true}
                     round="small"
-                    widthProp="medium"
                   >
                     <div
-                      className="StyledBox-sc-13pk1d4-0 jZQdx"
+                      className="StyledBox-sc-13pk1d4-0 eecGMu"
                     >
                       <WithTheme(Box)
                         alignContent="center"
@@ -666,24 +655,21 @@ exports[`NotificationContext Should render a error popup 1`] = `
                         margin="none"
                         pad="none"
                         responsive={true}
-                        width="medium"
                       >
                         <Box
                           direction="column"
                           margin="none"
                           pad="none"
                           responsive={true}
-                          width="medium"
                         >
                           <StyledBox
                             directionProp="column"
                             margin="none"
                             pad="none"
                             responsive={true}
-                            widthProp="medium"
                           >
                             <div
-                              className="StyledBox-sc-13pk1d4-0 ipWbUu"
+                              className="StyledBox-sc-13pk1d4-0 IRSNj"
                             >
                               <StyledParagraph>
                                 <p
@@ -726,6 +712,7 @@ exports[`NotificationContext Should render a error popup 1`] = `
                                 fill={false}
                                 focusIndicator={true}
                                 gap="small"
+                                key="OK"
                                 label="OK"
                                 onClick={[Function]}
                                 primary={true}
@@ -814,7 +801,6 @@ exports[`NotificationContext Should render a success popup 1`] = `
   onClose={[Function]}
   opened={true}
   title="Title"
-  width="medium"
 >
   <Portal
     containerInfo={
@@ -838,7 +824,7 @@ exports[`NotificationContext Should render a success popup 1`] = `
                 tabindex="-1"
               />
               <div
-                class="StyledBox-sc-13pk1d4-0 jZQdx"
+                class="StyledBox-sc-13pk1d4-0 eecGMu"
               >
                 <div
                   class="StyledBox-sc-13pk1d4-0 lkzpGw"
@@ -867,7 +853,7 @@ exports[`NotificationContext Should render a success popup 1`] = `
                   </button>
                 </div>
                 <div
-                  class="StyledBox-sc-13pk1d4-0 ipWbUu"
+                  class="StyledBox-sc-13pk1d4-0 IRSNj"
                 >
                   <p
                     class="StyledParagraph-tbetod-0 dIDtVY"
@@ -941,7 +927,6 @@ exports[`NotificationContext Should render a success popup 1`] = `
                 pad="medium"
                 responsive={true}
                 round="small"
-                width="medium"
               >
                 <Box
                   background="white"
@@ -950,7 +935,6 @@ exports[`NotificationContext Should render a success popup 1`] = `
                   pad="medium"
                   responsive={true}
                   round="small"
-                  width="medium"
                 >
                   <StyledBox
                     background="white"
@@ -959,10 +943,9 @@ exports[`NotificationContext Should render a success popup 1`] = `
                     pad="medium"
                     responsive={true}
                     round="small"
-                    widthProp="medium"
                   >
                     <div
-                      className="StyledBox-sc-13pk1d4-0 jZQdx"
+                      className="StyledBox-sc-13pk1d4-0 eecGMu"
                     >
                       <WithTheme(Box)
                         alignContent="center"
@@ -1099,24 +1082,21 @@ exports[`NotificationContext Should render a success popup 1`] = `
                         margin="none"
                         pad="none"
                         responsive={true}
-                        width="medium"
                       >
                         <Box
                           direction="column"
                           margin="none"
                           pad="none"
                           responsive={true}
-                          width="medium"
                         >
                           <StyledBox
                             directionProp="column"
                             margin="none"
                             pad="none"
                             responsive={true}
-                            widthProp="medium"
                           >
                             <div
-                              className="StyledBox-sc-13pk1d4-0 ipWbUu"
+                              className="StyledBox-sc-13pk1d4-0 IRSNj"
                             >
                               <StyledParagraph>
                                 <p
@@ -1159,6 +1139,7 @@ exports[`NotificationContext Should render a success popup 1`] = `
                                 fill={false}
                                 focusIndicator={true}
                                 gap="small"
+                                key="OK"
                                 label="OK"
                                 onClick={[Function]}
                                 primary={true}
@@ -1247,7 +1228,6 @@ exports[`NotificationContext Should render a warning popup 1`] = `
   onClose={[Function]}
   opened={true}
   title="Title"
-  width="medium"
 >
   <Portal
     containerInfo={
@@ -1271,7 +1251,7 @@ exports[`NotificationContext Should render a warning popup 1`] = `
                 tabindex="-1"
               />
               <div
-                class="StyledBox-sc-13pk1d4-0 jZQdx"
+                class="StyledBox-sc-13pk1d4-0 eecGMu"
               >
                 <div
                   class="StyledBox-sc-13pk1d4-0 lkzpGw"
@@ -1300,7 +1280,7 @@ exports[`NotificationContext Should render a warning popup 1`] = `
                   </button>
                 </div>
                 <div
-                  class="StyledBox-sc-13pk1d4-0 ipWbUu"
+                  class="StyledBox-sc-13pk1d4-0 IRSNj"
                 >
                   <p
                     class="StyledParagraph-tbetod-0 dIDtVY"
@@ -1374,7 +1354,6 @@ exports[`NotificationContext Should render a warning popup 1`] = `
                 pad="medium"
                 responsive={true}
                 round="small"
-                width="medium"
               >
                 <Box
                   background="white"
@@ -1383,7 +1362,6 @@ exports[`NotificationContext Should render a warning popup 1`] = `
                   pad="medium"
                   responsive={true}
                   round="small"
-                  width="medium"
                 >
                   <StyledBox
                     background="white"
@@ -1392,10 +1370,9 @@ exports[`NotificationContext Should render a warning popup 1`] = `
                     pad="medium"
                     responsive={true}
                     round="small"
-                    widthProp="medium"
                   >
                     <div
-                      className="StyledBox-sc-13pk1d4-0 jZQdx"
+                      className="StyledBox-sc-13pk1d4-0 eecGMu"
                     >
                       <WithTheme(Box)
                         alignContent="center"
@@ -1532,24 +1509,21 @@ exports[`NotificationContext Should render a warning popup 1`] = `
                         margin="none"
                         pad="none"
                         responsive={true}
-                        width="medium"
                       >
                         <Box
                           direction="column"
                           margin="none"
                           pad="none"
                           responsive={true}
-                          width="medium"
                         >
                           <StyledBox
                             directionProp="column"
                             margin="none"
                             pad="none"
                             responsive={true}
-                            widthProp="medium"
                           >
                             <div
-                              className="StyledBox-sc-13pk1d4-0 ipWbUu"
+                              className="StyledBox-sc-13pk1d4-0 IRSNj"
                             >
                               <StyledParagraph>
                                 <p
@@ -1592,6 +1566,7 @@ exports[`NotificationContext Should render a warning popup 1`] = `
                                 fill={false}
                                 focusIndicator={true}
                                 gap="small"
+                                key="OK"
                                 label="OK"
                                 onClick={[Function]}
                                 primary={true}
@@ -1680,7 +1655,6 @@ exports[`NotificationContext Should set the proper label for the confirm button 
   onClose={[Function]}
   opened={true}
   title="Title"
-  width="medium"
 >
   <Portal
     containerInfo={
@@ -1704,7 +1678,7 @@ exports[`NotificationContext Should set the proper label for the confirm button 
                 tabindex="-1"
               />
               <div
-                class="StyledBox-sc-13pk1d4-0 jZQdx"
+                class="StyledBox-sc-13pk1d4-0 eecGMu"
               >
                 <div
                   class="StyledBox-sc-13pk1d4-0 lkzpGw"
@@ -1733,7 +1707,7 @@ exports[`NotificationContext Should set the proper label for the confirm button 
                   </button>
                 </div>
                 <div
-                  class="StyledBox-sc-13pk1d4-0 ipWbUu"
+                  class="StyledBox-sc-13pk1d4-0 IRSNj"
                 >
                   <p
                     class="StyledParagraph-tbetod-0 dIDtVY"
@@ -1800,7 +1774,6 @@ exports[`NotificationContext Should set the proper label for the confirm button 
                 pad="medium"
                 responsive={true}
                 round="small"
-                width="medium"
               >
                 <Box
                   background="white"
@@ -1809,7 +1782,6 @@ exports[`NotificationContext Should set the proper label for the confirm button 
                   pad="medium"
                   responsive={true}
                   round="small"
-                  width="medium"
                 >
                   <StyledBox
                     background="white"
@@ -1818,10 +1790,9 @@ exports[`NotificationContext Should set the proper label for the confirm button 
                     pad="medium"
                     responsive={true}
                     round="small"
-                    widthProp="medium"
                   >
                     <div
-                      className="StyledBox-sc-13pk1d4-0 jZQdx"
+                      className="StyledBox-sc-13pk1d4-0 eecGMu"
                     >
                       <WithTheme(Box)
                         alignContent="center"
@@ -1958,24 +1929,21 @@ exports[`NotificationContext Should set the proper label for the confirm button 
                         margin="none"
                         pad="none"
                         responsive={true}
-                        width="medium"
                       >
                         <Box
                           direction="column"
                           margin="none"
                           pad="none"
                           responsive={true}
-                          width="medium"
                         >
                           <StyledBox
                             directionProp="column"
                             margin="none"
                             pad="none"
                             responsive={true}
-                            widthProp="medium"
                           >
                             <div
-                              className="StyledBox-sc-13pk1d4-0 ipWbUu"
+                              className="StyledBox-sc-13pk1d4-0 IRSNj"
                             >
                               <StyledParagraph>
                                 <p

@@ -1,6 +1,6 @@
 const schemaIndex = '/schemas';
 
-export const schemasRoutes = {
+export default {
   view: `${schemaIndex}/:id`,
   edit: `${schemaIndex}/:id/edit`,
   index: schemaIndex,

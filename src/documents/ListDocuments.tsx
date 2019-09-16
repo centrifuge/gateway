@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Anchor, Box, Button, DataTable, Heading } from 'grommet';
-import { documentRoutes } from './routes';
+import documentRoutes from './routes';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Document } from '../common/models/document';
 import { SecondaryHeader } from '../components/SecondaryHeader';
@@ -11,6 +11,7 @@ import { formatDate } from '../common/formaters';
 import { httpClient } from '../http-client';
 import { AppContext } from '../App';
 import { useMergeState } from '../hooks';
+import { PageError } from '../components/PageError';
 
 
 type Props = {
@@ -19,7 +20,7 @@ type Props = {
 
 type State = {
   documents: Document[];
-  loading: boolean;
+  loadingMessage: string | null;
   error: any;
 }
 
@@ -33,12 +34,13 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
 
   const [
     {
-      loading,
+      loadingMessage,
       documents,
+      error,
     },
     setState] = useMergeState<State>({
     documents: [],
-    loading: true,
+    loadingMessage: 'Loading',
     error: null,
   });
 
@@ -49,20 +51,20 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
 
   const handleHttpClientError = useCallback((error) => {
     setState({
-      loading: false,
+      loadingMessage: null,
       error,
     });
   }, [setState]);
 
   const loadData = useCallback(async () => {
     setState({
-      loading: true,
+      loadingMessage: 'Loading',
     });
     try {
 
       const documents = (await httpClient.documents.list()).data;
       setState({
-        loading: false,
+        loadingMessage: null,
 
         documents,
       });
@@ -77,8 +79,12 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
     loadData();
   }, [loadData]);
 
-  if (loading) {
-    return <Preloader message="Loading"/>;
+  if (loadingMessage) {
+    return <Preloader message={loadingMessage}/>;
+  }
+
+  if (error) {
+    return <PageError error={error}/>;
   }
 
 

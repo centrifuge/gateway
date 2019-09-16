@@ -13,7 +13,7 @@ import { SecondaryHeader } from '../components/SecondaryHeader';
 import { Box, Button, Heading } from 'grommet';
 import routes from '../routes';
 import { LinkPrevious } from 'grommet-icons';
-import { documentRoutes } from './routes';
+import documentRoutes from './routes';
 import DocumentForm from './DocumentForm';
 import { Preloader } from '../components/Preloader';
 

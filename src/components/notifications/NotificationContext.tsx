@@ -12,11 +12,14 @@ export enum NOTIFICATION {
 
 export type NotificationApi = {
   notify: (options: NotificationOptions) => void;
+  alert: (options: AlertOptions) => void;
   close: () => void;
 }
 
 let CONTEXT_API: NotificationApi = {
   notify: (options: NotificationOptions) => {
+  },
+  alert: (options: AlertOptions) => {
   },
   close: () => {
   },
@@ -29,6 +32,17 @@ export const NotificationConsumer = NotificationContext.Consumer;
 export interface NotificationState {
   opened: boolean,
   options: NotificationOptions
+}
+
+
+export interface AlertOptions {
+  title?: string,
+  message?: string,
+  cancelable?: boolean, // modal can self close(x icon and click outside)
+  type?: NOTIFICATION, // DEFAULT, SUCCESS, ERROR, WARNING
+  confirmLabel?: string, // Label for the modal button
+  onClose?: () => void, // callback for when the modal is closed.
+  onConfirm?: () => void, // callback for when the modal is closed.
 }
 
 export interface NotificationOptions {
@@ -64,10 +78,22 @@ export class NotificationProvider extends Component<{}, NotificationState> {
 
     CONTEXT_API = {
       notify: this.notify,
+      alert: this.alert,
       close: this.close,
     };
 
   }
+
+
+  alert = (options: AlertOptions) => {
+    this.setState({
+      opened: true,
+      options: {
+        ...this.state.options,
+        ...options,
+      },
+    });
+  };
 
   notify = (options: NotificationOptions) => {
     this.setState({
@@ -109,8 +135,9 @@ export class NotificationProvider extends Component<{}, NotificationState> {
       {options.message}
     </Paragraph>;
     // default notification actions
+    // We can extend to add more actions but we must be very careful at the keys
     let actions =  [
-      <Button primary label={options.confirmLabel} fill={false} onClick={this.confirm}/>
+      <Button key={options.confirmLabel} primary label={options.confirmLabel} fill={false} onClick={this.confirm}/>
     ]
 
     // Compute the color of the modal title
@@ -137,11 +164,10 @@ export class NotificationProvider extends Component<{}, NotificationState> {
       >
         <Modal
           opened={opened}
-          width={'medium'}
           title={options.title}
           {...modalProps}
         >
-          <Box width={'medium'}>
+          <Box>
             {modalContent}
           </Box>
 

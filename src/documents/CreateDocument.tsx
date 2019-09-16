@@ -6,17 +6,17 @@ import { Box, Button, Heading } from 'grommet';
 import { LinkPrevious } from 'grommet-icons';
 import { Preloader } from '../components/Preloader';
 import { SecondaryHeader } from '../components/SecondaryHeader';
-import { documentRoutes } from './routes';
+import documentRoutes from './routes';
 import { Schema } from '../common/models/schema';
 import { Contact } from '../common/models/contact';
 import { Document } from '../common/models/document';
 import { httpClient } from '../http-client';
 import { mapSchemaNames } from '../common/schema-utils';
-import { NotificationContext } from '../components/notifications/NotificationContext';
+import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
 import { AppContext } from '../App';
 import { useMergeState } from '../hooks';
-import { error } from 'util';
 import { PageError } from '../components/PageError';
+import { AxiosError } from 'axios';
 
 type Props = {} & RouteComponentProps;
 
@@ -77,7 +77,7 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
     } catch (e) {
       handleHttpClientError(e);
     }
-  }, [setState, handleHttpClientError, notification]);
+  }, [setState, handleHttpClientError]);
 
   useEffect(() => {
     loadData();
@@ -87,15 +87,21 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
   const createDocument = async (document: Document) => {
     setState({
       loadingMessage: 'Saving document',
+      defaultDocument: document,
     });
+
     try {
       const doc = (await httpClient.documents.create(document)).data;
-      props.history.push(documentRoutes.view.replace(':id', doc._id));
+      push(documentRoutes.view.replace(':id', doc._id));
 
-    } catch (error) {
+    } catch (e) {
+      notification.alert({
+        type: NOTIFICATION.ERROR,
+        title: ' Failed to save document',
+        message: (e as AxiosError)!.response!.data.message,
+      });
       setState({
         loadingMessage: null,
-        error,
       });
     }
 
@@ -106,17 +112,27 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
   };
 
   if (loadingMessage) {
-    return <Preloader message="{loadingMessage}"/>;
+    return <Preloader message={loadingMessage}/>;
   }
 
-  if(error)
-    return <PageError error={error}/>
+  if (error)
+    return <PageError error={error}/>;
 
 
   const availableSchemas = mapSchemaNames(user!.schemas, schemas);
 
+  const selectedSchema: Schema | undefined = schemas.find(s => {
+    return (
+      defaultDocument.attributes &&
+      defaultDocument.attributes._schema &&
+      s.name === defaultDocument.attributes._schema.value
+    );
+  });
+
+
   return (
     <DocumentForm
+      selectedSchema={selectedSchema}
       document={defaultDocument}
       schemas={availableSchemas}
       onSubmit={createDocument}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
 import { Anchor, Box, Button, DataTable, Heading, Text } from 'grommet';
 import { User } from '../common/models/user';
 import { Modal } from '@centrifuge/axis-modal';
@@ -12,12 +12,14 @@ import { mapSchemaNames } from '../common/schema-utils';
 import { PERMISSIONS } from '../common/constants';
 import { httpClient } from '../http-client';
 import { getAddressLink } from '../common/etherscan';
+import { PageError } from '../components/PageError';
+import { useMergeState } from '../hooks';
+import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
+import { AxiosError } from 'axios';
 
-
-type Props = {}
 
 type State = {
-  loading: boolean;
+  loadingMessage: string | null;
   userFormOpened: boolean;
   users: User[];
   schemas: Schema[];
@@ -25,88 +27,111 @@ type State = {
   error: any;
 }
 
-class UsersList extends React.Component<Props, State> {
-  displayName = 'UsersList';
+const UsersList: FunctionComponent = () => {
 
-  state = {
-    loading: true,
+  const [
+    {
+      loadingMessage,
+      userFormOpened,
+      users,
+      schemas,
+      selectedUser,
+      error,
+    },
+    setState] = useMergeState<State>({
+    loadingMessage: 'Loading',
     userFormOpened: false,
     selectedUser: new User(),
     users: [],
     schemas: [],
     error: null,
-  } as State;
+  });
 
-  componentDidMount() {
-    this.loadData();
-  }
+  const notification = useContext(NotificationContext);
 
-  handleHttpClientError = (error) => {
-    this.setState({
-      loading: false,
+
+  const handleHttpClientError = useCallback((error) => {
+    setState({
+      loadingMessage: null,
       error,
     });
-  };
+  }, [setState]);
 
 
-  loadData = async () => {
-    this.setState({
-      loading: true,
+  const loadData = useCallback(async () => {
+    setState({
+      loadingMessage: 'Loading',
     });
     try {
 
       const users = (await httpClient.user.list()).data;
       const schemas = (await httpClient.schemas.list({ archived: { $exists: false, $ne: true } })).data;
 
-      this.setState({
-        loading: false,
+      setState({
+        loadingMessage: null,
         userFormOpened: false,
         users,
         schemas,
       });
 
     } catch (e) {
-      this.handleHttpClientError(e);
+      handleHttpClientError(e);
     }
+  }, [setState, handleHttpClientError]);
+
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+
+  const closeUserForm = () => {
+    setState({ userFormOpened: false });
   };
 
-  closeUserForm = () => {
-    this.setState({ userFormOpened: false });
-  };
-
-  openUserForm = (user: User) => {
-    this.setState({
+  const openUserForm = (user: User) => {
+    setState({
       selectedUser: user,
       userFormOpened: true,
     });
   };
 
 
-  onUserFormSubmit = async (user: User) => {
-    this.setState({
-      loading: true,
-    });
-    try {
+  const onUserFormSubmit = async (user: User) => {
 
-      if (user._id) {
-        await httpClient.user.update(user);
-      } else {
-        await httpClient.user.invite(user);
-      }
-      this.loadData();
+    let context: any = {};
+    if (user._id) {
+      context.loadingMessage = 'Updating user';
+      context.errorTitle = 'Failed to update user';
+      context.method = 'update';
+    } else {
+      context.loadingMessage = 'Inviting user';
+      context.errorTitle = 'Failed to invite user';
+      context.method = 'invite';
+    }
+
+    try {
+      setState({
+        userFormOpened:false,
+        loadingMessage: context.loadingMessage,
+      });
+      await httpClient.user[context.method](user);
+      await loadData();
     } catch (e) {
-      this.handleHttpClientError(e);
+      notification.alert({
+        type: NOTIFICATION.ERROR,
+        title: context.errorTitle,
+        message: (e as AxiosError)!.response!.data.message,
+      });
+
+      setState({
+        loadingMessage: null,
+      });
     }
   };
 
 
-  mapSchemaNames = (userSchemas, schemas) => {
-    if (!schemas || !schemas.data) return [];
-
-  };
-
-
-  renderUsers = (data, schemas) => {
+  const renderUsers = (data, schemas) => {
 
     return (
       <DataTable
@@ -184,7 +209,7 @@ class UsersList extends React.Component<Props, State> {
                 <Anchor
                   label={'Edit'}
                   onClick={() =>
-                    this.openUserForm(data)
+                    openUserForm(data)
                   }
                 />
               </Box>
@@ -196,44 +221,45 @@ class UsersList extends React.Component<Props, State> {
   };
 
 
-  render() {
-    const { loading, users, schemas, selectedUser } = this.state;
-    if (loading) {
-      return <Preloader message="Loading"/>;
-    }
-
-
-    return (
-      <Box fill>
-        <Modal
-          opened={this.state.userFormOpened}
-          headingProps={{ level: 3 }}
-          width={'large'}
-          title={selectedUser._id ? 'Edit user' : 'Create user'}
-          onClose={this.closeUserForm}
-        >
-          <UserForm schemas={schemas} user={selectedUser} onSubmit={this.onUserFormSubmit}
-                    onDiscard={this.closeUserForm}/>
-        </Modal>
-        <SecondaryHeader>
-          <Heading level="3">User Management</Heading>
-          <Box>
-            <Button
-              primary
-              label="Create User"
-              onClick={() =>
-                this.openUserForm(new User())
-              }/>
-          </Box>
-        </SecondaryHeader>
-        <Box pad={{ horizontal: 'medium' }}>
-          {this.renderUsers(users, schemas)}
-        </Box>
-      </Box>
-    );
+  if (loadingMessage) {
+    return <Preloader message={loadingMessage}/>;
   }
-}
 
+  if (error) {
+    return <PageError error={error}/>;
+  }
+
+
+  return (
+    <Box fill>
+      <Modal
+        opened={userFormOpened}
+        headingProps={{ level: 3 }}
+        width={'large'}
+        title={selectedUser._id ? 'Edit user' : 'Create user'}
+        onClose={closeUserForm}
+      >
+        <UserForm schemas={schemas} user={selectedUser} onSubmit={onUserFormSubmit}
+                  onDiscard={closeUserForm}/>
+      </Modal>
+      <SecondaryHeader>
+        <Heading level="3">User Management</Heading>
+        <Box>
+          <Button
+            primary
+            label="Create User"
+            onClick={() =>
+              openUserForm(new User())
+            }/>
+        </Box>
+      </SecondaryHeader>
+      <Box pad={{ horizontal: 'medium' }}>
+        {renderUsers(users, schemas)}
+      </Box>
+    </Box>
+  );
+
+};
 
 
 export default UsersList;

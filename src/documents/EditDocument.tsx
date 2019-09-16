@@ -2,9 +2,8 @@ import React, { FunctionComponent, useCallback, useContext, useEffect } from 're
 import { Link } from 'react-router-dom';
 
 import DocumentForm from './DocumentForm';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import { Box, Button, Heading, Paragraph } from 'grommet';
-import { documentRoutes } from './routes';
 import { LinkPrevious, Money } from 'grommet-icons';
 import { canWriteToDoc } from '../common/models/user';
 import { Preloader } from '../components/Preloader';
@@ -17,18 +16,20 @@ import MintNftForm, { MintNftFormData } from './MintNftForm';
 import { httpClient } from '../http-client';
 import { AppContext } from '../App';
 import { useMergeState } from '../hooks';
+import { PageError } from '../components/PageError';
+import documentRoutes from './routes';
+import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
+import { AxiosError } from 'axios';
 
 type Props = {} & RouteComponentProps<{ id: string }>;
 
 
 type State = {
-  loading: boolean
+  loadingMessage: string | null
   mintingOpened: boolean;
   document?: Document;
   schemas: Schema[];
   contacts: Contact[];
-  updatingDocument: boolean;
-  mintingNFT: boolean;
   error?: any;
 }
 
@@ -44,45 +45,41 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
   } = props;
   const [
     {
-      loading,
-      updatingDocument,
-      mintingNFT,
+      loadingMessage,
       contacts,
       document,
       schemas,
       mintingOpened,
+      error,
     },
     setState] = useMergeState<State>({
-    loading: false,
+    loadingMessage: 'Loading',
     mintingOpened: false,
     schemas: [],
     contacts: [],
-    updatingDocument: false,
-    mintingNFT: false,
   });
 
   const { user } = useContext(AppContext);
+  const notification = useContext(NotificationContext);
 
 
   const handleHttpClientError = useCallback((error) => {
     setState({
-      loading: false,
-      mintingNFT: false,
-      updatingDocument: false,
+      loadingMessage: null,
       error,
     });
   }, [setState]);
 
   const loadData = useCallback(async (id: string) => {
     setState({
-      loading: true,
+      loadingMessage: 'Loading',
     });
     try {
       const contacts = (await httpClient.contacts.list()).data;
       const schemas = (await httpClient.schemas.list()).data;
       const document = (await httpClient.documents.getById(id)).data;
       setState({
-        loading: false,
+        loadingMessage: null,
         contacts,
         schemas,
         document,
@@ -101,26 +98,34 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
 
   const updateDocument = async (newDoc: Document) => {
     setState({
-      updatingDocument: true,
+      loadingMessage: 'Updating document',
     });
     try {
       const document = (await httpClient.documents.update(newDoc)).data;
       setState({
-        updatingDocument: false,
+        loadingMessage: null,
         document,
       });
     } catch (e) {
-      handleHttpClientError(e);
+      setState({
+        loadingMessage:null
+      })
+
+
+      notification.alert({
+        type: NOTIFICATION.ERROR,
+        title: ' Failed to update document',
+        message: (e as AxiosError)!.response!.data.message,
+      });
     }
 
   };
 
   const mintNFT = async (id: string | undefined, data: MintNftFormData) => {
 
-
     setState({
+      loadingMessage: 'Minting NFT',
       mintingOpened: false,
-      mintingNFT: true,
     });
 
     try {
@@ -134,12 +139,20 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
       )).data;
 
       setState({
-        mintingNFT: false,
+        loadingMessage: null,
         document,
       });
 
     } catch (e) {
-      handleHttpClientError(e);
+      setState({
+        loadingMessage:null
+      })
+
+      notification.alert({
+        type: NOTIFICATION.ERROR,
+        title: ' Failed to mint NFT',
+        message: (e as AxiosError)!.response!.data.message,
+      });
     }
   };
 
@@ -157,30 +170,21 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
   };
 
 
-  if (loading) {
-    return <Preloader message="Loading"/>;
+  if (loadingMessage) {
+    return <Preloader message={loadingMessage}/>;
   }
 
-  if (updatingDocument) {
-    return <Preloader message="Updating document"/>;
-  }
+  if (error)
+    return <PageError error={error}/>;
 
-
-  if (mintingNFT) {
-    return <Preloader message="Minting NFT"/>;
-  }
-
-  if (!document) {
-    return <Paragraph color="status-error"> Failed to load document </Paragraph>;
-  }
-
-  // TODO add route resolvers and remove this logic
+  // Redirect to view in case the user can not edit this document
   if (!canWriteToDoc(user!, document)) {
-    return <Paragraph color="status-error"> Access Denied! </Paragraph>;
+    return <Redirect to={documentRoutes.view.replace(':id', id)} />;
   }
 
   const selectedSchema: Schema | undefined = schemas.find(s => {
     return (
+      document &&
       document.attributes &&
       document.attributes._schema &&
       s.name === document.attributes._schema.value
