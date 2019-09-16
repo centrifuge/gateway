@@ -8,7 +8,7 @@ import {
   RegistriesErrors,
   required,
   Schema,
-} from './schema';
+} from '../schema';
 
 
 describe('Schema validations', () => {

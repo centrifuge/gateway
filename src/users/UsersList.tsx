@@ -1,17 +1,17 @@
 import React from 'react';
 import { Anchor, Box, Button, DataTable, Heading, Text } from 'grommet';
-import { User } from '../../common/models/user';
+import { User } from '../common/models/user';
 import { Modal } from '@centrifuge/axis-modal';
 import UserForm from './UserForm';
-import { formatDate } from '../../common/formaters';
-import { Preloader } from '../../components/Preloader';
-import { SecondaryHeader } from '../../components/SecondaryHeader';
+import { formatDate } from '../common/formaters';
+import { Preloader } from '../components/Preloader';
+import { SecondaryHeader } from '../components/SecondaryHeader';
 import { DisplayField } from '@centrifuge/axis-display-field';
-import { Schema } from '../../common/models/schema';
-import { mapSchemaNames } from '../../common/schema-utils';
-import { PERMISSIONS } from '../../common/constants';
-import { httpClient } from '../../http-client';
-import { getAddressLink } from '../../common/etherscan';
+import { Schema } from '../common/models/schema';
+import { mapSchemaNames } from '../common/schema-utils';
+import { PERMISSIONS } from '../common/constants';
+import { httpClient } from '../http-client';
+import { getAddressLink } from '../common/etherscan';
 
 
 type Props = {}

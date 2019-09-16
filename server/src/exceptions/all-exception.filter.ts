@@ -48,11 +48,17 @@ export class AllExceptionFilter implements ExceptionFilter {
         } else {
           message = await exception.text();
         }
-        return response.status(exception.status).json(message);
+        return response.status(exception.status).json({
+          statusCode: exception.status,
+          message,
+        });
       } else {
         // All unhandled errors
         console.log(exception);
-        return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json('Unhandled Exception');
+        return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+          message: 'Unhandled Exception',
+        });
       }
     }
   }

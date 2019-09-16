@@ -1,28 +1,28 @@
 import React, { FunctionComponent, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Button, Heading, Paragraph } from 'grommet';
 import { Document } from '../common/models/document';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { LinkPrevious } from 'grommet-icons';
-import routes from '../routes';
-import { documentRoutes } from './routes';
-import { Preloader } from '../components/Preloader';
-import { SecondaryHeader } from '../components/SecondaryHeader';
-import DocumentForm from './DocumentForm';
 import { Schema } from '../common/models/schema';
 import { Contact } from '../common/models/contact';
-import { canWriteToDoc, User } from '../common/models/user';
+import { canWriteToDoc } from '../common/models/user';
 import { httpClient } from '../http-client';
 import { AppContext } from '../App';
 import { useMergeState } from '../hooks';
+import { PageError } from '../components/PageError';
+import { SecondaryHeader } from '../components/SecondaryHeader';
+import { Box, Button, Heading } from 'grommet';
+import routes from '../routes';
+import { LinkPrevious } from 'grommet-icons';
+import { documentRoutes } from './routes';
+import DocumentForm from './DocumentForm';
+import { Preloader } from '../components/Preloader';
 
 
 type Props = {
-  loggedInUser: User;
 } & RouteComponentProps<{ id: string }>;
 
 type State = {
-  loading: boolean;
+  loadingMessage: string | null;
   document?: Document;
   contacts: Contact[];
   schemas: Schema[];
@@ -32,8 +32,8 @@ type State = {
 
 export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
 
-  const [{ loading, contacts, document, schemas }, setState] = useMergeState<State>({
-    loading: true,
+  const [{ loadingMessage, contacts, document, schemas, error }, setState] = useMergeState<State>({
+    loadingMessage: 'Loading',
     contacts: [],
     schemas: [],
     error: null,
@@ -55,21 +55,21 @@ export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
 
     const handleHttpClientError = (error) => {
       setState({
-        loading: false,
+        loadingMessage: null,
         error,
       });
     };
 
     const loadData = async (id: string) => {
       setState({
-        loading: true,
+        loadingMessage: 'Loading',
       });
       try {
         const contacts = (await httpClient.contacts.list()).data;
         const schemas = (await httpClient.schemas.list()).data;
         const document = (await httpClient.documents.getById(id)).data;
         setState({
-          loading: false,
+          loadingMessage: null,
           contacts,
           schemas,
           document,
@@ -81,18 +81,14 @@ export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
     };
 
     loadData(id);
-  }, [id,setState]);
+  }, [id, setState]);
 
 
-  if (loading) {
-    return <Preloader message="Loading"/>;
-  }
+  if (loadingMessage) return <Preloader message={loadingMessage}/>;
+  if (error ) return <PageError error={error}/>;
 
-  if (!document) {
-    return <Paragraph color="status-error"> Failed to load document </Paragraph>;
-  }
 
-  const selectedSchema: Schema | undefined = schemas.find(s => {
+  const selectedSchema: Schema | undefined = !document ? undefined : schemas.find(s => {
     return (
       document.attributes &&
       document.attributes._schema &&
@@ -100,10 +96,9 @@ export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
     );
   });
 
-  if (!selectedSchema) return <p>Unsupported schema</p>;
 
   return (
-    <>
+
       <Box pad={{ bottom: 'large' }}>
         <SecondaryHeader>
           <Box direction="row" gap="small" align="center">
@@ -134,7 +129,6 @@ export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
           schemas={schemas}
           contacts={contacts}/>
       </Box>
-    </>
   );
 
 };

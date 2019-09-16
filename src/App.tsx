@@ -7,12 +7,12 @@ import { User } from './common/models/user';
 import { PERMISSIONS } from './common/constants';
 import routes from './routes';
 
-import UsersList from './admin/users/UsersList';
+import UsersList from './users/UsersList';
 
 
 import Contacts from './contacts/ViewContacts';
 import { NotificationProvider } from './components/notifications/NotificationContext';
-import SchemasList from './admin/schemas/SchemasList';
+import SchemasList from './schemas/SchemasList';
 import ListDocuments from './documents/ListDocuments';
 import CreateDocument from './documents/CreateDocument';
 import ViewDocument from './documents/ViewDocument';

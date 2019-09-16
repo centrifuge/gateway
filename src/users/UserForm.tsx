@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, Button, FormField, Text, TextInput } from 'grommet';
-import { User } from '../../common/models/user';
+import { User } from '../common/models/user';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { PERMISSIONS } from '../../common/constants';
+import { PERMISSIONS } from '../common/constants';
 import { MultipleSelect } from '@centrifuge/axis-multiple-select';
-import { Schema } from '../../common/models/schema';
-import { mapSchemaNames } from '../../common/schema-utils';
+import { Schema } from '../common/models/schema';
+import { mapSchemaNames } from '../common/schema-utils';
 
 type InviteProps = {
   user: User,

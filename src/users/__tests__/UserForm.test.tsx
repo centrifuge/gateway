@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import UserForm from './UserForm';
+import UserForm from '../UserForm';
 import { User } from '../../common/models/user';
 import { PERMISSIONS } from '../../common/constants';
 

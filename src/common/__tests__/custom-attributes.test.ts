@@ -1,4 +1,4 @@
-import { unflatten, unflattenRaw,flatten } from './custom-attributes';
+import { unflatten, unflattenRaw,flatten } from '../custom-attributes';
 
 describe('Custom Attributes', () => {
 

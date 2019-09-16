@@ -15,14 +15,15 @@ import { mapSchemaNames } from '../common/schema-utils';
 import { NotificationContext } from '../components/notifications/NotificationContext';
 import { AppContext } from '../App';
 import { useMergeState } from '../hooks';
+import { error } from 'util';
+import { PageError } from '../components/PageError';
 
 type Props = {} & RouteComponentProps;
 
 
 type State = {
   defaultDocument: Document,
-  loading: boolean,
-  savingDocument: boolean,
+  loadingMessage: string | null,
   error: any,
   contacts: Contact[];
   schemas: Schema[];
@@ -30,13 +31,12 @@ type State = {
 
 export const CreateDocument: FunctionComponent<Props> = (props) => {
 
-  const [{ defaultDocument, contacts, schemas, loading, savingDocument }, setState] = useMergeState<State>(
+  const [{ defaultDocument, contacts, schemas, loadingMessage, error }, setState] = useMergeState<State>(
     {
       defaultDocument: {
         attributes: {},
       },
-      loading: true,
-      savingDocument: false,
+      loadingMessage: 'Loading',
       error: null,
       contacts: [],
       schemas: [],
@@ -56,15 +56,14 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
 
   const handleHttpClientError = useCallback((error) => {
     setState({
-      loading: false,
-      savingDocument: false,
+      loadingMessage: null,
       error,
     });
   }, [setState]);
 
   const loadData = useCallback(async () => {
     setState({
-      loading: true,
+      loadingMessage: 'Loading',
     });
     try {
       const contacts = (await httpClient.contacts.list()).data;
@@ -72,10 +71,8 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
       setState({
         contacts,
         schemas,
-        loading: false,
+        loadingMessage: null,
       });
-
-      notification.notify({ title: 'Complete', message: 'DDDD' });
 
     } catch (e) {
       handleHttpClientError(e);
@@ -89,7 +86,7 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
 
   const createDocument = async (document: Document) => {
     setState({
-      savingDocument: true,
+      loadingMessage: 'Saving document',
     });
     try {
       const doc = (await httpClient.documents.create(document)).data;
@@ -97,8 +94,7 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
 
     } catch (error) {
       setState({
-        loading: false,
-        savingDocument: false,
+        loadingMessage: null,
         error,
       });
     }
@@ -109,13 +105,13 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
     push(documentRoutes.index);
   };
 
-  if (loading) {
-    return <Preloader message="Loading"/>;
+  if (loadingMessage) {
+    return <Preloader message="{loadingMessage}"/>;
   }
 
-  if (savingDocument) {
-    return <Preloader message="Saving document"/>;
-  }
+  if(error)
+    return <PageError error={error}/>
+
 
   const availableSchemas = mapSchemaNames(user!.schemas, schemas);
 

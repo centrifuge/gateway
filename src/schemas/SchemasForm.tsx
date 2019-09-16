@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import { Box, Button, FormField, Paragraph, TextArea } from 'grommet';
 import * as Yup from 'yup';
-import { Schema } from '../../common/models/schema';
+import { Schema } from '../common/models/schema';
 
 interface Props {
   selectedSchema: Schema;

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Anchor, Box, Button, CheckBox, DataTable, Heading, Text } from 'grommet';
 import { Modal } from '@centrifuge/axis-modal';
-import { Schema } from '../../common/models/schema';
-import { SecondaryHeader } from '../../components/SecondaryHeader';
-import { formatDate } from '../../common/formaters';
-import { Preloader } from '../../components/Preloader';
+import { Schema } from '../common/models/schema';
+import { SecondaryHeader } from '../components/SecondaryHeader';
+import { formatDate } from '../common/formaters';
+import { Preloader } from '../components/Preloader';
 import { RouteComponentProps, withRouter } from 'react-router';
 import SchemasForm from './SchemasForm';
-import { httpClient } from '../../http-client';
+import { httpClient } from '../http-client';
 
 
 interface Props extends RouteComponentProps {

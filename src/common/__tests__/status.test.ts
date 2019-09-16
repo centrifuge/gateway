@@ -1,4 +1,4 @@
-import { getInvoiceFundingStatus, FUNDING_STATUS } from './status';
+import { getInvoiceFundingStatus, FUNDING_STATUS } from '../status';
 
 
 describe('Funding Status', () => {

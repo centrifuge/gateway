@@ -1,4 +1,4 @@
-import { formatCurrency, formatDate, formatPercent, getCurrencyFormat, getPercentFormat } from './formaters';
+import { formatCurrency, formatDate, formatPercent, getCurrencyFormat, getPercentFormat } from '../formaters';
 
 describe('Formatters', () => {
   it('Should return the correct currency parts', () => {

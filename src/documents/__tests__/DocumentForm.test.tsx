@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import DocumentForm from './DocumentForm';
+import DocumentForm from '../DocumentForm';
 import { BrowserRouter } from 'react-router-dom';
 
 describe('DocumentForm', () => {

@@ -1,4 +1,4 @@
-import { Body, Controller, HttpException, HttpStatus, Post, Request } from '@nestjs/common';
+import { Body, ConflictException, Controller, ForbiddenException, Post, Request } from '@nestjs/common';
 import { ROUTES } from '../../../src/common/constants';
 import { DatabaseService } from '../database/database.service';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
@@ -51,7 +51,7 @@ export class FundingController {
       // to be enabled
 
       if (nft === undefined) {
-        throw new HttpException(await 'NFT not attached to Invoice, NFT not found', HttpStatus.CONFLICT);
+        throw new ConflictException('NFT not attached to Invoice, NFT not found');
       }
 
       const registry = nft.registry;
@@ -69,7 +69,7 @@ export class FundingController {
 
         await this.centrifugeService.pullForJobComplete(transferResponse.header.job_id, nft.owner);
       } else {
-        throw new HttpException(await 'token owner does not correspond to the borrower', HttpStatus.FORBIDDEN);
+        throw new ForbiddenException('token owner does not correspond to the borrower');
       }
     }
 
@@ -87,7 +87,7 @@ export class FundingController {
     });
 
     if (nft === undefined) {
-      throw new HttpException(await 'NFT not attached to Invoice, NFT not found', HttpStatus.CONFLICT);
+      throw new ConflictException('NFT not attached to Invoice, NFT not found');
     }
 
     const registry = nft.registry;
@@ -106,7 +106,7 @@ export class FundingController {
       await this.centrifugeService.pullForJobComplete(transferResponse.header.job_id, nft.owner);
       return transferResponse;
     } else {
-      throw new HttpException(await 'token owner does not correspond to the Funder', HttpStatus.FORBIDDEN);
+      throw new ForbiddenException('token owner does not correspond to the Funder');
     }
   }
 
@@ -120,10 +120,10 @@ export class FundingController {
     // Mint an UnpaidInvoiceNFT.
     // TODO use the new invoice unpaid methods
     // This will fail if the document already has a nft minted
-     const nftResult = await this.centrifugeService.invoices.invoiceUnpaidNft(req.user.account, nftPayload);
+    const nftResult = await this.centrifugeService.invoices.invoiceUnpaidNft(req.user.account, nftPayload);
 
     // Pull to see when minting is complete. We need the token ID for the funding API
-     await this.centrifugeService.pullForJobComplete(nftResult.header.job_id, req.user.account);
+    await this.centrifugeService.pullForJobComplete(nftResult.header.job_id, req.user.account);
     // Get the new invoice data in order to get the NFT ID
     const invoiceWithNft = await this.centrifugeService.invoices.getInvoice(req.user.account, fundingRequest.document_id);
     const tokenId = invoiceWithNft.header.nfts[0].token_id;

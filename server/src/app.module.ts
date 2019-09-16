@@ -7,7 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { APP_FILTER } from '@nestjs/core';
 import { FundingModule } from './funding/funding.module';
-import { AllExceptionFilter } from './filters/all-exception.filter';
+import { AllExceptionFilter } from './exceptions/all-exception.filter';
 import { TransferModule } from "./transfers/transfer-details.module";
 import { SchemasModule } from "./schemas/schemas.module";
 import { DocumentsModule } from "./documents/documents.module";
