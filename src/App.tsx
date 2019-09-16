@@ -128,8 +128,6 @@ const App: FunctionComponent<AppPros> = (props: AppPros) => {
 
     }
 
-    console.log('LoggedIn User',loggedInUser)
-
     menuItems.push({ label: 'Log out', route: routes.user.logout, external: true, secondary: true });
 
   }
