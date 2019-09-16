@@ -6,14 +6,9 @@ import {
   UserapiPurchaseOrderResponse,
 } from '../../clients/centrifuge-node';
 
-//TODO break all interfaces up and move to models
-//TODO Refactor this. The name is bad. Is it very interface specic ? Do we need an interface for this?
-export interface LabelValuePair {
-  label: string;
-  value: string;
-}
 
 
+// TODO do we need InvoiceResponse and POResponse ?
 export interface InvoiceResponse extends UserapiInvoiceResponse {
   data?: any | InvoiceData;
   ownerId?: string;

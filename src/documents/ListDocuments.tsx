@@ -5,7 +5,7 @@ import documentRoutes from './routes';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Document } from '../common/models/document';
 import { SecondaryHeader } from '../components/SecondaryHeader';
-import { canCreateDocuments, canWriteToDoc, User } from '../common/models/user';
+import { canCreateDocuments, canWriteToDoc } from '../common/models/user';
 import { Preloader } from '../components/Preloader';
 import { formatDate } from '../common/formaters';
 import { httpClient } from '../http-client';
@@ -41,7 +41,6 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
     loadingMessage: 'Loading',
     error: null,
   });
-
 
 
   const { user } = useContext(AppContext);
