@@ -44,7 +44,7 @@ export class AllExceptionFilter implements ExceptionFilter {
         // Catch node api errors. It can return text and json
         let message;
         if (exception.headers.get('content-type').match('application/json')) {
-          message = (await exception.json()).error;
+          message = (await exception.json()).message;
         } else {
           message = await exception.text();
         }

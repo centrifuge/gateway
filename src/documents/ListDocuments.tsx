@@ -116,7 +116,7 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
           columns={[
             {
               property: '$_reference_id',
-              header: 'Reference number',
+              header: 'Reference ID',
               sortable: true,
             },
 
