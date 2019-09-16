@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import DocumentForm from './DocumentForm';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
-import { Box, Button, Heading, Paragraph } from 'grommet';
+import { Box, Button, Heading } from 'grommet';
 import { LinkPrevious, Money } from 'grommet-icons';
 import { canWriteToDoc } from '../common/models/user';
 import { Preloader } from '../components/Preloader';
@@ -108,8 +108,8 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
       });
     } catch (e) {
       setState({
-        loadingMessage:null
-      })
+        loadingMessage: null,
+      });
 
 
       notification.alert({
@@ -145,8 +145,8 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
 
     } catch (e) {
       setState({
-        loadingMessage:null
-      })
+        loadingMessage: null,
+      });
 
       notification.alert({
         type: NOTIFICATION.ERROR,
@@ -179,7 +179,7 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
 
   // Redirect to view in case the user can not edit this document
   if (!canWriteToDoc(user!, document)) {
-    return <Redirect to={documentRoutes.view.replace(':id', id)} />;
+    return <Redirect to={documentRoutes.view.replace(':id', id)}/>;
   }
 
   const selectedSchema: Schema | undefined = schemas.find(s => {
