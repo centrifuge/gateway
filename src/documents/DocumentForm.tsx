@@ -378,19 +378,34 @@ export class DocumentForm extends React.Component<Props, State> {
           {
             property: 'token_id',
             header: 'Token id',
-            render: datum => <DisplayField link={getNFTLink(datum.token_id,datum.registry)} value={datum.token_id}/>,
+            render: datum => <DisplayField
+              link={{
+                href:getNFTLink(datum.token_id,datum.registry),
+                target:'_blank'
+              }}
+              value={datum.token_id}/>,
           },
 
           {
             property: 'registry',
             header: 'Registry',
-            render: datum => <DisplayField link={getAddressLink(datum.registry)} value={datum.registry}/>,
+            render: datum => <DisplayField
+              link={{
+                href:getAddressLink(datum.registry),
+                target:'_blank'
+              }}
+              value={datum.registry}/>,
           },
 
           {
             property: 'owner',
             header: 'Owner',
-            render: datum => <DisplayField link={getAddressLink(datum.owner)} value={datum.owner}/>,
+            render: datum => <DisplayField
+              link={{
+                href:getAddressLink(datum.owner),
+                target:'_blank'
+              }}
+              value={datum.owner}/>,
 
           },
         ]}
