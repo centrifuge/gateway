@@ -23,7 +23,7 @@ export class FundingController {
   async sign(@Body() payload: FunRequest, @Request() req): Promise<FunFundingResponse | null> {
     const signatureResponse = await this.centrifugeService.funding.sign(payload.document_id, payload.agreement_id, payload, req.user.account);
     await this.centrifugeService.pullForJobComplete(signatureResponse.header.job_id, req.user.account);
-    const updatedInvoice = await this.centrifugeService.invoices.getInvoice(req.user.account, payload.document_id);
+    /*const updatedInvoice = await this.centrifugeService.invoices.getInvoice(req.user.account, payload.document_id);
     delete updatedInvoice.attributes;
     // Find all the invoices for the document ID
     const invoiceWithNft = await this.databaseService.invoices.update(
@@ -71,7 +71,7 @@ export class FundingController {
       } else {
         throw new ForbiddenException('token owner does not correspond to the borrower');
       }
-    }
+    }*/
 
     return signatureResponse;
   }
@@ -112,21 +112,21 @@ export class FundingController {
 
   @Post(ROUTES.FUNDING.base)
   async create(@Body() fundingRequest: FundingRequest, @Request() req): Promise<FunFundingResponse | null> {
-    const nftPayload: NftNFTMintInvoiceUnpaidRequest = {
+    /* const nftPayload: NftNFTMintInvoiceUnpaidRequest = {
       document_id: fundingRequest.document_id,
       deposit_address: req.user.account,
-    };
+    };*/
 
     // Mint an UnpaidInvoiceNFT.
     // TODO use the new invoice unpaid methods
     // This will fail if the document already has a nft minted
-    const nftResult = await this.centrifugeService.invoices.invoiceUnpaidNft(req.user.account, nftPayload);
+    //const nftResult = await this.centrifugeService.invoices.invoiceUnpaidNft(req.user.account, nftPayload);
 
     // Pull to see when minting is complete. We need the token ID for the funding API
-    await this.centrifugeService.pullForJobComplete(nftResult.header.job_id, req.user.account);
+    //await this.centrifugeService.pullForJobComplete(nftResult.header.job_id, req.user.account);
     // Get the new invoice data in order to get the NFT ID
-    const invoiceWithNft = await this.centrifugeService.invoices.getInvoice(req.user.account, fundingRequest.document_id);
-    const tokenId = invoiceWithNft.header.nfts[0].token_id;
+    //const invoiceWithNft = await this.centrifugeService.invoices.getInvoice(req.user.account, fundingRequest.document_id);
+    //const tokenId = invoiceWithNft.header.nfts[0].token_id;
     // Create funding payload
     const payload: FunFundingCreatePayload = {
       data: {
@@ -139,7 +139,6 @@ export class FundingController {
         currency: fundingRequest.currency,
         borrower_id: req.user.account,
         funder_id: fundingRequest.funder,
-        nft_address: tokenId,
       },
     };
 
@@ -148,20 +147,28 @@ export class FundingController {
     // THis will not be necessary when we implement JOb context and keep Job Status for documents
     await this.centrifugeService.pullForJobComplete(fundingResponse.header.job_id, req.user.account);
 
-    const invoiceWithFunding = await this.centrifugeService.invoices.getInvoice(req.user.account, fundingRequest.document_id);
+    const signaturePayload = {
+      document_id: fundingRequest.document_id,
+      agreement_id: fundingResponse.data.funding.agreement_id
+    }
+
+    const signatureResponse = await this.centrifugeService.funding.sign(signaturePayload.document_id, signaturePayload.agreement_id, signaturePayload, req.user.account);
+    await this.centrifugeService.pullForJobComplete(signatureResponse.header.job_id, req.user.account);
+
+    //const invoiceWithFunding = await this.centrifugeService.invoices.getInvoice(req.user.account, fundingRequest.document_id);
     // We need to delete the attributes prop because NEDB does not allow for . in field names
     // Ex: funding[0].amount
-    delete invoiceWithFunding.attributes;
+    //delete invoiceWithFunding.attributes;
     // Update the document in the database
-    await this.databaseService.invoices.update(
+    /*await this.databaseService.invoices.update(
       { 'header.document_id': fundingRequest.document_id, 'ownerId': req.user._id },
       {
         ...invoiceWithFunding,
         ownerId: req.user._id,
         fundingAgreement: fundingResponse.data,
       },
-    );
+    );*/
 
-    return fundingResponse;
+    return signatureResponse;
   }
 }

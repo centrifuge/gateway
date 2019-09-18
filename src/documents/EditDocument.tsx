@@ -20,6 +20,9 @@ import { PageError } from '../components/PageError';
 import documentRoutes from './routes';
 import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
 import { AxiosError } from 'axios';
+import FundingRequestForm from './FundingAgreementForm';
+import { FundingAgreements } from './FundingAgreements';
+import { Nfts } from './Nfts';
 
 type Props = RouteComponentProps<{ id: string }>;
 
@@ -27,6 +30,7 @@ type Props = RouteComponentProps<{ id: string }>;
 type State = {
   loadingMessage: string | null
   mintingOpened: boolean;
+  fundingOpened: boolean;
   document?: Document;
   schemas: Schema[];
   contacts: Contact[];
@@ -47,6 +51,7 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
     {
       loadingMessage,
       contacts,
+      fundingOpened,
       document,
       schemas,
       mintingOpened,
@@ -55,6 +60,7 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
     setState] = useMergeState<State>({
     loadingMessage: 'Loading',
     mintingOpened: false,
+    fundingOpened: false,
     schemas: [],
     contacts: [],
   });
@@ -157,12 +163,22 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
   };
 
 
+
+
   const openMintModal = () => {
     setState({ mintingOpened: true });
   };
 
   const closeMintModal = () => {
     setState({ mintingOpened: false });
+  };
+
+  const openFundingModal = () => {
+    setState({ fundingOpened: true });
+  };
+
+  const closeFundingModal = () => {
+    setState({ fundingOpened: false });
   };
 
   const onCancel = () => {
@@ -194,26 +210,13 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
   if (!selectedSchema) return <p>Unsupported schema</p>;
 
   // Add mint action if schema has any registries defined
-  const mintActions = selectedSchema.registries && selectedSchema.registries.length > 0 ? [
-      <Button key="mint_nft" onClick={openMintModal} icon={<Money/>} plain label={'Mint NFT'}/>,
-    ] : []
+  const canMint = selectedSchema.registries && selectedSchema.registries.length > 0;
+  const canFund = true
   ;
+
+
   return (
     <>
-      <Modal
-        width={'large'}
-        opened={mintingOpened}
-        headingProps={{ level: 3 }}
-        title={`Mint NFT`}
-        onClose={closeMintModal}
-      >
-        <MintNftForm
-          onSubmit={(data) => mintNFT(document!._id, data)}
-          onDiscard={closeMintModal}
-          registries={selectedSchema.registries}
-        />
-      </Modal>
-
       <DocumentForm
         onSubmit={updateDocument}
         selectedSchema={selectedSchema}
@@ -221,31 +224,71 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
         contacts={contacts}
         document={document}
         schemas={schemas}
-        mintActions={mintActions}
+        renderHeader={() => {
+          return <SecondaryHeader>
+            <Box direction="row" gap="small" align="center">
+              <Link to={documentRoutes.index} size="large">
+                <LinkPrevious/>
+              </Link>
+              <Heading level="3">
+                {'Update Document'}
+              </Heading>
+            </Box>
+
+            <Box direction="row" gap="medium">
+              <Button
+                onClick={onCancel}
+                label="Discard"
+              />
+              <Button
+                type="submit"
+                primary
+                label="Update"
+              />
+
+            </Box>
+          </SecondaryHeader>
+        }}
       >
-        <SecondaryHeader>
-          <Box direction="row" gap="small" align="center">
-            <Link to={documentRoutes.index} size="large">
-              <LinkPrevious/>
-            </Link>
-            <Heading level="3">
-              {'Update Document'}
-            </Heading>
-          </Box>
+        <Nfts
+          onCreateStart={(message)=>{
+            setState({
+              loadingMessage:'Creating Function Agreement'
+            })
+          }}
+          onCreateComplete={()=>{
+            loadData(id)
+          }}
+          onCreateError={(error)=> {
+            setState({
+              loadingMessage: null
+            })
+          }}
+          viewMode={!canMint}
+          document={document!}
+          registries={selectedSchema.registries}/>
 
-          <Box direction="row" gap="medium">
-            <Button
-              onClick={onCancel}
-              label="Discard"
-            />
-            <Button
-              type="submit"
-              primary
-              label="Update"
-            />
+        <FundingAgreements
+          onCreateStart={()=>{
+            setState({
+              loadingMessage:'Creating Function Agreement'
+            })
+          }}
+          onCreateComplete={()=>{
+            loadData(id)
+          }}
+          onCreateError={(error)=> {
+            setState({
+              loadingMessage: null
+            })
+          }}
+          viewMode={!canFund}
+          document={document!}
+          contacts={contacts}/>
 
-          </Box>
-        </SecondaryHeader>
+
+
+
       </DocumentForm>
     </>
   );

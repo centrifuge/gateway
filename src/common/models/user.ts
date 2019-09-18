@@ -26,12 +26,12 @@ export class User implements IUser {
 }
 
 export const canWriteToDoc = (user: User | null, doc?: Document): boolean => {
-  if(!user) return false;
+  if(!user || !doc) return false;
   return accountHasDocAccess(user.account, DOCUMENT_ACCESS.WRITE, doc);
 };
 
 export const canReadDoc = (user: User | null, doc?: Document): boolean => {
-  if(!user) return false;
+  if(!user || !doc) return false;
   return accountHasDocAccess(user.account, DOCUMENT_ACCESS.READ, doc);
 };
 
@@ -53,3 +53,19 @@ export const canCreateDocuments = (user: User): boolean => {
     user.permissions.includes(PERMISSIONS.CAN_MANAGE_DOCUMENTS)
     && user.schemas.length > 0);
 };
+
+
+export const canSignFunding = (user:User | null, doc?:Document):boolean => {
+  if(!user) return false;
+  return !!(
+    doc &&
+    doc.attributes &&
+    doc.attributes.funding_agreement &&
+    Array.isArray(doc.attributes.funding_agreement) &&
+    doc.attributes.funding_agreement!.find(
+      funding => {
+        return funding.funder_id && funding.funder_id.value.toLowerCase() === user.account.toLowerCase()
+      },
+    )
+  );
+}

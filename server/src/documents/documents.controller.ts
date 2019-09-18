@@ -1,15 +1,4 @@
-import {
-  Body,
-  ConflictException,
-  Controller,
-  Get,
-  NotFoundException,
-  Param,
-  Post,
-  Put,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import { CoreapiCreateDocumentRequest, UserapiMintNFTRequest } from '../../../clients/centrifuge-node';
@@ -88,6 +77,9 @@ export class DocumentsController {
     return {
       _id: document._id,
       ...docFromNode,
+      attributes: {
+        ...unflatten(docFromNode.attributes),
+      },
     };
 
   }
@@ -157,6 +149,9 @@ export class DocumentsController {
     );
 
     if (!documentFromDb) throw new NotFoundException(`Can not find document #${params.id} in the database`);
+
+    // Node does not support signed attributes
+    delete document.attributes.funding_agreement;
 
     const updateResult: Document = await this.centrifugeService.documents.updateDocument(
       request.user.account,

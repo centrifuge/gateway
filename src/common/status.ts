@@ -1,4 +1,5 @@
-import { InvoiceResponse } from './interfaces';
+import { Document } from './models/document';
+import { FundingAgreementResponse } from './interfaces';
 
 export enum FUNDING_STATUS {
   NO_STATUS = '',
@@ -19,29 +20,21 @@ export enum TRANSFER_DETAILS_STATUS {
   SETTLED = 'settled',
 }
 
-export const getInvoiceFundingStatus = (invoice: InvoiceResponse) => {
+export const getFundingStatus = (fundingAgreement) => {
 
-  if (invoice.fundingAgreement && invoice.fundingAgreement.signatures && invoice.transferDetails) {
-    const fundingTransfer = invoice.transferDetails[0];
-    const repaymentTransfer = invoice.transferDetails[1];
-    if (fundingTransfer && fundingTransfer.status === TRANSFER_DETAILS_STATUS.OPENED && !repaymentTransfer) {
-      return FUNDING_STATUS.SENDING_FUNDING;
-    } else if (fundingTransfer && fundingTransfer.status === TRANSFER_DETAILS_STATUS.SETTLED && !repaymentTransfer) {
-      return FUNDING_STATUS.FUNDED;
-    } else if (fundingTransfer && fundingTransfer.status === TRANSFER_DETAILS_STATUS.SETTLED && repaymentTransfer && repaymentTransfer.status === TRANSFER_DETAILS_STATUS.OPENED) {
-      return FUNDING_STATUS.REPAYING_FUNDING;
-    } else if (fundingTransfer && fundingTransfer.status === TRANSFER_DETAILS_STATUS.SETTLED && repaymentTransfer && repaymentTransfer.status === TRANSFER_DETAILS_STATUS.SETTLED) {
-      return FUNDING_STATUS.REPAID;
-    } else {
-      return FUNDING_STATUS.UNKNOWN;
-    }
-  } else if (invoice.fundingAgreement && invoice.fundingAgreement.signatures) {
+
+   if (
+     fundingAgreement.signatures &&
+     Array.isArray(fundingAgreement.signatures) &&
+     fundingAgreement.signatures.find( signature => {
+       return signature.value.toLowerCase() === fundingAgreement.funding_agreement.value.toLowerCase();
+     })
+  ) {
     return FUNDING_STATUS.ACCEPTED;
-  } else if (invoice.fundingAgreement) {
+  } else {
     return FUNDING_STATUS.PENDING;
   }
 
-  return FUNDING_STATUS.NO_STATUS;
 
 };
 
