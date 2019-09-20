@@ -16,8 +16,6 @@ import { LinkPrevious } from 'grommet-icons';
 import documentRoutes from './routes';
 import DocumentForm from './DocumentForm';
 import { Preloader } from '../components/Preloader';
-import { AxiosError } from 'axios';
-import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
 import { Nfts } from './Nfts';
 import { FundingAgreements } from './FundingAgreements';
 
@@ -62,7 +60,6 @@ export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
 
 
   const { user } = useContext(AppContext);
-  const notification = useContext(NotificationContext);
 
   const displayPageError = useCallback((error) => {
     setState({
@@ -89,27 +86,11 @@ export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
     } catch (e) {
       displayPageError(e);
     }
-  }, [id, setState]);
+  }, [id, setState,displayPageError]);
 
   useEffect(() => {
     loadData();
   }, [loadData]);
-
-
-  const startLoading = (loadingMessage: string = 'Loading') => {
-    setState({ loadingMessage });
-  };
-
-  const displayModalError = (e: AxiosError, title: string = 'Error') => {
-    setState({
-      loadingMessage: null,
-    });
-    notification.alert({
-      type: NOTIFICATION.ERROR,
-      title,
-      message: e!.response!.data.message,
-    });
-  };
 
 
   if (loadingMessage) return <Preloader message={loadingMessage}/>;

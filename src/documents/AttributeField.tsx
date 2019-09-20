@@ -18,7 +18,7 @@ interface OuterProps {
   isViewMode: boolean;
 }
 
-const AttributeField: FunctionComponent<Props> = (props: Props) => {
+export const AttributeField: FunctionComponent<Props> = (props: Props) => {
 
   const {
     attr,

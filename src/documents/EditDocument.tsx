@@ -11,8 +11,6 @@ import { Document } from '../common/models/document';
 import { SecondaryHeader } from '../components/SecondaryHeader';
 import { Schema } from '../common/models/schema';
 import { Contact } from '../common/models/contact';
-import { Modal } from '@centrifuge/axis-modal';
-import { MintNftFormData } from './MintNftForm';
 import { httpClient } from '../http-client';
 import { AppContext } from '../App';
 import { useMergeState } from '../hooks';
@@ -110,33 +108,6 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
     }
 
   };
-
-  const mintNFT = async (id: string | undefined, data: MintNftFormData) => {
-
-    setState({
-      loadingMessage: 'Minting NFT',
-    });
-
-    try {
-      const document = (await httpClient.documents.mint(
-        id,
-        {
-          deposit_address: data.transfer ? data.deposit_address : user!.account,
-          proof_fields: data.registry!.proofs,
-          registry_address: data.registry!.address,
-        },
-      )).data;
-
-      setState({
-        loadingMessage: null,
-        document,
-      });
-
-    } catch (e) {
-      displayModalError(e, 'Failed to mint NFT');
-    }
-  };
-
 
   const startLoading = (loadingMessage: string = 'Loading') => {
     setState({ loadingMessage });

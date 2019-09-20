@@ -1,9 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import { NumberInput } from '@centrifuge/axis-number-input';
-import { DateInput } from '@centrifuge/axis-date-input';
 import { Schema } from '../common/models/schema';
 import { Grid } from 'grommet';
-import { get } from 'lodash';
 import { Section } from '../components/Section';
 import AttributeField from './AttributeField';
 
@@ -14,7 +11,7 @@ interface Props {
   isViewMode: boolean;
 }
 
-const Attributes: FunctionComponent<Props> = (props: Props) => {
+export const Attributes: FunctionComponent<Props> = (props: Props) => {
 
   const {
     columnGap,

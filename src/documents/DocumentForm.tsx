@@ -9,7 +9,6 @@ import { SearchSelect } from '@centrifuge/axis-search-select';
 import { Contact } from '../common/models/contact';
 import { MultipleSelect } from '@centrifuge/axis-multiple-select';
 import { Section } from '../components/Section';
-import { DisplayField } from '@centrifuge/axis-display-field';
 import Comments from './Comments';
 import Attributes from './Attributes';
 import { ViewModeFormContainer } from '../components/ViewModeFormContainer';
@@ -207,7 +206,6 @@ export class DocumentForm extends React.Component<Props, State> {
                    handleChange,
                    handleSubmit,
                    setFieldValue,
-                   submitForm,
                  }) => (
                   <form
                     onSubmit={event => {

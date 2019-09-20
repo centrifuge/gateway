@@ -8,9 +8,6 @@ export const dateToString = value => {
   }
 };
 
-// TODO remove this
-// This is only a problem with the native component as it only accepts a date
-// and we have a string date time. It will be fixed when we use a custom comp
 export const extractDate = value => {
   try {
     return new Date(value).toISOString().slice(0, 10);
