@@ -118,7 +118,7 @@ export class NotificationProvider extends Component<{}, NotificationState> {
   render() {
     const { children } = this.props;
     const { opened, options } = this.state;
-    // TODO this can be exposed as provider values
+
     let modalProps: any = {
       headingProps: {
         level: 3,

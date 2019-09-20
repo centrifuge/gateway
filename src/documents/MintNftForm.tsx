@@ -18,7 +18,7 @@ export interface MintNftFormData {
   deposit_address: string
   transfer: boolean
 }
-
+// TODO use function components here
 export default class MintNftForm extends React.Component<Props> {
   static defaultProps: Props = {
     onSubmit: () => {

@@ -18,7 +18,7 @@ type Props = {
   isViewMode: boolean;
   fundingAgreement: FundingAgreement;
 };
-
+// TODO use function components here
 export default class FundingRequestForm extends React.Component<Props> {
   displayName = 'CreateEditInvoice';
   static defaultProps = {

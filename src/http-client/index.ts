@@ -1,5 +1,4 @@
 import axios from 'axios';
-// TODO: extract common models and constants in a better place (separate npm module?)
 
 import { ROUTES } from '../common/constants';
 import { User } from '../common/models/user';
