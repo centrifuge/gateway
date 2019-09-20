@@ -54,7 +54,7 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
   const { user } = useContext(AppContext);
 
 
-  const handleHttpClientError = useCallback((error) => {
+  const displayPageError = useCallback((error) => {
     setState({
       loadingMessage: null,
       error,
@@ -75,9 +75,9 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
       });
 
     } catch (e) {
-      handleHttpClientError(e);
+      displayPageError(e);
     }
-  }, [setState, handleHttpClientError]);
+  }, [setState, displayPageError]);
 
   useEffect(() => {
     loadData();

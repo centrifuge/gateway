@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import DocumentForm from './DocumentForm';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import { Box, Button, Heading } from 'grommet';
-import { LinkPrevious, Money } from 'grommet-icons';
+import { LinkPrevious } from 'grommet-icons';
 import { canWriteToDoc } from '../common/models/user';
 import { Preloader } from '../components/Preloader';
 import { Document } from '../common/models/document';
@@ -12,7 +12,7 @@ import { SecondaryHeader } from '../components/SecondaryHeader';
 import { Schema } from '../common/models/schema';
 import { Contact } from '../common/models/contact';
 import { Modal } from '@centrifuge/axis-modal';
-import MintNftForm, { MintNftFormData } from './MintNftForm';
+import { MintNftFormData } from './MintNftForm';
 import { httpClient } from '../http-client';
 import { AppContext } from '../App';
 import { useMergeState } from '../hooks';
@@ -20,7 +20,6 @@ import { PageError } from '../components/PageError';
 import documentRoutes from './routes';
 import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
 import { AxiosError } from 'axios';
-import FundingRequestForm from './FundingAgreementForm';
 import { FundingAgreements } from './FundingAgreements';
 import { Nfts } from './Nfts';
 
@@ -29,8 +28,6 @@ type Props = RouteComponentProps<{ id: string }>;
 
 type State = {
   loadingMessage: string | null
-  mintingOpened: boolean;
-  fundingOpened: boolean;
   document?: Document;
   schemas: Schema[];
   contacts: Contact[];
@@ -51,16 +48,12 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
     {
       loadingMessage,
       contacts,
-      fundingOpened,
       document,
       schemas,
-      mintingOpened,
       error,
     },
     setState] = useMergeState<State>({
     loadingMessage: 'Loading',
-    mintingOpened: false,
-    fundingOpened: false,
     schemas: [],
     contacts: [],
   });
@@ -69,14 +62,14 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
   const notification = useContext(NotificationContext);
 
 
-  const handleHttpClientError = useCallback((error) => {
+  const displayPageError = useCallback((error) => {
     setState({
       loadingMessage: null,
       error,
     });
   }, [setState]);
 
-  const loadData = useCallback(async (id: string) => {
+  const loadData = useCallback(async () => {
     setState({
       loadingMessage: 'Loading',
     });
@@ -92,14 +85,14 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
       });
 
     } catch (e) {
-      handleHttpClientError(e);
+      displayPageError(e);
     }
-  }, [setState, handleHttpClientError]);
+  }, [id, setState, displayPageError]);
 
 
   useEffect(() => {
-    loadData(id);
-  }, [id, loadData]);
+    loadData();
+  }, [loadData]);
 
 
   const updateDocument = async (newDoc: Document) => {
@@ -113,16 +106,7 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
         document,
       });
     } catch (e) {
-      setState({
-        loadingMessage: null,
-      });
-
-
-      notification.alert({
-        type: NOTIFICATION.ERROR,
-        title: ' Failed to update document',
-        message: (e as AxiosError)!.response!.data.message,
-      });
+      displayModalError(e, 'Failed to update document');
     }
 
   };
@@ -131,7 +115,6 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
 
     setState({
       loadingMessage: 'Minting NFT',
-      mintingOpened: false,
     });
 
     try {
@@ -150,53 +133,35 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
       });
 
     } catch (e) {
-      setState({
-        loadingMessage: null,
-      });
-
-      notification.alert({
-        type: NOTIFICATION.ERROR,
-        title: ' Failed to mint NFT',
-        message: (e as AxiosError)!.response!.data.message,
-      });
+      displayModalError(e, 'Failed to mint NFT');
     }
   };
 
 
-
-
-  const openMintModal = () => {
-    setState({ mintingOpened: true });
+  const startLoading = (loadingMessage: string = 'Loading') => {
+    setState({ loadingMessage });
   };
 
-  const closeMintModal = () => {
-    setState({ mintingOpened: false });
+  const displayModalError = (e: AxiosError, title: string = 'Error') => {
+    setState({
+      loadingMessage: null,
+    });
+    notification.alert({
+      type: NOTIFICATION.ERROR,
+      title,
+      message: e!.response!.data.message,
+    });
   };
 
-  const openFundingModal = () => {
-    setState({ fundingOpened: true });
-  };
-
-  const closeFundingModal = () => {
-    setState({ fundingOpened: false });
-  };
 
   const onCancel = () => {
     props.history.goBack();
   };
 
 
-  if (loadingMessage) {
-    return <Preloader message={loadingMessage}/>;
-  }
-
-  if (error)
-    return <PageError error={error}/>;
-
-  // Redirect to view in case the user can not edit this document
-  if (!canWriteToDoc(user!, document)) {
-    return <Redirect to={documentRoutes.view.replace(':id', id)}/>;
-  }
+  if (loadingMessage) return <Preloader message={loadingMessage}/>;
+  if (error) return <PageError error={error}/>;
+  if (!canWriteToDoc(user!, document)) return <Redirect to={documentRoutes.view.replace(':id', id)}/>;
 
   const selectedSchema: Schema | undefined = schemas.find(s => {
     return (
@@ -206,14 +171,12 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
       s.name === document.attributes._schema.value
     );
   });
-
-  if (!selectedSchema) return <p>Unsupported schema</p>;
+  // Redirect to view when the user can not edit this document
+  if (!selectedSchema) return <PageError error={new Error('Can not find schema definition for document')}/>;
 
   // Add mint action if schema has any registries defined
-  const canMint = selectedSchema.registries && selectedSchema.registries.length > 0;
-  const canFund = true
-  ;
-
+  const canMint = selectedSchema!.registries && selectedSchema!.registries.length > 0;
+  const canFund = canWriteToDoc(user, document);
 
   return (
     <>
@@ -247,48 +210,25 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
               />
 
             </Box>
-          </SecondaryHeader>
+          </SecondaryHeader>;
         }}
       >
         <Nfts
-          onCreateStart={(message)=>{
-            setState({
-              loadingMessage:'Creating Function Agreement'
-            })
-          }}
-          onCreateComplete={()=>{
-            loadData(id)
-          }}
-          onCreateError={(error)=> {
-            setState({
-              loadingMessage: null
-            })
-          }}
+          onAsyncStart={startLoading}
+          onAsyncComplete={loadData}
+          onAsyncError={displayModalError}
           viewMode={!canMint}
           document={document!}
-          registries={selectedSchema.registries}/>
+          registries={selectedSchema!.registries}/>
 
         <FundingAgreements
-          onCreateStart={()=>{
-            setState({
-              loadingMessage:'Creating Function Agreement'
-            })
-          }}
-          onCreateComplete={()=>{
-            loadData(id)
-          }}
-          onCreateError={(error)=> {
-            setState({
-              loadingMessage: null
-            })
-          }}
+          onAsyncStart={startLoading}
+          onAsyncComplete={loadData}
+          onAsyncError={displayModalError}
           viewMode={!canFund}
           document={document!}
+          user={user}
           contacts={contacts}/>
-
-
-
-
       </DocumentForm>
     </>
   );

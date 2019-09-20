@@ -93,7 +93,7 @@ const SchemasList: FunctionComponent = () => {
 
   const notification = useContext(NotificationContext);
 
-  const handleHttpClientError = useCallback((error) => {
+  const displayPageError = useCallback((error) => {
     setState({
       loadingMessage: null,
       error,
@@ -115,9 +115,9 @@ const SchemasList: FunctionComponent = () => {
       });
 
     } catch (e) {
-      handleHttpClientError(e);
+      displayPageError(e);
     }
-  }, [setState, handleHttpClientError]);
+  }, [setState, displayPageError]);
 
 
   useEffect(() => {

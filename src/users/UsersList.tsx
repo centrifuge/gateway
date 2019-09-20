@@ -50,7 +50,7 @@ const UsersList: FunctionComponent = () => {
   const notification = useContext(NotificationContext);
 
 
-  const handleHttpClientError = useCallback((error) => {
+  const displayPageError = useCallback((error) => {
     setState({
       loadingMessage: null,
       error,
@@ -75,9 +75,9 @@ const UsersList: FunctionComponent = () => {
       });
 
     } catch (e) {
-      handleHttpClientError(e);
+      displayPageError(e);
     }
-  }, [setState, handleHttpClientError]);
+  }, [setState, displayPageError]);
 
 
   useEffect(() => {
@@ -156,6 +156,8 @@ const UsersList: FunctionComponent = () => {
             header: 'Centrifuge ID',
             render: data =>
               data.account ? <DisplayField
+                as={'span'}
+                copy={true}
                 link={{
                   href: getAddressLink(data.account),
                   target: '_blank',

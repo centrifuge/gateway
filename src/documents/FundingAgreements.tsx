@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useMergeState } from '../hooks';
 import { httpClient } from '../http-client';
 import { Contact } from '../common/models/contact';
@@ -6,78 +6,114 @@ import FundingRequestForm from './FundingAgreementForm';
 import { Modal } from '@centrifuge/axis-modal';
 import { Document } from '../common/models/document';
 import { getAddressLink } from '../common/etherscan';
-import { extractDate } from '../common/formaters';
+import { extractDate, formatCurrency } from '../common/formaters';
 import { Section } from '../components/Section';
 import { Anchor, Box, Button, DataTable, Paragraph } from 'grommet';
 import { DisplayField } from '@centrifuge/axis-display-field';
-import { Money } from 'grommet-icons';
-import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
-import { AxiosError } from 'axios';
-import { canSignFunding } from '../common/models/user';
-import { AppContext } from '../App';
-import { Status } from '../components/Status';
+import { Currency } from 'grommet-icons';
+import { canSignFunding, User } from '../common/models/user';
+import { FundingStatus } from './FundingStatus';
 import { getFundingStatus } from '../common/status';
+import { FundingRequest,FundingAgreement } from '../common/models/funding-request';
 
 type Props = {
-  onCreateStart: (message: string) => void;
-  onCreateComplete: (data) => void;
-  onCreateError: (error) => void;
+  onAsyncStart?: (message: string) => void;
+  onAsyncComplete?: (data) => void;
+  onAsyncError?: (error, title?: string) => void;
   document: Document,
   contacts: Contact[],
+  user: User | null,
   viewMode: boolean,
 }
 
 type State = {
-  modalOpened: boolean
+  modalOpened: boolean,
+  selectedFundingAgreement: FundingAgreement,
+  isViewMode:boolean,
 }
 
 export const FundingAgreements: FunctionComponent<Props> = (props) => {
 
   const [{
     modalOpened,
+    selectedFundingAgreement,
+    isViewMode,
   }, setState] = useMergeState<State>({
     modalOpened: false,
+    selectedFundingAgreement:new FundingAgreement(),
+    isViewMode:false,
   });
 
 
   const {
-    onCreateStart,
-    onCreateComplete,
-    onCreateError,
+    onAsyncStart,
+    onAsyncComplete,
+    onAsyncError,
     document,
+    user,
     contacts,
     viewMode,
-  } = props;
+  } =
+    {
+      onAsyncStart: (message: string) => {
+      },
+      onAsyncComplete: (data) => {
+      },
+      onAsyncError: (error, title?: string) => {
+      },
 
-  const notification = useContext(NotificationContext);
-  const { user } = useContext(AppContext);
+      ...props,
+    };
 
-  const createFundingAgreement = async (document_id, data) => {
+
+  const createFundingAgreement = async (data: FundingAgreement) => {
     setState({
       modalOpened: false,
     });
 
-    onCreateStart('Creating Funding Agreement');
+    onAsyncStart('Creating Funding Agreement');
     try {
       const payload = {
         ...data,
-        document_id,
-      };
-      onCreateComplete((await httpClient.funding.create(payload)).data);
+        document_id: document!.header!.document_id!,
+      } as FundingRequest;
+      onAsyncComplete((await httpClient.funding.create(payload)).data);
 
     } catch (e) {
-      notification.alert({
-        type: NOTIFICATION.ERROR,
-        title: ' Failed to create funding agreement',
-        message: (e as AxiosError)!.response!.data.message,
-      });
-
-      onCreateError(e);
+      onAsyncError(e, 'Failed to create funding agreement');
     }
   };
 
-  const openModal = () => {
-    setState({ modalOpened: true });
+  const singFundingAgreement = async (funding: FundingAgreement) => {
+
+
+    onAsyncStart('Signing Funding Agreement');
+    try {
+      const payload = {
+        agreement_id: funding.agreement_id,
+        document_id: document!.header!.document_id!,
+      };
+      onAsyncComplete((await httpClient.funding.sign(payload)).data);
+
+    } catch (e) {
+      onAsyncError(e, 'Failed to sign funding agreement');
+    }
+  };
+
+  const openModalInEditMode = (fundingAgreement:FundingAgreement) => {
+    setState({
+      selectedFundingAgreement:fundingAgreement,
+      isViewMode: false,
+      modalOpened: true
+    });
+  }
+
+  const openModalInViewMode = (fundingAgreement:FundingAgreement) => {
+    setState({
+      selectedFundingAgreement:fundingAgreement,
+      isViewMode:true,
+      modalOpened: true
+    });
   };
 
   const closeModal = () => {
@@ -86,88 +122,137 @@ export const FundingAgreements: FunctionComponent<Props> = (props) => {
 
 
   const fundingActions = !viewMode ? [
-    <Button key="create-funding-agreement" onClick={openModal} icon={<Money/>} plain label={'Request funding'}/>,
+    <Button key="create-funding-agreement" onClick={() => openModalInEditMode(new FundingAgreement())} icon={<Currency/>} plain label={'Request funding'}/>,
   ] : [];
 
-  const renderFundingSection = () => {
 
+  const agreements = document!.attributes!.funding_agreement || [];
 
-    const mappedToSortable = (document!.attributes!.funding_agreement || []).map(fundingAgreement => {
-      return {
-        agreement_id: fundingAgreement.agreement_id.value,
-        amount: fundingAgreement.amount.value,
-        repayment_amount: fundingAgreement.repayment_amount.value,
-        repayment_due_date: fundingAgreement.repayment_due_date.value,
-        funder_id: fundingAgreement.funder_id.value,
-        fee: fundingAgreement.fee.value,
-      };
-    });
+  const mappedToSortable = agreements.map((fundingAgreement, index) => {
+    return {
+      agreement_id: fundingAgreement.agreement_id.value,
+      amount: fundingAgreement.amount.value,
+      currency: fundingAgreement.currency.value,
+      repayment_amount: fundingAgreement.repayment_amount.value,
+      repayment_due_date: fundingAgreement.repayment_due_date.value,
+      funder_id: fundingAgreement.funder_id.value,
+      status: getFundingStatus(fundingAgreement),
+      fee: fundingAgreement.fee.value,
+      nft_address: fundingAgreement.nft_address ? fundingAgreement.nft_address.value: '',
+      days: fundingAgreement.days.value,
+      apr: fundingAgreement.apr.value,
+    } as FundingAgreement;
+  });
 
-    const columns = [
-      {
-        property: 'agreement_id',
-        header: 'Agreement Id',
-        render: datum => <DisplayField
-          value={datum.agreement_id}/>,
+  const columns = [
+    {
+      property: 'agreement_id',
+      header: 'Agreement Id',
+      render: datum => <DisplayField
+        copy={true}
+        as={'span'}
+        value={datum.agreement_id}/>,
 
+    },
+    {
+      property: 'funder_id',
+      header: 'Funder Id',
+      render: datum => <DisplayField
+        copy={true}
+        as={'span'}
+        link={{
+          href: getAddressLink(datum.funder_id),
+          target: '_blank',
+        }}
+        value={datum.funder_id}/>,
+    },
+    {
+      property: 'amount',
+      header: 'Amount',
+      render: datum => {
+        return formatCurrency(datum.amount, datum.currency);
       },
-      {
-        property: 'funder_id',
-        header: 'Funder Id',
-        render: datum => <DisplayField
-          link={{
-            href: getAddressLink(datum.funder_id),
-            target: '_blank',
-          }}
-          value={datum.funder_id}/>,
+    },
+    {
+      property: 'repayment_amount',
+      header: 'Repayment Amount',
+      render: datum => {
+        return formatCurrency(datum.repayment_amount, datum.currency);
       },
-      {
-        property: 'amount',
-        header: 'Amount',
-      },
-      {
-        property: 'repayment_amount',
-        header: 'Repayment Amount',
-      },
-      {
-        property: 'repayment_due_date',
-        header: 'Repayment Due Date',
-        render: (datum => extractDate(datum.repayment_due_date)),
-      },
+    },
+    {
+      property: 'repayment_due_date',
+      header: 'Repayment Due Date',
+      render: (datum => extractDate(datum.repayment_due_date)),
+    },
 
-      {
-        property: 'status',
-        header: 'Status',
-        render: (datum => <Status value={getFundingStatus(datum)}/>),
+    {
+      property: 'fee',
+      header: 'Finance Fee',
+      render: datum => {
+        return formatCurrency(datum.fee, datum.currency);
       },
-      {
-        property: '_id',
-        header: 'Actions',
-        sortable: false,
-        render: datum => (
-          <Box direction="row" gap="small">
-            {canSignFunding(user, document) &&
-            <Anchor
-              label={'Sign'}
-              onClick={() =>
-                alert('sign')
-              }
-            />
+    },
+
+    {
+      property: 'status',
+      header: 'Status',
+      render: (datum => <FundingStatus value={datum.status}/>),
+    },
+    {
+      property: '_id',
+      header: 'Actions',
+      sortable: false,
+      render: datum => (
+        <Box direction="row" gap="small">
+          {canSignFunding(user, document) && <Anchor
+            label={'Sign'}
+            onClick={() =>
+              singFundingAgreement(datum)
             }
+          />
+          }
+          <Anchor
+            label={'View'}
+            onClick={() =>
+              openModalInViewMode(datum)
+            }
+          />
 
-          </Box>
-        ),
-      },
-    ];
+        </Box>
+      ),
+    },
+  ];
 
-    return (<Section
+
+  return <>
+    <Modal
+      width={'large'}
+      opened={modalOpened}
+      headingProps={{ level: 3 }}
+      title={isViewMode ? `Funding Agreement`:`Request Funding`}
+      onClose={closeModal}
+    >
+      <FundingRequestForm
+        fundingAgreement={selectedFundingAgreement}
+        isViewMode={isViewMode}
+        today={new Date()}
+        onSubmit={(data) => {
+          createFundingAgreement(data);
+        }}
+        contacts={contacts}
+        onDiscard={closeModal}
+      />
+    </Modal>
+
+    <Section
       title="Funding Agreements"
       actions={fundingActions}
     >
 
       <DataTable
         size={'100%'}
-        sortable={false}
+        sortable={true}
         data={mappedToSortable}
         primaryKey={'token_id'}
         columns={columns}
@@ -175,28 +260,8 @@ export const FundingAgreements: FunctionComponent<Props> = (props) => {
 
       {!mappedToSortable.length &&
       <Paragraph color={'dark-2'}>There are no funding agreements yet.</Paragraph>}
-    </Section>);
-  };
-
-  return <>
-    <Modal
-      width={'large'}
-      opened={modalOpened}
-      headingProps={{ level: 3 }}
-      title={`Request Funding`}
-      onClose={closeModal}
-    >
-      <FundingRequestForm
-        today={new Date()}
-        onSubmit={(data) => {
-          createFundingAgreement(document!.header!.document_id!, data);
-        }}
-        contacts={contacts}
-        onDiscard={closeModal}
-      />
-    </Modal>
-
-    {renderFundingSection()}
+    </Section>
 
   </>;
 };
+

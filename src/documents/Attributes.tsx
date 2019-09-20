@@ -4,8 +4,6 @@ import { DateInput } from '@centrifuge/axis-date-input';
 import { Schema } from '../common/models/schema';
 import { Grid } from 'grommet';
 import { get } from 'lodash';
-import { FormikContext } from 'formik';
-import { Document } from '../common/models/document';
 import { Section } from '../components/Section';
 import AttributeField from './AttributeField';
 

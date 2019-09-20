@@ -33,10 +33,15 @@ export const formatDate = (value: any) => {
 };
 
 export const formatCurrency = (value, currency) => {
-  return new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: currency,
-  }).format(value);
+  try {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: currency,
+    }).format(value);
+  } catch (e) {
+    return `${currency} `;
+  }
+
 };
 
 

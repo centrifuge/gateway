@@ -21,13 +21,12 @@ export enum TRANSFER_DETAILS_STATUS {
 }
 
 export const getFundingStatus = (fundingAgreement) => {
-
-
    if (
      fundingAgreement.signatures &&
      Array.isArray(fundingAgreement.signatures) &&
      fundingAgreement.signatures.find( signature => {
-       return signature.value.toLowerCase() === fundingAgreement.funding_agreement.value.toLowerCase();
+       console.log(signature)
+       return signature.value.toLowerCase() === fundingAgreement.funder_id.value.toLowerCase();
      })
   ) {
     return FUNDING_STATUS.ACCEPTED;

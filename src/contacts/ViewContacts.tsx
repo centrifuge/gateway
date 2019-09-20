@@ -30,7 +30,7 @@ const ViewContacts: FunctionComponent = () => {
   const { user } = useContext(AppContext);
 
 
-  const handleHttpClientError = useCallback((error) => {
+  const displayPageError = useCallback((error) => {
     setState({
       loading: false,
       error,
@@ -46,7 +46,7 @@ const ViewContacts: FunctionComponent = () => {
       await httpClient.contacts.create(contact);
       await loadContacts();
     } catch (e) {
-      handleHttpClientError(e);
+      displayPageError(e);
     }
   };
 
@@ -58,7 +58,7 @@ const ViewContacts: FunctionComponent = () => {
       await httpClient.contacts.update(contact);
       await loadContacts();
     } catch (e) {
-      handleHttpClientError(e);
+      displayPageError(e);
     }
   };
 
@@ -73,9 +73,9 @@ const ViewContacts: FunctionComponent = () => {
         contacts,
       });
     } catch (e) {
-      handleHttpClientError(e);
+      displayPageError(e);
     }
-  }, [handleHttpClientError, setState]);
+  }, [displayPageError, setState]);
 
   useEffect(() => {
     loadContacts();

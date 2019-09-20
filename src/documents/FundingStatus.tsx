@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'grommet';
 import { FUNDING_STATUS } from '../common/status';
 
-export const Status = (props => {
+export const FundingStatus = (props => {
   const { value } = props;
   let color = '';
   switch (value) {

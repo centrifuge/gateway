@@ -10,14 +10,12 @@ import { DisplayField } from '@centrifuge/axis-display-field';
 import { Money } from 'grommet-icons';
 import { Registry } from '../common/models/schema';
 import MintNftForm, { MintNftFormData } from './MintNftForm';
-import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
-import { AxiosError } from 'axios';
 import { AppContext } from '../App';
 
 type Props = {
-  onCreateStart: (message: string) => void;
-  onCreateComplete: (data) => void;
-  onCreateError: (error) => void;
+  onAsyncStart?: (message: string) => void;
+  onAsyncComplete?: (data) => void;
+  onAsyncError?: (error, title?: string) => void;
   document: Document,
   registries: Registry[],
   viewMode: boolean,
@@ -37,25 +35,32 @@ export const Nfts: FunctionComponent<Props> = (props) => {
 
 
   const {
-    onCreateStart,
-    onCreateComplete,
-    onCreateError,
+    onAsyncStart,
+    onAsyncComplete,
+    onAsyncError,
     document,
     registries,
     viewMode,
-  } = props;
+  } = {
+    onAsyncStart: (message: string) => {
+    },
+    onAsyncComplete: (data) => {
+    },
+    onAsyncError: (error, title?: string) => {
+    },
+    ...props,
+  };;
 
 
   const { user } = useContext(AppContext);
-  const notification = useContext(NotificationContext);
 
 
   const mintNFT = async (id: string | undefined, data: MintNftFormData) => {
 
-    onCreateStart('Minting NFT');
+    onAsyncStart('Minting NFT');
 
     try {
-      onCreateComplete((await httpClient.documents.mint(
+      onAsyncComplete((await httpClient.documents.mint(
         id,
         {
           deposit_address: data.transfer ? data.deposit_address : user!.account,
@@ -63,16 +68,8 @@ export const Nfts: FunctionComponent<Props> = (props) => {
           registry_address: data.registry!.address,
         },
       )).data);
-
-
     } catch (e) {
-      notification.alert({
-        type: NOTIFICATION.ERROR,
-        title: 'Failed to mint NFT',
-        message: (e as AxiosError)!.response!.data.message,
-      });
-
-      onCreateError(e);
+      onAsyncError(e, 'Failed to mint NFT');
     }
   };
 
@@ -105,6 +102,8 @@ export const Nfts: FunctionComponent<Props> = (props) => {
             property: 'token_id',
             header: 'Token id',
             render: datum => <DisplayField
+              copy={true}
+              as={'span'}
               link={{
                 href: getNFTLink(datum.token_id, datum.registry),
                 target: '_blank',
@@ -116,6 +115,8 @@ export const Nfts: FunctionComponent<Props> = (props) => {
             property: 'registry',
             header: 'Registry',
             render: datum => <DisplayField
+              copy={true}
+              as={'span'}
               link={{
                 href: getAddressLink(datum.registry),
                 target: '_blank',
@@ -127,6 +128,8 @@ export const Nfts: FunctionComponent<Props> = (props) => {
             property: 'owner',
             header: 'Owner',
             render: datum => <DisplayField
+              copy={true}
+              as={'span'}
               link={{
                 href: getAddressLink(datum.owner),
                 target: '_blank',
@@ -161,3 +164,4 @@ export const Nfts: FunctionComponent<Props> = (props) => {
 
   </>;
 };
+

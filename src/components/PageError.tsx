@@ -4,28 +4,29 @@ import { AxiosError } from 'axios';
 
 
 type Props = {
-  error: AxiosError;
+  error: Error | AxiosError;
 }
 export const PageError: FunctionComponent<Props> = ({ error }) => {
 
-  console.log(JSON.stringify(error));
-  console.log(error.code);
-  console.log(error.response);
-  console.log(error.request);
-  console.log(error.config);
+  let title = 'Error';
+  let message = error.message;
 
+  if (error.hasOwnProperty('isAxiosError')) {
+    const axiosError = error as AxiosError;
+    title = axiosError!.response!.status.toString();
+    message = axiosError!.response!.data.message || axiosError!.response!.statusText;
+  }
 
-
-
-  return <Box width={'100%'} align={'center'} justify={'center'} height={'calc(100vh - 90px)'} direction={'row'} gap={'medium'}>
-    <Box  border={{side:'right'}} pad={{horizontal:'medium'}}>
+  return <Box width={'100%'} align={'center'} justify={'center'} height={'calc(100vh - 90px)'} direction={'row'}
+              gap={'medium'}>
+    <Box border={{ side: 'right' }} pad={{ horizontal: 'medium' }}>
       <Heading level={3}>
-      {error!.response!.status}
-        </Heading>
+        {title}
+      </Heading>
     </Box>
 
     <Paragraph>
-      {error!.response!.data.message || error!.response!.statusText}
+      {message}
     </Paragraph>
   </Box>;
 };

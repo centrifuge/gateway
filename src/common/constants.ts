@@ -14,7 +14,6 @@ const userRoutes = {
 const fundingRoutes = {
   base: baseFundingRoute,
   sign: `${baseFundingRoute}/sign`,
-  settle: `${baseFundingRoute}/settle`,
 };
 
 

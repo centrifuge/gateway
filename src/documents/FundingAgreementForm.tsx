@@ -2,38 +2,40 @@ import React from 'react';
 import { Box, Button, FormField, TextInput } from 'grommet';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { FundingRequest } from '../common/models/funding-request';
+import { FundingAgreement } from '../common/models/funding-request';
 import { SearchSelect } from '@centrifuge/axis-search-select';
-import { dateToString, extractDate, getPercentFormat } from '../common/formaters';
+import { dateToString, extractDate, getCurrencyFormat, getPercentFormat } from '../common/formaters';
 import { NumberInput } from '@centrifuge/axis-number-input';
 import { DateInput } from '@centrifuge/axis-date-input';
 import { Contact } from '../common/models/contact';
+import { ViewModeFormContainer } from '../components/ViewModeFormContainer';
 
 type Props = {
-  onSubmit: (fundingRequest: FundingRequest) => void;
+  onSubmit: (fundingRequest: FundingAgreement) => void;
   onDiscard: () => void;
   contacts: Contact[];
   today: Date;
-  fundingRequest: FundingRequest;
+  isViewMode: boolean;
+  fundingAgreement: FundingAgreement;
 };
 
 export default class FundingRequestForm extends React.Component<Props> {
   displayName = 'CreateEditInvoice';
-  static defaultProps: Props = {
-    onSubmit: (fundingRequest: FundingRequest) => {
+  static defaultProps = {
+    onSubmit: (fundingAgreement: FundingAgreement) => {
       // do nothing by default
     },
     onDiscard: () => {
       // do nothing by default
     },
+    isViewMode: false,
     today: new Date(),
-    fundingRequest: new FundingRequest(),
     contacts: [],
   };
 
   state = { submitted: false };
 
-  onSubmit = (values: FundingRequest) => {
+  onSubmit = (values: FundingAgreement) => {
     return this.props.onSubmit({ ...values });
   };
 
@@ -45,22 +47,20 @@ export default class FundingRequestForm extends React.Component<Props> {
   render() {
 
     const { submitted } = this.state;
-    const { fundingRequest, contacts, today } = this.props;
+    const { fundingAgreement, contacts, today, isViewMode } = this.props;
     const columnGap = 'medium';
     const sectionGap = 'large';
-
-
-    // TODO Remove this
-    fundingRequest.currency = 'USD';
-
-    //const currencyParts = getCurrencyFormat(fundingRequest.currency);
     const percentParts = getPercentFormat();
 
 
     const fundingRequestValidation = Yup.object().shape({
-      funder: Yup.string()
+      funder_id: Yup.string()
         .required('This field is required'),
+      nft_address: Yup.string()
+        .matches(/^0x/, 'must start with 0x')
+        .length(66, 'must have 66 characters'),
       repayment_amount: Yup.number()
+        .moreThan(0,'Must be greater than 0')
         .required('This field is required'),
       apr: Yup.number()
         .required('This field is required'),
@@ -73,10 +73,10 @@ export default class FundingRequestForm extends React.Component<Props> {
     });
 
     return (
-      <Box width={'large'} pad={{ top: 'large', bottom: 'large' }}>
+      <Box pad={{ top: 'large', bottom: 'large' }}>
         <Formik
           validationSchema={fundingRequestValidation}
-          initialValues={fundingRequest}
+          initialValues={fundingAgreement}
           validateOnBlur={submitted}
           validateOnChange={submitted}
           onSubmit={(values, { setSubmitting }) => {
@@ -92,82 +92,92 @@ export default class FundingRequestForm extends React.Component<Props> {
                handleChange,
                setFieldValue,
                handleSubmit,
+               submitForm,
              }) => {
 
-              // Calculate days and repayment_amount
               let days, amount, financeRate, feeAmount, financeFee;
+              // convert string to float
+              const repaymentAmount = parseFloat(values.repayment_amount);
+              const apr = parseFloat(values.apr);
+
+              // Calculate days for loan
               const repaymentDate = new Date(values.repayment_due_date);
               const diff = repaymentDate.getTime() - today.getTime();
-              days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-              financeRate = values.apr / 360 * days;
-              feeAmount = values.fee * values.repayment_amount;
-              financeFee = (values.repayment_amount * financeRate + feeAmount).toFixed(2);
-              amount = values.repayment_amount - financeFee;
+              const additionalFee = 0;
+              days = Math.round(diff / (1000 * 60 * 60 * 24));
+
+              financeRate = apr / 360 * days;
+              feeAmount = additionalFee * repaymentAmount;
+              financeFee = parseFloat(((repaymentAmount * financeRate + feeAmount) || 0).toFixed(2));
+              amount = repaymentAmount - financeFee;
+
+
+              console.log(financeRate, financeFee, feeAmount, amount, repaymentAmount, financeRate, days);
+              console.log(values);
 
               if (isNaN(amount)) amount = 0;
               if (isNaN(days)) days = 0;
-              values.days = days;
-              values.amount = amount.toFixed(2);
+              values.days = days.toString();
+              values.fee = financeFee.toString();
+              values.amount = amount.toFixed(2).toString();
+
+
+              const currencyFormat = getCurrencyFormat(values.currency);
 
               return (
-                <form
-                  onSubmit={event => {
-                    this.setState({ submitted: true });
-                    handleSubmit(event);
-                  }}
-                >
-                  <Box direction="column" gap={sectionGap}>
-
+                <Box direction="column" gap={sectionGap}>
+                  <ViewModeFormContainer isViewMode={isViewMode} direction="column" gap={sectionGap}>
                     <Box gap={columnGap}>
                       <Box direction="row" gap={columnGap}>
-                        <Box basis={'1/2'} gap={columnGap}>
+                        <Box basis='1/2'>
                           <FormField
                             label="Funder"
-                            error={errors!.funder}
+                            error={errors!.funder_id}
                           >
                             <SearchSelect
+                              disabled={isViewMode}
                               labelKey={'name'}
                               valueKey={'address'}
                               options={contacts}
                               value={
                                 contacts.find((c) => {
-                                  return c.address!.toLowerCase() === values!.funder.toLowerCase();
+                                  return c.address!.toLowerCase() === values!.funder_id.toLowerCase();
                                 })
                               }
                               onChange={(selected) => {
-                                setFieldValue('funder', selected.address);
+                                setFieldValue('funder_id', selected.address);
                               }}
                             />
                           </FormField>
                         </Box>
 
-                        <Box basis={'1/2'} gap={columnGap} direction="row">
+                        <Box basis='1/2'>
+                          <FormField
+                            label="Currency"
+                            error={errors!.currency}
+                          >
 
-                          <Box basis={'1/2'}>
-                            <FormField
-                              label="Currency"
-                              error={errors!.currency}
-                            >
-
-                              <TextInput
-                                name="currency"
-                                value={values!.currency}
-                                onChange={handleChange}
-                              />
-                            </FormField>
-                          </Box>
+                            <TextInput
+                              disabled={isViewMode}
+                              name="currency"
+                              value={values!.currency}
+                              onChange={handleChange}
+                            />
+                          </FormField>
                         </Box>
                       </Box>
-
                     </Box>
+
                     <Box gap={columnGap}>
                       <Box direction="row" gap={columnGap}>
-                        <Box basis={'1/4'} gap={columnGap}>
+                        <Box basis='1/2'>
                           <FormField
                             label={`Repayment amount`}
                             error={errors!.repayment_amount}
                           >
                             <NumberInput
+                              disabled={isViewMode}
+                              {...currencyFormat}
                               name="repayment_amount"
                               value={values!.repayment_amount}
                               onChange={({ value }) => {
@@ -177,7 +187,8 @@ export default class FundingRequestForm extends React.Component<Props> {
 
                           </FormField>
                         </Box>
-                        <Box basis={'1/4'} gap={columnGap}>
+
+                        <Box basis='1/2'>
                           <FormField
                             label="APR"
                             error={errors!.apr}
@@ -186,41 +197,47 @@ export default class FundingRequestForm extends React.Component<Props> {
                               {...percentParts}
                               disabled={true}
                               name="apr"
-                              value={values!.apr * 100}
+                              value={apr * 100}
                             />
                           </FormField>
                         </Box>
-                        <Box basis={'1/4'} gap={columnGap}>
+                      </Box>
+                    </Box>
+                    <Box gap={columnGap}>
+                      <Box direction="row" gap={columnGap}>
+                        <Box basis='1/2'>
                           <FormField
                             label={`Finance fee`}
                             error={errors!.fee}
                           >
                             <NumberInput
-
+                              {...currencyFormat}
                               disabled={true}
-                              value={financeFee}
+                              value={values.fee}
                             />
                           </FormField>
                         </Box>
-                        <Box basis={'1/4'} gap={columnGap}>
+
+                        <Box basis='1/2'>
                           <FormField
                             label={`Early payment amount`}
                             error={errors!.amount}
                           >
                             <NumberInput
+                              {...currencyFormat}
                               name="amount"
                               disabled={true}
                               value={values!.amount}
                             />
                           </FormField>
-
                         </Box>
                       </Box>
+                    </Box>
+                    <Box gap={columnGap}>
                       <Box direction="row" gap={columnGap}>
-                        <Box basis={'1/4'} gap={columnGap}>
+                        <Box basis='1/2'>
                           <FormField
                             label="Early payment date"
-                            error={errors!.repayment_due_date}
                           >
                             <DateInput
                               disabled={true}
@@ -229,12 +246,14 @@ export default class FundingRequestForm extends React.Component<Props> {
                             />
                           </FormField>
                         </Box>
-                        <Box basis={'1/4'} gap={columnGap}>
+
+                        <Box basis='1/2'>
                           <FormField
                             label="Repayment due date"
                             error={errors!.repayment_due_date}
                           >
                             <DateInput
+                              disabled={isViewMode}
                               name="repayment_due_date"
                               type="date"
                               value={extractDate(values!.repayment_due_date)}
@@ -244,31 +263,41 @@ export default class FundingRequestForm extends React.Component<Props> {
                             />
 
                           </FormField>
-
-                        </Box>
-                        <Box basis={'1/4'} gap={columnGap}>
-
-                        </Box>
-                        <Box basis={'1/4'} gap={columnGap}>
-
                         </Box>
                       </Box>
                     </Box>
+                    <Box gap={columnGap}>
+                      <FormField
+                        label="NFT Token ID"
+                        error={errors!.nft_address}
+                      >
 
-                  </Box>
+                        <TextInput
+                          disabled={isViewMode}
+                          name="nft_address"
+                          value={values!.nft_address}
+                          onChange={handleChange}
+                        />
+                      </FormField>
+                    </Box>
+                  </ViewModeFormContainer>
                   <Box direction="row" justify={'end'} gap="medium" margin={{ top: 'medium' }}>
                     <Button
                       onClick={this.onDiscard}
                       label="Discard"
                     />
 
-                    <Button
-                      type="submit"
+                    {!isViewMode && <Button
+                      onClick={() => {
+                        this.setState({ submitted: true });
+                        submitForm();
+                      }}
                       primary
                       label="Request"
-                    />
+                    />}
                   </Box>
-                </form>
+                </Box>
+
               );
             }
           }

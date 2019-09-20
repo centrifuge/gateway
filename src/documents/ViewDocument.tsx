@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext, useEffect } from 'react';
+import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Document } from '../common/models/document';
 import { RouteComponentProps, withRouter } from 'react-router';
@@ -16,6 +16,10 @@ import { LinkPrevious } from 'grommet-icons';
 import documentRoutes from './routes';
 import DocumentForm from './DocumentForm';
 import { Preloader } from '../components/Preloader';
+import { AxiosError } from 'axios';
+import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
+import { Nfts } from './Nfts';
+import { FundingAgreements } from './FundingAgreements';
 
 
 type Props = RouteComponentProps<{ id: string }>
@@ -31,13 +35,20 @@ type State = {
 
 export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
 
-  const [{ loadingMessage, contacts, document, schemas, error }, setState] = useMergeState<State>({
+  const [{
+    loadingMessage,
+    contacts,
+    document,
+    schemas,
+    error,
+  }, setState] = useMergeState<State>({
     loadingMessage: 'Loading',
     contacts: [],
     schemas: [],
     error: null,
   });
-  const { user } = useContext(AppContext);
+
+
   const {
     match: {
       params: {
@@ -50,42 +61,59 @@ export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
   } = props;
 
 
-  useEffect(() => {
+  const { user } = useContext(AppContext);
+  const notification = useContext(NotificationContext);
 
-    const handleHttpClientError = (error) => {
+  const displayPageError = useCallback((error) => {
+    setState({
+      loadingMessage: null,
+      error,
+    });
+  }, [setState]);
+
+  const loadData = useCallback(async () => {
+    setState({
+      loadingMessage: 'Loading',
+    });
+    try {
+      const contacts = (await httpClient.contacts.list()).data;
+      const schemas = (await httpClient.schemas.list()).data;
+      const document = (await httpClient.documents.getById(id)).data;
       setState({
         loadingMessage: null,
-        error,
+        contacts,
+        schemas,
+        document,
       });
-    };
 
-    const loadData = async (id: string) => {
-      setState({
-        loadingMessage: 'Loading',
-      });
-      try {
-        const contacts = (await httpClient.contacts.list()).data;
-        const schemas = (await httpClient.schemas.list()).data;
-        const document = (await httpClient.documents.getById(id)).data;
-        setState({
-          loadingMessage: null,
-          contacts,
-          schemas,
-          document,
-        });
-
-      } catch (e) {
-        handleHttpClientError(e);
-      }
-    };
-
-    loadData(id);
+    } catch (e) {
+      displayPageError(e);
+    }
   }, [id, setState]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+
+  const startLoading = (loadingMessage: string = 'Loading') => {
+    setState({ loadingMessage });
+  };
+
+  const displayModalError = (e: AxiosError, title: string = 'Error') => {
+    setState({
+      loadingMessage: null,
+    });
+    notification.alert({
+      type: NOTIFICATION.ERROR,
+      title,
+      message: e!.response!.data.message,
+    });
+  };
 
 
   if (loadingMessage) return <Preloader message={loadingMessage}/>;
-  if (error ) return <PageError error={error}/>;
-
+  if (error) return <PageError error={error}/>;
 
   const selectedSchema: Schema | undefined = !document ? undefined : schemas.find(s => {
     return (
@@ -98,36 +126,49 @@ export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
 
   return (
 
-      <Box pad={{ bottom: 'large' }}>
-        <SecondaryHeader>
-          <Box direction="row" gap="small" align="center">
-            <Link to={routes.documents.index} size="large">
-              <LinkPrevious/>
-            </Link>
+    <Box pad={{ bottom: 'large' }}>
+      <SecondaryHeader>
+        <Box direction="row" gap="small" align="center">
+          <Link to={routes.documents.index} size="large">
+            <LinkPrevious/>
+          </Link>
 
-            <Heading level="3">
-              Document #{document!.attributes!.reference_id!.value}
-            </Heading>
-          </Box>
-          <Box direction="row" gap="medium">
-            {canWriteToDoc(user, document) && <Button
-              onClick={() => {
-                push(
-                  documentRoutes.edit.replace(':id', id),
-                );
-              }}
-              label="Edit"
-            />}
-          </Box>
-        </SecondaryHeader>
+          <Heading level="3">
+            Document #{document!.attributes!.reference_id!.value}
+          </Heading>
+        </Box>
+        <Box direction="row" gap="medium">
+          {canWriteToDoc(user, document) && <Button
+            onClick={() => {
+              push(
+                documentRoutes.edit.replace(':id', id),
+              );
+            }}
+            label="Edit"
+          />}
+        </Box>
+      </SecondaryHeader>
 
-        <DocumentForm
-          selectedSchema={selectedSchema}
-          document={document}
-          mode={'view'}
-          schemas={schemas}
+      <DocumentForm
+        selectedSchema={selectedSchema}
+        document={document}
+        mode={'view'}
+        schemas={schemas}
+        contacts={contacts}>
+
+        <Nfts
+          viewMode={true}
+          document={document!}
+          registries={selectedSchema!.registries}/>
+
+        <FundingAgreements
+          user={user}
+          viewMode={true}
+          document={document!}
           contacts={contacts}/>
-      </Box>
+
+      </DocumentForm>
+    </Box>
   );
 
 };

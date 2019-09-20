@@ -161,6 +161,7 @@ const App: FunctionComponent<AppPros> = (props: AppPros) => {
                     <Text>Centrifuge ID: </Text>
                     <Box width={'160px'}>
                       <DisplayField
+                        copy={true}
                         link={{
                           href: getAddressLink(user.account),
                           target: '_blank',

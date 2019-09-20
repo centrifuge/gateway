@@ -1,8 +1,5 @@
 import React from 'react';
 import { Box, FormField, Grid, ResponsiveContext } from 'grommet';
-import { StyledSelect } from 'grommet/components/Select/StyledSelect';
-import { StyledTextInput } from 'grommet/components/TextInput/StyledTextInput';
-import { StyledTextArea } from 'grommet/components/TextArea/StyledTextArea';
 import { Formik } from 'formik';
 import { get } from 'lodash';
 import * as Yup from 'yup';
@@ -12,24 +9,10 @@ import { SearchSelect } from '@centrifuge/axis-search-select';
 import { Contact } from '../common/models/contact';
 import { MultipleSelect } from '@centrifuge/axis-multiple-select';
 import { Section } from '../components/Section';
-import styled from 'styled-components';
 import { DisplayField } from '@centrifuge/axis-display-field';
 import Comments from './Comments';
 import Attributes from './Attributes';
-
-// improve visibility of inputs in view mode
-const StyledFormContainer = styled(Box)`
-  ${StyledTextInput}, ${StyledTextArea}, input[type="text"], textarea, ${StyledSelect} button {
-       ${props => {
-  if (props.mode === 'view')
-    return ` svg {
-                    opacity: 0;
-                    }
-                    cursor:default;
-                    opacity: 1;`;
-}}
-  }  
- `;
+import { ViewModeFormContainer } from '../components/ViewModeFormContainer';
 
 
 // TODO use function components here
@@ -203,7 +186,7 @@ export class DocumentForm extends React.Component<Props, State> {
 
 
     return (
-      <StyledFormContainer mode={mode} pad={{ bottom: 'xlarge' }}>
+      <ViewModeFormContainer isViewMode={mode === 'view' ? 'view-mode-form':''}  pad={{ bottom: 'xlarge' }}>
         <ResponsiveContext.Consumer>
           {size => {
             return <Formik
@@ -224,6 +207,7 @@ export class DocumentForm extends React.Component<Props, State> {
                    handleChange,
                    handleSubmit,
                    setFieldValue,
+                   submitForm,
                  }) => (
                   <form
                     onSubmit={event => {
@@ -259,7 +243,7 @@ export class DocumentForm extends React.Component<Props, State> {
           }}
         </ResponsiveContext.Consumer>
 
-      </StyledFormContainer>
+      </ViewModeFormContainer>
     );
   }
 

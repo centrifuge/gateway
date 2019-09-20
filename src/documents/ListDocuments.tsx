@@ -46,7 +46,7 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
   const { user } = useContext(AppContext);
 
 
-  const handleHttpClientError = useCallback((error) => {
+  const displayPageError = useCallback((error) => {
     setState({
       loadingMessage: null,
       error,
@@ -67,9 +67,9 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
       });
 
     } catch (e) {
-      handleHttpClientError(e);
+      displayPageError(e);
     }
-  }, [setState, handleHttpClientError]);
+  }, [setState, displayPageError]);
 
 
   useEffect(() => {
@@ -117,7 +117,6 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
             {
               property: '$_reference_id',
               header: 'Reference ID',
-              sortable: true,
             },
 
             {
@@ -128,7 +127,6 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
             {
               property: 'createdAt',
               header: 'Date created',
-              sortable: true,
               render: datum => formatDate(datum.createdAt),
             },
             {

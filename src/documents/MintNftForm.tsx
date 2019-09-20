@@ -95,15 +95,10 @@ export default class MintNftForm extends React.Component<Props> {
                errors,
                handleChange,
                setFieldValue,
-               handleSubmit,
+               submitForm,
              }) => {
               return (
-                <form
-                  onSubmit={event => {
-                    this.setState({ submitted: true });
-                    handleSubmit(event);
-                  }}
-                >
+                <>
                   <Box direction="column" gap={sectionGap}>
 
                     <Box gap={columnGap}>
@@ -151,12 +146,15 @@ export default class MintNftForm extends React.Component<Props> {
                     />
 
                     <Button
-                      type="submit"
+                      onClick={()=>{
+                        this.setState({submitted:true})
+                        submitForm()
+                      }}
                       primary
                       label="Mint"
                     />
                   </Box>
-                </form>
+                </>
               );
             }
           }

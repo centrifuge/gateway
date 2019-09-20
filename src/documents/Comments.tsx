@@ -1,9 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { NumberInput } from '@centrifuge/axis-number-input';
-import { DateInput } from '@centrifuge/axis-date-input';
-import { Attribute, AttrTypes } from '../common/models/schema';
-import { Box, FormField, Grid, Select, TextArea, TextInput } from 'grommet';
-import { dateToString, extractDate } from '../common/formaters';
+import { FormField, Grid, TextArea } from 'grommet';
 import { get } from 'lodash';
 import { connect, FormikContext } from 'formik';
 import { Document } from '../common/models/document';
@@ -28,8 +24,7 @@ const Comments: FunctionComponent<Props> = (props: Props) => {
       values,
       errors,
       handleChange,
-      setFieldValue
-    }
+    },
   } = props;
 
 
