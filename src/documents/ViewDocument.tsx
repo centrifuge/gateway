@@ -161,11 +161,11 @@ export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
           document={document!}
           registries={selectedSchema!.registries}/>
 
-        <FundingAgreements
+        {(selectedSchema!.formFeatures && selectedSchema!.formFeatures!.fundingAgreement) && <FundingAgreements
           user={user}
           viewMode={true}
           document={document!}
-          contacts={contacts}/>
+          contacts={contacts}/>}
 
       </DocumentForm>
     </Box>

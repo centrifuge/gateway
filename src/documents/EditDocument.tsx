@@ -221,14 +221,14 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
           document={document!}
           registries={selectedSchema!.registries}/>
 
-        <FundingAgreements
+        {(selectedSchema!.formFeatures && selectedSchema!.formFeatures!.fundingAgreement) && <FundingAgreements
           onAsyncStart={startLoading}
           onAsyncComplete={loadData}
           onAsyncError={displayModalError}
           viewMode={!canFund}
           document={document!}
           user={user}
-          contacts={contacts}/>
+          contacts={contacts}/>}
       </DocumentForm>
     </>
   );
