@@ -27,8 +27,10 @@ export const getFundingStatus = (fundingAgreement) => {
     })
   ) {
     return FUNDING_STATUS.ACCEPTED;
-  } else {
+  } else if(fundingAgreement.funder_id){
     return FUNDING_STATUS.PENDING;
+  } else {
+    return FUNDING_STATUS.NO_STATUS
   }
 
 
