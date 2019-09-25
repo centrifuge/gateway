@@ -26,7 +26,9 @@
   },
   "scripts": {
     "start": "tsc --build --watch",
-    "test": "jest --config jest.config.js"
+    "test": "jest --config jest.config.js",
+    "build": "tsc --build",
+    "clean": "rm -rf ./models ./centrifuge-node-client ./utils"
   },
   "bugs": {
     "url": "https://github.com/centrifuge/gateway/issues"

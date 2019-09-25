@@ -22,7 +22,9 @@
   },
   "scripts": {
     "start": "nodemon",
-    "test": "jest --config jest.config.js"
+    "test": "jest --config jest.config.js",
+    "build": "tsc --build",
+    "clean": "rm -rf ./dist"
   },
   "bugs": {
     "url": "https://github.com/centrifuge/gateway.git)/issues"

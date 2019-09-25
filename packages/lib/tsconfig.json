@@ -5,7 +5,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "isolatedModules": true,
     "target": "es6",
     "lib": [
       "dom",

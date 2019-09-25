@@ -9,7 +9,6 @@
     "ui"
   ],
   "author": "razvan <razvan@centrifuge.io>",
-  "homepage": "https://github.com/centrifuge/gateway",
   "license": "ISC",
   "repository": {
     "type": "git",
@@ -49,6 +48,7 @@
 
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "clean": "rm -rf ./build",
     "test": "react-scripts test --coverage"
   },
   "eslintConfig": {
