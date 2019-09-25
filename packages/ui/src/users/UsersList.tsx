@@ -14,7 +14,7 @@ import { httpClient } from '../http-client';
 import { getAddressLink } from '@centrifuge/gateway-lib/utils/etherscan';
 import { PageError } from '../components/PageError';
 import { useMergeState } from '../hooks';
-import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
+import { NOTIFICATION, NotificationContext } from '../components/NotificationContext';
 import { AxiosError } from 'axios';
 
 

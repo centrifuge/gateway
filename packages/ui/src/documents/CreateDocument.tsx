@@ -12,7 +12,7 @@ import { Contact } from '@centrifuge/gateway-lib/models/contact';
 import { Document } from '@centrifuge/gateway-lib/models/document';
 import { httpClient } from '../http-client';
 import { mapSchemaNames } from '@centrifuge/gateway-lib/utils/schema-utils';
-import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
+import { NOTIFICATION, NotificationContext } from '../components/NotificationContext';
 import { AppContext } from '../App';
 import { useMergeState } from '../hooks';
 import { PageError } from '../components/PageError';

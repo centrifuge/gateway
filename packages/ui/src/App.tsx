@@ -11,7 +11,7 @@ import UsersList from './users/UsersList';
 
 
 import Contacts from './contacts/ViewContacts';
-import { NotificationProvider } from './components/notifications/NotificationContext';
+import { NotificationProvider } from './components/NotificationContext';
 import SchemasList from './schemas/SchemasList';
 import ListDocuments from './documents/ListDocuments';
 import CreateDocument from './documents/CreateDocument';

@@ -16,7 +16,7 @@ import { AppContext } from '../App';
 import { useMergeState } from '../hooks';
 import { PageError } from '../components/PageError';
 import documentRoutes from './routes';
-import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
+import { NOTIFICATION, NotificationContext } from '../components/NotificationContext';
 import { AxiosError } from 'axios';
 import { FundingAgreements } from './FundingAgreements';
 import { Nfts } from './Nfts';

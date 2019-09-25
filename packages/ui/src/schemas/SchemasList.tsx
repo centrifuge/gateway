@@ -8,7 +8,7 @@ import { Preloader } from '../components/Preloader';
 import SchemasForm from './SchemasForm';
 import { httpClient } from '../http-client';
 import { useMergeState } from '../hooks';
-import { NOTIFICATION, NotificationContext } from '../components/notifications/NotificationContext';
+import { NOTIFICATION, NotificationContext } from '../components/NotificationContext';
 import { PageError } from '../components/PageError';
 import { AxiosError } from 'axios';
 
