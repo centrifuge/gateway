@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Transaction } from "web3/eth/types";
-import config from "config";
+import config from "src/config";
 
 const Eth = require('ethjs');
 const eth = new Eth(new Eth.HttpProvider(config.ethProvider));

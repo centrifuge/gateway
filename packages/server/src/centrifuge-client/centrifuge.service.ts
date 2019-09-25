@@ -10,7 +10,7 @@ import {
   PurchaseOrdersApi,
   TransferDetailsApi,
 } from '@centrifuge/gateway-lib/centrifuge-node-client';
-import config from '../../config';
+import config from '../config';
 import { promisify } from 'util';
 import { BadRequestException } from '@nestjs/common';
 

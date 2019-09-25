@@ -1,9 +1,9 @@
-import { FundingController } from './funding.controller';
-import { databaseServiceProvider } from '../database/database.providers';
+import { FundingController } from '../funding.controller';
+import { databaseServiceProvider } from '../../database/database.providers';
 import { Test, TestingModule } from '@nestjs/testing';
-import { SessionGuard } from '../auth/SessionGuard';
-import { DatabaseService } from '../database/database.service';
-import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.module';
+import { SessionGuard } from '../../auth/SessionGuard';
+import { DatabaseService } from '../../database/database.service';
+import { centrifugeServiceProvider } from '../../centrifuge-client/centrifuge.module';
 
 
 describe('Funding controller', () => {

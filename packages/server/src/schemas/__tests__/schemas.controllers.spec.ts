@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpException } from '@nestjs/common';
-import { AttributesErrors, AttrTypes, DiffErrors, RegistriesErrors, Schema } from '@centrifuge/gateway-lib/models/schema';
-import { SessionGuard } from '../auth/SessionGuard';
-import { databaseServiceProvider } from '../database/database.providers';
-import { DatabaseService } from '../database/database.service';
-import { SchemasController } from './schemas.controllers';
+import { AttributesErrors, AttrTypes, DiffErrors, RegistriesErrors, Schema } from '../../../../lib/models/schema';
+import { SessionGuard } from '../../auth/SessionGuard';
+import { databaseServiceProvider } from '../../database/database.providers';
+import { DatabaseService } from '../../database/database.service';
+import { SchemasController } from '../schemas.controllers';
 
 const delay = require('util').promisify(setTimeout);
 

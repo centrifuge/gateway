@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import * as path from 'path';
 import * as session from 'express-session';
 import * as passport from 'passport';
-import config from '../config';
+import config from './config';
 
 // accept self-signed certificate
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1';

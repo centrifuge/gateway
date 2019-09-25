@@ -1,8 +1,8 @@
-import { LocalStrategy } from './local.strategy';
+import { LocalStrategy } from '../local.strategy';
 import { UnauthorizedException } from '@nestjs/common';
 
-import { AuthService } from './auth.service';
-import { User } from '@centrifuge/gateway-lib/models/user';
+import { AuthService } from '../auth.service';
+import { User } from '../../../../lib/models/user';
 import { Test } from '@nestjs/testing';
 
 describe('LocalStrategy', () => {

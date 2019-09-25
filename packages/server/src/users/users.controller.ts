@@ -16,7 +16,7 @@ import { promisify } from 'util';
 import { ROUTES } from '@centrifuge/gateway-lib/utils/constants';
 import { User } from '@centrifuge/gateway-lib/models/user';
 import { DatabaseService } from '../database/database.service';
-import config from '../../config';
+import config from '../config';
 import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import { UserAuthGuard } from '../auth/admin.auth.guard';
 

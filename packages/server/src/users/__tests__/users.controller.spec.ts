@@ -1,12 +1,12 @@
-import { UsersController } from './users.controller';
-import { databaseServiceProvider } from '../database/database.providers';
-import { User } from '@centrifuge/gateway-lib/models/user';
+import { UsersController } from '../users.controller';
+import { databaseServiceProvider } from '../../database/database.providers';
+import { User } from '../../../../lib/models/user';
 import config from '../../config';
 import { Test, TestingModule } from '@nestjs/testing';
-import { SessionGuard } from '../auth/SessionGuard';
-import { DatabaseService } from '../database/database.service';
-import { PERMISSIONS } from '@centrifuge/gateway-lib/utils/constants';
-import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.module';
+import { SessionGuard } from '../../auth/SessionGuard';
+import { DatabaseService } from '../../database/database.service';
+import { PERMISSIONS } from '../../../../lib/utils/constants';
+import { centrifugeServiceProvider } from '../../centrifuge-client/centrifuge.module';
 
 describe('Users controller', () => {
   const userAccount = 'generated_identity_id';

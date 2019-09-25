@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DocumentTypes, EventTypes, WebhooksController } from './webhooks.controller';
-import { databaseServiceProvider } from '../database/database.providers';
-import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
-import { DatabaseService } from '../database/database.service';
-import { User } from '@centrifuge/gateway-lib/models/user';
-import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.module';
+import { DocumentTypes, EventTypes, WebhooksController } from '../webhooks.controller';
+import { databaseServiceProvider } from '../../database/database.providers';
+import { CentrifugeService } from '../../centrifuge-client/centrifuge.service';
+import { DatabaseService } from '../../database/database.service';
+import { User } from '../../../../lib/models/user';
+import { centrifugeServiceProvider } from '../../centrifuge-client/centrifuge.module';
 
 describe('WebhooksController', () => {
   let webhooksModule: TestingModule;

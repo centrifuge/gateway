@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Document } from '@centrifuge/gateway-lib/models/document';
-import { SessionGuard } from '../auth/SessionGuard';
-import { databaseServiceProvider } from '../database/database.providers';
-import { DatabaseService } from '../database/database.service';
-import { DocumentsController } from './documents.controller';
-import { centrifugeServiceProvider } from '../centrifuge-client/centrifuge.module';
-import { CoreapiCreateDocumentRequest } from '@centrifuge/gateway-lib/centrifuge-node-client';
-import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
+import { Document } from '../../../../lib/models/document';
+import { SessionGuard } from '../../auth/SessionGuard';
+import { databaseServiceProvider } from '../../database/database.providers';
+import { DatabaseService } from '../../database/database.service';
+import { DocumentsController } from '../documents.controller';
+import { centrifugeServiceProvider } from '../../centrifuge-client/centrifuge.module';
+import { CoreapiCreateDocumentRequest } from '../../../../lib/centrifuge-node-client';
+import { CentrifugeService } from '../../centrifuge-client/centrifuge.service';
 
 describe('DocumentsController', () => {
   let documentsModule: TestingModule;

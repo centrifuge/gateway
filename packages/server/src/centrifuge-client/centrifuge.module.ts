@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CentrifugeService } from './centrifuge.service';
 import { MockCentrifugeService } from './centrifuge-client.mock';
-import config from '../../config';
+import config from '../config';
 
 function checkNodeEnvironment() {
   switch (process.env.NODE_ENV) {

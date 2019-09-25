@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpException } from '@nestjs/common';
-import { ContactsController } from './contacts.controller';
-import { Contact } from '@centrifuge/gateway-lib/models/contact';
-import { SessionGuard } from '../auth/SessionGuard';
-import { databaseServiceProvider } from '../database/database.providers';
-import { DatabaseService } from '../database/database.service';
+import { ContactsController } from '../contacts.controller';
+import { Contact } from '../../../../lib/models/contact';
+import { SessionGuard } from '../../auth/SessionGuard';
+import { databaseServiceProvider } from '../../database/database.providers';
+import { DatabaseService } from '../../database/database.service';
 
 const delay = require('util').promisify(setTimeout);
 

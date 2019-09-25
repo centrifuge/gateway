@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
 
-import { AuthService } from './auth.service';
-import { User } from '@centrifuge/gateway-lib/models/user';
-import { databaseServiceProvider } from '../database/database.providers';
-import { DatabaseService } from '../database/database.service';
+import { AuthService } from '../auth.service';
+import { User } from '../../../../lib/models/user';
+import { databaseServiceProvider } from '../../database/database.providers';
+import { DatabaseService } from '../../database/database.service';
 
 describe('LocalStrategy', () => {
   const unhashedPassword = 'my_password';
