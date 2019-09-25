@@ -31,7 +31,8 @@ async function bootstrap() {
   app.setBaseViewsDir(path.resolve('./build'));
   app.useStaticAssets(path.resolve('./build'), { index: false });
 
-  const server = await app.listen(3001);
+  const server = await app.listen(config.applicationPort);
+  console.log('PORT',config.applicationPort)
   server.setTimeout(0);
 }
 

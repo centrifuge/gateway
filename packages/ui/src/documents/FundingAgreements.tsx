@@ -16,6 +16,7 @@ import { FundingStatus } from './FundingStatus';
 import { getFundingStatus } from '@centrifuge/gateway-lib/utils/status';
 import { FundingAgreement, FundingRequest } from '@centrifuge/gateway-lib/models/funding-request';
 import { getContactByAddress } from '@centrifuge/gateway-lib/utils/contact-utils';
+import { formatPercent } from '@centrifuge/gateway-lib/utils/formaters';
 
 type Props = {
   onAsyncStart?: (message: string) => void;
@@ -148,15 +149,6 @@ export const FundingAgreements: FunctionComponent<Props> = (props) => {
 
   const columns = [
     {
-      property: 'agreement_id',
-      header: 'Agreement Id',
-      render: datum => <DisplayField
-        copy={true}
-        as={'span'}
-        value={datum.agreement_id}/>,
-
-    },
-    {
       property: 'funder_id',
       header: 'Funder',
       render: datum => <DisplayField
@@ -176,6 +168,13 @@ export const FundingAgreements: FunctionComponent<Props> = (props) => {
       },
     },
     {
+      property: 'apr',
+      header: 'APR',
+      render: datum => {
+        return formatPercent(datum.apr);
+      },
+    },
+    {
       property: 'repayment_amount',
       header: 'Repayment amount',
       render: datum => {
@@ -188,13 +187,7 @@ export const FundingAgreements: FunctionComponent<Props> = (props) => {
       render: (datum => extractDate(datum.repayment_due_date)),
     },
 
-    {
-      property: 'fee',
-      header: 'Finance fee',
-      render: datum => {
-        return formatCurrency(datum.fee, datum.currency);
-      },
-    },
+
 
     {
       property: 'status',

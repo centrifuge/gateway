@@ -3,6 +3,7 @@ import { PERMISSIONS } from '../../lib/utils/constants';
 
 const config = {
   centrifugeUrl: env.CENTRIFUGE_URL || 'http://127.0.0.1:8082',
+  applicationPort: env.APPLICATION_PORT || '3001',
   sessionSecret: env.SESSION_SECRET || 'centrifuge',
   //We use replace to create a new database without changing the deployment config
   dbPath: env.DB_PATH ? env.DB_PATH.replace('db', 'db1') : './db',

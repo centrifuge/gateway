@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-
     "@centrifuge/gateway-server": "file:packages/server",
     "@centrifuge/gateway-lib": "file:packages/lib",
     "@centrifuge/gateway-ui": "file:packages/ui"
@@ -13,7 +12,7 @@
     "bootstrap": "lerna bootstrap",
     "pretest": "lerna run build --scope @centrifuge/gateway-lib",
     "test": "cross-env CI=true lerna run test --parallel",
-    "start": "lerna run start --parallel",
+    "start": "cross-env  lerna run start --parallel",
     "build": "lerna run build --parallel",
     "postbuild": "rm -rf ./build && mv packages/ui/build .",
     "postinstall": "npm run bootstrap"
@@ -59,5 +58,5 @@
       "enzyme-to-json/serializer"
     ]
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3002"
 }

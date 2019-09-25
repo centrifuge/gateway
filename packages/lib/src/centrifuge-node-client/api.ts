@@ -2,7 +2,7 @@
 // tslint:disable
 /**
  * Centrifuge OS Node API
- *  
+ *
  *
  * OpenAPI spec version: 0.0.5
  * Contact: hello@centrifuge.io
@@ -14,8 +14,9 @@
 
 
 import * as url from "url";
-import * as portableFetch from "portable-fetch";
+import portableFetch from "portable-fetch";
 import { Configuration } from "./configuration";
+
 
 const BASE_PATH = "http://localhost:8082".replace(/\/+$/, "");
 
@@ -40,7 +41,7 @@ export interface FetchAPI {
 }
 
 /**
- *  
+ *
  * @export
  * @interface FetchArgs
  */
@@ -50,7 +51,7 @@ export interface FetchArgs {
 }
 
 /**
- * 
+ *
  * @export
  * @class BaseAPI
  */
@@ -66,7 +67,7 @@ export class BaseAPI {
 };
 
 /**
- * 
+ *
  * @export
  * @class RequiredError
  * @extends {Error}
@@ -79,7 +80,7 @@ export class RequiredError extends Error {
 }
 
 /**
- * 
+ *
  * @export
  * @interface ByteutilsHexBytes
  */
@@ -87,43 +88,43 @@ export interface ByteutilsHexBytes extends Array<any> {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiAccount
  */
 export interface CoreapiAccount {
     /**
-     * 
+     *
      * @type {CoreapiEthAccount}
      * @memberof CoreapiAccount
      */
     eth_account?: CoreapiEthAccount;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiAccount
      */
     eth_default_account_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiAccount
      */
     identity_id?: string;
     /**
-     * 
+     *
      * @type {CoreapiKeyPair}
      * @memberof CoreapiAccount
      */
     p2p_key_pair?: CoreapiKeyPair;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiAccount
      */
     receive_event_notification_endpoint?: string;
     /**
-     * 
+     *
      * @type {CoreapiKeyPair}
      * @memberof CoreapiAccount
      */
@@ -131,13 +132,13 @@ export interface CoreapiAccount {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiAccounts
  */
 export interface CoreapiAccounts {
     /**
-     * 
+     *
      * @type {Array<CoreapiAccount>}
      * @memberof CoreapiAccounts
      */
@@ -145,7 +146,7 @@ export interface CoreapiAccounts {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiAttributeMapRequest
  */
@@ -155,7 +156,7 @@ export interface CoreapiAttributeMapRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiAttributeMapResponse
  */
@@ -165,19 +166,19 @@ export interface CoreapiAttributeMapResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiAttributeRequest
  */
 export interface CoreapiAttributeRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiAttributeRequest
      */
     type?: CoreapiAttributeRequest.TypeEnum;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiAttributeRequest
      */
@@ -203,25 +204,25 @@ export namespace CoreapiAttributeRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiAttributeResponse
  */
 export interface CoreapiAttributeResponse {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiAttributeResponse
      */
     key?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiAttributeResponse
      */
     type?: CoreapiAttributeResponse.TypeEnum;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiAttributeResponse
      */
@@ -247,37 +248,37 @@ export namespace CoreapiAttributeResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiCreateDocumentRequest
  */
 export interface CoreapiCreateDocumentRequest {
     /**
-     * 
+     *
      * @type {CoreapiAttributeMapRequest}
      * @memberof CoreapiCreateDocumentRequest
      */
     attributes?: CoreapiAttributeMapRequest;
     /**
-     * 
+     *
      * @type {any}
      * @memberof CoreapiCreateDocumentRequest
      */
     data?: any;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof CoreapiCreateDocumentRequest
      */
     read_access?: Array<string>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiCreateDocumentRequest
      */
     scheme?: CoreapiCreateDocumentRequest.SchemeEnum;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof CoreapiCreateDocumentRequest
      */
@@ -302,31 +303,31 @@ export namespace CoreapiCreateDocumentRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiDocumentResponse
  */
 export interface CoreapiDocumentResponse {
     /**
-     * 
+     *
      * @type {CoreapiAttributeMapResponse}
      * @memberof CoreapiDocumentResponse
      */
     attributes?: CoreapiAttributeMapResponse;
     /**
-     * 
+     *
      * @type {any}
      * @memberof CoreapiDocumentResponse
      */
     data?: any;
     /**
-     * 
+     *
      * @type {CoreapiResponseHeader}
      * @memberof CoreapiDocumentResponse
      */
     header?: CoreapiResponseHeader;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiDocumentResponse
      */
@@ -351,25 +352,25 @@ export namespace CoreapiDocumentResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiEthAccount
  */
 export interface CoreapiEthAccount {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiEthAccount
      */
     address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiEthAccount
      */
     key?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiEthAccount
      */
@@ -377,19 +378,19 @@ export interface CoreapiEthAccount {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiKeyPair
  */
 export interface CoreapiKeyPair {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiKeyPair
      */
     pub?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiKeyPair
      */
@@ -397,43 +398,43 @@ export interface CoreapiKeyPair {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiMintNFTRequest
  */
 export interface CoreapiMintNFTRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiMintNFTRequest
      */
     deposit_address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiMintNFTRequest
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof CoreapiMintNFTRequest
      */
     grant_nft_access?: boolean;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof CoreapiMintNFTRequest
      */
     proof_fields?: Array<string>;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof CoreapiMintNFTRequest
      */
     submit_nft_owner_access_proof?: boolean;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof CoreapiMintNFTRequest
      */
@@ -441,37 +442,37 @@ export interface CoreapiMintNFTRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiMintNFTResponse
  */
 export interface CoreapiMintNFTResponse {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiMintNFTResponse
      */
     deposit_address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiMintNFTResponse
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {CoreapiNFTResponseHeader}
      * @memberof CoreapiMintNFTResponse
      */
     header?: CoreapiNFTResponseHeader;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiMintNFTResponse
      */
     registry_address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiMintNFTResponse
      */
@@ -479,31 +480,31 @@ export interface CoreapiMintNFTResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiNFT
  */
 export interface CoreapiNFT {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiNFT
      */
     owner?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiNFT
      */
     registry?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiNFT
      */
     token_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiNFT
      */
@@ -511,25 +512,25 @@ export interface CoreapiNFT {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiNFTOwnerResponse
  */
 export interface CoreapiNFTOwnerResponse {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiNFTOwnerResponse
      */
     owner?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiNFTOwnerResponse
      */
     registry_address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiNFTOwnerResponse
      */
@@ -537,13 +538,13 @@ export interface CoreapiNFTOwnerResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiNFTResponseHeader
  */
 export interface CoreapiNFTResponseHeader {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiNFTResponseHeader
      */
@@ -551,37 +552,37 @@ export interface CoreapiNFTResponseHeader {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiProof
  */
 export interface CoreapiProof {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiProof
      */
     hash?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiProof
      */
     property?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiProof
      */
     salt?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof CoreapiProof
      */
     sorted_hashes?: Array<string>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiProof
      */
@@ -589,25 +590,25 @@ export interface CoreapiProof {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiProofResponseHeader
  */
 export interface CoreapiProofResponseHeader {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiProofResponseHeader
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiProofResponseHeader
      */
     state?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiProofResponseHeader
      */
@@ -615,13 +616,13 @@ export interface CoreapiProofResponseHeader {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiProofsRequest
  */
 export interface CoreapiProofsRequest {
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof CoreapiProofsRequest
      */
@@ -629,19 +630,19 @@ export interface CoreapiProofsRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiProofsResponse
  */
 export interface CoreapiProofsResponse {
     /**
-     * 
+     *
      * @type {Array<CoreapiProof>}
      * @memberof CoreapiProofsResponse
      */
     field_proofs?: Array<CoreapiProof>;
     /**
-     * 
+     *
      * @type {CoreapiProofResponseHeader}
      * @memberof CoreapiProofsResponse
      */
@@ -649,55 +650,55 @@ export interface CoreapiProofsResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiResponseHeader
  */
 export interface CoreapiResponseHeader {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiResponseHeader
      */
     author?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiResponseHeader
      */
     created_at?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiResponseHeader
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiResponseHeader
      */
     job_id?: string;
     /**
-     * 
+     *
      * @type {Array<CoreapiNFT>}
      * @memberof CoreapiResponseHeader
      */
     nfts?: Array<CoreapiNFT>;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof CoreapiResponseHeader
      */
     read_access?: Array<string>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiResponseHeader
      */
     version_id?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof CoreapiResponseHeader
      */
@@ -705,13 +706,13 @@ export interface CoreapiResponseHeader {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiSignRequest
  */
 export interface CoreapiSignRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiSignRequest
      */
@@ -719,31 +720,31 @@ export interface CoreapiSignRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiSignResponse
  */
 export interface CoreapiSignResponse {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiSignResponse
      */
     payload?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiSignResponse
      */
     public_key?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiSignResponse
      */
     signature?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiSignResponse
      */
@@ -751,13 +752,13 @@ export interface CoreapiSignResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiTransferNFTRequest
  */
 export interface CoreapiTransferNFTRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiTransferNFTRequest
      */
@@ -765,31 +766,31 @@ export interface CoreapiTransferNFTRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface CoreapiTransferNFTResponse
  */
 export interface CoreapiTransferNFTResponse {
     /**
-     * 
+     *
      * @type {CoreapiNFTResponseHeader}
      * @memberof CoreapiTransferNFTResponse
      */
     header?: CoreapiNFTResponseHeader;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiTransferNFTResponse
      */
     registry_address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiTransferNFTResponse
      */
     to?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof CoreapiTransferNFTResponse
      */
@@ -797,31 +798,31 @@ export interface CoreapiTransferNFTResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentNFT
  */
 export interface DocumentNFT {
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentNFT
      */
     registry?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentNFT
      */
     owner?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentNFT
      */
     token_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentNFT
      */
@@ -829,55 +830,55 @@ export interface DocumentNFT {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentResponseHeader
  */
 export interface DocumentResponseHeader {
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentResponseHeader
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentResponseHeader
      */
     version_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentResponseHeader
      */
     author?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentResponseHeader
      */
     created_at?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof DocumentResponseHeader
      */
     read_access?: Array<string>;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof DocumentResponseHeader
      */
     write_access?: Array<string>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentResponseHeader
      */
     job_id?: string;
     /**
-     * 
+     *
      * @type {Array<DocumentNFT>}
      * @memberof DocumentResponseHeader
      */
@@ -885,7 +886,7 @@ export interface DocumentResponseHeader {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentsBinaryAttachment
  */
@@ -897,7 +898,7 @@ export interface DocumentsBinaryAttachment {
      */
     checksum?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsBinaryAttachment
      */
@@ -909,7 +910,7 @@ export interface DocumentsBinaryAttachment {
      */
     file_type?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsBinaryAttachment
      */
@@ -923,55 +924,55 @@ export interface DocumentsBinaryAttachment {
 }
 
 /**
- * 
+ *
  * @export
  * @interface DocumentsPaymentDetails
  */
 export interface DocumentsPaymentDetails {
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsPaymentDetails
      */
     amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsPaymentDetails
      */
     bank_account_currency?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsPaymentDetails
      */
     bank_account_holder_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsPaymentDetails
      */
     bank_account_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsPaymentDetails
      */
     bank_address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsPaymentDetails
      */
     bank_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsPaymentDetails
      */
     bank_key?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsPaymentDetails
      */
@@ -1001,13 +1002,13 @@ export interface DocumentsPaymentDetails {
      */
     crypto_transaction_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsPaymentDetails
      */
     currency?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof DocumentsPaymentDetails
      */
@@ -1039,73 +1040,73 @@ export interface DocumentsPaymentDetails {
 }
 
 /**
- * 
+ *
  * @export
  * @interface EntityAddress
  */
 export interface EntityAddress {
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityAddress
      */
     address_line_1?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityAddress
      */
     address_line_2?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityAddress
      */
     contact_person?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityAddress
      */
     country?: string;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof EntityAddress
      */
     is_main?: boolean;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof EntityAddress
      */
     is_pay_to?: boolean;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof EntityAddress
      */
     is_remit_to?: boolean;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof EntityAddress
      */
     is_ship_to?: boolean;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityAddress
      */
     label?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityAddress
      */
     state?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityAddress
      */
@@ -1113,43 +1114,43 @@ export interface EntityAddress {
 }
 
 /**
- * 
+ *
  * @export
  * @interface EntityBankPaymentMethod
  */
 export interface EntityBankPaymentMethod {
     /**
-     * 
+     *
      * @type {EntityAddress}
      * @memberof EntityBankPaymentMethod
      */
     address?: EntityAddress;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityBankPaymentMethod
      */
     bank_account_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityBankPaymentMethod
      */
     bank_key?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityBankPaymentMethod
      */
     holder_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityBankPaymentMethod
      */
     identifier?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityBankPaymentMethod
      */
@@ -1157,37 +1158,37 @@ export interface EntityBankPaymentMethod {
 }
 
 /**
- * 
+ *
  * @export
  * @interface EntityContact
  */
 export interface EntityContact {
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityContact
      */
     email?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityContact
      */
     fax?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityContact
      */
     name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityContact
      */
     phone?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityContact
      */
@@ -1195,31 +1196,31 @@ export interface EntityContact {
 }
 
 /**
- * 
+ *
  * @export
  * @interface EntityCryptoPaymentMethod
  */
 export interface EntityCryptoPaymentMethod {
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityCryptoPaymentMethod
      */
     chain_uri?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityCryptoPaymentMethod
      */
     identifier?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityCryptoPaymentMethod
      */
     supported_currency?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityCryptoPaymentMethod
      */
@@ -1227,37 +1228,37 @@ export interface EntityCryptoPaymentMethod {
 }
 
 /**
- * 
+ *
  * @export
  * @interface EntityData
  */
 export interface EntityData {
     /**
-     * 
+     *
      * @type {Array<EntityAddress>}
      * @memberof EntityData
      */
     addresses?: Array<EntityAddress>;
     /**
-     * 
+     *
      * @type {Array<EntityContact>}
      * @memberof EntityData
      */
     contacts?: Array<EntityContact>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityData
      */
     identity?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityData
      */
     legal_name?: string;
     /**
-     * 
+     *
      * @type {Array<EntityPaymentDetail>}
      * @memberof EntityData
      */
@@ -1265,31 +1266,31 @@ export interface EntityData {
 }
 
 /**
- * 
+ *
  * @export
  * @interface EntityOtherPaymentMethod
  */
 export interface EntityOtherPaymentMethod {
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityOtherPaymentMethod
      */
     identifier?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityOtherPaymentMethod
      */
     pay_to?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityOtherPaymentMethod
      */
     supported_currency?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof EntityOtherPaymentMethod
      */
@@ -1297,31 +1298,31 @@ export interface EntityOtherPaymentMethod {
 }
 
 /**
- * 
+ *
  * @export
  * @interface EntityPaymentDetail
  */
 export interface EntityPaymentDetail {
     /**
-     * 
+     *
      * @type {EntityBankPaymentMethod}
      * @memberof EntityPaymentDetail
      */
     bank_payment_method?: EntityBankPaymentMethod;
     /**
-     * 
+     *
      * @type {EntityCryptoPaymentMethod}
      * @memberof EntityPaymentDetail
      */
     crypto_payment_method?: EntityCryptoPaymentMethod;
     /**
-     * 
+     *
      * @type {EntityOtherPaymentMethod}
      * @memberof EntityPaymentDetail
      */
     other_payment_method?: EntityOtherPaymentMethod;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof EntityPaymentDetail
      */
@@ -1329,19 +1330,19 @@ export interface EntityPaymentDetail {
 }
 
 /**
- * 
+ *
  * @export
  * @interface FunFundingCreatePayload
  */
 export interface FunFundingCreatePayload {
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingCreatePayload
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {FunFundingData}
      * @memberof FunFundingCreatePayload
      */
@@ -1349,85 +1350,85 @@ export interface FunFundingCreatePayload {
 }
 
 /**
- * 
+ *
  * @export
  * @interface FunFundingData
  */
 export interface FunFundingData {
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     agreement_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     apr?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     days?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     fee?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     repayment_due_date?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     repayment_occurred_date?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     repayment_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     currency?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     nft_address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     payment_details_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
     funder_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingData
      */
@@ -1435,19 +1436,19 @@ export interface FunFundingData {
 }
 
 /**
- * 
+ *
  * @export
  * @interface FunFundingListResponse
  */
 export interface FunFundingListResponse {
     /**
-     * 
+     *
      * @type {DocumentResponseHeader}
      * @memberof FunFundingListResponse
      */
     header?: DocumentResponseHeader;
     /**
-     * 
+     *
      * @type {Array<FunFundingResponseData>}
      * @memberof FunFundingListResponse
      */
@@ -1455,19 +1456,19 @@ export interface FunFundingListResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface FunFundingResponse
  */
 export interface FunFundingResponse {
     /**
-     * 
+     *
      * @type {DocumentResponseHeader}
      * @memberof FunFundingResponse
      */
     header?: DocumentResponseHeader;
     /**
-     * 
+     *
      * @type {FunFundingResponseData}
      * @memberof FunFundingResponse
      */
@@ -1475,19 +1476,19 @@ export interface FunFundingResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface FunFundingResponseData
  */
 export interface FunFundingResponseData {
     /**
-     * 
+     *
      * @type {FunFundingData}
      * @memberof FunFundingResponseData
      */
     funding?: FunFundingData;
     /**
-     * 
+     *
      * @type {Array<FunFundingSignature>}
      * @memberof FunFundingResponseData
      */
@@ -1495,31 +1496,31 @@ export interface FunFundingResponseData {
 }
 
 /**
- * 
+ *
  * @export
  * @interface FunFundingSignature
  */
 export interface FunFundingSignature {
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingSignature
      */
     valid?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingSignature
      */
     outdated_signature?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingSignature
      */
     identity?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingSignature
      */
@@ -1527,25 +1528,25 @@ export interface FunFundingSignature {
 }
 
 /**
- * 
+ *
  * @export
  * @interface FunFundingUpdatePayload
  */
 export interface FunFundingUpdatePayload {
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingUpdatePayload
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunFundingUpdatePayload
      */
     agreement_id?: string;
     /**
-     * 
+     *
      * @type {FunFundingData}
      * @memberof FunFundingUpdatePayload
      */
@@ -1553,19 +1554,19 @@ export interface FunFundingUpdatePayload {
 }
 
 /**
- * 
+ *
  * @export
  * @interface FunRequest
  */
 export interface FunRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunRequest
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof FunRequest
      */
@@ -1573,19 +1574,19 @@ export interface FunRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface HealthPong
  */
 export interface HealthPong {
     /**
-     * 
+     *
      * @type {string}
      * @memberof HealthPong
      */
     network?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof HealthPong
      */
@@ -1593,13 +1594,13 @@ export interface HealthPong {
 }
 
 /**
- * 
+ *
  * @export
  * @interface HttputilsHTTPError
  */
 export interface HttputilsHTTPError {
     /**
-     * 
+     *
      * @type {string}
      * @memberof HttputilsHTTPError
      */
@@ -1607,7 +1608,7 @@ export interface HttputilsHTTPError {
 }
 
 /**
- * 
+ *
  * @export
  * @interface IdentityDID
  */
@@ -1615,91 +1616,91 @@ export interface IdentityDID extends Array<any> {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InvoiceData
  */
 export interface InvoiceData {
     /**
-     * 
+     *
      * @type {Array<DocumentsBinaryAttachment>}
      * @memberof InvoiceData
      */
     attachments?: Array<DocumentsBinaryAttachment>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     bill_to_city?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     bill_to_company_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     bill_to_contact_person_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     bill_to_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     bill_to_local_tax_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     bill_to_state?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     bill_to_street_1?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     bill_to_street_2?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     bill_to_vat_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     bill_to_zipcode?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     comment?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     credit_for_invoice_date?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
@@ -1711,25 +1712,25 @@ export interface InvoiceData {
      */
     currency?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     date_created?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     date_due?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     date_paid?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
@@ -1747,13 +1748,13 @@ export interface InvoiceData {
      */
     gross_amount?: string;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InvoiceData
      */
     is_credit_note?: boolean;
     /**
-     * 
+     *
      * @type {Array<InvoiceLineItem>}
      * @memberof InvoiceData
      */
@@ -1777,7 +1778,7 @@ export interface InvoiceData {
      */
     payee?: string;
     /**
-     * 
+     *
      * @type {Array<DocumentsPaymentDetails>}
      * @memberof InvoiceData
      */
@@ -1789,85 +1790,85 @@ export interface InvoiceData {
      */
     recipient?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     recipient_invoice_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_city?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_company_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_contact_person_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_local_tax_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_state?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_street_1?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_street_2?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_tax_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_vat_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     remit_to_zipcode?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     requester_email?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
@@ -1879,19 +1880,19 @@ export interface InvoiceData {
      */
     sender?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     sender_city?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     sender_company_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
@@ -1903,13 +1904,13 @@ export interface InvoiceData {
      */
     sender_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     sender_invoice_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
@@ -1921,67 +1922,67 @@ export interface InvoiceData {
      */
     sender_street_1?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     sender_street_2?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     sender_zipcode?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     ship_to_city?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     ship_to_company_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     ship_to_contact_person_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     ship_to_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     ship_to_state?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     ship_to_street_1?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     ship_to_street_2?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     ship_to_zipcode?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
@@ -1993,25 +1994,25 @@ export interface InvoiceData {
      */
     status?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
     tax_amount?: string;
     /**
-     * 
+     *
      * @type {Array<InvoiceTaxItem>}
      * @memberof InvoiceData
      */
     tax_items?: Array<InvoiceTaxItem>;
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof InvoiceData
      */
     tax_on_line_level?: boolean;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceData
      */
@@ -2019,79 +2020,79 @@ export interface InvoiceData {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InvoiceLineItem
  */
 export interface InvoiceLineItem {
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     delivery_note_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     description?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     item_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     net_weight?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     price_per_unit?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     purchase_order_item_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     purchase_order_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     quantity?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     sender_part_no?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     tax_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
     tax_code?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
@@ -2103,7 +2104,7 @@ export interface InvoiceLineItem {
      */
     total_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceLineItem
      */
@@ -2111,43 +2112,43 @@ export interface InvoiceLineItem {
 }
 
 /**
- * 
+ *
  * @export
  * @interface InvoiceTaxItem
  */
 export interface InvoiceTaxItem {
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceTaxItem
      */
     invoice_item_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceTaxItem
      */
     item_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceTaxItem
      */
     tax_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceTaxItem
      */
     tax_base_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceTaxItem
      */
     tax_code?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof InvoiceTaxItem
      */
@@ -2155,31 +2156,31 @@ export interface InvoiceTaxItem {
 }
 
 /**
- * 
+ *
  * @export
  * @interface JobsStatusResponse
  */
 export interface JobsStatusResponse {
     /**
-     * 
+     *
      * @type {string}
      * @memberof JobsStatusResponse
      */
     job_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof JobsStatusResponse
      */
     last_updated?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof JobsStatusResponse
      */
     message?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof JobsStatusResponse
      */
@@ -2187,19 +2188,19 @@ export interface JobsStatusResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface NftNFTMintInvoiceUnpaidRequest
  */
 export interface NftNFTMintInvoiceUnpaidRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof NftNFTMintInvoiceUnpaidRequest
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NftNFTMintInvoiceUnpaidRequest
      */
@@ -2207,13 +2208,13 @@ export interface NftNFTMintInvoiceUnpaidRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface NftNFTMintResponse
  */
 export interface NftNFTMintResponse {
     /**
-     * 
+     *
      * @type {NftResponseHeader}
      * @memberof NftNFTMintResponse
      */
@@ -2221,13 +2222,13 @@ export interface NftNFTMintResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface NftResponseHeader
  */
 export interface NftResponseHeader {
     /**
-     * 
+     *
      * @type {string}
      * @memberof NftResponseHeader
      */
@@ -2235,61 +2236,61 @@ export interface NftResponseHeader {
 }
 
 /**
- * 
+ *
  * @export
  * @interface NotificationNotificationMessage
  */
 export interface NotificationNotificationMessage {
     /**
-     * 
+     *
      * @type {number}
      * @memberof NotificationNotificationMessage
      */
     event_type?: number;
     /**
-     * 
+     *
      * @type {Date}
      * @memberof NotificationNotificationMessage
      */
     recorded?: Date;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
     document_type?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
     status?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
     message?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
     account_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
     from_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof NotificationNotificationMessage
      */
@@ -2297,175 +2298,175 @@ export interface NotificationNotificationMessage {
 }
 
 /**
- * 
+ *
  * @export
  * @interface PurchaseorderData
  */
 export interface PurchaseorderData {
     /**
-     * 
+     *
      * @type {Array<DocumentsBinaryAttachment>}
      * @memberof PurchaseorderData
      */
     attachments?: Array<DocumentsBinaryAttachment>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     comment?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     currency?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     date_confirmed?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     date_created?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     date_sent?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     date_updated?: string;
     /**
-     * 
+     *
      * @type {Array<PurchaseorderLineItem>}
      * @memberof PurchaseorderData
      */
     line_items?: Array<PurchaseorderLineItem>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     number?: string;
     /**
-     * 
+     *
      * @type {Array<DocumentsPaymentDetails>}
      * @memberof PurchaseorderData
      */
     payment_details?: Array<DocumentsPaymentDetails>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     payment_terms?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     recipient?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     recipient_order_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     requester_email?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     requester_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     requisition_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     sender?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     sender_order_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     ship_to_city?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     ship_to_company_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     ship_to_contact_person_name?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     ship_to_country?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     ship_to_state?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     ship_to_street_1?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     ship_to_street_2?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     ship_to_zipcode?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
     status?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderData
      */
@@ -2473,109 +2474,109 @@ export interface PurchaseorderData {
 }
 
 /**
- * 
+ *
  * @export
  * @interface PurchaseorderLineItem
  */
 export interface PurchaseorderLineItem {
     /**
-     * 
+     *
      * @type {Array<PurchaseorderLineItemActivity>}
      * @memberof PurchaseorderLineItem
      */
     activities?: Array<PurchaseorderLineItemActivity>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     amount_invoiced?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     amount_total?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     date_created?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     date_updated?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     description?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     item_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     part_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     price_per_unit?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     quantity?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     received_quantity?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     requisition_item?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     requisition_number?: string;
     /**
-     * 
+     *
      * @type {number}
      * @memberof PurchaseorderLineItem
      */
     revision_number?: number;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
     status?: string;
     /**
-     * 
+     *
      * @type {Array<PurchaseorderTaxItem>}
      * @memberof PurchaseorderLineItem
      */
     tax_items?: Array<PurchaseorderTaxItem>;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItem
      */
@@ -2583,49 +2584,49 @@ export interface PurchaseorderLineItem {
 }
 
 /**
- * 
+ *
  * @export
  * @interface PurchaseorderLineItemActivity
  */
 export interface PurchaseorderLineItemActivity {
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItemActivity
      */
     amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItemActivity
      */
     date?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItemActivity
      */
     item_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItemActivity
      */
     quantity?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItemActivity
      */
     reference_document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItemActivity
      */
     reference_document_item?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderLineItemActivity
      */
@@ -2633,43 +2634,43 @@ export interface PurchaseorderLineItemActivity {
 }
 
 /**
- * 
+ *
  * @export
  * @interface PurchaseorderTaxItem
  */
 export interface PurchaseorderTaxItem {
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderTaxItem
      */
     item_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderTaxItem
      */
     purchase_order_item_number?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderTaxItem
      */
     tax_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderTaxItem
      */
     tax_base_amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderTaxItem
      */
     tax_code?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof PurchaseorderTaxItem
      */
@@ -2677,73 +2678,73 @@ export interface PurchaseorderTaxItem {
 }
 
 /**
- * 
+ *
  * @export
  * @interface TransferdetailsData
  */
 export interface TransferdetailsData {
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
     amount?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
     currency?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
     data?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
     recipient_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
     scheduled_date?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
     sender_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
     settlement_date?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
     settlement_reference?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
     status?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
     transfer_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof TransferdetailsData
      */
@@ -2751,31 +2752,31 @@ export interface TransferdetailsData {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiCreateEntityRequest
  */
 export interface UserapiCreateEntityRequest {
     /**
-     * 
+     *
      * @type {CoreapiAttributeMapRequest}
      * @memberof UserapiCreateEntityRequest
      */
     attributes?: CoreapiAttributeMapRequest;
     /**
-     * 
+     *
      * @type {EntityData}
      * @memberof UserapiCreateEntityRequest
      */
     data?: EntityData;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof UserapiCreateEntityRequest
      */
     read_access?: Array<string>;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof UserapiCreateEntityRequest
      */
@@ -2783,31 +2784,31 @@ export interface UserapiCreateEntityRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiCreateInvoiceRequest
  */
 export interface UserapiCreateInvoiceRequest {
     /**
-     * 
+     *
      * @type {CoreapiAttributeMapRequest}
      * @memberof UserapiCreateInvoiceRequest
      */
     attributes?: CoreapiAttributeMapRequest;
     /**
-     * 
+     *
      * @type {InvoiceData}
      * @memberof UserapiCreateInvoiceRequest
      */
     data?: InvoiceData;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof UserapiCreateInvoiceRequest
      */
     read_access?: Array<string>;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof UserapiCreateInvoiceRequest
      */
@@ -2815,31 +2816,31 @@ export interface UserapiCreateInvoiceRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiCreatePurchaseOrderRequest
  */
 export interface UserapiCreatePurchaseOrderRequest {
     /**
-     * 
+     *
      * @type {CoreapiAttributeMapRequest}
      * @memberof UserapiCreatePurchaseOrderRequest
      */
     attributes?: CoreapiAttributeMapRequest;
     /**
-     * 
+     *
      * @type {PurchaseorderData}
      * @memberof UserapiCreatePurchaseOrderRequest
      */
     data?: PurchaseorderData;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof UserapiCreatePurchaseOrderRequest
      */
     read_access?: Array<string>;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof UserapiCreatePurchaseOrderRequest
      */
@@ -2847,19 +2848,19 @@ export interface UserapiCreatePurchaseOrderRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiCreateTransferDetailRequest
  */
 export interface UserapiCreateTransferDetailRequest {
     /**
-     * 
+     *
      * @type {TransferdetailsData}
      * @memberof UserapiCreateTransferDetailRequest
      */
     data?: TransferdetailsData;
     /**
-     * 
+     *
      * @type {string}
      * @memberof UserapiCreateTransferDetailRequest
      */
@@ -2867,19 +2868,19 @@ export interface UserapiCreateTransferDetailRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiEntityDataResponse
  */
 export interface UserapiEntityDataResponse {
     /**
-     * 
+     *
      * @type {EntityData}
      * @memberof UserapiEntityDataResponse
      */
     entity?: EntityData;
     /**
-     * 
+     *
      * @type {Array<UserapiRelationship>}
      * @memberof UserapiEntityDataResponse
      */
@@ -2887,25 +2888,25 @@ export interface UserapiEntityDataResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiEntityResponse
  */
 export interface UserapiEntityResponse {
     /**
-     * 
+     *
      * @type {CoreapiAttributeMapResponse}
      * @memberof UserapiEntityResponse
      */
     attributes?: CoreapiAttributeMapResponse;
     /**
-     * 
+     *
      * @type {UserapiEntityDataResponse}
      * @memberof UserapiEntityResponse
      */
     data?: UserapiEntityDataResponse;
     /**
-     * 
+     *
      * @type {CoreapiResponseHeader}
      * @memberof UserapiEntityResponse
      */
@@ -2913,25 +2914,25 @@ export interface UserapiEntityResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiInvoiceResponse
  */
 export interface UserapiInvoiceResponse {
     /**
-     * 
+     *
      * @type {CoreapiAttributeMapResponse}
      * @memberof UserapiInvoiceResponse
      */
     attributes?: CoreapiAttributeMapResponse;
     /**
-     * 
+     *
      * @type {InvoiceData}
      * @memberof UserapiInvoiceResponse
      */
     data?: InvoiceData;
     /**
-     * 
+     *
      * @type {CoreapiResponseHeader}
      * @memberof UserapiInvoiceResponse
      */
@@ -2939,25 +2940,25 @@ export interface UserapiInvoiceResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiMintNFTRequest
  */
 export interface UserapiMintNFTRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof UserapiMintNFTRequest
      */
     deposit_address?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof UserapiMintNFTRequest
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {Array<string>}
      * @memberof UserapiMintNFTRequest
      */
@@ -2965,7 +2966,7 @@ export interface UserapiMintNFTRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiNFTMintInvoiceUnpaidRequest
  */
@@ -2985,13 +2986,13 @@ export interface UserapiNFTMintInvoiceUnpaidRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiNFTMintResponse
  */
 export interface UserapiNFTMintResponse {
     /**
-     * 
+     *
      * @type {UserapiResponseHeader}
      * @memberof UserapiNFTMintResponse
      */
@@ -2999,25 +3000,25 @@ export interface UserapiNFTMintResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiPurchaseOrderResponse
  */
 export interface UserapiPurchaseOrderResponse {
     /**
-     * 
+     *
      * @type {CoreapiAttributeMapResponse}
      * @memberof UserapiPurchaseOrderResponse
      */
     attributes?: CoreapiAttributeMapResponse;
     /**
-     * 
+     *
      * @type {PurchaseorderData}
      * @memberof UserapiPurchaseOrderResponse
      */
     data?: PurchaseorderData;
     /**
-     * 
+     *
      * @type {CoreapiResponseHeader}
      * @memberof UserapiPurchaseOrderResponse
      */
@@ -3025,31 +3026,31 @@ export interface UserapiPurchaseOrderResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiRelationship
  */
 export interface UserapiRelationship {
     /**
-     * 
+     *
      * @type {boolean}
      * @memberof UserapiRelationship
      */
     active?: boolean;
     /**
-     * 
+     *
      * @type {string}
      * @memberof UserapiRelationship
      */
     entity_identifier?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof UserapiRelationship
      */
     owner_identity?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof UserapiRelationship
      */
@@ -3057,13 +3058,13 @@ export interface UserapiRelationship {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiResponseHeader
  */
 export interface UserapiResponseHeader {
     /**
-     * 
+     *
      * @type {string}
      * @memberof UserapiResponseHeader
      */
@@ -3071,13 +3072,13 @@ export interface UserapiResponseHeader {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiShareEntityRequest
  */
 export interface UserapiShareEntityRequest {
     /**
-     * 
+     *
      * @type {string}
      * @memberof UserapiShareEntityRequest
      */
@@ -3085,19 +3086,19 @@ export interface UserapiShareEntityRequest {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiShareEntityResponse
  */
 export interface UserapiShareEntityResponse {
     /**
-     * 
+     *
      * @type {CoreapiResponseHeader}
      * @memberof UserapiShareEntityResponse
      */
     header?: CoreapiResponseHeader;
     /**
-     * 
+     *
      * @type {UserapiRelationship}
      * @memberof UserapiShareEntityResponse
      */
@@ -3105,19 +3106,19 @@ export interface UserapiShareEntityResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiTransferDetailListResponse
  */
 export interface UserapiTransferDetailListResponse {
     /**
-     * 
+     *
      * @type {Array<TransferdetailsData>}
      * @memberof UserapiTransferDetailListResponse
      */
     data?: Array<TransferdetailsData>;
     /**
-     * 
+     *
      * @type {CoreapiResponseHeader}
      * @memberof UserapiTransferDetailListResponse
      */
@@ -3125,19 +3126,19 @@ export interface UserapiTransferDetailListResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiTransferDetailResponse
  */
 export interface UserapiTransferDetailResponse {
     /**
-     * 
+     *
      * @type {TransferdetailsData}
      * @memberof UserapiTransferDetailResponse
      */
     data?: TransferdetailsData;
     /**
-     * 
+     *
      * @type {CoreapiResponseHeader}
      * @memberof UserapiTransferDetailResponse
      */
@@ -3145,25 +3146,25 @@ export interface UserapiTransferDetailResponse {
 }
 
 /**
- * 
+ *
  * @export
  * @interface UserapiUpdateTransferDetailRequest
  */
 export interface UserapiUpdateTransferDetailRequest {
     /**
-     * 
+     *
      * @type {TransferdetailsData}
      * @memberof UserapiUpdateTransferDetailRequest
      */
     data?: TransferdetailsData;
     /**
-     * 
+     *
      * @type {string}
      * @memberof UserapiUpdateTransferDetailRequest
      */
     document_id?: string;
     /**
-     * 
+     *
      * @type {string}
      * @memberof UserapiUpdateTransferDetailRequest
      */
@@ -4868,8 +4869,8 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
     return {
         /**
          * Adds a funding to a document
-         * @param {string} document_id 
-         * @param {FunFundingCreatePayload} body 
+         * @param {string} document_id
+         * @param {FunFundingCreatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4914,8 +4915,8 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
         },
         /**
          * Get a funding agreement of a latest document
-         * @param {string} document_id 
-         * @param {string} agreement_id 
+         * @param {string} document_id
+         * @param {string} agreement_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4957,7 +4958,7 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
         },
         /**
          * Get all funding agreements of a latest document
-         * @param {string} document_id 
+         * @param {string} document_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -4994,8 +4995,8 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
         },
         /**
          * Get all funding agreements of a document version
-         * @param {string} document_id 
-         * @param {string} version_id 
+         * @param {string} document_id
+         * @param {string} version_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5037,9 +5038,9 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
         },
         /**
          * Get a funding agreement of a document version
-         * @param {string} document_id 
-         * @param {string} version_id 
-         * @param {string} agreement_id 
+         * @param {string} document_id
+         * @param {string} version_id
+         * @param {string} agreement_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5086,9 +5087,9 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
         },
         /**
          * Signs funding agreement in a document
-         * @param {string} document_id 
-         * @param {string} agreement_id 
-         * @param {FunRequest} body 
+         * @param {string} document_id
+         * @param {string} agreement_id
+         * @param {FunRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5138,9 +5139,9 @@ export const FundingServiceApiFetchParamCreator = function (configuration?: Conf
         },
         /**
          * Updates a funding agreement in a document
-         * @param {string} document_id 
-         * @param {string} agreement_id 
-         * @param {FunFundingUpdatePayload} body 
+         * @param {string} document_id
+         * @param {string} agreement_id
+         * @param {FunFundingUpdatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5199,8 +5200,8 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
     return {
         /**
          * Adds a funding to a document
-         * @param {string} document_id 
-         * @param {FunFundingCreatePayload} body 
+         * @param {string} document_id
+         * @param {FunFundingCreatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5219,8 +5220,8 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Get a funding agreement of a latest document
-         * @param {string} document_id 
-         * @param {string} agreement_id 
+         * @param {string} document_id
+         * @param {string} agreement_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5239,7 +5240,7 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Get all funding agreements of a latest document
-         * @param {string} document_id 
+         * @param {string} document_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5258,8 +5259,8 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Get all funding agreements of a document version
-         * @param {string} document_id 
-         * @param {string} version_id 
+         * @param {string} document_id
+         * @param {string} version_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5278,9 +5279,9 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Get a funding agreement of a document version
-         * @param {string} document_id 
-         * @param {string} version_id 
-         * @param {string} agreement_id 
+         * @param {string} document_id
+         * @param {string} version_id
+         * @param {string} agreement_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5299,9 +5300,9 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Signs funding agreement in a document
-         * @param {string} document_id 
-         * @param {string} agreement_id 
-         * @param {FunRequest} body 
+         * @param {string} document_id
+         * @param {string} agreement_id
+         * @param {FunRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5320,9 +5321,9 @@ export const FundingServiceApiFp = function(configuration?: Configuration) {
         },
         /**
          * Updates a funding agreement in a document
-         * @param {string} document_id 
-         * @param {string} agreement_id 
-         * @param {FunFundingUpdatePayload} body 
+         * @param {string} document_id
+         * @param {string} agreement_id
+         * @param {FunFundingUpdatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5350,8 +5351,8 @@ export const FundingServiceApiFactory = function (configuration?: Configuration,
     return {
         /**
          * Adds a funding to a document
-         * @param {string} document_id 
-         * @param {FunFundingCreatePayload} body 
+         * @param {string} document_id
+         * @param {FunFundingCreatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5361,8 +5362,8 @@ export const FundingServiceApiFactory = function (configuration?: Configuration,
         },
         /**
          * Get a funding agreement of a latest document
-         * @param {string} document_id 
-         * @param {string} agreement_id 
+         * @param {string} document_id
+         * @param {string} agreement_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5372,7 +5373,7 @@ export const FundingServiceApiFactory = function (configuration?: Configuration,
         },
         /**
          * Get all funding agreements of a latest document
-         * @param {string} document_id 
+         * @param {string} document_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5382,8 +5383,8 @@ export const FundingServiceApiFactory = function (configuration?: Configuration,
         },
         /**
          * Get all funding agreements of a document version
-         * @param {string} document_id 
-         * @param {string} version_id 
+         * @param {string} document_id
+         * @param {string} version_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5393,9 +5394,9 @@ export const FundingServiceApiFactory = function (configuration?: Configuration,
         },
         /**
          * Get a funding agreement of a document version
-         * @param {string} document_id 
-         * @param {string} version_id 
-         * @param {string} agreement_id 
+         * @param {string} document_id
+         * @param {string} version_id
+         * @param {string} agreement_id
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5405,9 +5406,9 @@ export const FundingServiceApiFactory = function (configuration?: Configuration,
         },
         /**
          * Signs funding agreement in a document
-         * @param {string} document_id 
-         * @param {string} agreement_id 
-         * @param {FunRequest} body 
+         * @param {string} document_id
+         * @param {string} agreement_id
+         * @param {FunRequest} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5417,9 +5418,9 @@ export const FundingServiceApiFactory = function (configuration?: Configuration,
         },
         /**
          * Updates a funding agreement in a document
-         * @param {string} document_id 
-         * @param {string} agreement_id 
-         * @param {FunFundingUpdatePayload} body 
+         * @param {string} document_id
+         * @param {string} agreement_id
+         * @param {FunFundingUpdatePayload} body
          * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -5439,8 +5440,8 @@ export const FundingServiceApiFactory = function (configuration?: Configuration,
 export class FundingServiceApi extends BaseAPI {
     /**
      * Adds a funding to a document
-     * @param {string} document_id 
-     * @param {FunFundingCreatePayload} body 
+     * @param {string} document_id
+     * @param {FunFundingCreatePayload} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5452,8 +5453,8 @@ export class FundingServiceApi extends BaseAPI {
 
     /**
      * Get a funding agreement of a latest document
-     * @param {string} document_id 
-     * @param {string} agreement_id 
+     * @param {string} document_id
+     * @param {string} agreement_id
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5465,7 +5466,7 @@ export class FundingServiceApi extends BaseAPI {
 
     /**
      * Get all funding agreements of a latest document
-     * @param {string} document_id 
+     * @param {string} document_id
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5477,8 +5478,8 @@ export class FundingServiceApi extends BaseAPI {
 
     /**
      * Get all funding agreements of a document version
-     * @param {string} document_id 
-     * @param {string} version_id 
+     * @param {string} document_id
+     * @param {string} version_id
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5490,9 +5491,9 @@ export class FundingServiceApi extends BaseAPI {
 
     /**
      * Get a funding agreement of a document version
-     * @param {string} document_id 
-     * @param {string} version_id 
-     * @param {string} agreement_id 
+     * @param {string} document_id
+     * @param {string} version_id
+     * @param {string} agreement_id
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5504,9 +5505,9 @@ export class FundingServiceApi extends BaseAPI {
 
     /**
      * Signs funding agreement in a document
-     * @param {string} document_id 
-     * @param {string} agreement_id 
-     * @param {FunRequest} body 
+     * @param {string} document_id
+     * @param {string} agreement_id
+     * @param {FunRequest} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -5518,9 +5519,9 @@ export class FundingServiceApi extends BaseAPI {
 
     /**
      * Updates a funding agreement in a document
-     * @param {string} document_id 
-     * @param {string} agreement_id 
-     * @param {FunFundingUpdatePayload} body 
+     * @param {string} document_id
+     * @param {string} agreement_id
+     * @param {FunFundingUpdatePayload} body
      * @param {string} authorization Hex encoded centrifuge ID of the account for the intended API action
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

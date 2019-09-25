@@ -15,7 +15,7 @@ type Props = OuterProps & {
 
 interface OuterProps {
   attr: Attribute;
-  isViewMode: boolean;
+  isViewMode?: boolean;
 }
 
 export const AttributeField: FunctionComponent<Props> = (props: Props) => {
@@ -32,6 +32,8 @@ export const AttributeField: FunctionComponent<Props> = (props: Props) => {
   } = props;
 
   const key = `attributes.${attr.name}.value`;
+
+  console.log('render',isViewMode)
 
   return <Box><FormField
     key={key}
@@ -91,6 +93,7 @@ export const AttributeField: FunctionComponent<Props> = (props: Props) => {
             disabled={isViewMode}
             suffix={'%'}
             value={get(values, key)}
+            precision={2}
             name={`${key}`}
             onChange={({ value }) => {
               setFieldValue(`${key}`, value);
