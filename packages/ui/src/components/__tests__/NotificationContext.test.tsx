@@ -4,7 +4,7 @@ import {AxisTheme} from '@centrifuge/axis-theme';
 import { NotificationConsumer, NotificationProvider, NOTIFICATION } from '../NotificationContext';
 import { shallow, mount } from 'enzyme';
 import {Modal} from '@centrifuge/axis-modal'
-import {serializeSnapshot} from '../../__tests__/serialize';
+import {serializeSnapshot} from '../../serialize';
 
 
 const setProviders = (component) => {
