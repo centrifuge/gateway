@@ -18,7 +18,7 @@ import { getContactByAddress } from '@centrifuge/gateway-lib/utils/contact-utils
 // TODO use function components here
 type Props = {
   onSubmit?: (document: Document) => void;
-  renderHeader: () => JSX.Element;
+  renderHeader?: () => JSX.Element;
   contacts: Contact[];
   schemas?: Schema[],
   mode?: 'edit' | 'view' | 'create',
@@ -176,7 +176,7 @@ export class DocumentForm extends React.Component<Props, State> {
 
 
     return (
-      <ViewModeFormContainer isViewMode={mode === 'view' ? 'view-mode-form' : ''} pad={{ bottom: 'xlarge' }}>
+      <ViewModeFormContainer isViewMode={mode === 'view'} pad={{ bottom: 'xlarge' }}>
         <ResponsiveContext.Consumer>
           {size => {
             return <Formik
@@ -205,7 +205,7 @@ export class DocumentForm extends React.Component<Props, State> {
                     }}
                   >
                     <Box gap={sectionGap}>
-                      {renderHeader()}
+                      {renderHeader && renderHeader()}
 
                       {this.renderDetailsSection(
                         values,
@@ -250,7 +250,7 @@ export class DocumentForm extends React.Component<Props, State> {
             disabled={isViewMode || isEditMode}
             labelKey={'name'}
             options={schemas}
-            value={selectedSchema}
+            value={selectedSchema || ''}
             onChange={(selected) => {
               this.setState({ selectedSchema: selected });
             }}

@@ -142,6 +142,7 @@ export const ViewDocument: FunctionComponent<Props> = (props: Props) => {
 
         <Nfts
           viewMode={true}
+          user={user!}
           document={document!}
           registries={selectedSchema!.registries}/>
 

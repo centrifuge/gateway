@@ -33,8 +33,6 @@ export const AttributeField: FunctionComponent<Props> = (props: Props) => {
 
   const key = `attributes.${attr.name}.value`;
 
-  console.log('render',isViewMode)
-
   return <Box><FormField
     key={key}
     label={attr!.label}

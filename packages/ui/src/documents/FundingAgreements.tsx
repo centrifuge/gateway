@@ -69,9 +69,7 @@ export const FundingAgreements: FunctionComponent<Props> = (props) => {
 
 
   const createFundingAgreement = async (data: FundingAgreement) => {
-    setState({
-      modalOpened: false,
-    });
+
 
     onAsyncStart('Creating Funding Agreement');
     try {
@@ -232,9 +230,7 @@ export const FundingAgreements: FunctionComponent<Props> = (props) => {
         fundingAgreement={selectedFundingAgreement}
         isViewMode={isViewMode}
         today={new Date()}
-        onSubmit={(data) => {
-          createFundingAgreement(data);
-        }}
+        onSubmit={createFundingAgreement}
         contacts={contacts}
         onDiscard={closeModal}
       />

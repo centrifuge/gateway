@@ -6,6 +6,7 @@ import { Attribute, AttrTypes } from '@centrifuge/gateway-lib/models/schema';
 import { NumberInput } from '@centrifuge/axis-number-input';
 import { DateInput } from '@centrifuge/axis-date-input';
 import { Select, TextInput } from 'grommet';
+import { withAllProvidersAndContexts } from '../../test-utilities/test-providers';
 
 describe('AttributeField', () => {
 
@@ -16,7 +17,8 @@ describe('AttributeField', () => {
       label: 'Some Input label',
     };
     const component = mount(
-      <AttributeField attr={attr}/>,
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr}/>),
     );
     const input = component.find(NumberInput);
     expect(input.prop('disabled')).toBeUndefined();
@@ -24,10 +26,12 @@ describe('AttributeField', () => {
     expect(input.length).toEqual(1);
     expect(input.prop('name')).toEqual(`attributes.${attr.name}.value`);
 
-    component.setProps({
-      isViewMode: true,
-    });
-    expect(component.find(NumberInput).prop('disabled')).not.toBeUndefined();
+    const disabled = mount(
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr} isViewMode={true}/>),
+    );
+
+    expect(disabled.find(NumberInput).prop('disabled')).not.toBeUndefined();
   });
 
   it('Should render a INTEGER ', () => {
@@ -37,7 +41,8 @@ describe('AttributeField', () => {
       label: 'Some Input label',
     };
     const component = mount(
-      <AttributeField attr={attr}/>,
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr}/>),
     );
     const input = component.find(NumberInput);
     expect(input.prop('disabled')).toBeUndefined();
@@ -45,10 +50,13 @@ describe('AttributeField', () => {
     expect(input.length).toEqual(1);
     expect(input.prop('name')).toEqual(`attributes.${attr.name}.value`);
     expect(input.prop('precision')).toEqual(0);
-    component.setProps({
-      isViewMode: true,
-    });
-    expect(component.find(NumberInput).prop('disabled')).not.toBeUndefined();
+
+    const disabled = mount(
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr} isViewMode={true}/>),
+    );
+
+    expect(disabled.find(NumberInput).prop('disabled')).not.toBeUndefined();
 
   });
 
@@ -59,7 +67,8 @@ describe('AttributeField', () => {
       label: 'Some Input label',
     };
     const component = mount(
-      <AttributeField attr={attr}/>,
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr}/>),
     );
     const input = component.find(NumberInput);
     expect(input.prop('disabled')).toBeUndefined();
@@ -68,10 +77,13 @@ describe('AttributeField', () => {
     expect(input.prop('name')).toEqual(`attributes.${attr.name}.value`);
     expect(input.prop('precision')).toEqual(2);
     expect(input.prop('suffix')).toEqual('%');
-    component.setProps({
-      isViewMode: true,
-    });
-    expect(component.find(NumberInput).prop('disabled')).not.toBeUndefined();
+
+    const disabled = mount(
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr} isViewMode={true}/>),
+    );
+
+    expect(disabled.find(NumberInput).prop('disabled')).not.toBeUndefined();
 
   });
 
@@ -82,17 +94,21 @@ describe('AttributeField', () => {
       label: 'Some Input label',
     };
     const component = mount(
-      <AttributeField attr={attr}/>,
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr}/>),
     );
     const input = component.find(TextInput);
     expect(input.prop('disabled')).toBeUndefined();
     expect(component.find('label').text()).toEqual(attr.label);
     expect(input.length).toEqual(1);
     expect(input.prop('name')).toEqual(`attributes.${attr.name}.value`);
-    component.setProps({
-      isViewMode: true,
-    });
-    expect(component.find(TextInput).prop('disabled')).not.toBeUndefined();
+
+    const disabled = mount(
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr} isViewMode={true}/>),
+    );
+
+    expect(disabled.find(TextInput).prop('disabled')).not.toBeUndefined();
 
   });
 
@@ -103,17 +119,21 @@ describe('AttributeField', () => {
       label: 'Some Input label',
     };
     const component = mount(
-      <AttributeField attr={attr}/>,
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr}/>),
     );
     const input = component.find(TextInput);
     expect(input.prop('disabled')).toBeUndefined();
     expect(component.find('label').text()).toEqual(attr.label);
     expect(input.length).toEqual(1);
     expect(input.prop('name')).toEqual(`attributes.${attr.name}.value`);
-    component.setProps({
-      isViewMode: true,
-    });
-    expect(component.find(TextInput).prop('disabled')).not.toBeUndefined();
+
+    const disabled = mount(
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr} isViewMode={true}/>),
+    );
+
+    expect(disabled.find(TextInput).prop('disabled')).not.toBeUndefined();
 
   });
 
@@ -124,17 +144,21 @@ describe('AttributeField', () => {
       label: 'Some Input label',
     };
     const component = mount(
-      <AttributeField attr={attr}/>,
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr}/>),
     );
     const input = component.find(DateInput);
     expect(input.prop('disabled')).toBeUndefined();
     expect(component.find('label').text()).toEqual(attr.label);
     expect(input.length).toEqual(1);
     expect(input.prop('name')).toEqual(`attributes.${attr.name}.value`);
-    component.setProps({
-      isViewMode: true,
-    });
-    expect(component.find(DateInput).prop('disabled')).not.toBeUndefined();
+
+    const disabled = mount(
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr} isViewMode={true}/>),
+    );
+
+    expect(disabled.find(DateInput).prop('disabled')).not.toBeUndefined();
 
   });
 
@@ -143,24 +167,28 @@ describe('AttributeField', () => {
       name: 'some_name',
       type: AttrTypes.STRING,
       label: 'Some Input label',
-      options:[
-        "1",
-        "2",
-        "3"
-      ]
+      options: [
+        '1',
+        '2',
+        '3',
+      ],
     };
     const component = mount(
-      <AttributeField attr={attr}/>,
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr}/>),
     );
     const input = component.find(Select);
     expect(input.prop('disabled')).toBeUndefined();
     expect(component.find('label').text()).toEqual(attr.label);
     expect(input.length).toEqual(1);
     expect(input.prop('options')).toEqual(attr.options);
-    component.setProps({
-      isViewMode: true,
-    });
-    expect(component.find(Select).prop('disabled')).not.toBeUndefined();
+
+    const disabled = mount(
+      withAllProvidersAndContexts(
+        <AttributeField attr={attr} isViewMode={true}/>),
+    );
+
+    expect(disabled.find(Select).prop('disabled')).not.toBeUndefined();
 
   });
 

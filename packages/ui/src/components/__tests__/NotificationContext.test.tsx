@@ -1,19 +1,20 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import {AxisTheme} from '@centrifuge/axis-theme';
-import { NotificationConsumer, NotificationProvider, NOTIFICATION } from '../NotificationContext';
-import { shallow, mount } from 'enzyme';
-import {Modal} from '@centrifuge/axis-modal'
-import {serializeSnapshot} from '../../serialize';
+import { AxisTheme } from '@centrifuge/axis-theme';
+import { NOTIFICATION, NotificationConsumer, NotificationProvider } from '../NotificationContext';
+import { mount, shallow } from 'enzyme';
+import { Modal } from '@centrifuge/axis-modal';
+import { serializeSnapshot } from '../../test-utilities/serialize';
+import { withAxis, withNotificationContext } from '../../test-utilities/test-providers';
 
 
 const setProviders = (component) => {
-  return  <AxisTheme>
-    <NotificationProvider>
-      {component}
-    </NotificationProvider>
-  </AxisTheme>
-}
+  return withAxis(
+    withNotificationContext(
+      component,
+    ),
+  );
+};
 
 describe('NotificationContext', () => {
 
@@ -24,8 +25,8 @@ describe('NotificationContext', () => {
           {({ notify }) => {
             return <p>Test render</p>;
           }}
-        </NotificationConsumer>
-      )
+        </NotificationConsumer>,
+      ),
     );
     expect(serializeSnapshot(tree)).toMatchSnapshot();
   });
@@ -37,16 +38,16 @@ describe('NotificationContext', () => {
       setProviders(
         <NotificationConsumer>
           {({ notify }) => {
-            return <button onClick={()=> {
+            return <button onClick={() => {
               notify(
                 {
                   title: 'Title',
-                  message:'Messsge',
-                }
+                  message: 'Messsge',
+                },
               );
             }}></button>;
           }}
-        </NotificationConsumer>
+        </NotificationConsumer>,
       ),
     );
     tree.find('button').simulate('click');
@@ -56,19 +57,19 @@ describe('NotificationContext', () => {
   it('Should render a warning popup', () => {
     const tree = mount(
       setProviders(
-          <NotificationConsumer>
-            {({ notify }) => {
-              return <button onClick={()=> {
-                notify(
-                  {
-                    title: 'Title',
-                    message:'Messsge',
-                    type: NOTIFICATION.WARNING,
-                  },
-                );
-              }}></button>;
-            }}
-          </NotificationConsumer>
+        <NotificationConsumer>
+          {({ notify }) => {
+            return <button onClick={() => {
+              notify(
+                {
+                  title: 'Title',
+                  message: 'Messsge',
+                  type: NOTIFICATION.WARNING,
+                },
+              );
+            }}></button>;
+          }}
+        </NotificationConsumer>,
       ),
     );
     tree.find('button').simulate('click');
@@ -81,17 +82,17 @@ describe('NotificationContext', () => {
       setProviders(
         <NotificationConsumer>
           {({ notify }) => {
-            return <button onClick={()=> {
+            return <button onClick={() => {
               notify(
                 {
                   title: 'Title',
-                  message:'Messsge',
+                  message: 'Messsge',
                   type: NOTIFICATION.SUCCESS,
                 },
               );
             }}></button>;
           }}
-        </NotificationConsumer>
+        </NotificationConsumer>,
       ),
     );
     tree.find('button').simulate('click');
@@ -103,17 +104,17 @@ describe('NotificationContext', () => {
       setProviders(
         <NotificationConsumer>
           {({ notify }) => {
-            return <button onClick={()=> {
+            return <button onClick={() => {
               notify(
                 {
                   title: 'Title',
-                  message:'Messsge',
+                  message: 'Messsge',
                   type: NOTIFICATION.ERROR,
                 },
               );
             }}></button>;
           }}
-        </NotificationConsumer>
+        </NotificationConsumer>,
       ),
     );
     tree.find('button').simulate('click');
@@ -127,12 +128,12 @@ describe('NotificationContext', () => {
           <NotificationConsumer>
             {({ notify }) => {
 
-              return <button onClick={()=> {
+              return <button onClick={() => {
                 notify(
                   {
                     title: 'Title',
-                    message:'Messsge',
-                    confirmLabel: "Crazy Label",
+                    message: 'Messsge',
+                    confirmLabel: 'Crazy Label',
                   },
                 );
               }}></button>;

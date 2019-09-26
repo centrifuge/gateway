@@ -192,6 +192,7 @@ const EditDocument: FunctionComponent<Props> = (props: Props) => {
           onAsyncError={displayModalError}
           viewMode={!canMint}
           document={document!}
+          user={user!}
           registries={selectedSchema!.registries}/>
 
         {(selectedSchema!.formFeatures && selectedSchema!.formFeatures!.fundingAgreement) && <FundingAgreements

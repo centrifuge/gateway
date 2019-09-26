@@ -55,7 +55,7 @@ export const Attributes: FunctionComponent<Props> = (props: Props) => {
 
   return <>
     {sectionNames.map(name => {
-      return <Section title={name}>
+      return <Section key={name} title={name}>
         <Grid {...getSectionGridProps(size)}>
           {sections[name]}
         </Grid>

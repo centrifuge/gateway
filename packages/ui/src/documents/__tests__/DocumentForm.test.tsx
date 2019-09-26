@@ -2,13 +2,21 @@ import React from 'react';
 import { mount } from 'enzyme';
 import DocumentForm from '../DocumentForm';
 import { BrowserRouter } from 'react-router-dom';
+import { AttrTypes } from '@centrifuge/gateway-lib/models/schema';
+import { SearchSelect } from '@centrifuge/axis-search-select';
+import { Section } from '../../components/Section';
+import Attributes from '../Attributes';
+import { ViewModeFormContainer } from '../../components/ViewModeFormContainer';
+import { SelectOption } from 'grommet/components/Select/SelectOption';
+import Comments from '../Comments';
+import { withAllProvidersAndContexts } from '../../test-utilities/test-providers';
 
 describe('DocumentForm', () => {
 
   const documents = [
     {
       _id: 'first_id',
-      createdAt: '2019-07-09T10:54:59.900Z',
+      createdAt: new Date('2019-07-09T10:54:59.900Z'),
       attributes: {
 
         ['_schema']: {
@@ -49,7 +57,7 @@ describe('DocumentForm', () => {
     },
     {
       _id: 'second_id',
-      createdAt: '2019-07-09T10:54:59.900Z',
+      createdAt: new Date('2019-07-09T10:54:59.900Z'),
       header: {
         read_access: [
           '0x111',
@@ -118,33 +126,33 @@ describe('DocumentForm', () => {
         {
           name: 'reference_id',
           label: 'Reference Id',
-          type: 'string',
+          type: AttrTypes.STRING,
         },
         {
           name: 'amount',
           label: 'Amount',
-          type: 'decimal',
-          options: [1, 2, 3],
+          type: AttrTypes.DECIMAL,
+          options: ['1', '2', '3'],
         },
         {
           name: 'index',
           label: 'Index',
-          type: 'integer',
+          type: AttrTypes.INTEGER,
         },
         {
           name: 'percent',
           label: 'Percent',
-          type: 'decimal',
+          type: AttrTypes.PERCENT,
         },
         {
           name: 'date',
           label: 'Some Date',
-          type: 'timestamp',
+          type: AttrTypes.TIMESTAMP,
         },
         {
           name: 'customer',
           label: 'Customer',
-          type: 'string',
+          type: AttrTypes.STRING,
         },
       ],
     },
@@ -155,17 +163,17 @@ describe('DocumentForm', () => {
         {
           name: 'reference_id',
           label: 'Reference Id',
-          type: 'string',
+          type: AttrTypes.STRING,
         },
         {
           name: 'amount',
           label: 'Amount',
-          type: 'decimal',
+          type: AttrTypes.DECIMAL,
         },
         {
           name: 'customer',
           label: 'Customer',
-          type: 'string',
+          type: AttrTypes.STRING,
         },
       ],
     },
@@ -175,52 +183,124 @@ describe('DocumentForm', () => {
   const onSubmit = jest.fn(() => {
   });
 
-  const onCancel = jest.fn(() => {
-  });
 
-  it('Should render the form just select form', () => {
+  it('Should render just the details section', () => {
 
     const documentForm = mount(
-      <DocumentForm document={{}} schemas={schemas} onCancel={onCancel} onSubmit={onSubmit}/>,
+      withAllProvidersAndContexts(
+        <DocumentForm document={{}}
+                      schemas={schemas}
+                      onSubmit={onSubmit}/>,
+      ),
     );
-    expect(documentForm.html()).toMatchSnapshot();
+    expect(documentForm.find(Section).length).toEqual(1);
   });
 
-  it('Should render the form with default data', () => {
+  it('Should render the form with a selected schema and attributes', () => {
     const documentForm = mount(
-      <DocumentForm document={documents[0]} selectedSchema={schemas[0]} schemas={schemas} onCancel={onCancel}
-                    onSubmit={onSubmit}/>,
+      withAllProvidersAndContexts(
+        <DocumentForm document={documents[0]}
+                      selectedSchema={schemas[0]}
+                      schemas={schemas}
+                      onSubmit={onSubmit}/>,
+      ),
     );
-    expect(documentForm.html()).toMatchSnapshot();
+    expect(documentForm.find(Attributes).length).toEqual(1);
   });
 
 
-  it('Should render the form with default data  for read access and nfts', () => {
+  it('Should render a header and child sections', () => {
+
+    const MyCustomHeader = () => {
+      return <div>My Custom header</div>;
+    };
+
+    const MyCustomSection = () => {
+      return <div>My Custom Section</div>;
+    };
+
     const documentForm = mount(
-      <DocumentForm document={documents[1]} selectedSchema={schemas[0]} schemas={schemas} contacts={contacts}
-                    onCancel={onCancel}
-                    onSubmit={onSubmit}/>,
+      withAllProvidersAndContexts(
+        <DocumentForm document={{}}
+                      schemas={schemas}
+                      renderHeader={() => <MyCustomHeader/>}
+                      onSubmit={onSubmit}>
+          <MyCustomSection/>
+          <MyCustomSection/>
+          <MyCustomSection/>
+        </DocumentForm>,
+      ),
     );
-    expect(documentForm.html()).toMatchSnapshot();
+    expect(documentForm.find(MyCustomHeader).length).toEqual(1);
+    expect(documentForm.find(MyCustomSection).length).toEqual(3);
   });
 
 
-  it('Should render the form in view mode', () => {
+  it('Should have schema select disabled and have form in view mode', () => {
     const documentForm = mount(
-      <DocumentForm document={documents[0]} selectedSchema={schemas[0]} mode={'view'} schemas={schemas}
-                    onCancel={onCancel} onSubmit={onSubmit}/>,
+      withAllProvidersAndContexts(
+        <DocumentForm document={documents[0]}
+                      selectedSchema={schemas[0]}
+                      mode={'view'}
+                      schemas={schemas}
+                      onSubmit={onSubmit}/>,
+      ),
     );
-    expect(documentForm.html()).toMatchSnapshot();
+    expect(documentForm.find(ViewModeFormContainer).prop('isViewMode')).toEqual(true);
+    expect(documentForm.find(Section).first().find(SearchSelect).prop('disabled')).not.toBeUndefined();
+
   });
 
-  it('Should render the form in edit mode', () => {
+
+  it('Should have schema select disabled in edit mode', () => {
     const documentForm = mount(
-      <DocumentForm document={documents[0]} selectedSchema={schemas[0]} mode={'view'} schemas={schemas}
-                    onCancel={onCancel} onSubmit={onSubmit}/>,
+      withAllProvidersAndContexts(
+        <DocumentForm document={documents[0]}
+                      selectedSchema={schemas[0]}
+                      mode={'edit'}
+                      schemas={schemas}
+                      onSubmit={onSubmit}/>,
+      ),
     );
-    expect(documentForm.html()).toMatchSnapshot();
+    expect(documentForm.find(Section).first().find(SearchSelect).prop('disabled')).not.toBeUndefined();
+    ;
   });
 
+
+  it('Should select a schema and render schema attributes', () => {
+    const documentForm = mount(
+      withAllProvidersAndContexts(
+        <DocumentForm document={documents[0]}
+                      schemas={schemas}
+                      onSubmit={onSubmit}/>,
+      ),
+    );
+    expect(documentForm.find(Attributes).length).toEqual(0);
+    documentForm.find(Section).first().find(SearchSelect).simulate('click');
+    documentForm.find(SelectOption).first().find('button').first().simulate('click');
+    expect(documentForm.find(Attributes).length).toEqual(1);
+
+  });
+
+
+  it('Should render comments', () => {
+    const documentForm = mount(
+      withAllProvidersAndContexts(
+        <DocumentForm document={documents[0]}
+                      selectedSchema={{
+                        ...schemas[0],
+                        formFeatures: {
+                          comments: true,
+                        },
+
+                      }}
+                      schemas={schemas}
+                      onSubmit={onSubmit}/>,
+      ),
+    );
+    expect(documentForm.find(Comments).length).toEqual(1);
+
+  });
 
 })
 ;

@@ -28,7 +28,10 @@ export const httpClient = {
       instance.put(`${ROUTES.CONTACTS}/${contact._id}`, contact),
   },
   funding: {
-    create: async (fundingRequest: FundingRequest) => instance.post(ROUTES.FUNDING.base, fundingRequest),
+    create: async (fundingRequest: FundingRequest) => {
+      console.log('ORIGINAL CALL')
+      return instance.post(ROUTES.FUNDING.base, fundingRequest)
+    },
     sign: async (fundingRequest: FunRequest) => instance.post(ROUTES.FUNDING.sign, fundingRequest),
   },
   transferDetails: {
@@ -47,6 +50,9 @@ export const httpClient = {
     list: async () => instance.get(ROUTES.DOCUMENTS),
     getById: async (id): Promise<Document> => instance.get(`${ROUTES.DOCUMENTS}/${id}`),
     update: async (document: Document) => instance.put(`${ROUTES.DOCUMENTS}/${document._id}`, document),
-    mint: async (id: string | undefined, payload: MintNftRequest) => instance.post(`${ROUTES.DOCUMENTS}/${id}/mint`, payload),
+    mint: async (id: string | undefined, payload: MintNftRequest) => {
+      console.log('ORIGINAL MINT')
+      return instance.post(`${ROUTES.DOCUMENTS}/${id}/mint`, payload)
+    },
   },
 };

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useContext } from 'react';
+import React, { FunctionComponent } from 'react';
 import { useMergeState } from '../hooks';
 import { httpClient } from '../http-client';
 import { Modal } from '@centrifuge/axis-modal';
@@ -10,13 +10,14 @@ import { DisplayField } from '@centrifuge/axis-display-field';
 import { Money } from 'grommet-icons';
 import { Registry } from '@centrifuge/gateway-lib/models/schema';
 import MintNftForm, { MintNftFormData } from './MintNftForm';
-import { AppContext } from '../App';
+import { User } from '@centrifuge/gateway-lib/models/user';
 
 type Props = {
   onAsyncStart?: (message: string) => void;
   onAsyncComplete?: (data) => void;
   onAsyncError?: (error, title?: string) => void;
   document: Document,
+  user: User,
   registries: Registry[],
   viewMode: boolean,
 }
@@ -40,6 +41,7 @@ export const Nfts: FunctionComponent<Props> = (props) => {
     onAsyncError,
     document,
     registries,
+    user,
     viewMode,
   } = {
     onAsyncStart: (message: string) => {
@@ -49,10 +51,7 @@ export const Nfts: FunctionComponent<Props> = (props) => {
     onAsyncError: (error, title?: string) => {
     },
     ...props,
-  };;
-
-
-  const { user } = useContext(AppContext);
+  };
 
 
   const mintNFT = async (id: string | undefined, data: MintNftFormData) => {

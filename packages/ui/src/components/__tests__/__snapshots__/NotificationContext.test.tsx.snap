@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NotificationContext Should not crash 1`] = `
-<Grommet>
+<Grommet
+  full={true}
+>
   <GlobalStyleComponent />
   <ContextConsumer>
     <Component />

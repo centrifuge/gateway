@@ -8,6 +8,7 @@ export const serializeSnapshot = (component) => {
       noKey: false,
       mode: 'deep',
       map: (node => {
+        //if(node.type.displayName.includes('WithTheme'))
         delete node.props.theme;
         if(node.props.dropContent) {
           node.props.dropContent = null
