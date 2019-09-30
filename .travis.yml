@@ -13,6 +13,10 @@ deploy:
   - provider: script
     script: bash ./scripts/docker_push.sh
     on:
+      branch: fix-docker-build
+  - provider: script
+    script: bash ./scripts/docker_push.sh
+    on:
       branch: develop
   - provider: script
     script: bash ./scripts/docker_push.sh
