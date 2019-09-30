@@ -9,7 +9,7 @@ RUN npm config set unsafe-perm true
 
 RUN npm install
 
-RUN ls ./node_modules/@centrifuge
+RUN ls ./node_modules/@centrifuge/gateway-ui
 
 RUN npm run build:series
 
