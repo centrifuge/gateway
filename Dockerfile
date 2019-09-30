@@ -14,6 +14,7 @@ RUN ls ./node_modules/@centrifuge
 RUN npm run build:series
 
 
+
 EXPOSE 3001
 
 CMD ["npm", "run", "start:prod"]
