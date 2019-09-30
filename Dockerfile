@@ -9,6 +9,7 @@ RUN npm config set unsafe-perm true
 
 RUN npm install
 
+RUN npm run pretest
 RUN ls ./node_modules/@centrifuge/gateway-lib
 RUN ls ./packages/lib
 
