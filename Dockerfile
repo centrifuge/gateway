@@ -9,7 +9,10 @@ RUN npm config set unsafe-perm true
 
 RUN npm install
 
+RUN ls ./node_modules/@centrifuge
+
 RUN npm run build:series
+
 
 EXPOSE 3001
 
