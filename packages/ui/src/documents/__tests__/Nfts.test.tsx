@@ -69,8 +69,7 @@ describe('Nfts', () => {
         key:
           '0x9ed63b1df0c1b6dc14b777a767ccb0562b7a0adf6f51bf0d90476f6833005f9a',
         type: 'string',
-        value: 'some cust' +
-          'omer',
+        value: 'some customer',
       },
 
       ['percent']: {
@@ -181,7 +180,7 @@ describe('Nfts', () => {
         />),
     );
     const error = new Error('Some Error');
-    httpClient.documents.mint.mockImplementation(async () => {
+    httpClient.nfts.mint.mockImplementation(async () => {
       throw error;
     });
 

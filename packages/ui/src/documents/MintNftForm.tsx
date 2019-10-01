@@ -20,15 +20,6 @@ export interface MintNftFormData {
 }
 // TODO use function components here
 export default class MintNftForm extends React.Component<Props> {
-  static defaultProps: Props = {
-    onSubmit: () => {
-      // do nothing by default
-    },
-    onDiscard: () => {
-      // do nothing by default
-    },
-    registries: [] as Registry[],
-  };
 
   state = { submitted: false };
 
@@ -126,7 +117,7 @@ export default class MintNftForm extends React.Component<Props> {
 
                       {
                         values.transfer && <FormField
-                          label="Deposit adress"
+                          label="Deposit address"
                           error={errors.deposit_address}
                         >
                           <TextInput

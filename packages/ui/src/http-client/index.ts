@@ -3,11 +3,12 @@ import axios from 'axios';
 import { ROUTES } from '@centrifuge/gateway-lib/utils/constants';
 import { User } from '@centrifuge/gateway-lib/models/user';
 import { Contact } from '@centrifuge/gateway-lib/models/contact';
-import { FunRequest } from '@centrifuge/gateway-lib/centrifuge-node-client';
+import { FundingData } from '@centrifuge/gateway-lib/centrifuge-node-client';
 import { FundingRequest } from '@centrifuge/gateway-lib/models/funding-request';
 import { TransferDetailsRequest } from '@centrifuge/gateway-lib/models/transfer-details';
 import { Schema } from '@centrifuge/gateway-lib/models/schema';
-import { Document, MintNftRequest } from '@centrifuge/gateway-lib/models/document';
+import { Document } from '@centrifuge/gateway-lib/models/document';
+import { MintNftRequest, TransferNftRequest } from '@centrifuge/gateway-lib/models/nfts';
 
 const instance = axios.create();
 
@@ -29,7 +30,7 @@ export const httpClient = {
   },
   funding: {
     create: async (fundingRequest: FundingRequest) => instance.post(ROUTES.FUNDING.base, fundingRequest),
-    sign: async (fundingRequest: FunRequest) => instance.post(ROUTES.FUNDING.sign, fundingRequest),
+    sign: async (fundingRequest: FundingData) => instance.post(ROUTES.FUNDING.sign, fundingRequest),
   },
   transferDetails: {
     create: async (transferDetails: TransferDetailsRequest) => instance.post(ROUTES.TRANSFER_DETAILS, transferDetails),
@@ -47,6 +48,9 @@ export const httpClient = {
     list: async () => instance.get(ROUTES.DOCUMENTS),
     getById: async (id): Promise<Document> => instance.get(`${ROUTES.DOCUMENTS}/${id}`),
     update: async (document: Document) => instance.put(`${ROUTES.DOCUMENTS}/${document._id}`, document),
-    mint: async (id: string | undefined, payload: MintNftRequest) => instance.post(`${ROUTES.DOCUMENTS}/${id}/mint`, payload),
+  },
+  nfts: {
+    mint: async (payload: MintNftRequest) => instance.post(`${ROUTES.NFTS}/mint`, payload),
+    tranfer: async (payload: TransferNftRequest) => instance.post(`${ROUTES.NFTS}/transfer`, payload),
   },
 };
