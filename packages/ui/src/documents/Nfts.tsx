@@ -176,13 +176,12 @@ export const Nfts: FunctionComponent<Props> = (props) => {
             header: 'Actions',
             sortable: false,
             render: datum => {
-              console.log(user,datum,canTransferNft(user, datum))
-              return  <Box direction="row" gap="small">
+              return canTransferNft(user, datum) ? <Box direction="row" gap="small">
                 <Anchor
                   label={'Transfer'}
                   onClick={() => openTransferModal(datum)}
                 />
-              </Box>;
+              </Box> : [];
             },
           },
         ]}

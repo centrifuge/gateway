@@ -121,18 +121,6 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
 
   const availableSchemas = mapSchemaNames(user!.schemas, schemas);
 
-  // When creating a document fails we what to keep the data
-  // defaultDocument gets updated and we search for schema defined on the document
-  // because the DocumentForm will get reRendered
-  const selectedSchema: Schema | undefined = availableSchemas.find(s => {
-    return (
-      defaultDocument &&
-      defaultDocument.attributes &&
-      defaultDocument.attributes._schema &&
-      s.name === defaultDocument.attributes._schema.value
-    );
-  });
-
   return (
     <DocumentForm
       document={defaultDocument}
