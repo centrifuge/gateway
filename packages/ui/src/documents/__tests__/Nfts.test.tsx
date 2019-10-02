@@ -5,7 +5,7 @@ import { SearchSelect } from '@centrifuge/axis-search-select';
 import { Nfts } from '../Nfts';
 import { Button, DataTable } from 'grommet';
 import MintNftForm from '../MintNftForm';
-import { defaultUser } from '../../test-utilities/default-data';
+import { defaultContacts, defaultUser } from '../../test-utilities/default-data';
 import { withAllProvidersAndContexts } from '../../test-utilities/test-providers';
 
 jest.mock('../../http-client');
@@ -112,6 +112,7 @@ describe('Nfts', () => {
     const component = mount(
       withAllProvidersAndContexts(
         <Nfts document={document}
+              contacts={defaultContacts}
               onAsyncStart={onAsyncStart}
               onAsyncComplete={onAsyncComplete}
               onAsyncError={onAsyncError}
@@ -138,6 +139,7 @@ describe('Nfts', () => {
     const component = mount(
       withAllProvidersAndContexts(
         <Nfts document={document}
+              contacts={defaultContacts}
               onAsyncStart={onAsyncStart}
               onAsyncComplete={onAsyncComplete}
               onAsyncError={onAsyncError}
@@ -148,7 +150,7 @@ describe('Nfts', () => {
         />),
     );
 
-    httpClient.documents.mint.mockImplementation(async () => {
+    httpClient.nfts.mint.mockImplementation(async () => {
       return { data: 'Custom Payload' };
     });
 
@@ -170,6 +172,7 @@ describe('Nfts', () => {
     const component = mount(
       withAllProvidersAndContexts(
         <Nfts document={document}
+              contacts={defaultContacts}
               onAsyncStart={onAsyncStart}
               onAsyncComplete={onAsyncComplete}
               onAsyncError={onAsyncError}

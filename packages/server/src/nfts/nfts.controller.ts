@@ -16,7 +16,6 @@ export class NftsController {
   ) {
   }
 
-
   /**
    * Mints a NFT for a document
    * @async
@@ -35,7 +34,7 @@ export class NftsController {
       deposit_address: body.deposit_address,
     };
 
-    const mintingResult: Document = await this.centrifugeService.nftBeta.mintNft(
+    const mintingResult: Document = await this.centrifugeService.nft.mintNft(
       request.user.account,
       body.registry_address,
       payload,
@@ -58,7 +57,7 @@ export class NftsController {
     @Body() body: TransferNftRequest,
   ) {
 
-    const transferResult = await this.centrifugeService.nftBeta.transferNft(
+    const transferResult = await this.centrifugeService.nft.transferNft(
       request.user.account,
       body.registry,
       body.token_id,
@@ -70,6 +69,4 @@ export class NftsController {
     await this.centrifugeService.pullForJobComplete(transferResult.header.job_id, request.user.account);
     return transferResult;
   }
-
-
 }

@@ -3,8 +3,7 @@ import axios from 'axios';
 import { ROUTES } from '@centrifuge/gateway-lib/utils/constants';
 import { User } from '@centrifuge/gateway-lib/models/user';
 import { Contact } from '@centrifuge/gateway-lib/models/contact';
-import { FundingData } from '@centrifuge/gateway-lib/centrifuge-node-client';
-import { FundingRequest } from '@centrifuge/gateway-lib/models/funding-request';
+import { FundingRequest, FundingSignatureRequest } from '@centrifuge/gateway-lib/models/funding-request';
 import { TransferDetailsRequest } from '@centrifuge/gateway-lib/models/transfer-details';
 import { Schema } from '@centrifuge/gateway-lib/models/schema';
 import { Document } from '@centrifuge/gateway-lib/models/document';
@@ -30,7 +29,7 @@ export const httpClient = {
   },
   funding: {
     create: async (fundingRequest: FundingRequest) => instance.post(ROUTES.FUNDING.base, fundingRequest),
-    sign: async (fundingRequest: FundingData) => instance.post(ROUTES.FUNDING.sign, fundingRequest),
+    sign: async (fundingRequest: FundingSignatureRequest) => instance.post(ROUTES.FUNDING.sign, fundingRequest),
   },
   transferDetails: {
     create: async (transferDetails: TransferDetailsRequest) => instance.post(ROUTES.TRANSFER_DETAILS, transferDetails),

@@ -2,7 +2,7 @@
 // tslint:disable
 /**
  * Centrifuge OS Node API
- *
+ * Centrifuge OS Node API
  *
  * OpenAPI spec version: 0.0.5
  * Contact: hello@centrifuge.io

@@ -10,7 +10,7 @@ import { DisplayField } from '@centrifuge/axis-display-field';
 import { Money } from 'grommet-icons';
 import { Registry } from '@centrifuge/gateway-lib/models/schema';
 import MintNftForm, { MintNftFormData } from './MintNftForm';
-import { User } from '@centrifuge/gateway-lib/models/user';
+import { canTransferNft, User } from '@centrifuge/gateway-lib/models/user';
 import { TransferNftRequest } from '@centrifuge/gateway-lib/models/nfts';
 import TransferNftForm from './TransferNftForm';
 import { Contact } from '@centrifuge/gateway-lib/src/models/contact';
@@ -61,7 +61,7 @@ export const Nfts: FunctionComponent<Props> = (props) => {
     onAsyncComplete: (data) => {
     },
     onAsyncError: (error, title?: string) => {
-      alert('ON ASYNC')
+      alert('ON ASYNC');
     },
     ...props,
   };
@@ -175,15 +175,15 @@ export const Nfts: FunctionComponent<Props> = (props) => {
             property: '_id',
             header: 'Actions',
             sortable: false,
-            render: datum => (
-              <Box direction="row" gap="small">
+            render: datum => {
+              console.log(user,datum,canTransferNft(user, datum))
+              return  <Box direction="row" gap="small">
                 <Anchor
                   label={'Transfer'}
                   onClick={() => openTransferModal(datum)}
                 />
-
-              </Box>
-            ),
+              </Box>;
+            },
           },
         ]}
       />
