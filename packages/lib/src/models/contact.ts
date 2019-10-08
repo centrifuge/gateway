@@ -17,7 +17,7 @@ export class Contact {
     }
 
     if (!isValidAddress(contact.address!)) {
-      throw new Error('address must have ETH format');
+      throw new Error('Contact address must have ETH format');
     }
   }
 }
