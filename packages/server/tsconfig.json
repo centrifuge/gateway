@@ -2,7 +2,6 @@
   "compilerOptions": {
     "module": "commonjs",
     "allowJs": true,
-    "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,
     "noLib": false,
