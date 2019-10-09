@@ -74,7 +74,7 @@ describe('Schema validations', () => {
         Schema.validateAttributes([{
           name: 'test',
           label: 'test',
-          type: 'test',
+          type: AttrTypes.STRING,
           placeholder: 3,
         } as any]);
       }).toThrow(AttributesErrors.PLACEHOLDER_FORMAT);
@@ -85,7 +85,7 @@ describe('Schema validations', () => {
         Schema.validateAttributes([{
           name: 'test',
           label: 'test',
-          type: 'test',
+          type: AttrTypes.STRING,
           defaultValue: 33,
         } as any]);
       }).toThrow(AttributesErrors.DEFAULT_VALUE_FORMAT);
