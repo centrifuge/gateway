@@ -1,12 +1,19 @@
 # Gateway [![Build Status](https://travis-ci.com/centrifuge/gateway.svg?token=LpuoLEpkXWjp999VGisL&branch=develop)](https://travis-ci.com/centrifuge/gateway)
-`Gateway` showcases interacting with a [go-centrifuge](https://github.com/centrifuge/go-centrifuge/) node and other Centrifuge users. It's main purpose is to act as a testing tool and rapid prototyping tool for simple integrations with Centrifuge.
+`Gateway` is a user interface that showcases the API of  [go-centrifuge](https://github.com/centrifuge/go-centrifuge/) node and other Centrifuge users. It's main purpose is to act as a testing tool and rapid prototyping tool for simple integrations with Centrifuge.
 
+**DISCLAIMER**: The code released here presents a very early alpha version that should not be used in production and has not been audited. Use this at your own risk.
+
+
+** Getting help**:
+ Head over to our developer documentation at [developer.centrifuge.io](http://developer.centrifuge.io) to learn how to setup a node and interact with it. If you have any questions, feel free to join our [slack channel](https://join.slack.com/t/centrifuge-io/shared_invite/enQtNDYwMzQ5ODA3ODc0LTU4ZjU0NDNkOTNhMmUwNjI2NmQ2MjRiNzA4MGIwYWViNTkxYzljODU2OTk4NzM4MjhlOTNjMDAwNWZkNzY2YWY) 
 
 ## Getting started
 
-#### Running locally
+### Running locally
 
-Gateway required a Centrifuge Node to run. Make sure you configure the node's webhooks to call youre future Gateway instance.
+Gateway required a Centrifuge Node to run. See [here](https://developer.centrifuge.io/cent-node/overview/introduction/), how to set-up and configure a Centrifuge Node. 
+
+Make sure you configure the node's webhooks to call your future Gateway instance.
 By default this will be `localhost:3001/webhooks`
  
  After the node is up and running open `packaes/server/src/config/ts`
@@ -44,12 +51,21 @@ npm run start
 
 
  ## Features:
- #### Multi tenancy and managed identities
+ 
+ Centrifuge Gateway allows you to:
+ 
+  - Create and manage different users
+  - Create, anchor and exchange customised financial documents
+  - Mint and transfer non-fungible tokens (NFTs) based on these documents
+  - Request and accept funding based on these documents
+  
+ ### Multi tenancy and managed identities
 
  Gateway is designed to use a multi tenancy Centrifuge Node. This means that all accounts created with gateway will
  have a on chain Identity where the node wallet is configured as a MANAGEMENT KEY. Gateway users do not 
  need a wallet to interact with ETH and all ETH transaction use the wallet configured on the node
- #### Managing user accounts and permissions
+ 
+ ### Managing user accounts and permissions
  
  A user can have the following permission
   
@@ -67,25 +83,23 @@ export enum PERMISSIONS {
 }
 ``` 
 
+By default a newly created account is in invite mode. This means that the invited user needs to register first with his given user name / email and define a password. Then he can use these credentials to log-in.
+Note, that Gateway will not send emails or notifications to invited users. Also note, that there is no "forgotten password" option
+ 
+ ### Creating and managing schemas for flexible documents (FlexDocs)
+ 
+Gateway can define document schemas that can be assigned to a user with a `CAN_MANAGE_DOCUMENTS` permission enabling  
+that user to create specific documents or do actions with those documents(Ex: Minting an NFT).
 
-By default a newly created account is in invite mode. This means the invited user should go to
-register page, define his password using the account's email.
-Gateway will not send email to the invited users
+You can read and understand how schemas work [here](https://centrifuge.hackmd.io/@rQf339bfSHi_a3rLcEuoaQ/S1Ofvf34B).
  
  
- #### Creating and managing schemas for flexible documents(FlexDocs)
+ ### Contact List
  
- Gateway can define document schemas that can be assigned to a user with a `CAN_MANAGE_DOCUMENTS` permission enabling  
- that user to create specific documents or do actions with those documents(Ex: Minting an NFT)
-
-You can read and understand how schemas work [here](https://centrifuge.hackmd.io/@rQf339bfSHi_a3rLcEuoaQ/S1Ofvf34B)
- 
- 
- #### Contact List
- 
-Stores Centrifuge Identities. All Gateway interaction with a Centrifuge identity(Ex: Sending a document to some else)
+The contact list stores Centrifuge Identities. All Gateway interaction with a Centrifuge identity(Ex: Sending a document to some else)
 will perform a lookup in the contact list. 
 
 
-## Getting help:
- Head over to our developer documentation at [developer.centrifuge.io](http://developer.centrifuge.io) to learn how to setup a node and interact with it. If you have any questions, feel free to join our [slack channel](https://join.slack.com/t/centrifuge-io/shared_invite/enQtNDYwMzQ5ODA3ODc0LTU4ZjU0NDNkOTNhMmUwNjI2NmQ2MjRiNzA4MGIwYWViNTkxYzljODU2OTk4NzM4MjhlOTNjMDAwNWZkNzY2YWY) 
+## Limitations
+
+Centrifuge Gateway, Centrifuge Protocol and all its components are Beta Software and in an early stage of their development. They have a limited feature set compared to the end-vision. Not all features are implemented yet, and tradeoffs between security, speed, end-user features, and protocol flexibility are made continuously. This might and will lead to substantial changes in the future, re-architecture, addition and removal of features, as well as unexpected behavior. Use at your own risk.
