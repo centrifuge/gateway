@@ -104,6 +104,13 @@ describe('DocumentsController', () => {
         header: {
           job_id: 'some_job_id',
         },
+        attributes: {
+          ...documentToCreate.attributes,
+          _createdBy: {
+            type: 'bytes',
+            value: 'user_id',
+          },
+        },
         ownerId: 'user_id',
       });
 
