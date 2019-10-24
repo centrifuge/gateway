@@ -95,7 +95,7 @@ describe('DocumentsController', () => {
         ...documentToCreate,
       };
       const result = await documentsController.create(
-        { user: { _id: 'user_id' } },
+        { user: { _id: 'user_id',account:'user_account' } },
         payload,
       );
 
@@ -108,7 +108,7 @@ describe('DocumentsController', () => {
           ...documentToCreate.attributes,
           _createdBy: {
             type: 'bytes',
-            value: 'user_id',
+            value: 'user_account',
           },
         },
         ownerId: 'user_id',
