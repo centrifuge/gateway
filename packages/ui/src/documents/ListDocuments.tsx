@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Anchor, Box, Button, FormField, Grid, Heading, Select } from 'grommet';
+import { Anchor, Box, Button, FormField, Heading, Select } from 'grommet';
 import documentRoutes from './routes';
 import { RouteComponentProps, withRouter } from 'react-router';
 import { Document } from '@centrifuge/gateway-lib/models/document';
@@ -14,7 +14,6 @@ import { useMergeState } from '../hooks';
 import { PageError } from '../components/PageError';
 import { isValidAddress } from 'ethereumjs-util';
 import { DataTableWithDynamicHeight } from '../components/DataTableWithDynamicHeight';
-import { DateInput } from '@centrifuge/axis-date-input';
 
 type Props = RouteComponentProps;
 
@@ -133,7 +132,7 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
                 options={displayOptions}
                 value={display}
                 onChange={(ev: any) => {
-                  console.log('!!!!!!  ON CHANGE',ev);
+                  console.log('!!!!!!  ON CHANGE', ev);
                   setState({ display: ev.value.toString() });
                 }}
               />
@@ -154,7 +153,6 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
       <Box pad={{ horizontal: 'medium' }}>
         <DataTableWithDynamicHeight
           sortable={true}
-          size={'calc(100vh - 380px)'}
           data={getFilteredDocuments()}
           primaryKey={'_id'}
           columns={[

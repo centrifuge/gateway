@@ -15,6 +15,7 @@ import { TransferNftRequest } from '@centrifuge/gateway-lib/models/nfts';
 import TransferNftForm from './TransferNftForm';
 import { Contact } from '@centrifuge/gateway-lib/src/models/contact';
 import { CoreapiNFT } from '@centrifuge/gateway-lib/centrifuge-node-client';
+import { DataTableWithDynamicHeight } from '../components/DataTableWithDynamicHeight';
 
 type Props = {
   onAsyncStart?: (message: string) => void;
@@ -125,7 +126,7 @@ export const Nfts: FunctionComponent<Props> = (props) => {
       actions={mintActions}
     >
 
-      <DataTable
+      <DataTableWithDynamicHeight
         size={'100%'}
         sortable={false}
         data={document!.header!.nfts || []}

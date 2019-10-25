@@ -11,6 +11,7 @@ import { useMergeState } from '../hooks';
 import { NOTIFICATION, NotificationContext } from '../components/NotificationContext';
 import { PageError } from '../components/PageError';
 import { AxiosError } from 'axios';
+import { DataTableWithDynamicHeight } from '../components/DataTableWithDynamicHeight';
 
 type State = {
   schemas: Schema[];
@@ -235,7 +236,7 @@ const SchemaList: FunctionComponent = () => {
   const renderSchemas = (data) => {
 
     return (
-      <DataTable
+      <DataTableWithDynamicHeight
         data={data}
         primaryKey={'_id'}
         sortable={true}
