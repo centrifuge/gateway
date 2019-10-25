@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useCallback, useContext, useEffect } from 'react';
-import { Anchor, Box, Button, CheckBox, DataTable, Heading, Text } from 'grommet';
+import { Anchor, Box, Button, CheckBox, Heading, Text } from 'grommet';
 import { Modal } from '@centrifuge/axis-modal';
 import { Schema } from '@centrifuge/gateway-lib/models/schema';
 import { SecondaryHeader } from '../components/SecondaryHeader';

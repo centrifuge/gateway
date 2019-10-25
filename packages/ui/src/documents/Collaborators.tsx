@@ -181,7 +181,7 @@ export const Collaborators: FunctionComponent<Props> = (props) => {
     >
 
       <DataTableWithDynamicHeight
-        size={'100%'}
+        size={'360px'}
         sortable={true}
         data={collaborators}
         primaryKey={'address'}
