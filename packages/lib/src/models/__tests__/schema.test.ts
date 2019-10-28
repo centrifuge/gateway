@@ -14,10 +14,9 @@ describe('Schema validations', () => {
   describe('Schema top level prop validation', () => {
     it('should fail when name is not set', () => {
       expect(() => {
-        Schema.validateSchemaProps(undefined);
+        Schema.validateSchemaProps({});
       }).toThrow(SchemaPropsErrors.NAME_FORMAT);
     });
-
 
     it('should fail the label validation ', () => {
       expect(() => {

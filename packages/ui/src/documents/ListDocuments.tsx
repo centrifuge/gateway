@@ -139,7 +139,6 @@ export const ListDocuments: FunctionComponent<Props> = (props: Props) => {
                 options={displayOptions}
                 value={display}
                 onChange={(ev: any) => {
-                  console.log('!!!!!!  ON CHANGE', ev);
                   setState({ display: ev.value.toString() });
                 }}
               />
