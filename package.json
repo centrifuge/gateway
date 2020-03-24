@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@centrifuge/gateway-server": "file:packages/server",
     "@centrifuge/gateway-lib": "file:packages/lib",
-    "@centrifuge/gateway-ui": "file:packages/ui"
+    "@centrifuge/gateway-server": "file:packages/server",
+    "@centrifuge/gateway-ui": "file:packages/ui",
+    "bignumber.js": "^9.0.0",
+    "web3-eth": "^1.2.6"
   },
   "scripts": {
     "start:prod": "nodemon",
