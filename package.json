@@ -5,9 +5,7 @@
   "dependencies": {
     "@centrifuge/gateway-lib": "file:packages/lib",
     "@centrifuge/gateway-server": "file:packages/server",
-    "@centrifuge/gateway-ui": "file:packages/ui",
-    "bignumber.js": "^9.0.0",
-    "web3-eth": "^1.2.6"
+    "@centrifuge/gateway-ui": "file:packages/ui"
   },
   "scripts": {
     "start:prod": "nodemon",
