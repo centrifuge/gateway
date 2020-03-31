@@ -17,17 +17,14 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "strictPropertyInitialization": false,
     "noImplicitAny": false,
     "jsx": "react",
     "preserveConstEnums": true,
-    "outDir": "./",
-    "allowJs": true,
-    "isolatedModules": true,
-    "noEmit": true
+    "outDir": "./"
   },
   "include": [
     "./src/**/*.ts"
