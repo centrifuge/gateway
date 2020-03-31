@@ -105,4 +105,6 @@ Centrifuge Gateway, Centrifuge Protocol and all its components are in an early s
 Required Node Version: 12.16.1
 ```bash
 npm install
+npm run test
+npm run build
 ```
