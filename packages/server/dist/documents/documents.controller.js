@@ -67,7 +67,7 @@ let DocumentsController = class DocumentsController {
             });
             if (!document)
                 throw new common_1.NotFoundException('Document not found');
-            const docFromNode = yield this.centrifugeService.documents.getDocument(request.user.account, document.header.documentId);
+            const docFromNode = yield this.centrifugeService.documents.getDocument(request.user.account, document.header.document_id);
             return Object.assign({ _id: document._id }, docFromNode, { attributes: Object.assign({}, custom_attributes_1.unflatten(docFromNode.attributes)) });
         });
     }
@@ -77,13 +77,13 @@ let DocumentsController = class DocumentsController {
             if (!documentFromDb)
                 throw new common_1.NotFoundException(`Can not find document #${params.id} in the database`);
             delete document.attributes.funding_agreement;
-            const updateResult = yield this.centrifugeService.documents.updateDocument(request.user.account, documentFromDb.header.documentId, {
+            const updateResult = yield this.centrifugeService.documents.updateDocument(request.user.account, documentFromDb.header.document_id, {
                 attributes: document.attributes,
                 readAccess: document.header.readAccess,
                 writeAccess: document.header.writeAccess,
                 scheme: centrifuge_node_client_1.CoreapiCreateDocumentRequest.SchemeEnum.Generic,
             });
-            yield this.centrifugeService.pullForJobComplete(updateResult.header.jobId, request.user.account);
+            yield this.centrifugeService.pullForJobComplete(updateResult.header.job_id, request.user.account);
             const unflattenAttr = custom_attributes_1.unflatten(updateResult.attributes);
             return yield this.databaseService.documents.updateById(params.id, {
                 $set: {

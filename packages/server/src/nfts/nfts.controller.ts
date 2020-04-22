@@ -29,9 +29,11 @@ export class NftsController {
     @Body() body: MintNftRequest,
   ) {
     const payload: CoreapiMintNFTRequest = {
-      documentId: body.document_id,
-      proofFields: body.proof_fields,
-      depositAddress: body.deposit_address,
+      // @ts-ignore
+      asset_manager_address: body.asset_manager_address,
+      document_id: body.document_id,
+      proof_fields: body.proof_fields,
+      deposit_address: body.deposit_address,
     };
 
     const mintingResult: Document = await this.centrifugeService.nft.mintNft(
@@ -40,7 +42,8 @@ export class NftsController {
       payload,
     );
 
-    await this.centrifugeService.pullForJobComplete(mintingResult.header.jobId, request.user.account);
+    // @ts-ignore
+    await this.centrifugeService.pullForJobComplete(mintingResult.header.job_id, request.user.account);
     return mintingResult;
   }
 

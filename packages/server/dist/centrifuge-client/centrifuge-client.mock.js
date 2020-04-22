@@ -201,7 +201,12 @@ class MockCentrifugeService {
                     ownerId: 'user_id',
                 };
             }),
-            createDocument: jest.fn((authid, data) => {
+            createDocumentV2: jest.fn((authid, data) => {
+                return Object.assign({ header: {
+                        job_id: 'some_job_id',
+                    } }, data);
+            }),
+            commitDocumentV2: jest.fn((authid, data) => {
                 return Object.assign({ header: {
                         job_id: 'some_job_id',
                     } }, data);

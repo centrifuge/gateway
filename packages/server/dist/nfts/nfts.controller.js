@@ -34,12 +34,14 @@ let NftsController = class NftsController {
     mintNFT(request, body) {
         return __awaiter(this, void 0, void 0, function* () {
             const payload = {
-                documentId: body.document_id,
-                proofFields: body.proof_fields,
-                depositAddress: body.deposit_address,
+                asset_manager_address: body.asset_manager_address,
+                document_id: body.document_id,
+                proof_fields: body.proof_fields,
+                deposit_address: body.deposit_address,
             };
+            console.log('payload', payload);
             const mintingResult = yield this.centrifugeService.nft.mintNft(request.user.account, body.registry_address, payload);
-            yield this.centrifugeService.pullForJobComplete(mintingResult.header.jobId, request.user.account);
+            yield this.centrifugeService.pullForJobComplete(mintingResult.header.job_id, request.user.account);
             return mintingResult;
         });
     }

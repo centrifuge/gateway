@@ -14,6 +14,7 @@ export interface Attribute {
 export interface Registry {
   label: string,
   address: string,
+  asset_manager_address: string
   proofs: Array<string>
 }
 
@@ -73,6 +74,7 @@ export enum RegistriesErrors {
   ADDRESS_FORMAT = 'not a valid eth address',
   LABEL_PROP_MISSING = 'label property is missing or empty',
   PROOF_ARRAY_MISSING = 'proofs array is missing or empty',
+  ASSET_MANAGER_ADDRESS_MISSING = 'asset manager address is missing or empty'
 
 }
 
@@ -217,9 +219,13 @@ export class Schema {
         throw generateRegistryError(registry.address, RegistriesErrors.LABEL_PROP_MISSING);
       }
 
-      if (!registry.proofs || !Array.isArray(registry.proofs) || !registry.proofs.length) {
-        throw generateRegistryError(registry.address, RegistriesErrors.PROOF_ARRAY_MISSING);
+      if (propertyUnset(registry, 'asset_manager_address')) {
+        throw generateRegistryError(registry.address, RegistriesErrors.LABEL_PROP_MISSING);
       }
+
+      // if (!registry.proofs || !Array.isArray(registry.proofs) || !registry.proofs.length) {
+      //   throw generateRegistryError(registry.address, RegistriesErrors.PROOF_ARRAY_MISSING);
+      // }
     });
   }
 
