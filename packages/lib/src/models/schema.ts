@@ -223,9 +223,9 @@ export class Schema {
         throw generateRegistryError(registry.address, RegistriesErrors.LABEL_PROP_MISSING);
       }
 
-      // if (!registry.proofs || !Array.isArray(registry.proofs) || !registry.proofs.length) {
-      //   throw generateRegistryError(registry.address, RegistriesErrors.PROOF_ARRAY_MISSING);
-      // }
+      if (!registry.proofs || !Array.isArray(registry.proofs) || !registry.proofs.length) {
+        throw generateRegistryError(registry.address, RegistriesErrors.PROOF_ARRAY_MISSING);
+      }
     });
   }
 
