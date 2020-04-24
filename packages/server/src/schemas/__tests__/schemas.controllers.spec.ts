@@ -35,6 +35,7 @@ describe('SchemasController', () => {
       {
         label: 'BEST_ANIMALS_NFT',
         address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
+        asset_manager_address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
         proofs: [
           'attributes.animals.wingspans',
           'header.document_id',
@@ -115,6 +116,7 @@ describe('SchemasController', () => {
           registries: [
             {
               address: '0x111',
+              asset_manager_address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
             },
           ],
         } as Schema);
@@ -144,6 +146,7 @@ describe('SchemasController', () => {
           registries: [
             {
               address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
+              asset_manager_address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
               label: 'sdsds',
               proofs: ['sss', 'saaass'],
             },
@@ -174,6 +177,7 @@ describe('SchemasController', () => {
           registries: [
             {
               address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
+              asset_manager_address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
               label: 'sdsds',
               proofs: ['sss', 'saaass'],
             },
@@ -278,6 +282,7 @@ describe('SchemasController', () => {
           {
             label: 'animal_registry',
             address: '0x87c574FB2DF0EaA2dAf5fc4a8A16dd3Ce39011B1',
+            asset_manager_address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
             proofs: ['attributes.wingspan'],
           },
         ],
@@ -304,6 +309,7 @@ describe('SchemasController', () => {
             name: 'bestAnimals',
             registries: [{
               address: '0x87c574FB2DF0EaA2dAf5fc4a8A16dd3Ce39011B1',
+              asset_manager_address: '0x3Ba4280217e78a0EaEA612c1502FC2e92A7FE5D7',
               label: 'animal_registry',
               proofs: ['attributes.wingspan'],
             }],
