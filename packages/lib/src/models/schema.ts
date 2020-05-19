@@ -155,12 +155,13 @@ export class Schema {
    * @param schema Schema
    */
   public static toEditableJson(schema: Schema): string {
-    const { name, attributes, registries, formFeatures, label } = schema;
+    const { name, attributes, registries, collaborators, formFeatures, label } = schema;
     return JSON.stringify({
       name,
       label,
       attributes,
       registries,
+      collaborators,
       formFeatures,
 
     }, null, 2);
