@@ -1,15 +1,15 @@
-import {Body, Controller, Get, NotFoundException, Param, Post, Put, Req, UseGuards} from '@nestjs/common';
-import {DatabaseService} from '../database/database.service';
-import {CentrifugeService} from '../centrifuge-client/centrifuge.service';
+import { Body, Controller, Get, NotFoundException, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { DatabaseService } from '../database/database.service';
+import { CentrifugeService } from '../centrifuge-client/centrifuge.service';
 import {
   CoreapiAttributeResponse,
   CoreapiCreateDocumentRequest, CoreapiDocumentResponse,
   CoreapiResponseHeader,
 } from '@centrifuge/gateway-lib/centrifuge-node-client';
-import {Document, DocumentStatus, NftStatus} from '@centrifuge/gateway-lib/models/document';
-import {ROUTES} from '@centrifuge/gateway-lib/utils/constants';
-import {SessionGuard} from '../auth/SessionGuard';
-import {unflatten} from '@centrifuge/gateway-lib/utils/custom-attributes';
+import { Document, DocumentStatus, NftStatus } from '@centrifuge/gateway-lib/models/document';
+import { ROUTES } from '@centrifuge/gateway-lib/utils/constants';
+import { SessionGuard } from '../auth/SessionGuard';
+import { unflatten } from '@centrifuge/gateway-lib/utils/custom-attributes';
 import TypeEnum = CoreapiAttributeResponse.TypeEnum;
 import SchemeEnum = CoreapiDocumentResponse.SchemeEnum;
 
