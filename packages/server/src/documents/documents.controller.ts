@@ -155,7 +155,6 @@ export class DocumentsController {
             scheme: CoreapiCreateDocumentRequest.SchemeEnum.Generic,
           },
       );
-
       return await this.updateDBDoc(updateResult, commitResp.dbId, request.user.account);
     }
   }

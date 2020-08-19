@@ -42,6 +42,7 @@ describe('SchemasController', () => {
         ],
       },
     ],
+    template: '',
     collaborators: [],
   });
   let schemaToCreate;
@@ -99,7 +100,7 @@ describe('SchemasController', () => {
       });
     });
 
-    it('should throw error when registry address is of the wrong format', async function() {
+    it('should throw error when registry address is of the wrong format', async () => {
       expect.assertions(3);
       const schemasController = schemaModule.get<SchemasController>(
         SchemasController,
@@ -130,7 +131,7 @@ describe('SchemasController', () => {
       }
     });
 
-    it('should throw error when there is no reference id attribute', async function() {
+    it('should throw error when there is no reference id attribute', async () => {
       expect.assertions(3);
       const schemasController = schemaModule.get<SchemasController>(
         SchemasController,
@@ -161,7 +162,7 @@ describe('SchemasController', () => {
         expect(err instanceof HttpException).toEqual(true);
       }
     });
-    it('should throw error when there attributes are nested', async function() {
+    it('should throw error when there attributes are nested', async () => {
       expect.assertions(4);
       const schemasController = schemaModule.get<SchemasController>(
         SchemasController,
@@ -269,8 +270,8 @@ describe('SchemasController', () => {
     });
   });
 
-  describe('update', function() {
-    it('should update the schema in the database', async function() {
+  describe('update', () => {
+    it('should update the schema in the database', async () => {
       const schemasController = schemaModule.get<SchemasController>(
         SchemasController,
       );

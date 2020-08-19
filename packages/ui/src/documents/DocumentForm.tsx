@@ -47,6 +47,7 @@ export class DocumentForm extends React.Component<Props, State> {
         read_access: [],
         write_access:[]
       },
+      template: '',
     },
     contacts: [],
   };
