@@ -209,9 +209,7 @@ describe('DocumentsController', () => {
           { ...updatedDocument },
         ),
       ).rejects.toMatchObject({
-        message: {
           message: `Can not find document #someID in the database`,
-        },
       });
     });
   });
