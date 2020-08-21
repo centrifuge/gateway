@@ -85,7 +85,7 @@ export const CreateDocument: FunctionComponent<Props> = (props) => {
       try {
         push(documentRoutes.index);
         go(0);
-        if (document.template !== '') {
+        if (document.template && document.template !== '') {
           document.template && await httpClient.documents.clone(document);
         } else {
           await httpClient.documents.create(document);

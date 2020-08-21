@@ -64,19 +64,11 @@ export class DocumentsController {
   async updateDBDoc(updateResult: Document, id: string, userID: string) {
     // @ts-ignore
     const updated = await this.centrifugeService.pullForJobComplete(updateResult.header.job_id, userID);
-    if (updated.status === 'success') {
-      return await this.databaseService.documents.updateById(id, {
-        $set: {
-          document_status: DocumentStatus.Created,
-        },
-      });
-    } else {
-      return await this.databaseService.documents.updateById(id,  {
-        $set: {
-          document_status: DocumentStatus.CreationFail,
-        },
-      });
-    }
+    return await this.databaseService.documents.updateById(id, {
+      $set: {
+        document_status: (updated.status === 'success')? DocumentStatus.Created : DocumentStatus.CreationFail,
+      },
+    });
   }
 
   @Post()
