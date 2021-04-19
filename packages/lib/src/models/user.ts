@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { PERMISSIONS } from '../utils/constants';
 import { Document, DOCUMENT_ACCESS } from './document';
 import { FundingAgreement } from './funding-request';
@@ -42,7 +43,6 @@ export type LoggedInUser = {
 
 export class User implements IUser {
   name: string = '';
-  password?: string = '';
   token?: string;
   email: string = '';
   _id?: string;
@@ -50,11 +50,19 @@ export class User implements IUser {
   chain: IChainAccount;
   permissions: PERMISSIONS[] = [];
   schemas: string[] = [];
-  secret?: TwoFASecret;
   // undefined acts like email in order not run migrations
   twoFAType?: TwoFaType;
   enabled: boolean;
   invited: boolean;
+
+  @Exclude()
+  password?: string = '';
+  @Exclude()
+  secret?: TwoFASecret;
+
+  constructor(partial?: Partial<User>) {
+    Object.assign(this, partial);
+  }
 }
 
 export class UserWithOrg extends User {

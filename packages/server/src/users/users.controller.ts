@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   MethodNotAllowedException,
@@ -11,6 +12,7 @@ import {
   Request,
   Response,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 
 import * as speakeasy from 'speakeasy';
@@ -43,6 +45,7 @@ export class UsersController {
     private readonly mailerService: MailerService,
   ) {}
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post(ROUTES.USERS.loginTentative)
   @HttpCode(200)
   async loginTentative(@Request() req): Promise<LoggedInUser> {
@@ -77,10 +80,10 @@ export class UsersController {
         console.log(e);
       }
     }
-
-    return user;
+    return new User(user);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post(ROUTES.USERS.login)
   @HttpCode(200)
   async login(@Request() req): Promise<LoggedInUser> {
@@ -100,7 +103,7 @@ export class UsersController {
       { algorithm: 'RS256', secret: config.jwtPrivKey },
     );
     return {
-      user: req.user,
+      user: new User(req.user),
       token: accessToken,
     };
   }
