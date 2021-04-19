@@ -115,15 +115,20 @@ export class UsersController {
     return user;
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get(ROUTES.USERS.base)
   @UseGuards(JwtAuthGuard, UserManagerAuthGuard)
   async getAllUsers(@Request() request) {
-    return await this.databaseService.users
+    const users = await this.databaseService.users
       .getCursor({})
       .sort({ createdAt: -1 })
       .exec();
+
+    // sanitizes each user
+    return users.map(user => new User(user));
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post(ROUTES.USERS.base)
   async register(@Body() user: User) {
     const existingUser: User = await this.databaseService.users.findOne({
@@ -139,7 +144,7 @@ export class UsersController {
 
     if (config.inviteOnly) {
       if (existingUser && existingUser.invited && !existingUser.enabled) {
-        return this.upsertUser(
+        const result = await this.upsertUser(
           {
             ...existingUser,
             password: await promisify(bcrypt.hash)(user.password, 10),
@@ -147,6 +152,7 @@ export class UsersController {
           },
           false,
         );
+        return new User(result);
       } else if (existingUser) {
         throw new MethodNotAllowedException('Email taken!');
       } else {
@@ -156,7 +162,7 @@ export class UsersController {
       if (existingUser) {
         throw new MethodNotAllowedException('Email taken!');
       }
-      return this.upsertUser(
+      const result = await this.upsertUser(
         {
           ...user,
           email: user.email.toLocaleLowerCase(),
@@ -165,9 +171,12 @@ export class UsersController {
         },
         true,
       );
+
+      return new User(result);
     }
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post(ROUTES.USERS.invite)
   @UseGuards(JwtAuthGuard, UserManagerAuthGuard)
   async invite(@Body() user: Partial<User>) {
@@ -182,7 +191,7 @@ export class UsersController {
       throw new MethodNotAllowedException('User already invited!');
     }
 
-    const newUser = this.upsertUser(
+    const newUser = await this.upsertUser(
       {
         ...user,
         name: user.name!,
@@ -215,9 +224,10 @@ export class UsersController {
       console.log(e);
     }
 
-    return newUser;
+    return new User(newUser);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Put(ROUTES.USERS.base)
   @UseGuards(JwtAuthGuard, UserManagerAuthGuard)
   async update(@Body() user): Promise<User> {
@@ -232,7 +242,7 @@ export class UsersController {
       throw new MethodNotAllowedException('Email taken!');
     }
 
-    return await this.upsertUser(user, false);
+    return this.upsertUser(new User(user), false);
   }
 
   @Delete(`${ROUTES.USERS.base}/:id`)
