@@ -37,12 +37,13 @@ export type TwoFASecret = {
 };
 
 export type LoggedInUser = {
-  user: User;
+  user: PublicUser;
   token: string;
 };
 
 export class User implements IUser {
   name: string = '';
+  password?: string = '';
   token?: string;
   email: string = '';
   _id?: string;
@@ -50,17 +51,21 @@ export class User implements IUser {
   chain: IChainAccount;
   permissions: PERMISSIONS[] = [];
   schemas: string[] = [];
+  secret?: TwoFASecret;
   // undefined acts like email in order not run migrations
   twoFAType?: TwoFaType;
   enabled: boolean;
   invited: boolean;
+}
 
+export class PublicUser extends User {
   @Exclude()
   password?: string = '';
   @Exclude()
   secret?: TwoFASecret;
 
-  constructor(partial?: Partial<User>) {
+  constructor(partial: Partial<PublicUser>) {
+    super();
     Object.assign(this, partial);
   }
 }

@@ -10,7 +10,6 @@ import {
   Post,
   Put,
   Request,
-  Response,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -21,6 +20,7 @@ import { promisify } from 'util';
 import { ROUTES } from '@centrifuge/gateway-lib/utils/constants';
 import {
   LoggedInUser,
+  PublicUser,
   TwoFaType,
   User,
   UserWithOrg,
@@ -48,7 +48,7 @@ export class UsersController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Post(ROUTES.USERS.loginTentative)
   @HttpCode(200)
-  async loginTentative(@Request() req): Promise<LoggedInUser> {
+  async loginTentative(@Request() req): Promise<PublicUser> {
     let { user } = req;
     if (user.twoFAType !== TwoFaType.APP) {
       if (!user.secret) {
@@ -80,7 +80,7 @@ export class UsersController {
         console.log(e);
       }
     }
-    return new User(user);
+    return new PublicUser(user);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -103,7 +103,7 @@ export class UsersController {
       { algorithm: 'RS256', secret: config.jwtPrivKey },
     );
     return {
-      user: new User(req.user),
+      user: new PublicUser(req.user),
       token: accessToken,
     };
   }
@@ -125,7 +125,7 @@ export class UsersController {
       .exec();
 
     // sanitizes each user
-    return users.map(user => new User(user));
+    return users.map(user => new PublicUser(user));
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
@@ -144,7 +144,7 @@ export class UsersController {
 
     if (config.inviteOnly) {
       if (existingUser && existingUser.invited && !existingUser.enabled) {
-        const result = await this.upsertUser(
+        return this.upsertUser(
           {
             ...existingUser,
             password: await promisify(bcrypt.hash)(user.password, 10),
@@ -152,7 +152,6 @@ export class UsersController {
           },
           false,
         );
-        return new User(result);
       } else if (existingUser) {
         throw new MethodNotAllowedException('Email taken!');
       } else {
@@ -162,7 +161,7 @@ export class UsersController {
       if (existingUser) {
         throw new MethodNotAllowedException('Email taken!');
       }
-      const result = await this.upsertUser(
+      return this.upsertUser(
         {
           ...user,
           email: user.email.toLocaleLowerCase(),
@@ -171,8 +170,6 @@ export class UsersController {
         },
         true,
       );
-
-      return new User(result);
     }
   }
 
@@ -224,13 +221,13 @@ export class UsersController {
       console.log(e);
     }
 
-    return new User(newUser);
+    return newUser;
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Put(ROUTES.USERS.base)
   @UseGuards(JwtAuthGuard, UserManagerAuthGuard)
-  async update(@Body() user): Promise<User> {
+  async update(@Body() user): Promise<PublicUser> {
     const otherUserWithEmail: User = await this.databaseService.users.findOne({
       email: user.email.toLowerCase(),
       $not: {
@@ -242,7 +239,7 @@ export class UsersController {
       throw new MethodNotAllowedException('Email taken!');
     }
 
-    return this.upsertUser(new User(user), false);
+    return this.upsertUser(user, false);
   }
 
   @Delete(`${ROUTES.USERS.base}/:id`)
@@ -277,6 +274,7 @@ export class UsersController {
       user,
       upsert,
     );
-    return result;
+
+    return new PublicUser(result);
   }
 }
