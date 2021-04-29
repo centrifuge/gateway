@@ -108,11 +108,12 @@ export class UsersController {
     };
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/api/users/profile')
   @UseGuards(JwtAuthGuard)
-  async profile(@Request() req): Promise<User> {
+  async profile(@Request() req): Promise<PublicUser> {
     let { user } = req;
-    return user;
+    return new PublicUser(user);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
