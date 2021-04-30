@@ -62,6 +62,8 @@ export class PublicUser extends User {
   @Exclude()
   password?: string = '';
   @Exclude()
+  token?: string;
+  @Exclude()
   secret?: TwoFASecret;
 
   constructor(partial: Partial<PublicUser>) {
