@@ -1,6 +1,5 @@
 import {
   Body,
-  ClassSerializerInterceptor,
   Controller,
   Delete,
   MethodNotAllowedException,
@@ -12,8 +11,8 @@ import {
   Request,
   UseGuards,
   UseInterceptors,
+  ClassSerializerInterceptor,
 } from '@nestjs/common';
-
 import * as speakeasy from 'speakeasy';
 import * as bcrypt from 'bcrypt';
 import { promisify } from 'util';
@@ -45,7 +44,6 @@ export class UsersController {
     private readonly mailerService: MailerService,
   ) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Post(ROUTES.USERS.loginTentative)
   @HttpCode(200)
   async loginTentative(@Request() req): Promise<PublicUser> {
@@ -83,7 +81,6 @@ export class UsersController {
     return new PublicUser(user);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Post(ROUTES.USERS.login)
   @HttpCode(200)
   async login(@Request() req): Promise<LoggedInUser> {
@@ -108,7 +105,6 @@ export class UsersController {
     };
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/api/users/profile')
   @UseGuards(JwtAuthGuard)
   async profile(@Request() req): Promise<PublicUser> {
@@ -116,7 +112,6 @@ export class UsersController {
     return new PublicUser(user);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get(ROUTES.USERS.base)
   @UseGuards(JwtAuthGuard, UserManagerAuthGuard)
   async getAllUsers(@Request() request) {
@@ -129,7 +124,6 @@ export class UsersController {
     return users.map(user => new PublicUser(user));
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Post(ROUTES.USERS.base)
   async register(@Body() user: User) {
     const existingUser: User = await this.databaseService.users.findOne({
@@ -174,7 +168,6 @@ export class UsersController {
     }
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Post(ROUTES.USERS.invite)
   @UseGuards(JwtAuthGuard, UserManagerAuthGuard)
   async invite(@Body() user: Partial<User>) {
@@ -225,7 +218,6 @@ export class UsersController {
     return newUser;
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)
   @Put(ROUTES.USERS.base)
   @UseGuards(JwtAuthGuard, UserManagerAuthGuard)
   async update(@Body() user): Promise<PublicUser> {
